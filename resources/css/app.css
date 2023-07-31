@@ -1,0 +1,27 @@
+@import url('../../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-group, .spinner-group {
+    display: flex;
+}
+
+.btn-group *:focus, .spinner-group *:focus {
+    z-index: 1;
+}
+
+.btn-group button:first-child, .spinner-group button:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.btn-group button:last-child, .spinner-group button:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.btn-group button:last-child {
+    margin-left:-1px;
+}
