@@ -33,8 +33,7 @@
                 <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <div class="flex justify-between p-4">
                         <div>
-                            <div class="mb-2"><span class="text-4xl mr-2">90</span><span class="font-bold">EA</span></div>
-                            <div class="text-sm">Batas qty: Tak ada</div>
+                            <div class="mb-2"><span class="text-4xl mr-2">90</span><span class="font-bold">EA</span><x-link href="#" class="ml-4 inline-block"><i class="fa fa-info-circle"></i></x-link></div>
                             <div class="text-sm mt-2">
                                 <div>Qty bekas: 1 EA</div>
                                 <div>Qty diperbaiki: 3 EA</div>
