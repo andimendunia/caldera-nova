@@ -85,11 +85,14 @@
             <div class="sticky z-10 top-0 flex justify-between w-full py-2 px-3 sm:px-0 bg-gray-100 dark:bg-gray-900">
                 <div class="my-auto">0 terpilih</div>
                 <div class="flex gap-x-2 items-center">
+                    <x-secondary-button class="flex items-center h-full"><i class="fa fa-fw fa-pen"></i></span></x-secondary-button> 
+
+                    <x-secondary-button class="flex items-center h-full"><i class="fa fa-fw fa-print"></i></span></x-secondary-button> 
+
                     <div class="btn-group">
                         <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-up mr-2"></i><span>{{__('Setujui')}}</span></x-secondary-button>
                         <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-down"></i></span></x-secondary-button>                  
                     </div>
-                    <x-secondary-button class="flex items-center h-full"><i class="fa fa-fw fa-print"></i></span></x-secondary-button> 
                     <x-link href="#" class="ml-2"><i class="fa fa-fw fa-times"></i></x-link>
                 </div>
             </div>

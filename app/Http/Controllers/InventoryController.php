@@ -10,6 +10,7 @@ class InventoryController extends Controller
 
         $title = __('Beranda');
         $nav = $request['nav'];
+        $global = $request['global'];
         
         switch ($nav) {
             case 'search':
@@ -24,6 +25,6 @@ class InventoryController extends Controller
         }
         $header = $title;
         
-        return view('inventory.home', compact('title', 'header', 'nav'));
+        return view('inventory.home', compact('title', 'header', 'nav', 'global'));
     }
 }

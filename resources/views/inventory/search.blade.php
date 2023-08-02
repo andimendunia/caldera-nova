@@ -41,9 +41,10 @@
                         <option value="">{{ __('Barang nonaktif') }}</option>
                     </x-select>
                     <x-select name="qtype" id="inv-qty-type" class="mb-3">
-                        <option value="">{{ __('Qty utama')}}</option>
-                        <option value="">{{ __('Qty bekas') }}</option>
-                        <option value="">{{ __('Qty diperbaiki') }}</option>
+                        <option value="">{{ __('Qty ditotalkan')}}</option>
+                        <option value="">{{ __('Qty utama saja')}}</option>
+                        <option value="">{{ __('Qty bekas saja') }}</option>
+                        <option value="">{{ __('Qty diperbaiki saja') }}</option>
                     </x-select>
                     <x-select name="filter" id="inv-filter" class="mb-3">
                         <option value=""></option>
