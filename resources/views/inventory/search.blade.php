@@ -60,7 +60,7 @@
                 </div>
                 <hr class="my-5 border-gray-300 dark:border-gray-700" />
                 <div class="m-3">
-                    <x-link href="#" class="text-sm">{{__('Unduh CSV')}}</x-link>
+                    <x-text-button type="button" class="text-sm">{{__('Unduh CSV')}}</x-text-button>
                 </div>
             </div>
         </div>

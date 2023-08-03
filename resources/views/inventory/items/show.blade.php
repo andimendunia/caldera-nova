@@ -33,7 +33,7 @@
                 <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <div class="flex justify-between p-4">
                         <div>
-                            <div class="mb-2"><span class="text-4xl mr-2">90</span><span class="font-bold">EA</span><x-link href="#" class="ml-4 inline-block"><i class="fa fa-info-circle"></i></x-link></div>
+                            <div class="mb-2"><span class="text-4xl mr-2">90</span><span class="font-bold">EA</span><x-text-button type="button" class="ml-4"><i class="fa fa-info-circle"></i></x-text-button></div>
                             <div class="text-sm mt-2">
                                 <div>Qty bekas: 1 EA</div>
                                 <div>Qty diperbaiki: 3 EA</div>
@@ -61,12 +61,12 @@
                 </div>
                 <div class="flex justify-between p-4 mb-4 text-gray-600 dark:text-gray-400">
                     <div>Diambil 4 hari sekali</div>
-                    <div><x-link href="#">Sirkulasi<i class="fa fa-chevron-down ml-2"></i></x-link></div>
+                    <div><x-text-button type="button">Sirkulasi<i class="fa fa-chevron-down ml-2"></i></x-text-button></div>
                 </div>
                 <div class="text-gray-600 dark:text-gray-400 mb-4">
                     <hr class="border-gray-200 dark:border-gray-800" />
                     <div class="p-4">
-                        <x-link href="#"><i class="fa fa-download mr-2"></i>Unduh sirkulasi</x-link>
+                        <x-text-button type="button"><i class="fa fa-download mr-2"></i>{{__('Unduh sirkulasi')}}</x-text-button>
                     </div>
                     <x-circ-link href="#" class="px-4 py-2 text-sm">
                         <div class="flex items-center">
