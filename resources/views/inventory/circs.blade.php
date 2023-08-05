@@ -1,5 +1,5 @@
 <div class="py-12 max-w-4xl mx-auto sm:px-6 lg:px-8 text-gray-800 dark:text-gray-200">
-    <div class="flex flex-col gap-x-4 md:gap-x-8 sm:flex-row">
+    <div class="flex flex-col gap-x-2 md:gap-x-4 sm:flex-row">
         <div>
             <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0 mb-10">
                 <x-text-input id="inv-q" class="mb-5" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
@@ -64,8 +64,8 @@
                 </div>
             </div>
         </div>
-        <div class="w-full">
-            <div class="flex justify-between w-full px-3 sm:px-0">
+        <div x-data="{ ids: [] }" class="w-full">
+            <div x-show="!ids.length" class="flex justify-between w-full px-3 mb-3">
                 <div class="my-auto">{{'0'.' '.__('sirkulasi')}}</div>
                 <div class="flex">
                     <x-select name="sort">
@@ -82,20 +82,20 @@
                     </div>   --}}            
                 </div>
             </div>
-            <div class="sticky z-10 top-0 flex justify-between w-full py-2 px-3 sm:px-0 bg-gray-100 dark:bg-gray-900">
-                <div class="my-auto">0 terpilih</div>
+            <div x-show="ids.length" x-cloak class="sticky z-10 top-0 flex justify-between w-full py-2 px-3 mb-1 bg-gray-100 dark:bg-gray-900">
+                <div class="my-auto"><span x-text="ids.length"></span><span class="hidden sm:inline">{{' '. __('terpilih')}}</span></div>
                 <div class="flex gap-x-2 items-center">
-                    <x-secondary-button 
+                    <x-secondary-button x-show="ids.length === 1"
                     class="flex items-center h-full" x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'inv-circedit')"><i class="fa fa-fw fa-pen"></i></span></x-secondary-button> 
 
-                    <x-secondary-button class="flex items-center h-full"><i class="fa fa-fw fa-print"></i></span></x-secondary-button> 
+                    <x-secondary-button class="flex items-center h-full"><i class="fa fa-fw fa-print"></i><span class="ml-2 hidden sm:inline">{{__('Cetak')}}</span></span></x-secondary-button> 
 
                     <div class="btn-group">
-                        <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-up mr-2"></i><span>{{__('Setujui')}}</span></x-secondary-button>
+                        <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-up"></i><span class="ml-2 hidden sm:inline">{{__('Setujui')}}</span></x-secondary-button>
                         <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-down"></i></span></x-secondary-button>                  
                     </div>
-                    <x-text-button type="button" class="ml-2"><i class="fa fa-fw fa-times"></i></x-text-button>
+                    <x-text-button type="button" @click="ids = []" class="ml-2"><i class="fa fa-fw fa-times"></i></x-text-button>
                 </div>
             </div>
             <x-modal name="inv-circedit" focusable>
@@ -134,8 +134,8 @@
                     </div>
                 </div>
             </x-modal>
-            <div class="grid gap-3 mt-4">
-                <x-circ-card href="#">
+            <div class="inv-circs grid gap-3 px-0 sm:px-3">
+                <x-circ-checkbox model="ids" id="circ-1">
                     <div class="h-full">
                         <div class="w-24 h-full relative truncate text-base text-gray-900 dark:text-gray-100">
                             <div class="absolute flex w-full h-full opacity-20 bg-gray-200 dark:bg-gray-700">
@@ -183,8 +183,8 @@
                             </div>
                         </div>
                     </div>
-                </x-circ-card>
-                <x-circ-card href="#">
+                </x-circ-checkbox>
+                <x-circ-checkbox model="ids" id="circ-2">
                     <div class="h-full">
                         <div class="w-24 h-full relative truncate text-base text-gray-900 dark:text-gray-100">
                             <div class="absolute flex w-full h-full opacity-20 bg-gray-200 dark:bg-gray-700">
@@ -232,8 +232,8 @@
                             </div>
                         </div>
                     </div>
-                </x-circ-card>
-                <x-circ-card href="#">
+                </x-circ-checkbox>
+                <x-circ-checkbox model="ids" id="circ-3">
                     <div class="h-full">
                         <div class="w-24 h-full relative truncate text-base text-gray-900 dark:text-gray-100">
                             <div class="absolute flex w-full h-full opacity-20 bg-gray-200 dark:bg-gray-700">
@@ -281,8 +281,8 @@
                             </div>
                         </div>
                     </div>
-                </x-circ-card>
-                <x-circ-card href="#">
+                </x-circ-checkbox>
+                <x-circ-checkbox model="ids" id="circ-4">
                     <div class="h-full">
                         <div class="w-24 h-full relative truncate text-base text-gray-900 dark:text-gray-100">
                             <div class="absolute flex w-full h-full opacity-20 bg-gray-200 dark:bg-gray-700">
@@ -330,8 +330,8 @@
                             </div>
                         </div>
                     </div>
-                </x-circ-card>
-                <x-circ-card href="#">
+                </x-circ-checkbox>
+                <x-circ-checkbox model="ids" id="circ-5">
                     <div class="h-full">
                         <div class="w-24 h-full relative truncate text-base text-gray-900 dark:text-gray-100">
                             <div class="absolute flex w-full h-full opacity-20 bg-gray-200 dark:bg-gray-700">
@@ -379,7 +379,7 @@
                             </div>
                         </div>
                     </div>
-                </x-circ-card>
+                </x-circ-checkbox>
             </div>
         </div>
     </div>

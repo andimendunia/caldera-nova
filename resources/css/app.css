@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+[x-cloak] { display: none !important; }
+
+input[type="checkbox"]:checked + label.custom-checkbox {
+    @apply ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-gray-800;
+}
+
 .btn-group, .spinner-group {
     display: flex;
 }
