@@ -30,33 +30,35 @@
                         <span><i class="fa fa-tag mr-2"></i>okc, sparepart</span> 
                     </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div x-data="{qty: '', price: 123.00,qty_main: 0, qty_used: 1, qty_repaired: 0}" class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <div class="flex justify-between p-4">
                         <div>
                             <div class="mb-2"><span class="text-4xl mr-2">90</span><span class="font-bold">EA</span><x-text-button type="button" class="ml-4"><i class="fa fa-info-circle"></i></x-text-button></div>
                             <div class="text-sm mt-2">
-                                <div>Qty bekas: 1 EA</div>
-                                <div>Qty diperbaiki: 3 EA</div>
+                                <div x-show="qty_used > 0" x-cloak>Qty bekas: 1 EA</div>
+                                <div x-show="qty_repaired > 0" x-cloak>Qty diperbaiki: 3 EA</div>
                             </div>
                         </div>
                         <div class="spinner-group my-auto">
-                            <x-secondary-button><i class="fa fa-fw fa-minus"></i></x-secondary-button>
-                            <x-text-input-spinner id="inv-circ-qty" class="w-24 pl-5 text-center" name="qty" type="number" value="0"></x-text-input-spinner>
-                            <x-secondary-button><i class="fa fa-fw fa-plus"></i></x-secondary-button>    
+                            <x-secondary-button @click="qty == null ? qty = -1 : --qty"><i class="fa fa-fw fa-minus"></i></x-secondary-button>
+                            <x-text-input-spinner x-model="qty" id="inv-circ-qty" class="w-24 pl-5 text-center" name="qty" type="number" value="" placeholder="Qty"></x-text-input-spinner>
+                            <x-secondary-button @click="qty == null ? qty = 1 : ++qty"><i class="fa fa-fw fa-plus"></i></x-secondary-button>    
                         </div>  
                     </div>
-                    <div class="px-4 pb-4">
-                        <div class="mb-2">
-                            Ambil • USD 3,456.00
+                    <div x-show="parseInt(qty) === 0 || qty > 0 || qty < 0" class="px-4 pb-4">
+                        <div x-show="qty < 0 || qty > 0" x-cloak class="mb-2">
+                            <span x-show="qty < 0" x-cloak>{{__('Ambil')}}</span><span x-show="qty > 0" x-cloak>{{__('Tambah')}}</span> • USD <span x-text="Math.abs(price * qty).toLocaleString(undefined, {minimumIntegerDigits: 1, minimumFractionDigits: 2, maximumFractionDigits: 2,})"></span>
                         </div>
                         <x-text-input id="inv-remarks" class="mb-3" name="remarks" type="text" placeholder="{{ __('Keterangan') }}" autocomplete="inv-remarks" />
-                        <x-select name="qtype" id="inv-qty-type" class="mb-3">
-                            <option value="">{{ __('Qty utama') }}</option>
-                            <option value="">{{ __('Qty bekas') }}</option>
-                            <option value="">{{ __('Qty diperbaiki') }}</option>
-                        </x-select>
-                        <x-checkbox id="inv-transfer" class="mb-3">Transfer</x-checkbox>
-                        <x-primary-button class="w-full text-center"><i class="fa fa-minus mr-2"></i>1 EA</x-primary-button>
+                        <div x-show="parseInt(qty) !== 0">
+                            <x-select x-show="qty_used > 0 || qty_repaired > 0" x-cloak name="qtype" id="inv-qty-type" class="mb-3">
+                                <option value="">{{ __('Qty utama') }}</option>
+                                <option x-show="qty_used > 0 || qty > 0" value="">{{ __('Qty bekas') }}</option>
+                                <option x-show="qty_repaired > 0 || qty > 0"value="">{{ __('Qty diperbaiki') }}</option>
+                            </x-select>
+                        </div>
+                        <x-checkbox x-show="qty < 0" x-cloak id="inv-transfer" class="mb-3">Transfer</x-checkbox>
+                        <x-primary-button class="w-full text-center"><span x-show="qty < 0 || qty > 0"><i x-show="qty < 0" x-cloak class="fa fa-minus mr-2"></i><i x-show="qty > 0" x-cloak class="fa fa-plus mr-2"></i><span x-text="Math.abs(qty)"></span> EA</span><span x-show="parseInt(qty) === 0">{{__('Rekam Qty')}}</span></x-primary-button>
                     </div>
                 </div>
                 <div class="flex justify-between p-4 mb-4 text-gray-600 dark:text-gray-400">
