@@ -114,6 +114,7 @@
                     <div class="text-sm mb-4">
                         <span>Ambil</span><span class="mx-2">•</span><span>3.564,00 USD</span>
                     </div>
+                    <hr class="border-gray-300 dark:border-gray-700 mb-4">
                     <div class="text-sm">
                         <div class="truncate mb-4">
                             <div class="truncate font-medium text-gray-900 dark:text-gray-100">
@@ -132,19 +133,19 @@
                             </div>
                             <div>Andi Permana</div>
                         </div>
+                        <div class="text-sm mb-2">Diwakili oleh Bella Puspita</div>
                         <x-text-input id="inv-remarks" class="mb-2" name="remarks" type="text" placeholder="{{ __('Keterangan') }}" autocomplete="inv-remarks" />
-                        <x-select id="inv-qty-type" class="mb-2">
+                        <x-select id="inv-qty-type">
                             <option value="">{{ __('Qty utama') }}</option>
                             <option value="">{{ __('Qty bekas') }}</option>
                             <option value="">{{ __('Qty diperbaiki') }}</option>
                         </x-select>
-                        <div>10 EA<span class="fa fa-arrow-right mx-3"></span>2 EA</div>
+                        <div class="mt-4">10 EA<span class="fa fa-arrow-right mx-3"></span>2 EA</div>
                     </div>
                     <div class="text-sm">
                         <hr class="border-gray-300 dark:border-gray-700 mb-4">
-                        <div>Diperbarui pada 2023-08-06 13:28</div>
-                        <div>Diwakili oleh Bella Puspita</div>
-                        <div>Disetujui oleh Bella Puspita</div>
+                        <div><i class="fa fa-fw fa-check-circle mr-2"></i>Disetujui oleh Bella Puspita</div>
+                        <div><i class="fa fa-fw mr-2"></i>Diperbarui pada 2023-08-06 13:28</div>
                     </div>
                     <div class="mt-6 flex justify-end gap-x-2">
                         <x-secondary-button>{{__('Batal')}}</x-secondary-button> 
