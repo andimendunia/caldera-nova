@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="p-4 text-sm text-gray-600 dark:text-gray-400">
-                    TT MM
+                    <x-link href="#"><i class="fa fa-pen mr-2"></i>Edit barang</x-link>               
                 </div>
             </div>
             <div class="w-full overflow-hidden">
@@ -20,17 +20,23 @@
                         A long link given as the item name
                     </p>
                 </div>
-                <hr class="border-gray-200 dark:border-gray-800" />
-                <div class="p-4 text-gray-600 dark:text-gray-400">
-                    <div class="mb-2">
-                        TBE10-191001 • USD 123.00 / EA 
+                <div class="text-gray-600 dark:text-gray-400">
+                    <hr class="border-gray-200 dark:border-gray-800" />
+                    <div class="p-4">
+                        <div class="mb-2">
+                            TBE10-191001 • USD 123.00 / EA 
+                        </div>
+                        <div>
+                            <span class="mr-4"><i class="fa fa-map-marker-alt mr-2"></i>A2.1.1</span>
+                            <span><i class="fa fa-tag mr-2"></i>okc, sparepart</span> 
+                        </div>
                     </div>
-                    <div>
-                        <span class="mr-4"><i class="fa fa-map-marker-alt mr-2"></i>A2.1.1</span>
-                        <span><i class="fa fa-tag mr-2"></i>okc, sparepart</span> 
+                    <hr class="border-gray-200 dark:border-gray-800" />
+                    <div class="p-4 text-sm">
+                        TT MM • Diperbarui: 3 hari yang lalu
                     </div>
                 </div>
-                <div x-data="{qty: '', price: 123.00, circs: false, qty_main: 90, qty_used: 1, qty_repaired: 0}">
+                <div x-data="{qty: '', price: 123.00, circs: false, qty_main: 90, qty_used: 0, qty_repaired: 0}">
                     <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                         <div class="flex justify-between p-4">
                             <div>
@@ -60,7 +66,7 @@
                             </div>
                             <div class="mb-3" x-show="qty < 0 || qty > 0" x-cloak>10 EA<span class="fa fa-arrow-right mx-3"></span>2 EA</div>
                             <x-checkbox x-show="qty < 0" x-cloak id="inv-transfer" class="mb-3">Transfer</x-checkbox>
-                            <x-primary-button class="w-full text-center"><span x-show="qty < 0 || qty > 0"><i x-show="qty < 0" x-cloak class="fa fa-minus mr-2"></i><i x-show="qty > 0" x-cloak class="fa fa-plus mr-2"></i><span x-text="Math.abs(qty)"></span> EA</span><span x-show="parseInt(qty) === 0">{{__('Rekam Qty')}}</span></x-primary-button>
+                            <x-primary-button class="w-full text-center"><span x-show="qty < 0 || qty > 0"><i x-show="qty < 0" x-cloak class="fa fa-minus mr-2"></i><i x-show="qty > 0" x-cloak class="fa fa-plus mr-2"></i><span x-text="Math.abs(qty)"></span> EA</span><span x-show="parseInt(qty) === 0"><i class="far fa-fw fa-flag mr-2"></i>{{__('Rekam Qty')}}</span></x-primary-button>
                         </div>
                     </div>
                     <div class="flex justify-between p-4 mb-4 text-gray-600 dark:text-gray-400">
