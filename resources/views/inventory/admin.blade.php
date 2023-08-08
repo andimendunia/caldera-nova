@@ -6,23 +6,52 @@
         </div>
         @if(!$global)
         <div class="grid grid-cols-1 gap-3 my-8">
-            <x-card-link href="#">
+            <x-card-button type="button" x-data=""
+            x-on:click.prevent="$dispatch('open-modal', 'create-item')">
                 <div class="flex">
                     <div>
                         <div class="flex w-12 h-full text-gray-600 dark:text-gray-400">
                             <div class="m-auto"><i class="fa fa-plus"></i></div>
                         </div>
                     </div>
-                    <div class="grow truncate py-2 sm:py-4">
+                    <div class="grow text-left truncate py-2 sm:py-4">
                         <div class="truncate text-lg font-medium text-gray-900 dark:text-gray-100">
-                            {{__('Buat barang baru')}}
+                            {{__('Tambah barang baru')}}
                         </div>                        
                         <div class="truncate text-sm text-gray-600 dark:text-gray-400">
                             {{__('Tambah barang menggunakan kode item')}}
                         </div>
                     </div>
                 </div>
-            </x-card-link>
+            </x-card-button>
+            <x-modal name="create-item" focusable>
+                <form method="post" action="#" class="p-6">
+                    @csrf        
+                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                        {{ __('Tambah barang') }}
+                    </h2>        
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        {{ __('Caldera akan mencari barang dengan area dan kode item yang kamu tentukan di bawah. Bila tidak ditemukan, kamu akan diarahkan ke halaman buat barang.') }}
+                    </p>        
+                    <div class="mt-6">
+                        <x-select name="inv-area" class="mb-4">
+                            <option value="">{{ __('Area') }}</option>
+                            <option value="">{{ __('TT MM') }}</option>
+                            <option value="">{{ __('TT MM Cons') }}</option>
+                        </x-select>  
+                        <x-text-input id="inv-itemcode" class="mb-4" name="inv-itemcode" type="text" placeholder="{{ __('Kode item') }}" />
+                    </div>        
+                    <div class="mt-6 flex justify-end">
+                        <x-secondary-button x-on:click="$dispatch('close')">
+                            {{ __('Batal') }}
+                        </x-secondary-button>
+        
+                        <x-primary-button class="ml-3">
+                            {{ __('Lanjut') }}
+                        </x-primary-button>
+                    </div>
+                </form>
+            </x-modal>
             <x-card-link href="#">
                 <div class="flex">
                     <div>

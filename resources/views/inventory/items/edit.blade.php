@@ -11,64 +11,41 @@
                     <x-link href="#"><i class="fa fa-upload mr-2"></i>{{ __('Unggah foto') }}</x-link>               
                 </div>
             </div>
-            <div class="w-full overflow-hidden">
-                <div class="px-4">
-                    <x-text-input id="inv-name" class="mb-4" name="inv-name" type="text" placeholder="{{ __('Nama barang') }}" />
+            <div class="w-full overflow-hidden text-gray-400 dark:text-gray-600">
+                <div class="px-4 pb-4">
+                    <div class="p-3 text-sm">{{ __('Nama dan deskripsi')}}</div>
+                    <x-text-input id="inv-name" class="mb-4" name="inv-name" type="text" placeholder="{{ __('Nama') }}" />
                     <x-text-input id="inv-desc" class="mb-4" name="inv-desc" type="text" placeholder="{{ __('Deskripsi') }}" />
-                </div>
-                <div class="text-gray-600 dark:text-gray-400">
-                    <hr class="border-gray-200 dark:border-gray-800" />
-                    <div class="p-4">
-                        <div class="mb-2">
-                            <x-text-input id="inv-itemcode" class="mb-4" name="inv-itemcode" type="text" placeholder="{{ __('Kode item') }}" />
-                            TBE10-191001 • USD 123.00 / EA 
-                        </div>
-                        <div>
-                            <x-text-input-icon icon="fa fa-fw fa-map-marker-alt" id="inv-loc" class="mb-3" name="loc" type="text" placeholder="{{ __('Lokasi') }}" />
-                            <x-text-input-icon icon="fa fa-fw fa-tag" class="mb-3" id="inv-tag" name="tag" type="text" placeholder="{{ __('Tag') }}" />        
-                        </div>
+                    <div class="p-3 text-sm">{{ __('Info consumables')}}</div>
+                    <x-text-input id="inv-itemcode" class="mb-4" name="inv-itemcode" type="text" placeholder="{{ __('Kode item') }}" />
+                    <div x-data="{ currid: '' }">
+                        <x-text-input id="inv-priceusd" class="mb-4" name="inv-priceusd" type="text" placeholder="{{ __('USD') }}" />
+                        <x-select x-model="currid" name="inv-currsec" class="mb-4">
+                            <option value="">{{ __('Mata uang sekunder') }}</option>
+                            <option value="1">{{ __('IDR') }}</option>
+                            <option value="2">{{ __('KRW') }}</option>
+                        </x-select>
+                        <x-text-input x-show="currid" x-cloak id="inv-pricesec" class="mb-4" name="inv-pricesec" type="text" placeholder="{{ __('IDR') }}" />
                     </div>
-                    <hr class="border-gray-200 dark:border-gray-800" />
-                    <div class="p-4 text-sm">
-                        TT MM • Diperbarui: 3 hari yang lalu
+                    <div class="p-3 text-sm">Klasifikasi — TT MM</div>
+                    <x-text-input-icon icon="fa fa-fw fa-map-marker-alt" id="inv-loc" class="mb-3" name="loc" type="text" placeholder="{{ __('Lokasi') }}" />
+                    <x-text-input-icon icon="fa fa-fw fa-tag" class="mb-3" id="inv-tag" name="tag" type="text" placeholder="{{ __('Tag') }}" /> 
+                    <div class="p-3 text-sm">{{ __('Info qty')}}</div>
+                    <x-select name="inv-uom" class="mb-4">
+                        <option value="">{{ __('UOM') }}</option>
+                        <option value="">{{ __('EA') }}</option>
+                    </x-select>
+                    <x-text-input id="inv-qtymain" class="mb-4" name="inv-qtymain" type="text" placeholder="{{ __('Qty utama') }}" />
+                    <x-text-input id="inv-qtyused" class="mb-4" name="inv-qtyused" type="text" placeholder="{{ __('Qty bekas') }}" />
+                    <x-text-input id="inv-qtyrepaired" class="mb-4" name="inv-qtyrepaired" type="text" placeholder="{{ __('Qty diperbaiki') }}" />
+                    <div class="p-3 text-sm">{{ __('Batas qty utama')}}</div>
+                    <x-text-input id="inv-qtymainmin" class="mb-4" name="inv-qtymainmin" type="text" placeholder="{{ __('Minimum') }}" />
+                    <x-text-input id="inv-qtymainmax" class="mb-4" name="inv-qtymainmax" type="text" placeholder="{{ __('Maksimum') }}" />
+                    <div class="py-3">
+                        <x-primary-button type="submit">{{__('Simpan')}}</x-primary-button>
                     </div>
-                </div>
-                <div x-data="{qty: '', price: 123.00, circs: false, qty_main: 90, qty_used: 0, qty_repaired: 0}">
-                    <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                        <div class="flex justify-between p-4">
-                            <div>
-                                <div class="mb-2"><span class="text-4xl mr-2">90</span><span class="font-bold">EA</span><x-text-button type="button" class="ml-4"><i class="fa fa-info-circle"></i></x-text-button></div>
-                                <div class="text-sm mt-2">
-                                    <div x-show="qty_used > 0" x-cloak>Qty bekas: 1 EA</div>
-                                    <div x-show="qty_repaired > 0" x-cloak>Qty diperbaiki: 3 EA</div>
-                                </div>
-                            </div>
-                            <div class="spinner-group my-auto">
-                                <x-secondary-button @click="qty == null ? qty = -1 : --qty"><i class="fa fa-fw fa-minus"></i></x-secondary-button>
-                                <x-text-input-spinner x-model="qty" id="inv-circ-qty" class="w-24 pl-5 text-center" name="qty" type="number" value="" placeholder="Qty"></x-text-input-spinner>
-                                <x-secondary-button @click="qty == null ? qty = 1 : ++qty"><i class="fa fa-fw fa-plus"></i></x-secondary-button>    
-                            </div>  
-                        </div>
-                        <div x-show="parseInt(qty) === 0 || qty > 0 || qty < 0" x-cloak class="px-4 pb-4">
-                            <div x-show="qty < 0 || qty > 0" x-cloak class="mb-2">
-                                <span x-show="qty < 0" x-cloak>{{__('Ambil')}}</span><span x-show="qty > 0" x-cloak>{{__('Tambah')}}</span> • USD <span x-text="Math.abs(price * qty).toLocaleString(undefined, {minimumIntegerDigits: 1, minimumFractionDigits: 2, maximumFractionDigits: 2,})"></span>
-                            </div>
-                            <x-text-input id="inv-remarks" class="mb-3" name="remarks" type="text" placeholder="{{ __('Keterangan') }}" autocomplete="inv-remarks" />
-                            <div x-show="parseInt(qty) !== 0">
-                                <x-select x-show="qty_used > 0 || qty_repaired > 0" x-cloak name="qtype" id="inv-qty-type" class="mb-3">
-                                    <option value="">{{ __('Qty utama') }}</option>
-                                    <option x-show="qty_used > 0 || qty > 0" value="">{{ __('Qty bekas') }}</option>
-                                    <option x-show="qty_repaired > 0 || qty > 0"value="">{{ __('Qty diperbaiki') }}</option>
-                                </x-select>
-                            </div>
-                            <div class="mb-3" x-show="qty < 0 || qty > 0" x-cloak>10 EA<span class="fa fa-arrow-right mx-3"></span>2 EA</div>
-                            <x-checkbox x-show="qty < 0" x-cloak id="inv-transfer" class="mb-3">Transfer</x-checkbox>
-                            <x-primary-button class="w-full text-center"><span x-show="qty < 0 || qty > 0"><i x-show="qty < 0" x-cloak class="fa fa-minus mr-2"></i><i x-show="qty > 0" x-cloak class="fa fa-plus mr-2"></i><span x-text="Math.abs(qty)"></span> EA</span><span x-show="parseInt(qty) === 0"><i class="far fa-fw fa-flag mr-2"></i>{{__('Rekam Qty')}}</span></x-primary-button>
-                        </div>
-                    </div>
-                </div>    
+                </div>  
             </div>
         </div>
-        <hr class="border-gray-200 dark:border-gray-800" />
     </div>
 </x-inventory>

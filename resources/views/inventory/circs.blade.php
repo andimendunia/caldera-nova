@@ -118,7 +118,7 @@
                     <hr class="border-gray-300 dark:border-gray-700 my-4">
                     <div class="flex text-sm">
                         <div class="grow truncate">
-                            <div class="truncate font-medium text-gray-900 dark:text-gray-100">
+                            <div class="truncate font-medium mb-2 text-gray-900 dark:text-gray-100">
                                 A BIG ITEM NAME
                             </div> 
                             <div class="truncate">
@@ -131,13 +131,15 @@
                     </div>   
                     <hr class="border-gray-300 dark:border-gray-700 my-4">
                     <div>
-                        <div class="flex mb-2 items-center">
-                            <div class="w-4 h-4 mr-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="block fill-current text-gray-800 dark:text-gray-200 opacity-25" viewBox="0 0 1000 1000" xmlns:v="https://vecta.io/nano"><path d="M621.4 609.1c71.3-41.8 119.5-119.2 119.5-207.6-.1-132.9-108.1-240.9-240.9-240.9s-240.8 108-240.8 240.8c0 88.5 48.2 165.8 119.5 207.6-147.2 50.1-253.3 188-253.3 350.4v3.8a26.63 26.63 0 0 0 26.7 26.7c14.8 0 26.7-12 26.7-26.7v-3.8c0-174.9 144.1-317.3 321.1-317.3S821 784.4 821 959.3v3.8a26.63 26.63 0 0 0 26.7 26.7c14.8 0 26.7-12 26.7-26.7v-3.8c.2-162.3-105.9-300.2-253-350.2zM312.7 401.4c0-103.3 84-187.3 187.3-187.3s187.3 84 187.3 187.3-84 187.3-187.3 187.3-187.3-84.1-187.3-187.3z"/></svg>
+                        <div class="mb-4">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 mr-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="block fill-current text-gray-800 dark:text-gray-200 opacity-25" viewBox="0 0 1000 1000" xmlns:v="https://vecta.io/nano"><path d="M621.4 609.1c71.3-41.8 119.5-119.2 119.5-207.6-.1-132.9-108.1-240.9-240.9-240.9s-240.8 108-240.8 240.8c0 88.5 48.2 165.8 119.5 207.6-147.2 50.1-253.3 188-253.3 350.4v3.8a26.63 26.63 0 0 0 26.7 26.7c14.8 0 26.7-12 26.7-26.7v-3.8c0-174.9 144.1-317.3 321.1-317.3S821 784.4 821 959.3v3.8a26.63 26.63 0 0 0 26.7 26.7c14.8 0 26.7-12 26.7-26.7v-3.8c.2-162.3-105.9-300.2-253-350.2zM312.7 401.4c0-103.3 84-187.3 187.3-187.3s187.3 84 187.3 187.3-84 187.3-187.3 187.3-187.3-84.1-187.3-187.3z"/></svg>
+                                </div>
+                                <div>Andi Permana</div>
                             </div>
-                            <div>Andi Permana</div>
+                            <div class="text-sm mt-2">Diwakili oleh Bella Puspita</div>
                         </div>
-                        <div class="text-sm mb-2">Diwakili oleh Bella Puspita</div>
                         <x-text-input id="inv-remarks" class="mb-2" name="remarks" type="text" placeholder="{{ __('Keterangan') }}" autocomplete="inv-remarks" />
                         <x-select id="inv-qty-type">
                             <option value="">{{ __('Qty utama') }}</option>
@@ -146,10 +148,10 @@
                         </x-select>
                         <div class="mt-4">10 EA<span class="fa fa-arrow-right mx-3"></span>2 EA</div>
                     </div>
-                    <div class="text-sm">
+                    <div class="truncate text-sm">
                         <hr class="border-gray-300 dark:border-gray-700 my-4">
-                        <div><i class="fa fa-fw fa-check-circle mr-2"></i>Disetujui oleh Bella Puspita</div>
-                        <div><i class="fa fa-fw mr-2"></i>Diperbarui pada 2023-08-06 13:28</div>
+                        <div class="truncate mb-2"><i class="fa fa-fw fa-check-circle mr-2"></i>Disetujui oleh Bella Puspita</div>
+                        <div class="text-xs truncate text-gray-400 dark:text-gray-600">Diperbarui pada 2023-08-06 13:28</div>
                     </div>
                     <div class="mt-6 flex justify-end gap-x-2">
                         <x-secondary-button x-on:click="$dispatch('close')">{{__('Batal')}}</x-secondary-button> 
