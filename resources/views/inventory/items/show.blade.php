@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="p-4 text-sm text-gray-600 dark:text-gray-400">
-                    <x-link href="#"><i class="fa fa-pen mr-2"></i>Edit barang</x-link>               
+                    <x-link href="{{ route('inventory.items.edit', ['id' => $invItem ]) }}"><i class="fa fa-pen mr-2"></i>Edit barang</x-link>               
                 </div>
             </div>
             <div class="w-full overflow-hidden">

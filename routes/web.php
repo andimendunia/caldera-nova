@@ -25,6 +25,7 @@ Route::controller(InventoryController::class)->group(function () {
 
 Route::controller(InventoryItemController::class)->group(function () {
     Route::get('/inventory/items/{id}', 'show')->middleware('auth')->name('inventory.items.show');
+    Route::get('/inventory/items/{id}/edit', 'edit')->middleware('auth')->name('inventory.items.edit');
 });
 
 Route::middleware('auth')->group(function () {

@@ -8,7 +8,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             @if($prev)
-            <x-link href="{{ $prev }}" class="inline-block py-6"><i class="fa fa-arrow-left"></i>{{ $header }}</x-link>
+            <x-link href="{{ $prev }}" class="inline-block py-6"><i class="fa fa-arrow-left"></i></x-link><span class="ml-4">{{ $header }}</span>
             @else
             <div class="inline-block py-6">{{ $header }}</div>
             @endif

@@ -5,8 +5,7 @@
             <x-tab href="{{ route('inventory', [ 'nav' => 'admin', 'global' => 'true' ])}}" :active="$global" class="text-center">{{__('Global')}}</x-tab>
         </div>
         @if(!$global)
-        <div class="text-sm text-center px-6 sm:px-0 text-gray-600 dark:text-gray-400 py-8">Tindakan berikut akan mempengaruhi satu area inventaris saja</div>
-        <div class="grid grid-cols-1 gap-3 mb-8">
+        <div class="grid grid-cols-1 gap-3 my-8">
             <x-card-link href="#">
                 <div class="flex">
                     <div>
