@@ -24,4 +24,9 @@ class InventoryItemController extends Controller
 
         return view('inventory.items.edit', compact('title', 'prev', 'header', 'invItem'));
     }
+
+    public function create() {
+
+        return view('inventory.items.create');
+    }
 }
