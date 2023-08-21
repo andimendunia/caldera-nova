@@ -37,14 +37,36 @@
                         Aktif • TT MM
                     </div>
                 </div>
-                <div x-data="{qty: '', price: 123.00, circs: false, qty_main: 90, qty_used: 0, qty_repaired: 0}">
+                <div x-data="{
+                    qty: '',
+                    qtype: 1,
+                    price: 123.00,
+                    circs: false,
+                    get cost() {
+                      const qty = parseInt(this.qty) || 0;
+                      return (qty && this.qtype === 1) ? qty * this.price : 0;
+                    },
+                    calcQty(qtype, qtyBase) {
+                      const qty = parseInt(this.qty) || 0;
+                      return (qty && parseInt(this.qtype) === qtype) ? qty + qtyBase : qtyBase;
+                    },
+                    get qty_main() {
+                      return this.calcQty(1, 91);
+                    },
+                    get qty_used() {
+                      return this.calcQty(2, 0);
+                    },
+                    get qty_repaired() {
+                      return this.calcQty(3, 0);
+                    }
+                  }">
                     <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                         <div class="flex justify-between p-4">
                             <div>
-                                <div class="mb-2"><span class="text-4xl mr-2">90</span><span class="font-bold">EA</span><x-text-button type="button" class="ml-4"><i class="fa fa-info-circle"></i></x-text-button></div>
+                                <div class="mb-2"><span class="text-4xl mr-2" x-text="qty_main"></span><span class="font-bold">EA</span><x-text-button type="button" class="ml-4"><i class="fa fa-info-circle"></i></x-text-button></div>
                                 <div class="text-sm mt-2">
-                                    <div x-show="qty_used > 0" x-cloak>Qty bekas: 1 EA</div>
-                                    <div x-show="qty_repaired > 0" x-cloak>Qty diperbaiki: 3 EA</div>
+                                    <div x-show="qty_used" x-cloak>Qty bekas: <span x-text="qty_used"></span> EA</div>
+                                    <div x-show="qty_repaired" x-cloak>Qty diperbaiki: <span x-text="qty_repaired"></span> EA</div>
                                 </div>
                             </div>
                             <div class="spinner-group my-auto">
@@ -55,17 +77,16 @@
                         </div>
                         <div x-show="parseInt(qty) === 0 || qty > 0 || qty < 0" x-cloak class="px-4 pb-4">
                             <div x-show="qty < 0 || qty > 0" x-cloak class="mb-2">
-                                <span x-show="qty < 0" x-cloak>{{__('Ambil')}}</span><span x-show="qty > 0" x-cloak>{{__('Tambah')}}</span> • USD <span x-text="Math.abs(price * qty).toLocaleString(undefined, {minimumIntegerDigits: 1, minimumFractionDigits: 2, maximumFractionDigits: 2,})"></span>
+                                <span x-show="qty < 0" x-cloak>{{__('Ambil')}}</span><span x-show="qty > 0" x-cloak>{{__('Tambah')}}</span><span x-show="cost"> • USD <span x-text="Math.abs(cost).toLocaleString(undefined, {minimumIntegerDigits: 1, minimumFractionDigits: 2, maximumFractionDigits: 2,})"></span></span>
                             </div>
                             <x-text-input id="inv-remarks" class="mb-3" name="remarks" type="text" placeholder="{{ __('Keterangan') }}" autocomplete="inv-remarks" />
-                            <div x-show="parseInt(qty) !== 0">
-                                <x-select x-show="qty_used > 0 || qty_repaired > 0" x-cloak name="qtype" id="inv-qty-type" class="mb-3">
-                                    <option value="">{{ __('Qty utama') }}</option>
-                                    <option x-show="qty_used > 0 || qty > 0" value="">{{ __('Qty bekas') }}</option>
-                                    <option x-show="qty_repaired > 0 || qty > 0"value="">{{ __('Qty diperbaiki') }}</option>
+                            <div x-show="(qty > 0) || (qty && qty_used) || (qty && qty_repaired)">
+                                <x-select x-model="qtype" name="qtype"  id="inv-qty-type" class="mb-3">
+                                    <option value="1">{{ __('Qty utama') }}</option>
+                                    <option value="2">{{ __('Qty bekas') }}</option>
+                                    <option value="3">{{ __('Qty diperbaiki') }}</option>
                                 </x-select>
                             </div>
-                            <div class="mb-3" x-show="qty < 0 || qty > 0" x-cloak>10 EA<span class="fa fa-arrow-right mx-3"></span>2 EA</div>
                             <x-checkbox x-show="qty < 0" x-cloak id="inv-transfer" class="mb-3">Transfer</x-checkbox>
                             <x-primary-button class="w-full text-center"><span x-show="qty < 0 || qty > 0"><i x-show="qty < 0" x-cloak class="fa fa-minus mr-2"></i><i x-show="qty > 0" x-cloak class="fa fa-plus mr-2"></i><span x-text="Math.abs(qty)"></span> EA</span><span x-show="parseInt(qty) === 0"><i class="far fa-fw fa-flag mr-2"></i>{{__('Rekam Qty')}}</span></x-primary-button>
                         </div>
