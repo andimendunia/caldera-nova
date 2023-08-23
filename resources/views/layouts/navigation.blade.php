@@ -40,15 +40,16 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profil') }}
                         </x-dropdown-link>
-
+                        <x-dropdown-link href="#">
+                            {{ __('Preferensi') }}
+                        </x-dropdown-link>
+                        <hr class="border-gray-300 dark:border-gray-600" />
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Keluar') }}
+                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <i class="fa fa-power-off mr-2"></i>{{ __('Keluar') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -86,15 +87,16 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profil') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link href="#">
+                    {{ __('Preferensi') }}
+                </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Keluar') }}
+                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                        <i class="fa fa-power-off mr-2"></i>{{ __('Keluar') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
