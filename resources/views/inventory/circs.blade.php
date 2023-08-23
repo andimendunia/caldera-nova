@@ -130,7 +130,7 @@
                         </div>  
                     </div>   
                     <hr class="border-gray-300 dark:border-gray-700 my-4">
-                    <div>
+                    <div class="mb-6">
                         <div class="mb-4">
                             <div class="flex items-center">
                                 <div class="w-4 h-4 mr-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -146,10 +146,8 @@
                             <option value="">{{ __('Qty bekas') }}</option>
                             <option value="">{{ __('Qty diperbaiki') }}</option>
                         </x-select>
-                        <div class="mt-4">10 EA<span class="fa fa-arrow-right mx-3"></span>2 EA</div>
                     </div>
                     <div class="truncate text-sm">
-                        <hr class="border-gray-300 dark:border-gray-700 my-4">
                         <div class="truncate mb-2"><i class="fa fa-fw fa-check-circle mr-2"></i>Disetujui oleh Bella Puspita</div>
                         <div class="text-xs truncate text-gray-400 dark:text-gray-600">Diperbarui pada 2023-08-06 13:28</div>
                     </div>
