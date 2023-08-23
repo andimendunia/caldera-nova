@@ -35,7 +35,7 @@
                     <x-text-input-icon icon="fa fa-fw fa-tag" class="mb-3" id="inv-tag" name="tag" type="text" placeholder="{{ __('Tag') }}" />
                 </div>
                 <div class="my-5">
-                    <label for="inv-filter" class="p-3 inline-block text-gray-400 dark:text-gray-600"><i class="fa fa-filter mr-3"></i>Filter</label>
+                    <span class="p-3 inline-block text-gray-400 dark:text-gray-600"><i class="fa fa-filter mr-3"></i>Filter</span>
                     <x-select name="status" id="inv-status" class="mb-3">
                         <option value="">{{ __('Barang aktif')}}</option>
                         <option value="">{{ __('Barang nonaktif') }}</option>

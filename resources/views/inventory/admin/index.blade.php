@@ -52,7 +52,7 @@
                     </div>
                 </form>
             </x-modal>
-            <x-card-link href="{{ route('inventory', ['nav' => 'admin', 'view' => 'mass-circ'])}}">
+            <x-card-link href="{{ route('inventory', ['nav' => 'mass-circ'])}}">
                 <div class="flex">
                     <div>
                         <div class="flex w-12 h-full text-gray-600 dark:text-gray-400">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </x-card-link>
-            <x-card-link href="{{ route('inventory', ['nav' => 'admin', 'view' => 'mass-update'])}}">
+            <x-card-link href="{{ route('inventory', ['nav' => 'mass-update'])}}">
                 <div class="flex">
                     <div>
                         <div class="flex w-12 h-full text-gray-600 dark:text-gray-400">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </x-card-link>
-            <x-card-link href="{{ route('inventory', ['nav' => 'admin', 'view' => 'manage-locs'])}}">
+            <x-card-link href="{{ route('inventory', ['nav' => 'manage-locs'])}}">
                 <div class="flex">
                     <div>
                         <div class="flex w-12 h-full text-gray-600 dark:text-gray-400">
@@ -103,7 +103,7 @@
                     </div>
                 </div>
             </x-card-link>
-            <x-card-link href="{{ route('inventory', ['nav' => 'admin', 'view' => 'manage-tags']) }}">
+            <x-card-link href="{{ route('inventory', ['nav' => 'manage-tags']) }}">
                 <div class="flex">
                     <div>
                         <div class="flex w-12 h-full text-gray-600 dark:text-gray-400">
@@ -122,9 +122,9 @@
             </x-card-link>
         </div>
         @else
-        <div class="text-sm text-center px-6 sm:px-0 text-gray-600 dark:text-gray-400 py-8">Tindakan berikut akan mempengaruhi semua area inventaris</div>
+        <div class="text-sm text-center px-6 sm:px-0 text-gray-600 dark:text-gray-400 py-8"><i class="fa fa-exclamation-triangle mr-2"></i>Tindakan berikut akan mempengaruhi semua area inventaris</div>
         <div class="grid grid-cols-1 gap-3 mb-8">
-            <x-card-link href="{{ route('inventory', ['nav' => 'admin', 'view' => 'manage-currs']) }}">
+            <x-card-link href="{{ route('inventory', ['nav' => 'manage-currs']) }}">
                 <div class="flex">
                     <div>
                         <div class="flex w-12 h-full text-gray-600 dark:text-gray-400">
@@ -141,7 +141,7 @@
                     </div>
                 </div>
             </x-card-link>
-            <x-card-link href="{{ route('inventory', ['nav' => 'admin', 'view' => 'manage-uoms']) }}">
+            <x-card-link href="{{ route('inventory', ['nav' => 'manage-uoms']) }}">
                 <div class="flex">
                     <div>
                         <div class="flex w-12 h-full text-gray-600 dark:text-gray-400">
