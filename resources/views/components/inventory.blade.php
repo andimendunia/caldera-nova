@@ -1,4 +1,4 @@
-@props(['title', 'header', 'prev', 'nav'])
+@props(['title', 'header', 'prev', 'nav', 'navs'])
 
 <x-app-layout>
     <x-slot name="title">
@@ -15,6 +15,7 @@
         </h2>
     </x-slot>
 
+    @if($navs)
     <x-slot name="navs">
         <x-nav-link href="{{ route('inventory', [ 'nav' => 'search'])}}" :active="$nav == 'search'">
             <i class="fa mx-2 fa-fw fa-search"></i>
@@ -26,6 +27,7 @@
             <i class="fa mx-2 fa-fw fa-ellipsis"></i>
         </x-nav-link>
     </x-slot>
+    @endif
 
     {{ $slot }}
     

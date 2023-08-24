@@ -1,4 +1,4 @@
-<x-inventory title="{{ $title }}" header="{{ $header }}" prev="{!! $prev !!}" nav="{{ $nav }}">
+<x-inventory title="{{ $title }}" header="{{ $header }}" prev="{!! $prev !!}" nav="{{ $nav }}" navs="{{ $navs }}">
     @switch($nav)
     @case('search')
         @include('inventory.search')  

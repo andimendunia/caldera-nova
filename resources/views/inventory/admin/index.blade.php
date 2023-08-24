@@ -61,7 +61,7 @@
                     </div>
                     <div class="grow truncate py-2 sm:py-4">
                         <div class="truncate text-lg font-medium text-gray-900 dark:text-gray-100">
-                            {{__('Buat sirkulasi massal')}}
+                            {{__('Sirkulasi massal')}}
                         </div>                        
                         <div class="truncate text-sm text-gray-600 dark:text-gray-400">
                             {{__('Lakukan penambahan atau pengambilan secara massal')}}

@@ -8,20 +8,23 @@ class InventoryController extends Controller
 {
     public function index(Request $request) {
 
-        $title = __('Beranda');
+        $prev = '';
+        $navs = false;
         $nav = $request['nav'];
         $view = $request['view'];
-        $prev = '';
-        
+                
         switch ($nav) {
             case 'search':
                 $title = __('Cari');
+                $navs = true;
                 break;
             case 'circs':
                 $title = __('Sirkulasi');
+                $navs = true;
                 break;
             case 'admin':
                 $title = __('Administrasi');
+                $navs = true;
                 break;
             case 'mass-circ':
                 $title = __('Sirkulasi massal');
@@ -51,10 +54,14 @@ class InventoryController extends Controller
                 $title = __('Kelola UOM');
                 $prev = route('inventory', ['nav' => 'admin', 'view' => 'global']);
                 break;
+            default:
+                $title = __('Beranda');
+                $navs = true;
         }
+
         $header = $title;
         
-        return view('inventory.home', compact('title', 'prev', 'header', 'nav', 'view'));
+        return view('inventory.index', compact('title', 'prev', 'header', 'nav', 'navs', 'view'));
 
     }
 }

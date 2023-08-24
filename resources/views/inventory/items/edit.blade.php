@@ -1,4 +1,4 @@
-<x-inventory title="{{ $title }}" prev="{{ $prev }}" header="{{ $header }}" nav="" >
+<x-inventory title="{{ $title }}" prev="{{ $prev }}" header="{{ $header }}" nav="" navs="">
     <div class="sm:py-12 max-w-4xl mx-auto sm:px-6 lg:px-8 text-gray-800 dark:text-gray-200">
         <div class="block sm:flex gap-x-6">
             <div>
