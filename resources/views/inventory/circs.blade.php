@@ -1,8 +1,8 @@
-<div class="py-12 max-w-4xl mx-auto sm:px-6 lg:px-8 text-gray-800 dark:text-gray-200">
+<div id="content" class="py-8 max-w-5xl mx-auto sm:px-6 lg:px-8 text-gray-800 dark:text-gray-200">
     <div class="flex flex-col gap-x-2 md:gap-x-4 sm:flex-row">
         <div>
-            <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0 mb-10">
-                <x-text-input id="inv-q" class="mb-5" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
+            <div class="w-full sm:w-44 md:w-64 px-3 sm:px-0">
+                <x-text-input id="inv-q" class="mt-3 mb-5" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
                 <div class="flex items-center">
                     <x-dropdown align="left" width="48">
                         <x-slot name="trigger">
@@ -61,12 +61,15 @@
                 </div>
                 <hr class="my-5 border-gray-300 dark:border-gray-700" />
                 <div class="m-3">
-                    <x-text-button type="button" class="text-sm">{{__('Unduh CSV')}}</x-text-button>
+                    <x-text-button type="button" class="text-sm">{{__('Unduh CSV sirkulasi')}}</x-text-button>
                 </div>
+            </div>
+            <div class="sticky top-0 px-3 py-5">
+                <x-link-secondary-button class="w-full text-center" href="#content"><i class="fa fa-arrows-up-to-line mr-2"></i>{{ __('Kembali ke atas') }}</x-link-secondary-button>
             </div>
         </div>
         <div x-data="{ ids: [] }" class="w-full">
-            <div x-show="!ids.length" class="flex justify-between w-full px-3 mb-3">
+            <div x-show="!ids.length" class="flex justify-between w-full p-3">
                 <div class="my-auto">{{'0'.' '.__('sirkulasi')}}</div>
                 <div class="flex">
                     <x-select name="sort">
@@ -83,7 +86,7 @@
                     </div>   --}}            
                 </div>
             </div>
-            <div x-show="ids.length" x-cloak class="sticky z-10 top-0 flex justify-between w-full py-2 px-3 mb-1 bg-gray-100 dark:bg-gray-900">
+            <div x-show="ids.length" x-cloak class="sticky z-10 top-0 flex justify-between w-full p-4 bg-gray-100 dark:bg-gray-900">
                 <div class="my-auto"><span x-text="ids.length"></span><span class="hidden sm:inline">{{' '. __('terpilih')}}</span></div>
                 <div class="flex gap-x-2 items-center">
                     <x-secondary-button x-show="ids.length === 1"
@@ -168,7 +171,7 @@
                     </div>
                 </div>
             </x-modal>
-            <div class="inv-circs grid gap-3 px-0 sm:px-3">
+            <div class="inv-circs mt-1 grid gap-3 px-0 sm:px-3">
                 <x-circ-checkbox model="ids" id="circ-1">
                     <div class="h-full">
                         <div class="w-24 h-full relative truncate text-base text-gray-900 dark:text-gray-100">

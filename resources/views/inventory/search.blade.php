@@ -1,7 +1,7 @@
-<div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 text-gray-800 dark:text-gray-200">
+<div id="content" class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 text-gray-800 dark:text-gray-200">
     <div class="flex flex-col gap-x-4 md:gap-x-8 sm:flex-row">
         <div>
-            <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0 mb-10">
+            <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0">
                 <x-text-input id="inv-q" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
                 <div class="flex items-center">
                     <x-dropdown align="left" width="48">
@@ -60,8 +60,11 @@
                 </div>
                 <hr class="my-5 border-gray-300 dark:border-gray-700" />
                 <div class="m-3">
-                    <x-text-button type="button" class="text-sm">{{__('Unduh CSV')}}</x-text-button>
+                    <x-text-button type="button" class="text-sm">{{__('Unduh CSV barang')}}</x-text-button>
                 </div>
+            </div>
+            <div class="sticky top-0 px-3 py-5">
+                <x-link-secondary-button class="w-full text-center" href="#content"><i class="fa fa-arrows-up-to-line mr-2"></i>{{ __('Kembali ke atas') }}</x-link-secondary-button>
             </div>
         </div>
         <div class="w-full">

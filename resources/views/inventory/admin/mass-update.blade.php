@@ -5,13 +5,13 @@
             <x-secondary-button class="mb-3"><i class="fa fa-upload mr-2"></i>{{ __('Unggah') }}</x-secondary-button>
             <div class="text-sm"><x-link href="#">{{ __('Unduh berkas contoh') }}</x-link></div>
             
-            {{-- <x-select name="area" id="inv-area" class="mb-3">
+            <x-select name="area" id="inv-area" class="mb-3">
                 <option value="">{{ __('Area')}}</option>
                 <option value="">{{ __('TT MM') }}</option>
                 <option value="">{{ __('TT Maintenance') }}</option>
             </x-select>
             <x-secondary-button class="w-full mb-3">{{ __('Ulangi dari awal') }}</x-secondary-button>
-            <x-primary-button class="w-full mb-3">Buat 2 sirkulasi</x-primary-button> --}}
+            <x-primary-button class="w-full mb-3">Perbarui 2 barang</x-primary-button>
 
             </div>
         </div>
