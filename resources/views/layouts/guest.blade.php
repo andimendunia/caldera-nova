@@ -14,18 +14,18 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
+    <body class="font-sans text-neutral-900 antialiased">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-neutral-100 dark:bg-neutral-900">
             <div class="flex">
                 <a href="/">
-                    <x-application-logo class="w-8 h-8 fill-current text-gray-500" />
+                    <x-application-logo class="w-8 h-8 fill-current text-neutral-500" />
                 </a>
-                <div class="text-4xl text-gray-500 my-auto tracking-widest ml-8">
+                <div class="text-4xl text-neutral-500 my-auto tracking-widest ml-8">
                     Caldera
                 </div>
             </div>
 
-            <div class="w-full sm:max-w-md mt-10 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+            <div class="w-full sm:max-w-md mt-10 px-6 py-4 bg-white dark:bg-neutral-800 shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
         </div>

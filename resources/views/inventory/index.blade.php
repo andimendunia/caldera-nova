@@ -28,8 +28,23 @@
         @include('inventory.admin.manage-uoms')
         @break
     @default
-        <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 text-gray-800 dark:text-gray-200">
-            <div class="text-center"></div>
+        <div class="py-20 max-w-xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
+            <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Aku ingin mencari barang...') }}" autofocus autocomplete="q" />
         </div>
+        <div class="py-10 max-w-5xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
+            <div class="flex">
+                <div class="text-center max-w-sm mx-auto py-8">
+                    {{ __('Ketahui informasi penting dalam sekali pandang dengan menggunakan panel monitor') }}
+                </div>
+            </div>
+            <div class="flex"><x-secondary-button class="mx-auto">{{ __('Tambah panel monitor') }}</x-secondary-button></div>
+        </div>
+        {{-- Ideas for inventory home page
+        - Recently emptied. Baru saja habis. qty 0 updated,  
+        - New items. Barang baru. newest items, 
+        - About to expire. Akan kedaluwarsa, circs pending oldest
+        - Recent circulations. Sirkulasi terkini, circs newest (pending, approved, rejected)
+        - Large-cost circulations. Sirkulasi biaya tinggi, circs highest usd, direction  
+         --}}
     @endswitch
 </x-inventory>

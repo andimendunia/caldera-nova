@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto mt-8 px-4 lg:px-8">
-        <div class="container relative max-w-2xl mx-auto text-center tracking-widest text-gray-500 ">
+        <div class="container relative max-w-2xl mx-auto text-center tracking-widest text-neutral-500 ">
             <div class="card-container w-full my-auto">
               <div class="card relative h-40">
                 <div class="front w-full h-full">
