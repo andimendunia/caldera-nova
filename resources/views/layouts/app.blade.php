@@ -17,9 +17,12 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
     </head>
     <body class="font-sans antialiased">
+        {{-- <div id="pgbar" class="progress-bar indeterminate">
+            <div class="short-bar"></div>
+            <div class="long-bar"></div>
+        </div> --}}
         <div class="min-h-screen bg-neutral-100 dark:bg-neutral-900">
             @include('layouts.navigation')
 

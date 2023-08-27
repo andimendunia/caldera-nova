@@ -31,3 +31,71 @@ input[type="checkbox"]:checked + label.custom-checkbox {
 .btn-group button:last-child {
     margin-left:-1px;
 }
+
+@keyframes progressbarindeterminateshort {
+    0% {
+      left: -40%;
+    }
+  
+    75% {
+      left: 120%;
+    }
+  
+    100% {
+      left: 120%;
+    }
+  }
+  
+  @keyframes progressbarindeterminatelong {
+    0% {
+      left: -90%;
+    }
+  
+    37.5% {
+      left: -90%;
+    }
+  
+    100% {
+      left: 100%;
+    }
+  }
+  
+  #pgbar {
+    position: fixed;
+    width: 100%;
+    z-index:99;
+  }
+  
+  .progress-bar {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    min-height: 2px;
+    overflow: hidden !important;
+  }
+  
+  .progress-bar > .short-bar {
+    @apply bg-purple-500;
+    width: 40%;
+    height: 100%;
+    left: -40%;
+    position: absolute;
+    display: inline-block;
+    -webkit-animation: progressbarindeterminateshort 2s ease-in-out infinite;
+    -moz-animation: progressbarindeterminateshort 2s ease-in-out infinite;
+    -o-animation: progressbarindeterminateshort 2s ease-in-out infinite;
+    animation: progressbarindeterminateshort 2s ease-in-out infinite;
+  }
+  
+  .progress-bar > .long-bar {
+    @apply bg-purple-500;
+    width: 60%;
+    height: 100%;
+    left: -90%;
+    position: absolute;
+    display: inline-block;
+    -webkit-animation: progressbarindeterminatelong 2s ease-in-out infinite;
+    -moz-animation: progressbarindeterminatelong 2s ease-in-out infinite;
+    -o-animation: progressbarindeterminatelong 2s ease-in-out infinite;
+    animation: progressbarindeterminatelong 2s ease-in-out infinite;
+  }
