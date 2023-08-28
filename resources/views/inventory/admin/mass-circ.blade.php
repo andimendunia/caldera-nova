@@ -16,11 +16,11 @@
         <div class="w-full">
             <div class="flex">
                 <div class="mr-auto">
-                    <div class="text-2xl">TT MM</div>
-                    <div class="text-sm">12 baris terdeteksi, 2 baris dibuang</div>
+                    <div class="text-2xl mb-3">TT MM</div>
+                    <div class="text-sm">12 baris sah, 2 baris dibuang</div>
                 </div>
-                <div>
-                    <x-primary-button class="w-full mb-3">Buat 2 sirkulasi</x-primary-button>
+                <div class="w-56">
+                    <x-primary-button class="w-full mb-3">{{ __('Buat :count sirkulasi')}}</x-primary-button>
                     <x-secondary-button class="w-full mb-3">{{ __('Ulangi dari awal') }}</x-secondary-button>
                 </div>
             </div>
