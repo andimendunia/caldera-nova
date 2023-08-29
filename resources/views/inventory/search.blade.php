@@ -69,7 +69,7 @@
         </div>
         <div class="w-full">
             <div class="flex justify-between w-full px-3 sm:px-0">
-                <div class="my-auto">{{'0'.' '.__('barang')}}</div>
+                <div class="my-auto"><span>0</span><span class="hidden md:inline">{{' ' . __('barang')}}</span></div>
                 <div class="flex">
                     <x-select name="sort" class="mr-3">
                         <option value="">{{ __('Diperbarui') }}</option>
@@ -86,7 +86,13 @@
                     </div>                
                 </div>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4 ">
+            <div class="py-20 hidden">
+                <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
+                    <i class="fa fa-ghost"></i>
+                </div>
+                <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Tidak ada yang cocok') }}</div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4 hidden">
                 <x-inv-card-content 
                 href="/inventory/items/1"
                 name="MONITOR 19INCH SAMSUNG WITHOUT STAND"
@@ -304,7 +310,7 @@
                 qty="6">
                 </x-inv-card-content>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mt-4 hidden">
+            <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mt-4 ">
                 <x-inv-card-grid 
                 href="/inventory/items/1"
                 name="MONITOR 19INCH SAMSUNG WITHOUT STAND"

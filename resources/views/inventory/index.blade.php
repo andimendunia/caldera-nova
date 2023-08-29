@@ -29,24 +29,24 @@
         @break
     @default
         <div class="py-16 max-w-xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
-            <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Aku ingin mencari barang...') }}" autofocus autocomplete="q" />
+            <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Aku ingin mencari...') }}" autofocus autocomplete="q" />
         </div>
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 text-neutral-500 dark:text-neutral-200">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 text-neutral-500 dark:text-neutral-200 pb-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4 ">
                 <div class="sm:rounded-lg border-dashed border-2 border-neutral-200 dark:border-neutral-800 text-neutral-500 p-6 text-center">   
+                    <div class="text-5xl mb-2 text-neutral-300 dark:text-neutral-700">
+                        <i class="far fa-rectangle-list"></i>
+                    </div>
                     <h2 class="text-xl">
                         {{ __('Panel pengamatan') }}
                     </h2>
-                    <p class="mt-3 text-sm">
+                    <p class="mt-6 text-sm">
                         {{ __('Dapatkan informasi penting dengan sekali pandang seperti barang yang baru saja habis atau informasi penting lainnya.') }}
                     </p>
-                    <p class="mt-3 text-sm">
-                        {{ __('Klik tombol "+" untuk memulai.') }}
-                    </p>
                 </div>
-                <x-card-button type="button" class="h-72">
-                    <i class="fa fa-plus text-2xl"></i>
-                </x-card-button>
+                <div class="flex justify-center items-center sm:rounded-lg border-dashed border-2 border-neutral-200 dark:border-neutral-800 text-neutral-500 p-6">  
+                    <x-secondary-button><i class="fa fa-plus mr-2"></i>{{ __('Buat panel') }}</x-secondary-button>
+                </div>
             </div>
         </div>
         {{-- 
