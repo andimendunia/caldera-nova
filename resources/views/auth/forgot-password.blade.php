@@ -2,7 +2,7 @@
     <div class="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
         {{ __('Kamu harus minta superuser untuk mengatur ulang kata sandimu jika lupa.') }}
     </div>
-    <a class="underline text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-neutral-800" href="/">
+    <a class="underline text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-caldy-500 dark:focus:ring-offset-neutral-800" href="/">
         {{ __('Kembali ke halaman masuk') }}
     </a>
 

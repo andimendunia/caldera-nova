@@ -7,7 +7,7 @@
 [x-cloak] { display: none !important; }
 
 input[type="checkbox"]:checked + label.custom-checkbox {
-    @apply ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-gray-800;
+    @apply ring-2 ring-caldy-500 ring-offset-2 dark:ring-offset-gray-800;
 }
 
 .btn-group, .spinner-group {
@@ -75,7 +75,7 @@ input[type="checkbox"]:checked + label.custom-checkbox {
   }
   
   .progress-bar > .short-bar {
-    @apply bg-purple-500;
+    @apply bg-caldy-500;
     width: 40%;
     height: 100%;
     left: -40%;
@@ -88,7 +88,7 @@ input[type="checkbox"]:checked + label.custom-checkbox {
   }
   
   .progress-bar > .long-bar {
-    @apply bg-purple-500;
+    @apply bg-caldy-500;
     width: 60%;
     height: 100%;
     left: -90%;

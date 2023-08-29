@@ -27,18 +27,18 @@
         <!-- Remember Me -->
         {{-- <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-neutral-900 border-neutral-300 dark:border-neutral-700 text-purple-600 shadow-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:focus:ring-offset-neutral-800" name="remember">
+                <input id="remember_me" type="checkbox" class="rounded dark:bg-neutral-900 border-neutral-300 dark:border-neutral-700 text-caldy-600 shadow-sm focus:ring-caldy-500 dark:focus:ring-caldy-600 dark:focus:ring-offset-neutral-800" name="remember">
                 <span class="ml-2 text-sm text-neutral-600 dark:text-neutral-400">{{ __('Ingat aku') }}</span>
             </label>
         </div> --}}
 
         <div class="flex items-center justify-between mt-4">
             <div>
-                <a class="underline text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-neutral-800" href="{{ route('register') }}">
+                <a class="underline text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-caldy-500 dark:focus:ring-offset-neutral-800" href="{{ route('register') }}">
                     {{ __('Daftar') }}</a>
                 @if (Route::has('password.request'))
                     <span class="mx-1 text-neutral-600 dark:text-neutral-400">•</span>
-                    <a class="underline text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:focus:ring-offset-neutral-800" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-caldy-500 dark:focus:ring-offset-neutral-800" href="{{ route('password.request') }}">
                         {{ __('Lupa kata sandi') }}</a>
                 @endif
 
