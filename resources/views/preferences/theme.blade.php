@@ -175,6 +175,7 @@
                     </label>
                 </div>
             </fieldset>
+            <x-primary-button>{{ __('Terapkan') }}</x-primary-button>
         </div>
     </div>
 </x-app-layout>
