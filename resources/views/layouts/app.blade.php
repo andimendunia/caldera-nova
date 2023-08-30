@@ -19,9 +19,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div id="pgbar" class="progress-bar indeterminate hidden">
-            <div class="short-bar"></div>
-            <div class="long-bar"></div>
+        <div id="pgbar" class="fixed w-full z-50 overflow-hidden progress-bar indeterminate hidden">
+            <div class="short-bar bg-caldy-400"></div>
+            <div class="long-bar bg-caldy-400"></div>
         </div>
         <div class="min-h-screen bg-neutral-100 dark:bg-neutral-900">
             @include('layouts.navigation')

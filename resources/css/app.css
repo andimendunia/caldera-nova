@@ -32,7 +32,7 @@ input[type="checkbox"]:checked + label.custom-checkbox {
     margin-left:-1px;
 }
 
-@keyframes progressbarindeterminateshort {
+@keyframes pbishort {
     0% {
       left: -40%;
     }
@@ -46,7 +46,7 @@ input[type="checkbox"]:checked + label.custom-checkbox {
     }
   }
   
-  @keyframes progressbarindeterminatelong {
+  @keyframes pbilong {
     0% {
       left: -90%;
     }
@@ -60,42 +60,33 @@ input[type="checkbox"]:checked + label.custom-checkbox {
     }
   }
   
-  #pgbar {
-    position: fixed;
-    width: 100%;
-    z-index:99;
-  }
-  
   .progress-bar {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     min-height: 2px;
-    overflow: hidden !important;
   }
   
   .progress-bar > .short-bar {
-    @apply bg-caldy-500;
     width: 40%;
     height: 100%;
     left: -40%;
     position: absolute;
     display: inline-block;
-    -webkit-animation: progressbarindeterminateshort 2s ease-in-out infinite;
-    -moz-animation: progressbarindeterminateshort 2s ease-in-out infinite;
-    -o-animation: progressbarindeterminateshort 2s ease-in-out infinite;
-    animation: progressbarindeterminateshort 2s ease-in-out infinite;
+    -webkit-animation: pbishort 2s ease-in-out infinite;
+    -moz-animation: pbishort 2s ease-in-out infinite;
+    -o-animation: pbishort 2s ease-in-out infinite;
+    animation: pbishort 2s ease-in-out infinite;
   }
   
   .progress-bar > .long-bar {
-    @apply bg-caldy-500;
     width: 60%;
     height: 100%;
     left: -90%;
     position: absolute;
     display: inline-block;
-    -webkit-animation: progressbarindeterminatelong 2s ease-in-out infinite;
-    -moz-animation: progressbarindeterminatelong 2s ease-in-out infinite;
-    -o-animation: progressbarindeterminatelong 2s ease-in-out infinite;
-    animation: progressbarindeterminatelong 2s ease-in-out infinite;
+    -webkit-animation: pbilong 2s ease-in-out infinite;
+    -moz-animation: pbilong 2s ease-in-out infinite;
+    -o-animation: pbilong 2s ease-in-out infinite;
+    animation: pbilong 2s ease-in-out infinite;
   }

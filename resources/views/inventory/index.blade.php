@@ -54,7 +54,7 @@
                     <h2 class="text-xl">
                         {{ __('Panel pengamatan') }}
                         <x-link href="#" class="text-sm" x-data=""
-                        x-on:click.prevent="$dispatch('open-modal', 'inv-obpanel')"><i class="fa fa-question-circle"></i></x-link>
+                        x-on:click.prevent="$dispatch('open-modal', 'inv-obpanel')"><i class="far fa-question-circle"></i></x-link>
                     </h2>
                 </div>
                 

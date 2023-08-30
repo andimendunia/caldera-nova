@@ -11,36 +11,58 @@
                     <x-link href="#"><i class="fa fa-upload mr-2"></i>{{ __('Unggah foto') }}</x-link>               
                 </div>
             </div>
-            <div class="w-full overflow-hidden text-neutral-400 dark:text-neutral-600">
+            <div class="w-full overflow-hidden">
                 <div class="px-4 pb-4">
-                    <div class="p-3 text-sm">{{ __('Nama dan deskripsi')}}</div>
+                    <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">{{ __('Nama dan deskripsi')}}</div>
                     <x-text-input id="inv-name" class="mb-4" name="inv-name" type="text" placeholder="{{ __('Nama') }}" />
                     <x-text-input id="inv-desc" class="mb-4" name="inv-desc" type="text" placeholder="{{ __('Deskripsi') }}" />
-                    <div class="p-3 text-sm">{{ __('Info consumables')}}</div>
+                    <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">{{ __('Info consumables')}}</div>
                     <x-text-input id="inv-itemcode" class="mb-4" name="inv-itemcode" type="text" placeholder="{{ __('Kode item') }}" />
-                    <div x-data="{ currsec: false }">
-                        <x-text-input id="inv-priceusd" name="inv-priceusd" type="text" placeholder="{{ __('USD') }}" />
-                        <x-checkbox x-model="currsec" class="mx-2 mb-2" id="inv-currsec">{{ __('Mata uang sekunder') }}</x-checkbox>
-                        <x-select name="inv-currsec" class="mb-4">
-                            <option value="1">{{ __('IDR') }}</option>
-                            <option value="2">{{ __('KRW') }}</option>
-                        </x-select>
-                        <x-text-input x-show="currid" x-cloak id="inv-pricesec" class="mb-4" name="inv-pricesec" type="text" placeholder="{{ __('IDR') }}" />
-                    </div>
-                    <div class="p-3 text-sm">Klasifikasi — TT MM</div>
+                    <x-text-input-curr id="inv-priceusd" class="mb-4" curr="USD" name="inv-priceusd" type="number" />
+                    <x-text-input-curr id="inv-priceidr" class="mb-4" curr="IDR" name="inv-priceidr" type="number" />
+                    <div class="py-3 text-medium text-sm uppercase  text-neutral-400 dark:text-neutral-600">{{ __('Klasifikasi') }} — TT MM</div>
                     <x-text-input-icon icon="fa fa-fw fa-map-marker-alt" id="inv-loc" class="mb-3" name="loc" type="text" placeholder="{{ __('Lokasi') }}" />
                     <x-text-input-icon icon="fa fa-fw fa-tag" class="mb-3" id="inv-tag" name="tag" type="text" placeholder="{{ __('Tag') }}" /> 
-                    <div class="p-3 text-sm">{{ __('Info qty')}}</div>
+                    <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">{{ __('Info qty')}}</div>
                     <x-select name="inv-uom" class="mb-4">
                         <option value="">{{ __('UOM') }}</option>
                         <option value="">{{ __('EA') }}</option>
                     </x-select>
-                    <x-text-input id="inv-qtymain" class="mb-4" name="inv-qtymain" type="text" placeholder="{{ __('Qty utama') }}" />
-                    <x-text-input id="inv-qtyused" class="mb-4" name="inv-qtyused" type="text" placeholder="{{ __('Qty bekas') }}" />
-                    <x-text-input id="inv-qtyrepaired" class="mb-4" name="inv-qtyrepaired" type="text" placeholder="{{ __('Qty diperbaiki') }}" />
-                    <div class="p-3 text-sm">{{ __('Batas qty utama')}}</div>
-                    <x-text-input id="inv-qtymainmin" class="mb-4" name="inv-qtymainmin" type="text" placeholder="{{ __('Minimum') }}" />
-                    <x-text-input id="inv-qtymainmax" class="mb-4" name="inv-qtymainmax" type="text" placeholder="{{ __('Maksimum') }}" />
+                    <div class="grid grid-cols-3 mb-4 gap-3">
+                        <div>
+                            <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300" for="inv-qtymain">
+                                {{ __('Utama') }}
+                            </label>
+                            <x-text-input id="inv-qtymain" class="mb-4" name="inv-qtymain" type="text" placeholder="0" />
+                        </div>
+                        <div>
+                            <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300" for="inv-qtyused">
+                                {{ __('Bekas') }}
+                            </label>
+                            <x-text-input id="inv-qtyused" class="mb-4" name="inv-qtyused" type="text" placeholder="0" />
+                        </div>
+                        <div>
+                            <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300" for="inv-qtyrepaired">
+                                {{ __('Diperbaiki') }}
+                            </label>
+                            <x-text-input id="inv-qtyrepaired" class="mb-4" name="inv-qtyrepaired" type="text" placeholder="0" />
+                        </div>
+                    </div>
+                    <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">{{ __('Batas qty utama')}}</div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300" for="inv-qtymainmin">
+                                {{ __('Minimum') }}
+                            </label>
+                            <x-text-input id="inv-qtymainmin" class="mb-4" name="inv-qtymainmin" type="text" />
+                        </div>
+                        <div>
+                            <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300" for="inv-qtymainmax">
+                                {{ __('Maksimum') }}
+                            </label>
+                            <x-text-input id="inv-qtymainmax" class="mb-4" name="inv-qtymainmax" type="text" />
+                        </div>
+                    </div>
                     <div class="py-3">
                         <x-primary-button type="submit">{{__('Simpan')}}</x-primary-button>
                     </div>
