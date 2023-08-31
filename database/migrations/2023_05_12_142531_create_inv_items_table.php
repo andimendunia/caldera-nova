@@ -63,9 +63,9 @@ return new class extends Migration
             //name
             //value: []
 
-            // table: user_props
+            // table: prefs
             //user_id:
-            //name: theme
+            //name: theme//lang//inv_search//inv_circs
             //value:
         });
     }

@@ -9,7 +9,7 @@
                 </div>
                 <div class="flex p-4 text-sm text-neutral-600 dark:text-neutral-400">
                     <div class="grow">Diperbarui: 3 hari yang lalu</div>
-                    <x-link class="uppercase" href="{{ route('inventory.items.edit', ['id' => $invItem ]) }}">{{ __('Edit') }}</x-link>               
+                    <x-link class="uppercase" href="{{ route('inventory.items.edit', ['id' => $invItem ]) }}"><i class="fa fa-pen"></i></x-link>               
                 </div>
             </div>
             <div class="w-full overflow-hidden">

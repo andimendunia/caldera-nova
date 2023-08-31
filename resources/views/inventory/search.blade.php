@@ -60,11 +60,14 @@
                 </div>
                 <hr class="my-5 border-neutral-300 dark:border-neutral-700" />
                 <div class="m-3">
-                    <x-text-button type="button" class="text-sm">{{__('Unduh CSV barang')}}</x-text-button>
+                    <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-xmark"></i>{{__('Atur ulang')}}</x-text-button>
+                </div>
+                <div class="m-3">
+                    <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{__('Unduh CSV barang')}}</x-text-button>
                 </div>
             </div>
             <div class="sticky top-0 px-3 py-5">
-                <x-link-secondary-button class="w-full text-center" href="#content"><i class="fa fa-arrows-up-to-line mr-2"></i>{{ __('Kembali ke atas') }}</x-link-secondary-button>
+                <x-link-secondary-button class="w-full text-center" href="#content"><i class="fa fa-arrows-up-to-line mr-2"></i>{{ __('Ke atas') }}</x-link-secondary-button>
             </div>
         </div>
         <div class="w-full">

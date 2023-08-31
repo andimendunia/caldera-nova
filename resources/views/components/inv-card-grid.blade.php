@@ -20,7 +20,7 @@
                 <span class="mr-3"><i class="fa fa-map-marker-alt mr-2"></i>{{ $loc }}</span>
                 <span><i class="fa fa-tag mr-2"></i>{{ $tags }}</span>                            
             </div>
-            <div class="truncate mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+            <div class="truncate mt-2 font-medium text-sm">
                 {{ $qty . '  ' . $uom}}
             </div>
         </div>

@@ -61,11 +61,17 @@
                 </div>
                 <hr class="my-5 border-neutral-300 dark:border-neutral-700" />
                 <div class="m-3">
-                    <x-text-button type="button" class="text-sm">{{__('Unduh CSV sirkulasi')}}</x-text-button>
+                    <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-xmark"></i>{{__('Atur ulang')}}</x-text-button>
+                </div>
+                <div class="m-3">
+                    <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-print"></i>{{__('Cetak semua')}}</x-text-button>
+                </div>
+                <div class="m-3">
+                    <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{__('Unduh CSV sirkulasi')}}</x-text-button>
                 </div>
             </div>
             <div class="sticky top-0 px-3 py-5">
-                <x-link-secondary-button class="w-full text-center" href="#content"><i class="fa fa-arrows-up-to-line mr-2"></i>{{ __('Kembali ke atas') }}</x-link-secondary-button>
+                <x-link-secondary-button class="w-full text-center" href="#content"><i class="fa fa-arrows-up-to-line mr-2"></i>{{ __('Ke atas') }}</x-link-secondary-button>
             </div>
         </div>
         <div x-data="{ ids: [] }" class="w-full">
@@ -116,7 +122,7 @@
                         </div>
                     </div>   
                     <div class="text-sm">
-                        <span>Ambil</span><span class="mx-2">•</span><span>3.564,00 USD</span>
+                        <span>Ambil</span><span class="mx-2">•</span><span>3.564,00 USD</span><span class="mx-2">•</span><span>10 → 8</span>
                     </div>
                     <hr class="border-neutral-300 dark:border-neutral-700 my-4">
                     <div class="flex text-sm">
@@ -129,7 +135,7 @@
                             </div>
                         </div>
                         <div class="flex items-center">
-                            <x-link href="#"><i class="fa fa-external-link-alt"></i></x-link>
+                            <x-link href="/inventory/items/1" target="_blank"><i class="fa fa-external-link-alt"></i></x-link>
                         </div>  
                     </div>   
                     <hr class="border-neutral-300 dark:border-neutral-700 my-4">
