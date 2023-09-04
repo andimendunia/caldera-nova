@@ -48,15 +48,15 @@
                         <x-text-input-icon icon="fa fa-fw fa-user" id="inv-user" class="mb-3" name="user" type="text" placeholder="{{ __('Pengguna') }}" />
                     </div>
                     <div class="m-3">
-                        <x-radio id="inv-act-all" name="inv-act" class="mb-4">{{ __('Semua arah') }}</x-radio>
+                        <x-radio id="inv-act-all" name="inv-act" class="mb-4" checked>{{ __('Semua arah') }}</x-radio>
                         <x-radio id="inv-act-deposit" name="inv-act" class="mb-4"><i class="fa fa-fw fa-plus mr-2"></i>Penambahan </x-radio>
                         <x-radio id="inv-act-withdrawal" name="inv-act" class="mb-4"><i class="fa fa-fw fa-minus mr-2"></i>Pengambilan</x-radio>
                         <x-radio id="inv-act-record" name="inv-act" class="mb-4"><i class="far fa-fw fa-flag mr-2"></i>Rekam qty</x-radio>
                     </div>
                 </div>
                 <div class="m-3">
-                    <x-checkbox id="inv-area-1">TT MM</x-checkbox>
-                    <x-checkbox id="inv-area-2">TT MM Cons</x-checkbox>
+                    <x-checkbox id="inv-area-1" checked>TT MM</x-checkbox>
+                    <x-checkbox id="inv-area-2" checked>TT MM Cons</x-checkbox>
                     <x-checkbox id="inv-area-3">TT Maintenance</x-checkbox>
                 </div>
                 <hr class="my-5 border-neutral-300 dark:border-neutral-700" />
