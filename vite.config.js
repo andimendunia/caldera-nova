@@ -4,11 +4,11 @@ import laravel from 'laravel-vite-plugin';
 // import livewire from '@defstudio/vite-livewire-plugin';
 
 export default defineConfig({
-    server: {
-        hmr: {
-            host: '172.70.52.99',
-        },
-    },
+    // server: {
+    //     hmr: {
+    //         host: '172.70.52.99',
+    //     },
+    // },
     theme: {
         extend: {
             colors: {

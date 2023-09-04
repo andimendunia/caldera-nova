@@ -38,19 +38,19 @@
                             <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300" for="inv-qtymain">
                                 {{ __('Utama') }}
                             </label>
-                            <x-text-input id="inv-qtymain" class="mb-4" name="inv-qtymain" type="text" placeholder="0" />
+                            <x-text-input id="inv-qtymain" class="mb-4" name="inv-qtymain" type="number" placeholder="0" />
                         </div>
                         <div>
                             <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300" for="inv-qtyused">
                                 {{ __('Bekas') }}
                             </label>
-                            <x-text-input id="inv-qtyused" class="mb-4" name="inv-qtyused" type="text" placeholder="0" />
+                            <x-text-input id="inv-qtyused" class="mb-4" name="inv-qtyused" type="number" placeholder="0" />
                         </div>
                         <div>
                             <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300" for="inv-qtyrepaired">
                                 {{ __('Diperbaiki') }}
                             </label>
-                            <x-text-input id="inv-qtyrepaired" class="mb-4" name="inv-qtyrepaired" type="text" placeholder="0" />
+                            <x-text-input id="inv-qtyrepaired" class="mb-4" name="inv-qtyrepaired" type="number" placeholder="0" />
                         </div>
                     </div>
                     <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">{{ __('Batas qty utama')}}</div>
