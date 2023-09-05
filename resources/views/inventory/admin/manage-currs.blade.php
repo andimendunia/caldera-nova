@@ -15,14 +15,14 @@
             </h2>             
             <div class="mt-6">
                 <x-text-input id="inv-curr-name" class="mb-4" name="inv-curr-name" type="text" placeholder="{{ __('Mata uang') }}" />
-                <x-text-input id="inv-curr-rate" class="mb-4" name="inv-curr-rate" type="number" placeholder="{{ __('Nilai tukar') }}" />
+                <x-text-input id="inv-curr-rate" class="mb-4 hidden" name="inv-curr-rate" type="number" placeholder="{{ __('Nilai tukar') }}" />
                 <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
                     {{ __('Mata uang yang pertama ditambahkan akan dianggap sebagai mata uang utama. Maka dari itu, mata uang ini akan dijadikan acuan nilai tukar mata uang lain (bila ada) dan akan digunakan pada sirkulasi.') }}
                 </p>
                 <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
                     {{ __('Mata uang utama juga tidak dapat diubah di kemudian.')}}
                 </p> 
-                <x-checkbox id="inv-confirm">{{ __('Aku paham dengan pernyataan di atas') }}</x-checkbox>
+                <x-checkbox id="inv-confirm">{{ __('Paham') }}</x-checkbox>
             </div>        
             <div class="mt-6 flex justify-end">
                 <x-secondary-button x-on:click="$dispatch('close')">
