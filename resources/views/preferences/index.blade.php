@@ -12,7 +12,7 @@
                 <x-card-link href="{{ route('account.edit')}}">
                     <div class="flex">
                         <div>
-                            <div class="flex w-12 h-full text-neutral-600 dark:text-neutral-400">
+                            <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
                                 <div class="m-auto"><i class="fa fa-circle-user"></i></div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                 x-on:click.prevent="$dispatch('open-modal', 'change-language')">
                     <div class="flex">
                         <div>
-                            <div class="flex w-12 h-full text-neutral-600 dark:text-neutral-400">
+                            <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
                                 <div class="m-auto"><i class="fa fa-language"></i></div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                 <x-card-link href="{{ route('preferences', ['nav' => 'theme']) }}">
                     <div class="flex">
                         <div>
-                            <div class="flex w-12 h-full text-neutral-600 dark:text-neutral-400">
+                            <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
                                 <div class="m-auto"><i class="fa fa-brush"></i></div>
                             </div>
                         </div>

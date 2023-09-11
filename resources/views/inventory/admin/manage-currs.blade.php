@@ -4,9 +4,18 @@
             <div class="text-xl">
                 {{ __('Mata uang utama') }}
             </div>
-            <div class="text-sm mt-1">{{ 'USD' . ' ' . __('adalah mata uang utama') }}<x-link href="#"><i class="fa fa-info-circle"></i></x-link></div>
+            <div class="text-sm mt-1">{{ 'USD' }}</div>
         </div>
         <x-secondary-button type="button" class="my-auto">{{ __('Ganti') }}</x-secondary-button>
+    </div>
+    <div x-data="{ more: false}">
+        <div x-show="!more" class="text-sm mt-2 text-neutral-500 dark:text-neutral-400"><x-link href="#" x-on:click.prevent="more = !more">{{ __('Selengkapnya...') }}</x-link></div>
+        <div x-show="more" x-cloak class="text-sm mt-2">
+            <ul>
+                <li>- Mata uang utama akan digunakan untuk perhitungan sirkulasi</li>
+                <li>- Mata uang utama dijadikan sebagai acuan untuk nilai tukar mata uang sekunder</li>
+            </ul>
+        </div>
     </div>
     <hr class="my-5 border-neutral-300 dark:border-neutral-700">
     <div class="flex justify-between">
@@ -29,7 +38,7 @@
                         placeholder="{{ __('Mata uang') }}" />
                     <x-text-input id="inv-curr-rate" class="mb-4" name="inv-curr-rate" type="number"
                         placeholder="{{ __('Nilai tukar') }}" />
-                    <div class="text-sm">{{ __('Nilai tukar terhadap mata uang utama') }}</div>
+                    <div class="text-sm">{{ __('Nilai tukar terhadap mata uang utama.') }}</div>
                     {{-- <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
                         {{ __('Mata uang yang pertama ditambahkan akan dianggap sebagai mata uang utama. Maka dari itu, mata uang ini akan dijadikan acuan nilai tukar mata uang lain (bila ada) dan akan digunakan pada sirkulasi.') }}
                     </p>
@@ -53,8 +62,11 @@
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-hidden">
             <div class="py-12 fle items-center">
-                <div x-data="" x-on:click="notyf.success('Sirkulasi berhasil dibuat');"
-                    class="w-80 mx-auto text-center">{{ __('Tidak ada mata uang') }}</div>
+                <div class="w-80 mx-auto text-center">{{ __('Tidak ada mata uang') }}</div>
+                    <div class="flex justify-center" x-data>
+                        <x-secondary-button type="button" x-on:click="notyf.success('Sirkulasi berhasil dibuat');">Success</x-secondary-button>
+                        <x-secondary-button type="button" x-on:click="notyf.error('Tidak memiliki wewenang');">Fail</x-secondary-button>
+                    </div>
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@
             x-on:click.prevent="$dispatch('open-modal', 'create-item')">
                 <div class="flex">
                     <div>
-                        <div class="flex w-12 h-full text-neutral-600 dark:text-neutral-400">
+                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
                             <div class="m-auto"><i class="fa fa-plus"></i></div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
             <x-card-link href="{{ route('inventory', ['nav' => 'mass-circ'])}}">
                 <div class="flex">
                     <div>
-                        <div class="flex w-12 h-full text-neutral-600 dark:text-neutral-400">
+                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
                             <div class="m-auto"><i class="fa fa-arrow-right-arrow-left"></i></div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
             <x-card-link href="{{ route('inventory', ['nav' => 'mass-update'])}}">
                 <div class="flex">
                     <div>
-                        <div class="flex w-12 h-full text-neutral-600 dark:text-neutral-400">
+                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
                             <div class="m-auto"><i class="fa fa-arrows-rotate"></i></div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
             <x-card-link href="{{ route('inventory', ['nav' => 'manage-locs'])}}">
                 <div class="flex">
                     <div>
-                        <div class="flex w-12 h-full text-neutral-600 dark:text-neutral-400">
+                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
                             <div class="m-auto"><i class="fa fa-map-marker-alt"></i></div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
             <x-card-link href="{{ route('inventory', ['nav' => 'manage-tags']) }}">
                 <div class="flex">
                     <div>
-                        <div class="flex w-12 h-full text-neutral-600 dark:text-neutral-400">
+                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
                             <div class="m-auto"><i class="fa fa-tag"></i></div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
             <x-card-link href="{{ route('inventory', ['nav' => 'manage-currs']) }}">
                 <div class="flex">
                     <div>
-                        <div class="flex w-12 h-full text-neutral-600 dark:text-neutral-400">
+                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
                             <div class="m-auto"><i class="fa fa-coins"></i></div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
             <x-card-link href="{{ route('inventory', ['nav' => 'manage-uoms']) }}">
                 <div class="flex">
                     <div>
-                        <div class="flex w-12 h-full text-neutral-600 dark:text-neutral-400">
+                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
                             <div class="m-auto"><i class="fa fa-weight-scale"></i></div>
                         </div>
                     </div>
