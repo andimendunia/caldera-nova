@@ -12,9 +12,9 @@
         @csrf
         @method('patch')
         <div>
-            <x-input-label for="cid" :value="__('Nomor Karyawan')" />
-            <x-text-input id="cid" name="cid" type="text" class="mt-1 block w-full" :value="old('cid', $user->cid)" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('cid')" />
+            <x-input-label for="emp_id" :value="__('Nomor Karyawan')" />
+            <x-text-input id="emp_id" name="emp_id" type="text" class="mt-1 block w-full" :value="old('emp_id', $user->emp_id)" required autocomplete="username" />
+            <x-input-error class="mt-2" :messages="$errors->get('emp_id')" />
         </div>
 
         <div class="flex items-center gap-4">

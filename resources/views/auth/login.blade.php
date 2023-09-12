@@ -7,9 +7,9 @@
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="cid" :value="__('Nomor karyawan')" />
-            <x-text-input id="cid" class="block mt-1 w-full" type="text" name="cid" :value="old('cid')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('cid')" class="mt-2" />
+            <x-input-label for="emp_id" :value="__('Nomor karyawan')" />
+            <x-text-input id="emp_id" class="block mt-1 w-full" type="text" name="emp_id" :value="old('emp_id')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('emp_id')" class="mt-2" />
         </div>
 
         <!-- Password -->

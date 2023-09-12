@@ -17,7 +17,7 @@ class AccountUpdateRequest extends FormRequest
     {
         return [
             'name' => ['string', 'max:255'],
-            'cid' => ['min:8', 'max:10', Rule::unique(User::class)->ignore($this->user()->id)],
+            'emp_id' => ['min:8', 'max:10', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
     }
 }

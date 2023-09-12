@@ -17,11 +17,12 @@ return new class extends Migration
             //name
             //desc
             //code
-            //price_main
+            //price
             //price_sec
             //inv_curr_id 
             //inv_uom_id
             //inv_loc_id
+            //inv_area_id
             //qty_main
             //qty_used
             //qty_rep
@@ -32,26 +33,29 @@ return new class extends Migration
 
             // table: inv_circs
             //qty
-            //amount_main
+            //qty_type
+            //qty_before
+            //qty_after
+            //amount
             //user_id
             //assigner_id
-            //remarks
-            //qty_type
             //evaluator_id
             //status 1 approved, 2 rejected, null pending
-            //qty_before
-            //qtr_after
+            //remarks
 
             // table: inv_currs
             //name
             //rate
+
+            // table: inv_area
+            // name: 
             
             // table: inv_locs, inv_tags
             //name
             //inv_area_id
 
             // table: inv_item_tags
-            //igood_id
+            //inv_item_id
             //inv_tag_id
 
             // table: inv_auth
@@ -65,7 +69,7 @@ return new class extends Migration
 
             // table: prefs
             //user_id:
-            //name: theme//lang//inv_search//inv_circs
+            //name: theme//lang//inv_search//inv_circs//inv_print
             //value:
         });
     }
