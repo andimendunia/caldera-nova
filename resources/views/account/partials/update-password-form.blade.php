@@ -35,13 +35,11 @@
             <x-primary-button>{{ __('Perbarui') }}</x-primary-button>
 
             @if (session('status') === 'password-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-neutral-600 dark:text-neutral-400"
-                >{{ __('Diperbarui.') }}</p>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    notyf.success('Kata sandi diperbarui');
+                });
+            </script>
             @endif
         </div>
     </form>

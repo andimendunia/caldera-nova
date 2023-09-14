@@ -4,11 +4,35 @@
             <div class="text-xl">
                 {{ __('Mata uang utama') }}
             </div>
-            <div class="text-sm mt-1">{{ 'USD' }}</div>
+            <div class="text-sm mt-1">{{ \App\Models\InvCurr::find(1)->name }}</div>
         </div>
-        <x-secondary-button type="button" class="my-auto">{{ __('Ganti') }}</x-secondary-button>
+        <x-secondary-button type="button" class="my-auto" x-data=""
+        x-on:click.prevent="$dispatch('open-modal', 'change-curr-primary')">{{ __('Ganti') }}</x-secondary-button>
+        <x-modal name="change-curr-primary" focusable>
+            <form method="post" action="{{ route('curr.update') }}" class="p-6">
+                <input type="hidden" name="id" value="1" />
+                @csrf
+                <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                    {{ __('Mata uang utama') }}
+                </h2>
+                <div class="mt-6">
+                    <x-text-input id="inv-curr-name" class="mb-4" name="inv-curr-name" type="text"
+                        placeholder="{{ __('Nama') }}" />
+                    <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button x-on:click="$dispatch('close')">
+                        {{ __('Batal') }}
+                    </x-secondary-button>
+
+                    <x-primary-button class="ml-3">
+                        {{ __('Simpan') }}
+                    </x-primary-button>
+                </div>
+            </form>
+        </x-modal>
     </div>
-    <div x-data="{ more: false}">
+    <div x-data="{ more: false }">
         <div x-show="!more" class="text-sm mt-2 text-neutral-500 dark:text-neutral-400"><x-link href="#" x-on:click.prevent="more = !more">{{ __('Selengkapnya...') }}</x-link></div>
         <div x-show="more" x-cloak class="text-sm mt-2">
             <ul>

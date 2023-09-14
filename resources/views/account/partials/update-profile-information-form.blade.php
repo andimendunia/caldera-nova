@@ -21,13 +21,18 @@
             <x-primary-button>{{ __('Perbarui') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
-                <p
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    notyf.success('Profil diperbarui');
+                });
+            </script>
+                {{-- <p
                     x-data="{ show: true }"
                     x-show="show"
                     x-transition
                     x-init="setTimeout(() => show = false, 2000)"
                     class="text-sm text-neutral-600 dark:text-neutral-400"
-                ><i class="fa fa-check-circle mr-1"></i>{{ __('Diperbarui') }}</p>
+                ><i class="fa fa-check-circle mr-1"></i>{{ __('Diperbarui') }}</p> --}}
             @endif
         </div>
     </form>

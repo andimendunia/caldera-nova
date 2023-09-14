@@ -1,7 +1,8 @@
 @props([
     'name',
     'show' => false,
-    'maxWidth' => 'md'
+    'maxWidth' => 'md',
+    'timeout'
 ])
 
 @php

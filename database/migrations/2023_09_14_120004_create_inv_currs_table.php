@@ -14,15 +14,16 @@ return new class extends Migration
     {
         Schema::create('inv_currs', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
             $table->string('rate');
-
             $table->timestamps();
         });
-
+        
         DB::table('inv_currs')->insert([
-            ['name' => 'USD','rate' => 1]
+            [
+                'name' => 'USD',
+                'rate' => 1
+            ]
         ]);
     }
 
