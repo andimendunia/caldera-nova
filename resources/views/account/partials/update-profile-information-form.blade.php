@@ -23,7 +23,7 @@
             @if (session('status') === 'profile-updated')
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
-                    notyf.success('Profil diperbarui');
+                    notyf.success('Profil diperbarui :)');
                 });
             </script>
                 {{-- <p
