@@ -95,7 +95,7 @@
                 </div>
                 <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Tidak ada yang cocok') }}</div>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4">
                 <x-inv-card-content 
                 href="/inventory/items/1"
                 name="MONITOR 19INCH SAMSUNG WITHOUT STAND"
