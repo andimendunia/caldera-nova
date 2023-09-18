@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('inv_currs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('rate');
+            $table->decimal('rate');
             $table->timestamps();
         });
         
