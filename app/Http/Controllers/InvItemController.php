@@ -2,64 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InvItem;
 use Illuminate\Http\Request;
 
 class InvItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function show($id) {
+        $title = 'Nama barang';
+        $prev = route('inventory', ['nav' => 'search']);
+
+        $invItem = $id;
+
+        return view('inventory.items.show', compact('title', 'prev', 'invItem',));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function edit($id) {
+        $title = __('Edit').': '.'Nama barang';
+        $prev = route('inventory.items.show', ['id' => $id]);
+        $header = __('Edit barang');
+
+        $invItem = $id;
+
+        return view('inventory.items.edit', compact('title', 'prev', 'header', 'invItem'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function create() {
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(InvItem $invItem)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(InvItem $invItem)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, InvItem $invItem)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(InvItem $invItem)
-    {
-        //
+        return view('inventory.items.create');
     }
 }

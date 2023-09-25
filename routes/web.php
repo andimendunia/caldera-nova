@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\InventoryItemController;
-use App\Http\Controllers\PreferencesController;
-use App\Http\Controllers\AccountController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\InvCurrController;
+use App\Http\Controllers\InvItemController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\PreferencesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +26,16 @@ Route::controller(InventoryController::class)->group(function () {
     Route::get('/inventory', 'index')->middleware('auth')->name('inventory');
 });
 
-Route::controller(InventoryItemController::class)->group(function () {
+Route::controller(InvItemController::class)->group(function () {
     Route::get('/inventory/items/create', 'create')->middleware('auth')->name('inventory.items.create');
     Route::get('/inventory/items/{id}', 'show')->middleware('auth')->name('inventory.items.show');
     Route::get('/inventory/items/{id}/edit', 'edit')->middleware('auth')->name('inventory.items.edit');
 });
+
+Route::controller(InvCurrController::class)->group(function () {
+    Route::post('/inventory/currs/create', 'create')->middleware('auth')->name('inventory.currs.create');
+});
+
 
 Route::get('/preferences', [PreferencesController::class, 'index'])->middleware('auth')->name('preferences');
 

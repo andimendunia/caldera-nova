@@ -94,6 +94,10 @@ input[type="checkbox"]:checked + label.custom-checkbox {
     @apply w-full;
   }
 
+  .table tr:first-child {
+    @apply border-b border-neutral-100 dark:border-neutral-700
+  }
+
   .table tr {
     @apply rounded-md hover:bg-caldy-500 hover:bg-opacity-10 selection:focus:outline-none focus:ring-2 focus:ring-caldy-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-800 transition ease-in-out duration-150;
   }

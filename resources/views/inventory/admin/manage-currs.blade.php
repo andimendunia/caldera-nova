@@ -8,25 +8,20 @@
         </div>
         <x-secondary-button type="button" class="my-auto" x-data=""
                 x-on:click.prevent="$dispatch('open-modal', 'create-curr')">{{ __('Tambah') }}</x-secondary-button>
-        <x-modal name="create-curr" focusable>
-            <form method="post" action="#" class="p-6">
+        <x-modal name="create-curr" :show="$errors->currCreation->isNotEmpty()" focusable>
+            <form method="post" action="{{ route('inventory.currs.create') }}"  class="p-6">
                 @csrf
                 <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
                     {{ __('Tambah mata uang') }}
                 </h2>
                 <div class="mt-6">
-                    <x-text-input id="inv-curr-name" class="mb-4" name="inv-curr-name" type="text"
+                    <x-text-input id="inv-curr-name" name="name" type="text"
                         placeholder="{{ __('Mata uang') }}" />
-                    <x-text-input id="inv-curr-rate" class="mb-4" name="inv-curr-rate" type="number"
+                    <x-input-error :messages="$errors->currCreation->get('name')" class="mt-2" />
+                    <x-text-input id="inv-curr-rate" class="mt-4" name="rate" type="number"
                         placeholder="{{ __('Nilai tukar') }}" />
-                    <div class="text-sm">{{ __('Nilai tukar terhadap mata uang utama.') }}</div>
-                    {{-- <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-                        {{ __('Mata uang yang pertama ditambahkan akan dianggap sebagai mata uang utama. Maka dari itu, mata uang ini akan dijadikan acuan nilai tukar mata uang lain (bila ada) dan akan digunakan pada sirkulasi.') }}
-                    </p>
-                    <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-                        {{ __('Mata uang utama juga tidak dapat diubah di kemudian.') }}
-                    </p> --}}
-                    {{-- <x-checkbox id="inv-confirm">{{ __('Paham') }}</x-checkbox> --}}
+                    <div class="text-sm mt-2">{{ __('Nilai tukar terhadap mata uang utama.') }}</div>
+                    <x-input-error :messages="$errors->currCreation->get('rate')" class="mt-2" />
                 </div>
                 <div class="mt-6 flex justify-end">
                     <x-secondary-button x-on:click="$dispatch('close')">
@@ -55,10 +50,13 @@
                 <tr tabindex="0">
                     <td>
                         {{ $inv_curr->name }}
+                        @if($inv_curr->id == 1)
+                        <span><i class="fa fa-star text-sm ml-2"></i></span>
+                        @endif
                     </td>
                     <td>
                         @if($inv_curr->id == 1)
-                        <span class="uppercase text-sm"><i class="fa fa-star mr-2"></i>{{ __('Utama') }}</span>
+                        <span>1</span>
                         @else
                         {{ $inv_curr->rate }}
                         @endif
@@ -66,7 +64,13 @@
                 </tr>          
                 @endforeach
             </table>
-
         </div>
     </div>
+    @if (session('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            notyf.success("{{ session('success') }}");
+        });
+    </script>
+    @endif
 </div>
