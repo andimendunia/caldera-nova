@@ -17,14 +17,14 @@
     <div class="grow truncate px-2">
         <div class="flex items-center truncate">
             <div class="grow truncate p-3 sm:px-4">
-                <div class="truncate font-medium text-neutral-900 dark:text-neutral-100">
+                <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                     {{ $inv_name }}
                 </div> 
                 <div class="truncate mb-1">
                     {{ $inv_desc }}
                 </div>
                 <div class="truncate">
-                    <i class="fa fa-map-marker-alt mr-2"></i>{{ $inv_loc.' • '.$inv_code }}
+                    <i class="fa fa-map-marker-alt mr-2"></i>{{ $inv_loc.' • '.$inv_code.' • '.$curr.' '.$amount }}
                 </div>
             </div>
             <div>
@@ -40,11 +40,8 @@
             </div>
             <div class="truncate">
                 <div class="truncate">
-                    <div class="text-xs truncate">{{ $user_name }}</div>
+                    <div class="text-xs truncate">{{ $user_name }}<span class="text-neutral-400 dark:text-neutral-600">{{ ' • '. $date_human}}</span></div>
                     <div class="truncate">{{ $remarks }}</div>
-                </div>
-                <div class="text-xs truncate text-neutral-400 dark:text-neutral-600">
-                    {{ $date_human.' • '. $curr.' '.$amount}}
                 </div>
             </div>
         </div>

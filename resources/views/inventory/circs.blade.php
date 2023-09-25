@@ -101,7 +101,7 @@
                     <x-secondary-button class="flex items-center h-full"><i class="fa fa-fw fa-print"></i><span class="ml-2 hidden lg:inline">{{__('Cetak')}}</span></x-secondary-button> 
                     <div class="btn-group">
                         <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-up"></i><span class="ml-2">{{__('Setujui')}}</span></x-secondary-button>
-                        <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-down"></i></x-secondary-button>                  
+                        <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-down"></i><span class="ml-2 hidden lg:inline">{{__('Tolak')}}</span></x-secondary-button>                  
                     </div>
                     <x-text-button type="button" @click="ids = []" class="ml-2"><i class="fa fa-fw fa-times"></i></x-text-button>
                 </div>
@@ -164,17 +164,17 @@
                         <x-secondary-button x-on:click="$dispatch('close')">{{__('Batal')}}</x-secondary-button> 
                         <x-primary-button>{{__('Simpan')}}</x-primary-button> 
                     </div>
-                    <div class="mt-6 flex justify-between hidden">
+                    {{-- <div class="mt-6 flex justify-between hidden">
                         <x-secondary-button>{{__('Batal')}}</x-secondary-button> 
                         <div class="flex gap-x-2 items-center">
                             <x-secondary-button><i class="fa fa-fw fa-pen"></i></x-secondary-button> 
                             <x-secondary-button><i class="fa fa-fw fa-print"></i><span class="ml-2 hidden sm:inline">{{__('Cetak')}}</span></span></x-secondary-button> 
                             <div class="btn-group">
                                 <x-secondary-button><i class="fa fa-fw fa-thumbs-up"></i><span class="ml-2 hidden sm:inline">{{__('Setujui')}}</span></x-secondary-button>
-                                <x-secondary-button><i class="fa fa-fw fa-thumbs-down"></i></x-secondary-button>                  
+                                <x-secondary-button><i class="fa fa-fw fa-thumbs-down"></i><span class="ml-2 hidden lg:inline">{{__('Tolak')}}</span></x-secondary-button>                  
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </x-modal>
             <div class="inv-circs mt-1 grid gap-3 px-0 sm:px-3">

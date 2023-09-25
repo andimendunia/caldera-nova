@@ -1,53 +1,10 @@
-<div id="content" class="py-12 max-w-xl mx-auto px-3 text-neutral-800 dark:text-neutral-200">
-    <div class="flex justify-between">
+<div id="content" class="py-12 max-w-xl mx-auto sm:px-3 text-neutral-800 dark:text-neutral-200">
+    <div class="flex justify-between px-6 sm:px-0">
         <div>
             <div class="text-xl">
-                {{ __('Mata uang utama') }}
+                {{ __('Mata uang') }}
             </div>
-            <div class="text-sm mt-1">{{ \App\Models\InvCurr::find(1)->name }}</div>
-        </div>
-        <x-secondary-button type="button" class="my-auto" x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'change-curr-primary')">{{ __('Ganti') }}</x-secondary-button>
-        <x-modal name="change-curr-primary" focusable>
-            <form method="post" action="{{ route('curr.update') }}" class="p-6">
-                <input type="hidden" name="id" value="1" />
-                @csrf
-                <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                    {{ __('Mata uang utama') }}
-                </h2>
-                <div class="mt-6">
-                    <x-text-input id="inv-curr-name" class="mb-4" name="inv-curr-name" type="text"
-                        placeholder="{{ __('Nama') }}" />
-                    <x-input-error class="mt-2" :messages="$errors->get('name')" />
-                </div>
-                <div class="mt-6 flex justify-end">
-                    <x-secondary-button x-on:click="$dispatch('close')">
-                        {{ __('Batal') }}
-                    </x-secondary-button>
-
-                    <x-primary-button class="ml-3">
-                        {{ __('Simpan') }}
-                    </x-primary-button>
-                </div>
-            </form>
-        </x-modal>
-    </div>
-    <div x-data="{ more: false }">
-        <div x-show="!more" class="text-sm mt-2 text-neutral-500 dark:text-neutral-400"><x-link href="#" x-on:click.prevent="more = !more">{{ __('Selengkapnya...') }}</x-link></div>
-        <div x-show="more" x-cloak class="text-sm mt-2">
-            <ul>
-                <li>- Mata uang utama akan digunakan untuk perhitungan sirkulasi</li>
-                <li>- Mata uang utama dijadikan sebagai acuan untuk nilai tukar mata uang sekunder</li>
-            </ul>
-        </div>
-    </div>
-    <hr class="my-5 border-neutral-300 dark:border-neutral-700">
-    <div class="flex justify-between">
-        <div>
-            <div class="text-xl">
-                {{ __('Mata uang sekunder') }}
-            </div>
-            <div class="text-sm mt-1">{{ '0' . ' ' . __('mata uang terdaftar') }}</div>
+            <div class="text-sm mt-1">{{ $inv_currs->count() . ' ' . __('mata uang terdaftar') }}</div>
         </div>
         <x-secondary-button type="button" class="my-auto" x-data=""
                 x-on:click.prevent="$dispatch('open-modal', 'create-curr')">{{ __('Tambah') }}</x-secondary-button>
@@ -84,14 +41,32 @@
         </x-modal>
     </div>
     <div class="w-full mt-5">
-        <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-hidden">
-            <div class="py-12 fle items-center">
-                <div class="w-80 mx-auto text-center">{{ __('Tidak ada mata uang') }}</div>
-                    <div class="flex justify-center" x-data>
-                        <x-secondary-button type="button" x-on:click="notyf.success('Sirkulasi berhasil dibuat');">Success</x-secondary-button>
-                        <x-secondary-button type="button" x-on:click="notyf.error('Tidak memiliki wewenang');">Fail</x-secondary-button>
-                    </div>
-            </div>
+        <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">
+            <table class="table">
+                <tr class="uppercase text-xs">
+                    <th>
+                        {{ __('Nama') }}
+                    </th>
+                    <th>
+                        {{ __('Nilai tukar' )}}
+                    </th>
+                </tr>
+                @foreach($inv_currs as $inv_curr)
+                <tr tabindex="0">
+                    <td>
+                        {{ $inv_curr->name }}
+                    </td>
+                    <td>
+                        @if($inv_curr->id == 1)
+                        <span class="uppercase text-sm"><i class="fa fa-star mr-2"></i>{{ __('Utama') }}</span>
+                        @else
+                        {{ $inv_curr->rate }}
+                        @endif
+                    </td>  
+                </tr>          
+                @endforeach
+            </table>
+
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InvCurr;
 use Illuminate\Http\Request;
 
 class InventoryController extends Controller
@@ -48,7 +49,11 @@ class InventoryController extends Controller
                 break;
             case 'manage-currs':
                 $title = __('Kelola mata uang');
+                $header = $title;
                 $prev = route('inventory', ['nav' => 'admin', 'view' => 'global']);
+                
+                $inv_currs = InvCurr::all();
+                return view('inventory.index', compact('title', 'prev', 'header', 'nav', 'navs', 'view', 'inv_currs'));
                 break;
             case 'manage-uoms':
                 $title = __('Kelola UOM');
@@ -60,7 +65,6 @@ class InventoryController extends Controller
         }
 
         $header = $title;
-        
         return view('inventory.index', compact('title', 'prev', 'header', 'nav', 'navs', 'view'));
 
     }
