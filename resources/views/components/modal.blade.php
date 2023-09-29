@@ -2,7 +2,8 @@
     'name',
     'show' => false,
     'maxWidth' => 'md',
-    'timeout'
+    'timeout',
+    'ref'
 ])
 
 @php

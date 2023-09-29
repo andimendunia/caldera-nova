@@ -32,11 +32,6 @@ Route::controller(InvItemController::class)->group(function () {
     Route::get('/inventory/items/{id}/edit', 'edit')->middleware('auth')->name('inventory.items.edit');
 });
 
-Route::controller(InvCurrController::class)->group(function () {
-    Route::post('/inventory/currs/create', 'create')->middleware('auth')->name('inventory.currs.create');
-});
-
-
 Route::get('/preferences', [PreferencesController::class, 'index'])->middleware('auth')->name('preferences');
 
 Route::middleware('auth')->group(function () {

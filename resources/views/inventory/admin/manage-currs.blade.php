@@ -8,35 +8,13 @@
         </div>
         <x-secondary-button type="button" class="my-auto" x-data=""
                 x-on:click.prevent="$dispatch('open-modal', 'create-curr')">{{ __('Tambah') }}</x-secondary-button>
-        <x-modal name="create-curr" :show="$errors->currCreation->isNotEmpty()" focusable>
-            <form method="post" action="{{ route('inventory.currs.create') }}"  class="p-6">
-                @csrf
-                <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                    {{ __('Tambah mata uang') }}
-                </h2>
-                <div class="mt-6">
-                    <x-text-input id="inv-curr-name" name="name" type="text"
-                        placeholder="{{ __('Mata uang') }}" />
-                    <x-input-error :messages="$errors->currCreation->get('name')" class="mt-2" />
-                    <x-text-input id="inv-curr-rate" class="mt-4" name="rate" type="number"
-                        placeholder="{{ __('Nilai tukar') }}" />
-                    <div class="text-sm mt-2">{{ __('Nilai tukar terhadap mata uang utama.') }}</div>
-                    <x-input-error :messages="$errors->currCreation->get('rate')" class="mt-2" />
-                </div>
-                <div class="mt-6 flex justify-end">
-                    <x-secondary-button x-on:click="$dispatch('close')">
-                        {{ __('Batal') }}
-                    </x-secondary-button>
-
-                    <x-primary-button class="ml-3">
-                        {{ __('Tambah') }}
-                    </x-primary-button>
-                </div>
-            </form>
+        <x-modal name="create-curr" ref="inv-currs-create">
+            <livewire:inv-currs-create lazy />
         </x-modal>
     </div>
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">
+            
             <table class="table">
                 <tr class="uppercase text-xs">
                     <th>
@@ -66,6 +44,25 @@
             </table>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Livewire.hook('commit', ({respond}) => {
+            // document.getElementById('pgbar').classList.remove('hidden');
+            // respond(() => {
+            //     document.getElementById('pgbar').classList.add('hidden');
+            // })
+            Livewire.on('curr-created', () => {
+                notyf.success("{{ __('Mata uang dibuat') }}");
+                const escapeKeyEvent = new KeyboardEvent('keydown', {
+                    key: 'Escape',
+                    keyCode: 27,
+                    which: 27,
+                    code: 'Escape',
+                });
+                window.dispatchEvent(escapeKeyEvent);
+            });
+        });
+    </script>
     @if (session('success'))
     <script>
         document.addEventListener("DOMContentLoaded", () => {
