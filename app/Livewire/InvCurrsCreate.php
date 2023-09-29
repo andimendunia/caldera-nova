@@ -9,10 +9,10 @@ use Livewire\Attributes\Rule;
 class InvCurrsCreate extends Component
 {
     #[Rule('required|alpha:ascii|size:3|unique:inv_currs,name')]
-    public $name;
+    public $name = '';
 
     #[Rule('required|numeric|min:1|max:100000')]
-    public $rate;
+    public $rate = '';
 
     public function placeholder()
     {

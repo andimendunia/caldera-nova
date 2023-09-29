@@ -51,9 +51,7 @@ class InventoryController extends Controller
                 $title = __('Kelola mata uang');
                 $header = $title;
                 $prev = route('inventory', ['nav' => 'admin', 'view' => 'global']);
-                
-                $inv_currs = InvCurr::all();
-                return view('inventory.index', compact('title', 'prev', 'header', 'nav', 'navs', 'view', 'inv_currs'));
+                return view('inventory.index', compact('title', 'prev', 'header', 'nav', 'navs', 'view'));
                 break;
             case 'manage-uoms':
                 $title = __('Kelola UOM');
