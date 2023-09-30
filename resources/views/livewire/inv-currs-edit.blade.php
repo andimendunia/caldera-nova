@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit="update" class="p-6">
+    <form wire:submit="update()" class="p-6">
         <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
             {{ __('Edit mata uang') }}
         </h2>
@@ -22,8 +22,12 @@
         </div>
         <div x-data="{ open: false }" class="mt-6">
             <div x-show="!open" class="flex justify-between">
-                <x-text-button type="button" class="text-red-500 mt-auto"
-                x-on:click="open = true">{{ __('Hapus') }}</x-text-button>
+                @if($curr->id != 1) 
+                    <x-text-button type="button" class="text-red-500 mt-auto"
+                    x-on:click="open = true">{{ __('Hapus') }}</x-text-button>
+                @else
+                <div></div>
+                @endif 
                 <div>
                     <x-secondary-button type="button" x-on:click="$dispatch('close')">
                         {{ __('Batal') }}
@@ -37,7 +41,7 @@
                 <x-secondary-button type="button" x-on:click="open = false">
                     {{ __('Jangan hapus') }}
                 </x-secondary-button>
-                <x-danger-button type="button" class="ml-3">
+                <x-danger-button wire:click="delete()" type="button" class="ml-3">
                     {{ __('Hapus') }}
                 </x-danger-button>
             </div>

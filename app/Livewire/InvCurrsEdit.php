@@ -28,7 +28,6 @@ class InvCurrsEdit extends Component
 
     public function mount(InvCurr $curr)
     {
-        $this->curr = $curr;
         $this->fill(
             $curr->only('name', 'rate')
         );
@@ -44,14 +43,29 @@ class InvCurrsEdit extends Component
         $this->name = strtoupper($this->name);
         $validated = $this->validate();
 
-        $id = $this->curr->id;
-        if($id == 1 && $this->rate !== 1) {
-            
-        } else {
-            $curr = InvCurr::findOrFail($id);
-            $curr->update($validated); 
+        $curr = InvCurr::find($this->curr->id);
+        if ($curr) {
+            if($curr->id == 1 && $this->rate != 1) {
+
+            } else {
+                $curr->update($validated); 
+                $this->dispatch('updated');
+            }
         }
-        $this->dispatch('curr-updated');
+    }
+
+    public function delete()
+    {
+        // update: potential bug. Delete only when there is no inv_items using it
+
+        $curr = InvCurr::find($this->curr->id);
+        if ($curr) {
+            $id = $curr->id;
+            if($id != 1) {
+                $curr->delete();
+                $this->dispatch('deleted');
+            }
+        }
 
     }
 }

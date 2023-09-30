@@ -31,6 +31,6 @@ class InvCurrsCreate extends Component
 
         InvCurr::create($validated);
         $this->reset(['name', 'rate']);
-        $this->dispatch('curr-created');
+        $this->dispatch('created');
     }
 }

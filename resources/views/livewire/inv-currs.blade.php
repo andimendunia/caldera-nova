@@ -32,11 +32,10 @@
                         @else
                         {{ $curr->rate }}
                         @endif
-
                     </td>  
                 </tr>
                 <x-modal :name="'edit-curr-'.$curr->id">
-                    <livewire:inv-currs-edit lazy :curr="$curr" />                    
+                    <livewire:inv-currs-edit wire:key="curr-{{ $curr->id }}" :curr="$curr" lazy  />                    
                 </x-modal> 
                 @endforeach
             </table>

@@ -5,30 +5,31 @@
     <livewire:inv-currs />
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Livewire.hook('commit', ({respond}) => {
-            // document.getElementById('pgbar').classList.remove('hidden');
-            // respond(() => {
-            //     document.getElementById('pgbar').classList.add('hidden');
-            // })
-            Livewire.on('curr-created', () => {
-                notyf.success("{{ __('Mata uang dibuat') }}");
-                const escapeKeyEvent = new KeyboardEvent('keydown', {
-                    key: 'Escape',
-                    keyCode: 27,
-                    which: 27,
-                    code: 'Escape',
-                });
-                window.dispatchEvent(escapeKeyEvent);
+            const escKeyEvent = new KeyboardEvent('keydown', {
+                key: 'Escape',
+                keyCode: 27,
+                which: 27,
+                code: 'Escape',
             });
-            Livewire.on('curr-updated', () => {
-                notyf.success("{{ __('Mata uang diperbarui') }}");
-                const escapeKeyEvent = new KeyboardEvent('keydown', {
-                    key: 'Escape',
-                    keyCode: 27,
-                    which: 27,
-                    code: 'Escape',
+
+            Livewire.hook('commit', ({component, respond}) => {
+                const pgbar = document.getElementById('pgbar');
+                component.name == 'inv-currs' ? pgbar.classList.remove('hidden') : false;
+                respond(() => {
+                    component.name == 'inv-currs' ? pgbar.classList.add('hidden') : false;
                 });
-                window.dispatchEvent(escapeKeyEvent);
+            });
+            Livewire.on('created', () => {
+                notyf.success("{{ __('Mata uang dibuat') }}");
+                window.dispatchEvent(escKeyEvent);
+            });
+            Livewire.on('updated', () => {
+                notyf.success("{{ __('Mata uang diperbarui') }}");
+                window.dispatchEvent(escKeyEvent);
+            });
+            Livewire.on('deleted', ({ id }) => {
+                notyf.success("{{ __('Mata uang dihapus') }}");
+                window.dispatchEvent(escKeyEvent);
             });
         });
     </script>

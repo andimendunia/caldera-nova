@@ -10,12 +10,12 @@ class InvCurrs extends Component
 {
     public $currs;
     
-    #[On('curr-created')]
+    #[On('created')]
+    #[On('updated')]
+    #[On('deleted')]
     public function render()
     {
         $this->currs = InvCurr::all();
         return view('livewire.inv-currs');
-    }
-
-    
+    }    
 }
