@@ -21,6 +21,9 @@
     @case('manage-tags')
         @include('inventory.admin.manage-tags')
         @break
+    @case('manage-areas')
+        @include('inventory.admin.manage-areas')
+        @break  
     @case('manage-currs')
         @include('inventory.admin.manage-currs')
         @break

@@ -47,6 +47,10 @@ class InventoryController extends Controller
                 $title = __('Kelola tag');
                 $prev = route('inventory', ['nav' => 'admin']);
                 break;
+            case 'manage-areas':
+                $title = __('Kelola area');
+                $prev = route('inventory', ['nav' => 'admin', 'view' => 'global']);
+                break;
             case 'manage-currs':
                 $title = __('Kelola mata uang');
                 $prev = route('inventory', ['nav' => 'admin', 'view' => 'global']);
