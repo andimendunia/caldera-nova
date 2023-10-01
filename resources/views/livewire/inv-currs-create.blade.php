@@ -17,7 +17,7 @@
             @enderror        </div>
         <div class="mt-6 flex justify-end">
             <x-secondary-button type="button" x-on:click="$dispatch('close')">
-                {{ __('Batal') }}
+                {{ __('Tutup') }}
             </x-secondary-button>
     
             <x-primary-button type="submit" class="ml-3">

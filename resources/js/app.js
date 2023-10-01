@@ -10,7 +10,15 @@ const notyf = new Notyf({
    }
 });
 
+const escKey = new KeyboardEvent('keydown', {
+   key: 'Escape',
+   keyCode: 27,
+   which: 27,
+   code: 'Escape',
+});
+
 window.notyf = notyf;
+window.escKey = escKey;
 
 
 // import {livewire_hot_reload} from 'virtual:livewire-hot-reload'

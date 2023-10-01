@@ -1,33 +1,19 @@
 <div>
     <form wire:submit="update()" class="p-6">
         <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
-            {{ __('Edit mata uang') }}
+            {{ __('Edit UOM') }}
         </h2>
         <div class="mt-6">
-            <x-text-input id="inv-curr-name" wire:model="name" type="text"
-                placeholder="{{ __('Mata uang') }}" />
+            <x-text-input id="inv-uom-name" wire:model="name" type="text"
+                placeholder="{{ __('UOM') }}" />
                 @error('name')
                     <x-input-error messages="{{ $message }}" class="mt-2" />
-                @enderror
-                @if($curr->id != 1) 
-                    <x-text-input id="inv-curr-rate" Wire:model="rate" type="number" class="mt-4" 
-                    placeholder="{{ __('Nilai tukar') }}" />
-                    <div class="text-sm mt-2">{{ __('Nilai tukar terhadap mata uang utama.') }}</div>
-                    @error('rate')
-                        <x-input-error messages="{{ $message }}" class="mt-2" />
-                    @enderror   
-                @else
-                    <input type="hidden" wire:model="rate" />
-                @endif    
+                @enderror    
         </div>
         <div x-data="{ open: false }" class="mt-6">
             <div x-show="!open" class="flex justify-between">
-                @if($curr->id != 1) 
-                    <x-text-button type="button" class="text-red-500 mt-auto"
-                    x-on:click="open = true">{{ __('Hapus') }}</x-text-button>
-                @else
-                <div></div>
-                @endif 
+                <x-text-button type="button" class="text-red-500 mt-auto"
+                x-on:click="open = true">{{ __('Hapus') }}</x-text-button>
                 <div>
                     <x-secondary-button type="button" x-on:click="$dispatch('close')">
                         {{ __('Tutup') }}

@@ -16,7 +16,7 @@ class InvCurrsEdit extends Component
     public function rules()
     {
         return [
-            'name' => ['required', 'alpha:ascii', 'size:3', Rule::unique('inv_currs')->ignore($this->curr->id),],
+            'name' => ['required', 'alpha:ascii', 'size:3', Rule::unique('inv_currs')->ignore($this->curr->id)],
             'rate' => 'required|numeric|min:1|max:100000'
         ];
     }
@@ -46,9 +46,11 @@ class InvCurrsEdit extends Component
         $curr = InvCurr::find($this->curr->id);
         if ($curr) {
             if($curr->id == 1 && $this->rate != 1) {
-
+                
             } else {
                 $curr->update($validated); 
+                $this->js('window.dispatchEvent(escKey)'); 
+                $this->js('notyf.success("'.__('Mata uang diperbarui').'")'); 
                 $this->dispatch('updated');
             }
         }
@@ -63,7 +65,9 @@ class InvCurrsEdit extends Component
             $id = $curr->id;
             if($id != 1) {
                 $curr->delete();
-                $this->dispatch('deleted');
+                $this->js('window.dispatchEvent(escKey)'); 
+                $this->js('notyf.success("'.__('Mata uang dihapus').'")'); 
+                $this->dispatch('updated');
             }
         }
 

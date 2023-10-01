@@ -24,7 +24,7 @@
             <i class="fa mx-2 fa-fw fa-arrow-right-arrow-left"></i>
         </x-nav-link>
         <x-nav-link href="{{ route('inventory', [ 'nav' => 'admin' ])}}" :active="$nav == 'admin'">
-            <i class="fa mx-2 fa-fw fa-circle-nodes"></i>
+            <i class="fa mx-2 fa-fw fa-briefcase"></i>
         </x-nav-link>
     </x-slot>
     @endif

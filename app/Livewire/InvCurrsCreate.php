@@ -31,6 +31,9 @@ class InvCurrsCreate extends Component
 
         InvCurr::create($validated);
         $this->reset(['name', 'rate']);
-        $this->dispatch('created');
+        $this->js('window.dispatchEvent(escKey)'); 
+        $this->js('notyf.success("'.__('Mata uang dibuat').'")'); 
+        $this->dispatch('updated');
+
     }
 }

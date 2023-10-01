@@ -1,14 +1,29 @@
-<div id="content" class="py-12 max-w-xl mx-auto px-3 text-neutral-800 dark:text-neutral-200">
-   <div class="w-full">
-       <div class="flex">
-           <div class="mr-auto">
-               <div class="text-sm">{{ '0'.' '. __('UOM terdaftar')}}</div>
-           </div>
-           <x-secondary-button class="mb-3">{{ __('Tambah') }}</x-secondary-button>
-       </div>
-       <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-hidden">
-           <div class="py-12 fle items-center"><div class="w-80 mx-auto text-center">{{ __('Tidak ada UOM') }}</div></div>
-       </div>
-   </div>
+<div id="content" class="py-12 max-w-xl mx-auto sm:px-3 text-neutral-800 dark:text-neutral-200">
+    <x-modal name="create-uom">
+        <div class="p-6">
+            <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                {{ __('Tambah UOM') }}
+            </h2>
+            <div class="mt-6">
+                {{__('UOM baru akan otomatis tersimpan saat membuat barang. Tidak perlu menambahkan secara manual.')}}
+            </div>
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button type="button" x-on:click="$dispatch('close')">
+                    {{ __('Tutup') }}
+                </x-secondary-button>
+            </div>
+        </div>
+    </x-modal>
+    <livewire:inv-uoms />
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            Livewire.hook('commit', ({component, respond}) => {
+                const pgbar = document.getElementById('pgbar');
+                component.name == 'inv-uoms' ? pgbar.classList.remove('hidden') : false;
+                respond(() => {
+                    component.name == 'inv-uoms' ? pgbar.classList.add('hidden') : false;
+                });
+            });
+        });
+    </script>
 </div>
-   

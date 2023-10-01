@@ -10,9 +10,7 @@ class InvCurrs extends Component
 {
     public $currs;
     
-    #[On('created')]
     #[On('updated')]
-    #[On('deleted')]
     public function render()
     {
         $this->currs = InvCurr::all();

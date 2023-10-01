@@ -35,7 +35,7 @@
                     </td>  
                 </tr>
                 <x-modal :name="'edit-curr-'.$curr->id">
-                    <livewire:inv-currs-edit wire:key="curr-{{ $curr->id }}" :curr="$curr" lazy  />                    
+                    <livewire:inv-currs-edit wire:key="curr-lw-{{ $curr->id }}" :curr="$curr" lazy />                    
                 </x-modal> 
                 @endforeach
             </table>

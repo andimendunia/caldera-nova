@@ -124,6 +124,23 @@
         @else
         <div class="text-sm text-center px-6 sm:px-0 text-neutral-600 dark:text-neutral-400 py-8"><i class="fa fa-exclamation-triangle mr-2"></i>Tindakan berikut akan mempengaruhi semua area inventaris</div>
         <div class="grid grid-cols-1 gap-3 mb-8">
+            <x-card-link href="{{ route('inventory', ['nav' => 'manage-areas']) }}">
+                <div class="flex">
+                    <div>
+                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
+                            <div class="m-auto"><i class="fa fa-building"></i></div>
+                        </div>
+                    </div>
+                    <div class="grow truncate py-2 sm:py-4">
+                        <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                            {{__('Kelola area')}}
+                        </div>                        
+                        <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
+                            {{__('Kelola area inventaris')}}
+                        </div>
+                    </div>
+                </div>
+            </x-card-link>
             <x-card-link href="{{ route('inventory', ['nav' => 'manage-currs']) }}">
                 <div class="flex">
                     <div>
