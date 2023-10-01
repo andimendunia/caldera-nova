@@ -17,12 +17,19 @@
     <livewire:inv-uoms />
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            Livewire.hook('commit', ({component, respond}) => {
+            Livewire.hook('commit', ({ component, respond }) => {
                 const pgbar = document.getElementById('pgbar');
                 component.name == 'inv-uoms' ? pgbar.classList.remove('hidden') : false;
                 respond(() => {
                     component.name == 'inv-uoms' ? pgbar.classList.add('hidden') : false;
                 });
+            });
+            Livewire.hook('element.init', ({ component }) => {
+                const n = component.name;
+                if (n == 'inv-uoms-edit') {
+                    const i = component.el.getElementsByTagName('input');
+                    i.length > 0 ? i[0].focus() : false;
+                }
             });
         });
     </script>

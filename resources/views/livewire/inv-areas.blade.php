@@ -16,13 +16,13 @@
                     </th>
                 </tr>
                 @foreach($areas as $area)
-                <tr tabindex="0" x-on:click="$dispatch('open-modal', 'edit-area-{{ $area->id }}')">
+                <tr wire:key="area-tr-{{ $area->id.$loop->index }}" tabindex="0" x-on:click="$dispatch('open-modal', 'edit-area-{{ $area->id }}')">
                     <td>
                         {{ $area->name }}
                     </td> 
                 </tr>
                 <x-modal :name="'edit-area-'.$area->id">
-                    <livewire:inv-areas-edit wire:key="area-lw-{{ $area->id }}" :area="$area" lazy />                    
+                    <livewire:inv-areas-edit wire:key="area-lw-{{ $area->id.$loop->index }}" :area="$area" lazy />                    
                 </x-modal> 
                 @endforeach
                 @if(!$areas->count())

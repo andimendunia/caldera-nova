@@ -16,13 +16,13 @@
                     </th>
                 </tr>
                 @foreach($uoms as $uom)
-                <tr tabindex="0" x-on:click="$dispatch('open-modal', 'edit-uom-{{ $uom->id }}')">
+                <tr wire:key="uom-tr-{{ $uom->id.$loop->index }}" tabindex="0" x-on:click="$dispatch('open-modal', 'edit-uom-{{ $uom->id }}')">
                     <td>
                         {{ $uom->name }}
                     </td> 
                 </tr>
                 <x-modal :name="'edit-uom-'.$uom->id">
-                    <livewire:inv-uoms-edit wire:key="uom-lw-{{ $uom->id }}" :uom="$uom" lazy />                    
+                    <livewire:inv-uoms-edit wire:key="uom-lw-{{ $uom->id.$loop->index }}" :uom="$uom" lazy />                    
                 </x-modal> 
                 @endforeach
                 @if(!$uoms->count())
