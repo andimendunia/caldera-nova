@@ -13,7 +13,31 @@ return new class extends Migration
     {
         Schema::create('inv_items', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('desc');
+            $table->string('code')->nullable();
+            $table->decimal('price')->nullable();
+            $table->decimal('price_sec')->nullable();
+            $table->foreignId('inv_curr_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('inv_uom_id')->constrained()->restrictOnDelete();
+            $table->foreignId('inv_loc_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('inv_area_id')->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('qty_main');
+            $table->unsignedInteger('qty_used');
+            $table->unsignedInteger('qty_rep');
+            $table->unsignedInteger('qty_main_min');
+            $table->unsignedInteger('qty_main_max');
+            $table->dateTime('loc_updated_at')->nullable();
+            $table->string('photo')->nullable();
+            $table->boolean('is_active');
             $table->timestamps();
+
+            $table->index('code');
+            $table->index('inv_curr_id');
+            $table->index('inv_uom_id');
+            $table->index('inv_loc_id');
+            $table->index('inv_area_id');
+            $table->unique(['code','inv_area_id']);
             //name
             //desc
             //code

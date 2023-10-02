@@ -2,56 +2,60 @@
     <div class="flex flex-col gap-x-4 md:gap-x-8 sm:flex-row">
         <div>
             <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0">
-                <x-text-input id="inv-q" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
-                <div class="flex items-center">
-                    <x-dropdown align="left" width="48">
-                        <x-slot name="trigger">
-                            <button class="text-sm inline-flex items-center p-3 leading-4 focus:outline-none transition ease-in-out duration-150">
-                                <div>{{__('Tersimpan')}}</div>
-                                <div class="ml-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </button>
-                        </x-slot>
-                        <x-slot name="content">
-                            <div class="text-sm text-neutral-400 dark:text-neutral-500 p-6 text-center">{{__('Tidak ada pencarian tersimpan')}}</div>
-                            {{-- <x-dropdown-link :href="route('account.edit')">
-                                {{ __('OKC') }}
-                            </x-dropdown-link> --}}
-                            <hr class="border-neutral-300 dark:border-neutral-600" />
-                            <x-dropdown-link :href="route('account.edit')">
-                                <i class="fa fa-fw fa-save mr-2"></i>{{ __('Simpan pencarian ini') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('account.edit')">
-                                <i class="fa fa-fw fa-pen mr-2"></i>{{ __('Edit') }}
-                            </x-dropdown-link>
-                        </x-slot>
-                    </x-dropdown>
-                </div>
-                <div class="my-5">
-                    <x-text-input-icon icon="fa fa-fw fa-map-marker-alt" id="inv-loc" class="mb-3" name="loc" type="text" placeholder="{{ __('Lokasi') }}" />
-                    <x-text-input-icon icon="fa fa-fw fa-tag" class="mb-3" id="inv-tag" name="tag" type="text" placeholder="{{ __('Tag') }}" />
-                </div>
-                <div class="my-5">
-                    <span class="p-3 inline-block text-neutral-400 dark:text-neutral-600"><i class="fa fa-filter mr-3"></i>Filter</span>
-                    <x-select name="status" id="inv-status" class="mb-3">
-                        <option value="">{{ __('Barang aktif')}}</option>
-                        <option value="">{{ __('Barang nonaktif') }}</option>
-                    </x-select>
-                    <x-select name="qtype" id="inv-qty-type" class="mb-3">
-                        <option value="">{{ __('Qty ditotalkan')}}</option>
-                        <option value="">{{ __('Qty utama saja')}}</option>
-                        <option value="">{{ __('Qty bekas saja') }}</option>
-                        <option value="">{{ __('Qty diperbaiki saja') }}</option>
-                    </x-select>
-                    <x-select name="filter" id="inv-filter" class="mb-3">
-                        <option value=""></option>
-                        <option value="">{{ __('Tak ada foto') }}</option>
-                        <option value="">{{ __('Tak ada kode item') }}</option>
-                        <option value="">{{ __('Tak ada batas qty') }}</option>
-                    </x-select>
+                <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
+                <x-select name="qtype" id="inv-qty-type" class="mt-3">
+                    <option value="">{{ __('Qty total')}}</option>
+                    <option value="">{{ __('Qty utama saja')}}</option>
+                    <option value="">{{ __('Qty bekas saja') }}</option>
+                    <option value="">{{ __('Qty diperbaiki saja') }}</option>
+                </x-select>
+                <div x-data="{ open: false }" class="my-5">
+                    <button x-on:click="open = !open" class="mx-3 mt-3 inline-block text-neutral-400 dark:text-neutral-600"><i class="fa fa-filter mr-2"></i>{{ __('Filter') }}<i class="fa  text-sm ml-2" :class="open ? 'fa-chevron-up' : 'fa-chevron-down'"></i></button>
+                    <div x-show="open" x-cloak>
+                        {{-- <div class="flex items-center">
+                            <x-dropdown align="left" width="48">
+                                <x-slot name="trigger">
+                                    <button class="text-sm inline-flex items-center my-3 leading-4 focus:outline-none transition ease-in-out duration-150">
+                                        <div>{{__('Filter tersimpan')}}</div>
+                                        <div class="ml-1">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <div class="text-sm text-neutral-400 dark:text-neutral-500 p-6 text-center">{{__('Tidak ada filter tersimpan')}}</div>
+                                    <x-dropdown-link :href="route('account.edit')">
+                                        {{ __('OKC') }}
+                                    </x-dropdown-link>
+                                    <hr class="border-neutral-300 dark:border-neutral-600" />
+                                    <x-dropdown-link :href="route('account.edit')">
+                                        <i class="fa fa-fw fa-save mr-2"></i>{{ __('Simpan filter ini') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('account.edit')">
+                                        <i class="fa fa-fw mr-2"></i>{{ __('Kelola') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div> --}}
+                        <x-text-input-icon icon="fa fa-fw fa-map-marker-alt" id="inv-loc" class="mt-3" name="loc" type="text" placeholder="{{ __('Lokasi') }}" />
+                        <x-text-input-icon icon="fa fa-fw fa-tag" class="mt-3" id="inv-tag" name="tag" type="text" placeholder="{{ __('Tag') }}" />
+                        <x-select name="status" id="inv-status" class="mt-3">
+                            <option value=""></option>
+                            <option value="">{{ __('Aktif')}}</option>
+                            <option value="">{{ __('Nonaktif') }}</option>
+                        </x-select>
+                        <x-select name="filter" id="inv-filter" class="mt-3">
+                            <option value=""></option>
+                            <option value="">{{ __('Tak ada lokasi') }}</option>
+                            <option value="">{{ __('Tak ada tag') }}</option>
+                            <option value="">{{ __('Tak ada foto') }}</option>
+                            <option value="">{{ __('Tak ada kode item') }}</option>
+                            <option value="">{{ __('Tak ada batas qty') }}</option>
+                        </x-select>
+                    </div>
+                    <hr x-show="!open" class="my-5 border-neutral-300 dark:border-neutral-700" />
                 </div>
                 <div class="m-3">
                     <x-checkbox id="inv-area-1">TT MM</x-checkbox>

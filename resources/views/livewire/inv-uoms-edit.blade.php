@@ -4,7 +4,7 @@
             {{ __('Edit UOM') }}
         </h2>
         <div class="mt-6">
-            <x-text-input id="inv-uom-name" wire:model="name" type="text" placeholder="{{ __('UOM') }}" />
+            <x-text-input id="inv-uom-name" wire:model="name" type="text" placeholder="{{ __('Nama UOM') }}" />
             @error('name')
                 <x-input-error messages="{{ $message }}" class="mt-2" />
             @enderror

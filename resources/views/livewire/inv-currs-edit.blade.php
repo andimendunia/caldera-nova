@@ -4,7 +4,7 @@
             {{ __('Edit mata uang') }}
         </h2>
         <div class="mt-6">
-            <x-text-input id="inv-curr-name" wire:model="name" type="text" placeholder="{{ __('Mata uang') }}" />
+            <x-text-input id="inv-curr-name" wire:model="name" type="text" placeholder="{{ __('Nama mata uang') }}" />
             @error('name')
                 <x-input-error messages="{{ $message }}" class="mt-2" />
             @enderror

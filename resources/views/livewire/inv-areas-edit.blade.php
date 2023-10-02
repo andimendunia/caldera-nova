@@ -4,7 +4,7 @@
             {{ __('Edit area') }}
         </h2>
         <div class="mt-6">
-            <x-text-input id="inv-area-name" wire:model="name" type="text" placeholder="{{ __('Area') }}" />
+            <x-text-input id="inv-area-name" wire:model="name" type="text" placeholder="{{ __('Nama area') }}" />
             @error('name')
                 <x-input-error messages="{{ $message }}" class="mt-2" />
             @enderror
