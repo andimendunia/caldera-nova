@@ -4,12 +4,12 @@
             <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
                 {{ __('Tambah UOM') }}
             </h2>
-            <div class="mt-6">
+            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
                 {{__('UOM baru akan otomatis tersimpan saat membuat barang. Tidak perlu menambahkan secara manual.')}}
-            </div>
+            </p>
             <div class="mt-6 flex justify-end">
                 <x-secondary-button type="button" x-on:click="$dispatch('close')">
-                    {{ __('Tutup') }}
+                    {{ __('Paham') }}
                 </x-secondary-button>
             </div>
         </div>

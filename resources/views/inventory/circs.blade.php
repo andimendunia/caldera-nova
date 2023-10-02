@@ -2,42 +2,42 @@
     <div class="flex flex-col gap-x-2 md:gap-x-4 sm:flex-row">
         <div>
             <div class="w-full sm:w-44 md:w-64 px-3 sm:px-0">
-                <x-text-input id="inv-q" class="mt-3 mb-5" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
-                <div class="flex items-center">
-                    <x-dropdown align="left" width="48">
-                        <x-slot name="trigger">
-                            <button class="inline-flex items-center text-neutral-400 dark:text-neutral-600 p-3 focus:outline-none transition ease-in-out duration-150">
-                                <div><i class="fa fa-calendar mr-3"></i>{{__('Rentang')}}</div>
-                                <div class="ml-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </button>
-                        </x-slot>
-                        <x-slot name="content">
-                            <x-dropdown-link href="#">
-                                {{ __('Hari ini') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link href="#">
-                                {{ __('Kemarin') }}
-                            </x-dropdown-link>
-                            <hr class="border-neutral-300 dark:border-neutral-600" />
-                            <x-dropdown-link href="#">
-                                {{ __('Bulan ini') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link href="#">
-                                {{ __('Bulan kemarin') }}
-                            </x-dropdown-link>
-                        </x-slot>
-                    </x-dropdown>
-                </div>
-                <div class="mb-5">
-                    <x-text-input id="inv-date-start" class="mb-3" name="inv-date-start" type="date"></x-text-input>
-                    <x-text-input id="inv-date-end" name="inv-date-end" type="date"></x-text-input>
+                <div class="py-3">
+                    <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
                 </div>
                 <div class="my-5">
-                    <span class="p-3 inline-block text-neutral-400 dark:text-neutral-600"><i class="fa fa-filter mr-3"></i>Filter</span>
+                    <div class="flex justify-between mx-3">
+                        <div><i class="fa fa-calendar mr-3"></i>{{__('Rentang')}}</div>
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <button class="focus:outline-none transition ease-in-out duration-150">
+                                    <svg class="fill-transparent h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path stroke="#6b7280" stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 6l4 4 4-4'/>
+                                    </svg>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link href="#">
+                                    {{ __('Hari ini') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="#">
+                                    {{ __('Kemarin') }}
+                                </x-dropdown-link>
+                                <hr class="border-neutral-300 dark:border-neutral-600" />
+                                <x-dropdown-link href="#">
+                                    {{ __('Bulan ini') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="#">
+                                    {{ __('Bulan kemarin') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
+                    <x-text-input id="inv-date-start" class="mt-1" name="inv-date-start" type="date"></x-text-input>
+                    <x-text-input id="inv-date-end" class="mt-3" name="inv-date-end" type="date"></x-text-input>
+                </div>
+                <div class="my-5">
+                    <span class="p-3 inline-block"><i class="fa fa-filter mr-3"></i>Filter</span>
                     <x-select name="inv-eval" id="inv-eval" class="mb-3">
                         <option value="">{{__('Tertunda dan Disetujui')}}</option>
                         <option value="">{{__('Tertunda')}}</option>
@@ -54,6 +54,7 @@
                         <x-radio id="inv-act-record" name="inv-act" class="mb-4"><i class="far fa-fw fa-flag mr-2"></i>Rekam qty</x-radio>
                     </div>
                 </div>
+                <hr class="my-5 border-neutral-300 dark:border-neutral-700" />
                 <div class="m-3">
                     <x-checkbox id="inv-area-1" checked>TT MM</x-checkbox>
                     <x-checkbox id="inv-area-2" checked>TT MM Cons</x-checkbox>

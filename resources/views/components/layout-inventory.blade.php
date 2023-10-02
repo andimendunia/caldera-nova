@@ -4,7 +4,6 @@
     <x-slot name="title">
         <title>{{$title.' — '.__('Inventaris')}}</title>
     </x-slot>
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-neutral-800 dark:text-neutral-200 leading-tight">
             @if($prev)
@@ -14,7 +13,6 @@
             @endif
         </h2>
     </x-slot>
-
     @if($navs)
     <x-slot name="navs">
         <x-nav-link href="{{ route('inventory', [ 'nav' => 'search'])}}" :active="$nav == 'search'">
@@ -24,11 +22,9 @@
             <i class="fa mx-2 fa-fw fa-arrow-right-arrow-left"></i>
         </x-nav-link>
         <x-nav-link href="{{ route('inventory', [ 'nav' => 'admin' ])}}" :active="$nav == 'admin'">
-            <i class="fa mx-2 fa-fw fa-briefcase"></i>
+            <i class="fa mx-2 fa-fw fa-ellipsis-h"></i>
         </x-nav-link>
     </x-slot>
     @endif
-
-    {{ $slot }}
-    
+    {{ $slot }}    
 </x-app-layout>

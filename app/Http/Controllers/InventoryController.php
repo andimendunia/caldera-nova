@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InvCurr;
 use Illuminate\Http\Request;
 
 class InventoryController extends Controller

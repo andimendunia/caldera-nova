@@ -1,4 +1,4 @@
-<x-inventory title="{{ $title }}" header="{{ $header }}" prev="{!! $prev !!}" nav="{{ $nav }}" navs="{{ $navs }}">
+<x-layout-inventory title="{{ $title }}" header="{{ $header }}" prev="{!! $prev !!}" nav="{{ $nav }}" navs="{{ $navs }}">
     @switch($nav)
     @case('search')
         @include('inventory.search')  
@@ -70,9 +70,9 @@
 
             Wizards
             1. Apa yang ingin kamu amati: Barang, sirkulasi, ringkasan
-            2. barang: area mana, tag: semua, or specific, kategori: barang yang baru saja habis, barang yang baru ditambahkan // barang nonaktif tidak akan ditampilkan
-            3. sirkulasi: area mana, kategori: sirkulasi terkini yang tertunda, sirkulasi terkini yang disetujui
-            4. ringkasan: area mana, rentang: bulan ini, bulan kemarin, kategori: pengambilan, penambahan
+            2a. barang: area mana, tag: semua, or specific, kategori: barang yang baru saja habis, barang yang baru ditambahkan // barang nonaktif tidak akan ditampilkan
+            2b. sirkulasi: area mana, kategori: sirkulasi terkini yang tertunda, sirkulasi terkini yang disetujui
+            2c. ringkasan: area mana, rentang: bulan ini, bulan kemarin, kategori: pengambilan, penambahan
             
             Ideas for inventory home page
         - Recently emptied. Baru saja habis. qty 0 updated,  
@@ -82,4 +82,4 @@
         - Large-cost circulations. Sirkulasi biaya tinggi, circs highest usd, direction  
          --}}
     @endswitch
-</x-inventory>
+</x-layout-inventory>
