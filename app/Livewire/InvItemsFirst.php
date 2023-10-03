@@ -31,8 +31,9 @@ class InvItemsFirst extends Component
 
     public function first()
     {
-        $this->code = trim($this->code);
-        dd($this->code);
+        $this->code = strtoupper(trim($this->code));
         $this->validate();
+        dd($this->code);
+
     }
 }

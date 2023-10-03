@@ -24,10 +24,22 @@
                                     </button>
                                 </x-slot>
                                 <x-slot name="content">
-                                    <div class="text-sm text-neutral-400 dark:text-neutral-500 p-6 text-center">{{__('Tidak ada filter tersimpan')}}</div>
-                                    {{-- <x-dropdown-link :href="route('account.edit')">
-                                        {{ __('OKC') }}
-                                    </x-dropdown-link> --}}
+                                    {{-- <div class="text-sm text-neutral-400 dark:text-neutral-500 p-6 text-center">{{__('Tidak ada filter tersimpan')}}</div> --}}
+                                    <x-dropdown-link href="#">
+                                        <span class="bg-neutral-600 rounded-full px-2 py-1 mr-2"><i class="fa fa-tag mr-2"></i>okc</span>
+                                    </x-dropdown-link>
+                                    <x-dropdown-link href="#" class="flex flex-wrap gap-2">
+                                        <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap"><i class="fa fa-search mr-2"></i>e10-19</div>
+                                        <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap">Tak ada foto</div>
+                                    </x-dropdown-link>  
+                                    <x-dropdown-link href="#" class="flex flex-wrap gap-2">
+                                        <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap"><i class="fa fa-tag mr-2"></i>okc</div>
+                                        <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap">Nonaktif</div>
+                                    </x-dropdown-link>      
+                                    <x-dropdown-link href="#" class="flex flex-wrap gap-2">
+                                        <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap"><i class="fa fa-map-marker-alt mr-2"></i>G1.2.3</div>
+                                        <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap"><i class="fa fa-tag mr-2"></i>ym laser</div>
+                                    </x-dropdown-link>
                                     <hr class="border-neutral-300 dark:border-neutral-600" />
                                     <x-dropdown-link :href="route('account.edit')">
                                         {{ __('Kelola') }}
