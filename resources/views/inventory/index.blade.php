@@ -31,11 +31,12 @@
         @include('inventory.admin.manage-uoms')
         @break
     @default
-        <div class="py-16 max-w-xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
+    <div class="max-w-xl lg:max-w-6xl mx-auto px-4">
+        <div class="max-w-sm mx-auto py-16 text-neutral-800 dark:text-neutral-200">
             <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Aku ingin mencari...') }}" autofocus autocomplete="q" />
         </div>
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 text-neutral-500 dark:text-neutral-200 pb-20">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4 ">
+        <div class="text-neutral-500 dark:text-neutral-200 pb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4">
                 <x-modal name="inv-obpanel">
                     <div class="p-6">      
                         <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
@@ -50,22 +51,30 @@
                         </div>
                     </div>
                 </x-modal>
-                <div class="sm:rounded-lg border-dashed border-2 border-neutral-200 dark:border-neutral-800 text-neutral-500 p-6 text-center">   
-                    <div class="text-4xl mb-2 text-neutral-300 dark:text-neutral-700">
-                        <i class="far fa-rectangle-list"></i>
+                <div class="sm:rounded-lg border-dashed border-2 border-neutral-200 dark:border-neutral-800 text-neutral-500">   
+                    <div class="h-64 flex items-center">
+                        <div class="text-center mx-auto">
+                            <div class="text-4xl mb-2 text-neutral-300 dark:text-neutral-700 ">
+                                <i class="far fa-rectangle-list"></i>
+                            </div>
+                            <h2 class="text-xl">
+                                {{ __('Panel pengamatan') }}
+                                <x-link href="#" class="text-sm" x-data=""
+                                x-on:click.prevent="$dispatch('open-modal', 'inv-obpanel')"><i class="far fa-question-circle"></i></x-link>
+                            </h2>
+                        </div>
                     </div>
-                    <h2 class="text-xl">
-                        {{ __('Panel pengamatan') }}
-                        <x-link href="#" class="text-sm" x-data=""
-                        x-on:click.prevent="$dispatch('open-modal', 'inv-obpanel')"><i class="far fa-question-circle"></i></x-link>
-                    </h2>
-                </div>
-                
-                <div class="flex justify-center items-center sm:rounded-lg border-dashed border-2 border-neutral-200 dark:border-neutral-800 text-neutral-500 p-6">  
-                    <x-secondary-button><i class="fa fa-plus mr-2"></i>{{ __('Buat panel') }}</x-secondary-button>
+                </div>                
+                <div class="sm:rounded-lg border-dashed border-2 border-neutral-200 dark:border-neutral-800 text-neutral-500">  
+                    <div class="h-64 flex items-center">
+                        <div class="text-center mx-auto">
+                            <x-secondary-button><i class="fa fa-plus mr-2"></i>{{ __('Buat panel') }}</x-secondary-button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
         {{-- 
 
             Wizards
