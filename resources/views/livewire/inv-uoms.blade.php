@@ -3,9 +3,8 @@
         <div>
             {{ $uoms->count() . ' ' . __('UOM terdaftar') }}
         </div>
-        <x-secondary-button type="button" class="my-auto" x-data=""
-                x-on:click.prevent="$dispatch('open-modal', 'create-uom')">{{ __('Tambah') }}</x-secondary-button>
-    
+        <x-text-button type="button" class="my-auto" x-data=""
+        x-on:click.prevent="$dispatch('open-modal', 'create-uom')"><i class="fa fa-question-circle"></i></x-text-button>    
     </div>
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">            

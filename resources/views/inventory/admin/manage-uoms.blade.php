@@ -2,7 +2,7 @@
     <x-modal name="create-uom">
         <div class="p-6">
             <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                {{ __('Tambah UOM') }}
+                {{ __('Menambahkan UOM') }}
             </h2>
             <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
                 {{__('UOM baru akan otomatis tersimpan saat membuat barang. Tidak perlu menambahkan secara manual.')}}
