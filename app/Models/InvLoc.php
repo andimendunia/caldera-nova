@@ -11,6 +11,7 @@ class InvLoc extends Model
     
     protected $fillable = [
         'name',
+        'inv_area_id'
     ];
 }
 

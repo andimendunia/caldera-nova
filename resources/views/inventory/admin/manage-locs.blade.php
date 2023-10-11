@@ -1,4 +1,4 @@
-<div id="content" class="py-12 max-w-2xl mx-auto sm:px-3 text-neutral-800 dark:text-neutral-200">
+<div id="content" class="pt-12 max-w-2xl mx-auto sm:px-3 text-neutral-800 dark:text-neutral-200">
     {{-- <x-modal name="create-loc">
         <div class="p-6">
             <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">

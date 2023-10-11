@@ -1,24 +1,24 @@
 <div>
-    <div class="block sm:flex justify-between items-center px-6 sm:px-0">
+    <div class="block sm:flex justify-between px-6 sm:px-0">
         <div>
             <div class="w-full sm:w-64">
-                <x-select wire:model="area_id">
+                <x-select wire:model.live="area_id">
                     <option value=""></option>
                     @foreach($areas as $area)
                     <option value="{{ $area->id }}">{{ $area->name }}</option>
                     @endforeach
                 </x-select>  
+                <x-text-input-icon wire:model.live="q" icon="fa fa-search" type="search" id="inv-q" placeholder="{{ __('Cari...') }}" class="mt-3"></x-text-input-icon>
             </div>
         </div>
-        <div class="mt-4 sm:mt-0">{{ $locs->count() . ' ' . __('lokasi ditemukan') }}</div>
+        <div class="mt-4 sm:mt-0">{{ $locs->total() . ' ' . __('lokasi ditemukan') }}</div>
     </div>
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">            
             <table class="table">
                 <tr class="uppercase text-xs">
-                    <th class="flex justify-between items-center">
+                    <th>
                         <div>{{ __('Nama') }}</div>
-                        <x-th-search type="search" id="q"></x-th-search>
                     </th>
                 </tr>
                 @foreach($locs as $loc)
@@ -41,4 +41,25 @@
             </table>
         </div>
     </div>  
+    <div class="flex items-center relative h-32">
+        @if(!$locs->isEmpty())
+        @if($locs->hasMorePages())
+            <div wire:key="more" x-data="{
+                observe(){
+                    const observer = new IntersectionObserver((locs) => {
+                        locs.forEach(loc => {
+                            if(loc.isIntersecting) {
+                                @this.loadMore()
+                            }
+                        })
+                    })
+                    observer.observe(this.$el)
+                }
+            }" x-init="observe"></div>
+            <x-spinner />
+        @else
+            <div class="mx-auto">{{__('Tidak ada lagi')}}</div>
+        @endif
+        @endif
+    </div>
 </div>

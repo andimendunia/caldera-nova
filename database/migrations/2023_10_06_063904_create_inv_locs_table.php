@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('inv_area_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
+
+            $table->unique(['name','inv_area_id']);
         });
     }
 
