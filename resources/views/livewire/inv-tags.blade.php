@@ -10,39 +10,39 @@
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">          
             <div class="flex items-center justify-between px-6 py-3">
-                <div class="text-xs font-bold uppercase">{{ $locs->total() . ' ' . __('lokasi') }}</div>
+                <div class="text-xs font-bold uppercase">{{ $tags->total() . ' ' . __('tag') }}</div>
                 <div class="w-40">
                     <x-text-input-search wire:model.live="q" id="inv-q" placeholder="{{ __('CARI') }}"></x-text-input-search>
                 </div>
             </div>  
             <hr class="border-neutral-200 dark:border-neutral-700" />
             <table class="table">
-                @foreach($locs as $loc)
-                <tr wire:key="loc-tr-{{ $loc->id.$loop->index }}" tabindex="0" x-on:click="$dispatch('open-modal', 'edit-loc-{{ $loc->id }}')">
+                @foreach($tags as $tag)
+                <tr wire:key="tag-tr-{{ $tag->id.$loop->index }}" tabindex="0" x-on:click="$dispatch('open-modal', 'edit-tag-{{ $tag->id }}')">
                     <td>
-                        {{ $loc->name }}
+                        {{ $tag->name }}
                     </td> 
                 </tr>
-                <x-modal :name="'edit-loc-'.$loc->id">
-                    <livewire:inv-locs-edit wire:key="loc-lw-{{ $loc->id.$loop->index }}" :loc="$loc" lazy />                    
+                <x-modal :name="'edit-tag-'.$tag->id">
+                    <livewire:inv-tags-edit wire:key="tag-lw-{{ $tag->id.$loop->index }}" :tag="$tag" lazy />                    
                 </x-modal> 
                 @endforeach
             </table>
-            @if(!$locs->count())
-            <div class="text-center py-12">
-                {{ __('Tak ada lokasi ditemukan') }}
-            </div>
-        @endif
+            @if(!$tags->count())
+                <div class="text-center py-12">
+                    {{ __('Tak ada tag ditemukan') }}
+                </div>
+            @endif
         </div>
     </div>  
     <div class="flex items-center relative h-16">
-        @if(!$locs->isEmpty())
-        @if($locs->hasMorePages())
+        @if(!$tags->isEmpty())
+        @if($tags->hasMorePages())
             <div wire:key="more" x-data="{
                 observe(){
-                    const observer = new IntersectionObserver((locs) => {
-                        locs.forEach(loc => {
-                            if(loc.isIntersecting) {
+                    const observer = new IntersectionObserver((tags) => {
+                        tags.forEach(tag => {
+                            if(tag.isIntersecting) {
                                 @this.loadMore()
                             }
                         })

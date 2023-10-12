@@ -185,7 +185,7 @@ input[type="checkbox"]:checked + label.custom-checkbox {
   }
 
   .spinner-circle.sm {
-    border-width: 3px;
+    border-width: 2px;
   }
   
   .spinner-left .spinner-circle {

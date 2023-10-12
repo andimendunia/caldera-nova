@@ -1,4 +1,4 @@
-<div id="content" class="py-12 max-w-8xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
+<div id="content" class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
     <div class="flex flex-col gap-x-4 md:gap-x-8 sm:flex-row">
         <div>
             <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0">

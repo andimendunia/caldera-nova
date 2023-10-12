@@ -11,7 +11,6 @@ class InvAreasEdit extends Component
     public InvArea $area;
     
     public $name = '';
-    public $rate = '';
 
     public function rules()
     {

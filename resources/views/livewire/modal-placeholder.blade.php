@@ -1,3 +1,3 @@
-<div class="w-full h-64">
+<div class="w-full h-48">
    <x-spinner />
 </div>
