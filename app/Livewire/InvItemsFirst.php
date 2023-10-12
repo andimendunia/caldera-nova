@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\InvArea;
+use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
 
@@ -33,7 +34,15 @@ class InvItemsFirst extends Component
     {
         $this->code = strtoupper(trim($this->code));
         $this->validate();
-        dd($this->code);
+
+        $item = InvItem::where('inv_area_id', $this->area_id)->where('code', $this->code)->first();
+
+        if ($item)
+        {
+            return redirect(route('inventory.items', [ 'id' => $item->id ]));
+        } else {
+            return redirect(route('inventory.items.create', [ 'inv_area_id' => $this->area_id, 'code' => $this->code ]));
+        }        
 
     }
 }

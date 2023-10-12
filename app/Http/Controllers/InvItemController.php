@@ -25,8 +25,12 @@ class InvItemController extends Controller
         return view('inventory.items.edit', compact('title', 'prev', 'header', 'invItem'));
     }
 
-    public function create() {
+    public function create(Request $request) {
 
-        return view('inventory.items.create');
+        $title = __('Buat barang');
+        $prev = route('inventory', ['nav' => 'admin']);
+        $header = __('Buat barang');
+
+        return view('inventory.items.create', compact('title', 'prev', 'header'));
     }
 }
