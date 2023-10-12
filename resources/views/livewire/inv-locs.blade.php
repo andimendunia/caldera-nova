@@ -1,26 +1,22 @@
 <div>
-    <div class="block sm:flex justify-between px-6 sm:px-0">
-        <div>
-            <div class="w-full sm:w-64">
-                <x-select wire:model.live="area_id">
-                    <option value=""></option>
-                    @foreach($areas as $area)
-                    <option value="{{ $area->id }}">{{ $area->name }}</option>
-                    @endforeach
-                </x-select>  
-                <x-text-input-icon wire:model.live="q" icon="fa fa-search" type="search" id="inv-q" placeholder="{{ __('Cari...') }}" class="mt-3"></x-text-input-icon>
-            </div>
-        </div>
-        <div class="mt-4 sm:mt-0">{{ $locs->total() . ' ' . __('lokasi ditemukan') }}</div>
+    <div class="px-6 sm:px-0">
+        <x-select wire:model.live="area_id" class="w-full sm:w-64">
+            <option value=""></option>
+            @foreach($areas as $area)
+            <option value="{{ $area->id }}">{{ $area->name }}</option>
+            @endforeach
+        </x-select>  
     </div>
     <div class="w-full mt-5">
-        <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">            
+        <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">          
+            <div class="flex items-center justify-between px-6 py-3">
+                <div class="text-xs font-bold uppercase">{{ $locs->total() . ' ' . __('lokasi') }}</div>
+                <div class="w-40">
+                    <x-text-input-search wire:model.live="q" id="inv-q" placeholder="{{ __('CARI') }}"></x-text-input-search>
+                </div>
+            </div>  
+            <hr class="border-neutral-200 dark:border-neutral-700" />
             <table class="table">
-                <tr class="uppercase text-xs">
-                    <th>
-                        <div>{{ __('Nama') }}</div>
-                    </th>
-                </tr>
                 @foreach($locs as $loc)
                 <tr wire:key="loc-tr-{{ $loc->id.$loop->index }}" tabindex="0" x-on:click="$dispatch('open-modal', 'edit-loc-{{ $loc->id }}')">
                     <td>

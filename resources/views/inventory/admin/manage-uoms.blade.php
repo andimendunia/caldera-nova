@@ -2,14 +2,14 @@
     <x-modal name="create-uom">
         <div class="p-6">
             <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                {{ __('Menambahkan UOM') }}
+                {{ __('Penambahan UOM') }}
             </h2>
             <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-                {{__('UOM baru akan otomatis tersimpan saat membuat barang. Tidak perlu menambahkan secara manual.')}}
+                {{__('Setiap UOM baru saat barang ditambahkan atau diedit, akan otomatis tersimpan di sini.')}}
             </p>
             <div class="mt-6 flex justify-end">
                 <x-secondary-button type="button" x-on:click="$dispatch('close')">
-                    {{ __('Paham') }}
+                    {{ __('Tutup') }}
                 </x-secondary-button>
             </div>
         </div>

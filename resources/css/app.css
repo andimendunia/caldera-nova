@@ -95,7 +95,7 @@ input[type="checkbox"]:checked + label.custom-checkbox {
     @apply w-full;
   }
 
-  .table tr:first-child {
+  .table tr:first-child th {
     @apply border-b border-neutral-100 dark:border-neutral-700
   }
 
