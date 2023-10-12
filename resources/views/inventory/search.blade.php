@@ -1,4 +1,4 @@
-<div id="content" class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
+<div id="content" class="py-12 max-w-8xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
     <div class="flex flex-col gap-x-4 md:gap-x-8 sm:flex-row">
         <div>
             <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0">
@@ -330,7 +330,7 @@
                 qty="6">
                 </x-inv-card-content>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mt-4 ">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-4 px-3 sm:px-0">
                 <x-inv-card-grid 
                 href="/inventory/items/1"
                 name="MONITOR 19INCH SAMSUNG WITHOUT STAND"

@@ -37,7 +37,7 @@
             </table>
         </div>
     </div>  
-    <div class="flex items-center relative h-32">
+    <div class="flex items-center relative h-16">
         @if(!$locs->isEmpty())
         @if($locs->hasMorePages())
             <div wire:key="more" x-data="{
@@ -52,7 +52,7 @@
                     observer.observe(this.$el)
                 }
             }" x-init="observe"></div>
-            <x-spinner />
+            <x-spinner class="sm" />
         @else
             <div class="mx-auto">{{__('Tidak ada lagi')}}</div>
         @endif

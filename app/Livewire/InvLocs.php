@@ -6,6 +6,7 @@ use App\Models\InvLoc;
 use App\Models\InvArea;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 
 class InvLocs extends Component
@@ -14,7 +15,10 @@ class InvLocs extends Component
     
     public $areas;
 
+    #[Url] 
     public $area_id = '';
+
+    #[Url] 
     public $q = '';
 
     public $perPage = 24;
