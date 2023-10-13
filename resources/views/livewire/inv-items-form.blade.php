@@ -34,28 +34,28 @@
                 {{ __('Info consumables') }}</div>
             <x-text-input wire:model="code" class="mb-4" type="text"
                 placeholder="{{ __('Kode item') }}" />
-                @if(count($currs) > 0)
-                <x-select wire:model.live="inv_curr_id" wire:key="inv_curr_id" class="mb-3">
+                @if($currs->count())
+                <x-select wire:model.live="inv_curr_id" class="mb-3">
                     <option value="">{{__('Tanpa harga sekunder')}}</option>
                         @foreach($currs as $curr)
                             <option wire:key="curr-{{ $loop->index }}" value="{{ $curr->id }}">{{ __('Dengan').' '. $curr->name }}</option>
                         @endforeach
                 </x-select>
                 @endif
-            <x-text-input-curr wire:model.live="price" id="inv-price" min="0" class="mb-4" curr="{{ $curr_main }}"
+            <x-text-input-curr wire:model.live="price" id="inv-price" min="0" class="mb-4" curr="{{ $curr_main->name }}"
                 type="number" placeholder="0" />
-            @if($inv_curr_id && $curr_sec)
-            <x-text-input-curr wire:model.live="price_sec" id="inv-price-sec" min="0" class="mb-4" curr="{{ $curr_sec }}"
+            @if($curr_sec->name ?? false)
+            <x-text-input-curr wire:model.live="price_sec" id="inv-price-sec" min="0" class="mb-4" curr="{{ $curr_sec->name }}"
             type="number" placeholder="0" />
             @endif
             <div class="py-3 text-medium text-sm uppercase  text-neutral-400 dark:text-neutral-600">
                 {{ __('Klasifikasi') }} — TT MM</div>
             <x-text-input-icon wire:model.live="loc" icon="fa fa-fw fa-map-marker-alt" id="inv-loc" list="qlocs" class="mb-3"
                 type="text" placeholder="{{ __('Lokasi') }}" />
-                <datalist id="qlocs" wire:key="qlocs">
-                    @if(count($qlocs) > 0)
+                <datalist id="qlocs">
+                    @if(count($qlocs))
                     @foreach($qlocs as $qloc)
-                        <option wire:key="qloc-{{ $loop->index }}" value="{{ $qloc->name }}">
+                        <option wire:key="qloc-{{ $loop->index }}" value="{{ $qloc }}">
                     @endforeach
                     @endif
                 </datalist>

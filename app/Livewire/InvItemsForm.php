@@ -15,6 +15,7 @@ class InvItemsForm extends Component
     public $curr_sec;
     public $currs;
 
+
     public $qlocs = [];
     public $qtags = [];
 
@@ -26,8 +27,8 @@ class InvItemsForm extends Component
 
     #[Url] 
     public $code;
-    public $price = 0;
-    public $price_sec = 0;
+    public $price;
+    public $price_sec;
     public $inv_curr_id;
     public $uom;
     public $loc;
@@ -61,48 +62,44 @@ class InvItemsForm extends Component
         if (!$mode) {
             return abort('403', __('Parameter tidak sah'));
         }
+
+        $this->curr_main = InvCurr::find(1);
+        $this->currs = InvCurr::where('id', '<>', 1)->get(); 
         
     }
 
     public function render()
     {
-        $this->curr_main = InvCurr::find(1)->name;
-        $this->currs = InvCurr::where('id', '<>', 1)->get();  
-        if ($this->inv_curr_id) {
-            $curr_sec = InvCurr::find($this->inv_curr_id);
-            if ($curr_sec) {
-                $this->curr_sec = $curr_sec->name;
-            }
-        }
         return view('livewire.inv-items-form');
     }
 
-    public function updated($property)
+    public function priceUpdate()
     {
-        if($property == 'loc') {
-            if($this->loc) {
-                $loc = '%'.$this->loc.'%';
-                $this->qlocs = InvLoc::where('inv_area_id', $this->inv_area_id)->where('name', 'LIKE', $loc)->orderBy('name')->take(100)->get();
-            } else {
-                $this->reset('qlocs');
-            }
-        }
+        $rate = $this->curr_sec->rate ?? 0;
+        $this->price = $rate ? round(($this->price_sec / $rate), 2) : 0;
+        $this->price_sec = $rate ? round(($this->price * $rate), 2) : 0;
 
-        if($property == 'price' || $property == 'price_sec' || $property = 'inv_curr_id')
-        {
-            if($this->inv_curr_id) 
-            {
-                $curr = InvCurr::find($this->inv_curr_id);
-                if ($curr) {
-                    if ($property == 'price') {
-                        $this->price_sec = round(($this->price * $curr->rate), 2);
-                    } elseif ($property == 'price_sec') {
-                        $this->price = round(($this->price_sec / $curr->rate), 2);
-                    } elseif ($property == 'inv_curr_id') {
-                        $this->price_sec = round(($this->price * $curr->rate), 2);
-                    }
-                }
-            }
-        } 
+    }
+
+    public function updatedInvAreaId()
+    {
+        $this->curr_sec = InvCurr::find($this->inv_curr_id);
+        $this->priceUpdate();
+    }
+
+    public function updated($property) {
+        if($property == "price" || $property == "price_sec") {
+            $this->priceUpdate();
+        }
+    }
+
+    public function updatedLoc()
+    {
+        $loc = trim($this->loc);
+        $this->qlocs = $loc 
+        ? InvLoc::where('inv_area_id', $this->inv_area_id)
+        ->where('name', 'LIKE', '%'.$loc.'%')->orderBy('name')->take(100)->get()
+        ->pluck('name') 
+        : [];
     }
 }
