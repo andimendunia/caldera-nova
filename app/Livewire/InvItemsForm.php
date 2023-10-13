@@ -27,8 +27,8 @@ class InvItemsForm extends Component
 
     #[Url] 
     public $code;
-    public $price;
-    public $price_sec;
+    public $price = 0;
+    public $price_sec = 0;
     public $inv_curr_id;
     public $uom;
     public $loc;
@@ -49,6 +49,7 @@ class InvItemsForm extends Component
     {
         $item = InvItem::find($this->id);
         $area = InvArea::find($this->inv_area_id);
+        $this->curr_main = InvCurr::find(1);
         $mode = '';
 
         if ($item) {
@@ -56,15 +57,13 @@ class InvItemsForm extends Component
             $mode = 'edit';
         } elseif ($area) {
             // create mode needs area_id (required) and code (optional)
+            $this->currs = InvCurr::where('id', '<>', 1)->get(); 
             $mode = 'create';
         } 
 
         if (!$mode) {
             return abort('403', __('Parameter tidak sah'));
         }
-
-        $this->curr_main = InvCurr::find(1);
-        $this->currs = InvCurr::where('id', '<>', 1)->get(); 
         
     }
 
@@ -73,24 +72,22 @@ class InvItemsForm extends Component
         return view('livewire.inv-items-form');
     }
 
-    public function priceUpdate()
-    {
-        $rate = $this->curr_sec->rate ?? 0;
-        $this->price = $rate ? round(($this->price_sec / $rate), 2) : 0;
-        $this->price_sec = $rate ? round(($this->price * $rate), 2) : 0;
-
-    }
-
-    public function updatedInvAreaId()
+    public function updatedInvCurrId()
     {
         $this->curr_sec = InvCurr::find($this->inv_curr_id);
-        $this->priceUpdate();
+        $this->updatedPrice();
     }
 
-    public function updated($property) {
-        if($property == "price" || $property == "price_sec") {
-            $this->priceUpdate();
-        }
+    public function updatedPrice()
+    {
+        $rate = $this->curr_sec->rate ?? 0;
+        $this->price_sec = $rate ? round(((double)$this->price * (double)$rate), 2) : 0;
+    }
+
+    public function updatedPriceSec()
+    {
+        $rate = $this->curr_sec->rate ?? 0;
+        $this->price = $rate ? round(((double)$this->price_sec / (double)$rate), 2) : 0;
     }
 
     public function updatedLoc()
