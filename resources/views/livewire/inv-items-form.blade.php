@@ -38,7 +38,7 @@
                 <x-select wire:model.live="inv_curr_id" class="mb-3">
                     <option value="">{{__('Tanpa harga sekunder')}}</option>
                         @foreach($currs as $curr)
-                            <option wire:key="curr-{{ $loop->index }}" value="{{ $curr->id }}">{{ __('Dengan').' '. $curr->name }}</option>
+                            <option wire:key="{{ 'curr'.$loop->index }}" value="{{ $curr->id }}">{{ __('Dengan').' '. $curr->name }}</option>
                         @endforeach
                 </x-select>
                 @endif
@@ -52,13 +52,11 @@
                 {{ __('Klasifikasi') }} — TT MM</div>
             <x-text-input-icon wire:model.live="loc" icon="fa fa-fw fa-map-marker-alt" id="inv-loc" list="qlocs" class="mb-3"
                 type="text" placeholder="{{ __('Lokasi') }}" />
-                <datalist id="qlocs">
-                    @if(count($qlocs))
-                    @foreach($qlocs as $qloc)
-                        <option wire:key="qloc-{{ $loop->index }}" value="{{ $qloc }}">
-                    @endforeach
-                    @endif
-                </datalist>
+            <datalist id="qlocs">
+                @foreach($qlocs as $qloc)
+                    <option wire:key="{{ 'qloc'.$loop->index }}" value="{{ $qloc }}">
+                @endforeach
+            </datalist>
             <x-text-input-icon icon="fa fa-fw fa-tag" class="mb-3" id="inv-tag" name="tag"
                 type="text" placeholder="{{ __('Tag') }}" />
             <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
