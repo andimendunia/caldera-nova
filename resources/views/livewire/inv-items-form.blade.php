@@ -52,10 +52,13 @@
                 {{ __('Klasifikasi') }} — TT MM</div>
             <x-text-input-icon wire:model.live="loc" icon="fa fa-fw fa-map-marker-alt" id="inv-loc" list="qlocs" class="mb-3"
                 type="text" placeholder="{{ __('Lokasi') }}" />
+                <div>{{ var_dump($qlocs) }}</div>
             <datalist id="qlocs">
-                @foreach($qlocs as $qloc)
-                    <option wire:key="{{ 'qloc'.$loop->index }}" value="{{ $qloc }}">
-                @endforeach
+                @if(count($qlocs))
+                    @foreach($qlocs as $qloc)
+                        <option wire:key="{{ 'qloc'.$loop->index }}" value="{{ $qloc }}">
+                    @endforeach
+                @endif
             </datalist>
             <x-text-input-icon icon="fa fa-fw fa-tag" class="mb-3" id="inv-tag" name="tag"
                 type="text" placeholder="{{ __('Tag') }}" />

@@ -96,7 +96,7 @@ class InvItemsForm extends Component
         $this->qlocs = $loc 
         ? InvLoc::where('inv_area_id', $this->inv_area_id)
         ->where('name', 'LIKE', '%'.$loc.'%')->orderBy('name')->take(100)->get()
-        ->pluck('name') 
+        ->pluck('name')->toArray()
         : [];
     }
 }
