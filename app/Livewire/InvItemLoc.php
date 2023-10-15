@@ -22,6 +22,7 @@ class InvItemLoc extends Component
         $qloc = '%'.$this->loc.'%';
         $qlocs = InvLoc::where('inv_area_id', $this->area_id)
         ->where('name', 'LIKE', $qloc)
+        ->orderBy('name')
         ->take(100)
         ->get()
         ->pluck('name');

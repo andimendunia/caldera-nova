@@ -34,20 +34,20 @@
                 {{ __('Info consumables') }}</div>
             <x-text-input wire:model="code" class="mb-4" type="text"
                 placeholder="{{ __('Kode item') }}" />
-                @if($currs->count())
+            @if($currs->count())
                 <x-select wire:model.live="curr_id" class="mb-3">
                     <option value="">{{__('Tanpa harga sekunder')}}</option>
                         @foreach($currs as $curr)
                             <option wire:key="{{ 'curr'.$loop->index }}" value="{{ $curr->id }}">{{ __('Dengan').' '. $curr->name }}</option>
                         @endforeach
                 </x-select>
-                @endif
+            @endif
             <div wire:key="prices">
                 <x-text-input-curr wire:model.live="price" id="price" min="0" class="mb-4" curr="{{ $curr_main->name }}"
                     type="number" placeholder="0" />
                 @if($curr_sec->name ?? false)
-                <x-text-input-curr wire:model.live="price_sec" id="price-sec" min="0" class="mb-4" curr="{{ $curr_sec->name }}"
-                type="number" placeholder="0" />
+                    <x-text-input-curr wire:model.live="price_sec" id="price-sec" min="0" class="mb-4" curr="{{ $curr_sec->name }}"
+                    type="number" placeholder="0" />
                 @endif
             </div>
             <div class="py-3 text-medium text-sm uppercase  text-neutral-400 dark:text-neutral-600">
@@ -55,11 +55,13 @@
             <div class="mb-3">
                 <livewire:inv-item-loc  :loc="$loc" :area_id="$area_id" />
             </div>
-            <div class="mx-3 mb-3">
-                <livewire:inv-item-tags :tags="$tags" :area_id="$area_id"/>
+            <div class="mx-3 mb-3 text-neutral-500">
+                <x-text-button type="button" 
+                x-data="" x-on:click.prevent="$dispatch('open-modal', 'inv-item-tags')"><i class="fa fa-fw fa-tag mr-2 text-neutral-400 dark:text-neutral-600"></i>{{ $tags ? $tags : __('Tak ada tag') }}</x-text-button>
+                <x-modal name="inv-item-tags">
+                    <livewire:inv-item-tags :tags="['sample', 'tag']" :area_id="$area_id" lazy />
+                </x-modal>
             </div>
-            {{-- <x-text-input-icon icon="fa fa-fw fa-tag" class="mb-3" id="inv-tag" name="tag"
-                type="text" placeholder="{{ __('Tag') }}" /> --}}
             <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
                 {{ __('Info qty') }}</div>
             <x-text-input type="text" class="mb-4" placeholder="UOM"></x-text-input>
