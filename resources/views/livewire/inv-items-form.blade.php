@@ -53,19 +53,18 @@
             <div class="py-3 text-medium text-sm uppercase  text-neutral-400 dark:text-neutral-600">
                 {{ __('Klasifikasi') }} — TT MM</div>
             <div class="mb-3">
-                <livewire:inv-item-loc  :loc="$loc" :area_id="$area_id" />
+                <livewire:inv-item-loc :$loc :$area_id />
             </div>
             <div class="mx-3 mb-3 text-neutral-500">
                 <x-text-button type="button" 
-                x-data="" x-on:click.prevent="$dispatch('open-modal', 'inv-item-tags')"><i class="fa fa-fw fa-tag mr-2 text-neutral-400 dark:text-neutral-600"></i>{{ $tags ? $tags : __('Tak ada tag') }}</x-text-button>
+                x-data="" x-on:click.prevent="$dispatch('open-modal', 'inv-item-tags')"><i class="fa fa-fw fa-tag mr-2 text-neutral-400 dark:text-neutral-600"></i>{{ count($tags) ? implode(", ", $tags) : __('Tak ada tag') }}</x-text-button>
                 <x-modal name="inv-item-tags">
-                    <livewire:inv-item-tags :tags="['sample', 'tag']" :area_id="$area_id" lazy />
+                    <livewire:inv-item-tags :$tags :$area_id lazy />
                 </x-modal>
             </div>
             <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
                 {{ __('Info qty') }}</div>
-            <x-text-input type="text" class="mb-4" placeholder="UOM"></x-text-input>
-            <div class="grid grid-cols-3 mb-4 gap-3">
+            <div class="grid grid-cols-2 gap-3">
                 <div>
                     <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
                         for="qty_main">
@@ -73,6 +72,20 @@
                     </label>
                     <x-text-input wire:model="qty_main" id="qty_main" class="mb-4" type="number"
                         placeholder="0" />
+                </div>
+                <div>
+                    <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
+                        for="uom">
+                        {{ __('UOM') }}
+                    </label>
+                    <x-text-input id="uom" type="text" class="mb-4" list="uoms"></x-text-input>
+                    <datalist id="uoms">
+                        @if(count($uoms))
+                            @foreach($uoms as $uom)
+                                <option wire:key="{{ 'uom'.$loop->index }}" value="{{ $uom->name }}">
+                            @endforeach
+                        @endif
+                    </datalist>
                 </div>
                 <div>
                     <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
@@ -89,6 +102,13 @@
                     </label>
                     <x-text-input wire:model="qty_rep" id="qty_rep" class="mb-4" type="number"
                         placeholder="0" />
+                </div>
+                <div>
+                    <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
+                        for="denom">
+                        {{ __('Denominasi') }}
+                    </label>
+                    <x-text-input id="denom" type="number" class="mb-4" placeholder="1" min="1"></x-text-input>
                 </div>
             </div>
             <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">

@@ -6,10 +6,20 @@
         @foreach($tags as $i => $tag)
         <div class="flex mt-3">
             <div class="w-full">
-                <x-text-input-icon wire:model="tags.{{ $i }}" type="text" icon="fa fa-fw fa-tag" id="loc{{ $i }}"></x-text-input-icon>
+                <x-text-input-icon wire:model.live="tags.{{ $i }}" type="text" icon="fa fa-fw fa-tag" id="tag{{ $i }}" list="qtags{{ $i }}"></x-text-input-icon>
             </div>
             <x-text-button wire:click="removeTag({{ $i }})" type="button" class="ms-3"><i class="fa fa-times"></i></x-text-button>
         </div>
+        <datalist id="qtags{{ $i }}">
+            @if(isset($qtags[$i]))
+                @foreach($qtags[$i] as $qtag)
+                    <option wire:key="{{ 'qtag'.$loop->index }}" value="{{ $qtag }}">
+                @endforeach
+            @endif
+        </datalist>
+        @error('tags.'.$i)
+            <x-input-error messages="{{ $message }}" class="mt-2" />
+        @enderror
         @endforeach
         <div wire:key="addTag">
             @if(count($tags) < 5)
@@ -27,4 +37,7 @@
             </div>
         </div>
     </form>
+    {{-- <div wire:loading.class.remove="hidden"
+        class="w-full h-full absolute top-0 left-0 bg-white dark:bg-neutral-800 opacity-80 hidden"></div>
+    <x-spinner wire:loading.class.remove="hidden" class="hidden"></x-spinner> --}}
 </div>

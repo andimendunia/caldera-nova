@@ -5,7 +5,9 @@ namespace App\Livewire;
 use App\Models\InvArea;
 use App\Models\InvCurr;
 use App\Models\InvItem;
+use App\Models\InvUom;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 
 class InvItemsForm extends Component
@@ -25,11 +27,12 @@ class InvItemsForm extends Component
     public $price_sec = 0;
     public $curr_id;
     public $loc;
-    public $tags;
+    public $tags = [];
 
     #[Url] 
     public $area_id;
     public $uom;
+    public $uoms = [];
     public $qty_main;
     public $qty_used;
     public $qty_rep;
@@ -49,10 +52,14 @@ class InvItemsForm extends Component
         if ($item) {
             // edit mode fill all properties
             $mode = 'edit';
+
         } elseif ($area) {
             // create mode needs area_id (required) and code (optional)
-            $this->currs = InvCurr::where('id', '<>', 1)->get(); 
             $mode = 'create';
+            $this->currs = InvCurr::where('id', '<>', 1)->get(); 
+            $this->uoms = InvUom::where('inv_area_id', $area->id)->get(); 
+            $this->tags = ['smack', 'my', 'ass'];
+
         } 
 
         if (!$mode) {
@@ -82,5 +89,16 @@ class InvItemsForm extends Component
     {
         $rate = $this->curr_sec->rate ?? 0;
         $this->price = $rate ? round(((double)$this->price_sec / (double)$rate), 2) : 0;
+    }
+
+    #[On('tags-saved')] 
+    public function updateTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    public function checkTags()
+    {
+        dd($this->tags);
     }
 }
