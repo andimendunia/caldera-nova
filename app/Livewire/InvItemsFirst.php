@@ -41,7 +41,7 @@ class InvItemsFirst extends Component
         {
             return redirect(route('inventory.items', [ 'id' => $item->id ]));
         } else {
-            return redirect(route('inventory.items.create', [ 'inv_area_id' => $this->area_id, 'code' => $this->code ]));
+            return redirect(route('inventory.items.create', [ 'area_id' => $this->area_id, 'code' => $this->code ]));
         }        
 
     }

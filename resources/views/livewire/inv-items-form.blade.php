@@ -26,68 +26,66 @@
         <div class="px-4 pb-4">
             <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
                 {{ __('Nama dan deskripsi') }}</div>
-            <x-text-input id="inv-name" class="mb-4" name="inv-name" type="text"
+            <x-text-input id="name" class="mb-4" name="name" type="text"
                 placeholder="{{ __('Nama') }}" />
-            <x-text-input id="inv-desc" class="mb-4" name="inv-desc" type="text"
+            <x-text-input id="desc" class="mb-4" name="desc" type="text"
                 placeholder="{{ __('Deskripsi') }}" />
             <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
                 {{ __('Info consumables') }}</div>
             <x-text-input wire:model="code" class="mb-4" type="text"
                 placeholder="{{ __('Kode item') }}" />
                 @if($currs->count())
-                <x-select wire:model.live="inv_curr_id" class="mb-3">
+                <x-select wire:model.live="curr_id" class="mb-3">
                     <option value="">{{__('Tanpa harga sekunder')}}</option>
                         @foreach($currs as $curr)
                             <option wire:key="{{ 'curr'.$loop->index }}" value="{{ $curr->id }}">{{ __('Dengan').' '. $curr->name }}</option>
                         @endforeach
                 </x-select>
                 @endif
-            <x-text-input-curr wire:model.live="price" id="inv-price" min="0" class="mb-4" curr="{{ $curr_main->name }}"
+            <div wire:key="prices">
+                <x-text-input-curr wire:model.live="price" id="price" min="0" class="mb-4" curr="{{ $curr_main->name }}"
+                    type="number" placeholder="0" />
+                @if($curr_sec->name ?? false)
+                <x-text-input-curr wire:model.live="price_sec" id="price-sec" min="0" class="mb-4" curr="{{ $curr_sec->name }}"
                 type="number" placeholder="0" />
-            @if($curr_sec->name ?? false)
-            <x-text-input-curr wire:model.live="price_sec" id="inv-price-sec" min="0" class="mb-4" curr="{{ $curr_sec->name }}"
-            type="number" placeholder="0" />
-            @endif
+                @endif
+            </div>
             <div class="py-3 text-medium text-sm uppercase  text-neutral-400 dark:text-neutral-600">
                 {{ __('Klasifikasi') }} — TT MM</div>
-            <x-text-input-icon wire:model.live="loc" icon="fa fa-fw fa-map-marker-alt" id="inv-loc" list="qlocs" class="mb-3"
-                type="text" placeholder="{{ __('Lokasi') }}" />
-                <div>{{ var_dump($qlocs) }}</div>
-            <datalist id="qlocs">
-                @if(count($qlocs))
-                    @foreach($qlocs as $qloc)
-                        <option wire:key="{{ 'qloc'.$loop->index }}" value="{{ $qloc }}">
-                    @endforeach
-                @endif
-            </datalist>
-            <x-text-input-icon icon="fa fa-fw fa-tag" class="mb-3" id="inv-tag" name="tag"
-                type="text" placeholder="{{ __('Tag') }}" />
+            <div class="mb-3">
+                <livewire:inv-item-loc  :loc="$loc" :area_id="$area_id" />
+            </div>
+            <div class="mx-3 mb-3">
+                <livewire:inv-item-tags :tags="$tags" :area_id="$area_id"/>
+            </div>
+            {{-- <x-text-input-icon icon="fa fa-fw fa-tag" class="mb-3" id="inv-tag" name="tag"
+                type="text" placeholder="{{ __('Tag') }}" /> --}}
             <div class="py-3 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
                 {{ __('Info qty') }}</div>
             <x-text-input type="text" class="mb-4" placeholder="UOM"></x-text-input>
             <div class="grid grid-cols-3 mb-4 gap-3">
                 <div>
                     <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
-                        for="inv-qtymain">
+                        for="qty_main">
                         {{ __('Utama') }}
                     </label>
-                    <x-text-input id="inv-qtymain" class="mb-4" name="inv-qtymain" type="number"
+                    <x-text-input wire:model="qty_main" id="qty_main" class="mb-4" type="number"
                         placeholder="0" />
                 </div>
                 <div>
                     <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
-                        for="inv-qtyused">
+                        for="qty_used">
                         {{ __('Bekas') }}
                     </label>
-                    <x-text-input id="inv-qtyused" class="mb-4" name="inv-qtyused" type="number"
+                    <x-text-input wire:model="qty_used" id="qty_used" class="mb-4" type="number"
                         placeholder="0" />
                 </div>
                 <div>
                     <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
-                        for="inv-qtyrepaired">
+                        for="qty_rep">
                         {{ __('Diperbaiki') }}
                     </label>
-                    <x-text-input id="inv-qtyrepaired" class="mb-4" name="inv-qtyrepaired" type="number"
+                    <x-text-input wire:model="qty_rep" id="qty_rep" class="mb-4" type="number"
                         placeholder="0" />
                 </div>
             </div>
@@ -96,18 +94,18 @@
             <div class="grid grid-cols-2 gap-3">
                 <div>
                     <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
-                        for="inv-qtymainmin">
+                        for="qty_main_min">
                         {{ __('Minimum') }}
                     </label>
-                    <x-text-input id="inv-qtymainmin" class="mb-4" name="inv-qtymainmin" type="number"
+                    <x-text-input wire:model="qty_main_min" id="qty_main_min" class="mb-4" type="number"
                         placeholder="0" />
                 </div>
                 <div>
                     <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
-                        for="inv-qtymainmax">
+                        for="qty_main_max">
                         {{ __('Maksimum') }}
                     </label>
-                    <x-text-input id="inv-qtymainmax" class="mb-4" name="inv-qtymainmax" type="number"
+                    <x-text-input wire:model="qty_main_max" id="qty_main_max" class="mb-4" type="number"
                         placeholder="0" />
                 </div>
             </div>

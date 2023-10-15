@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\InvLoc;
 use App\Models\InvArea;
 use App\Models\InvCurr;
 use App\Models\InvItem;
@@ -15,13 +14,8 @@ class InvItemsForm extends Component
     public $curr_sec;
     public $currs;
 
-
-    public $qlocs = [];
-    public $qtags = [];
-
     #[Url] 
     public $id;
-
     public $name;
     public $desc;
 
@@ -29,13 +23,13 @@ class InvItemsForm extends Component
     public $code;
     public $price = 0;
     public $price_sec = 0;
-    public $inv_curr_id;
-    public $uom;
+    public $curr_id;
     public $loc;
+    public $tags;
 
     #[Url] 
-    public $inv_area_id;
-
+    public $area_id;
+    public $uom;
     public $qty_main;
     public $qty_used;
     public $qty_rep;
@@ -43,12 +37,12 @@ class InvItemsForm extends Component
     public $qty_main_max;
     public $photo;
     public $is_active;
-    public $tags;
+
 
     public function mount()
     {
         $item = InvItem::find($this->id);
-        $area = InvArea::find($this->inv_area_id);
+        $area = InvArea::find($this->area_id);
         $this->curr_main = InvCurr::find(1);
         $mode = '';
 
@@ -72,9 +66,9 @@ class InvItemsForm extends Component
         return view('livewire.inv-items-form');
     }
 
-    public function updatedInvCurrId()
+    public function updatedCurrId()
     {
-        $this->curr_sec = InvCurr::find($this->inv_curr_id);
+        $this->curr_sec = InvCurr::find($this->curr_id);
         $this->updatedPrice();
     }
 
@@ -88,15 +82,5 @@ class InvItemsForm extends Component
     {
         $rate = $this->curr_sec->rate ?? 0;
         $this->price = $rate ? round(((double)$this->price_sec / (double)$rate), 2) : 0;
-    }
-
-    public function updatedLoc()
-    {
-        $loc = trim($this->loc);
-        $this->qlocs = $loc 
-        ? InvLoc::where('inv_area_id', $this->inv_area_id)
-        ->where('name', 'LIKE', '%'.$loc.'%')->orderBy('name')->take(100)->get()
-        ->pluck('name')->toArray()
-        : [];
     }
 }
