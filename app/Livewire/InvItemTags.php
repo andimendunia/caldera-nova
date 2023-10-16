@@ -11,14 +11,6 @@ class InvItemTags extends Component
     public $tags = [];
     public $qtags = [];
 
-    public function rules()
-    {
-
-        return [
-            'tags.*' => [ 'required', 'alpha_dash', 'min:1', 'max:20' ]
-        ];
-    }
-
     public function mount()
     {
         //
@@ -43,15 +35,13 @@ class InvItemTags extends Component
     {
         unset($this->tags[$i]);
         $this->tags = array_values($this->tags); // Reindex the array
+        $this->dispatch('tags-applied', tags: $this->tags);
     }
 
-    public function save()
-    {
-        $this->validate();
-        $this->dispatch('tags-saved', tags: $this->tags);
-        $this->js('window.dispatchEvent(escKey)'); 
-        $this->js('notyf.success("Debug: saved")');
-    }
+    // public function apply()
+    // {
+    //     $this->js('window.dispatchEvent(escKey)'); 
+    // }
 
     public function updatedTags($value, $index)
     {
@@ -63,6 +53,7 @@ class InvItemTags extends Component
         ->get()
         ->pluck('name');
         $this->qtags[$index] = $qtags->toArray();
+        $this->dispatch('tags-applied', tags: $this->tags);
 
     }
 }

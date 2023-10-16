@@ -9,7 +9,7 @@
     </div>
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">            
-            <table class="table">
+            <table wire:key="areas-table" class="table">
                 <tr class="uppercase text-xs">
                     <th>
                         {{ __('Nama') }}
@@ -25,14 +25,14 @@
                     <livewire:inv-areas-edit wire:key="area-lw-{{ $area->id.$loop->index }}" :area="$area" lazy />                    
                 </x-modal> 
                 @endforeach
-                @if(!$areas->count())
-                <tr>
-                    <td class="text-center">
-                        {{ __('Tak ada area terdaftar') }}
-                    </td>
-                </tr>
-                @endif
             </table>
+            <div wire:key="areas-none">
+                @if(!$areas->count())
+                    <div class="text-center py-12">
+                        {{ __('Tak ada area terdaftar') }}
+                    </div>
+                @endif
+            </div>
         </div>
     </div>    
 </div>

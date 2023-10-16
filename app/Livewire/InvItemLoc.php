@@ -27,5 +27,6 @@ class InvItemLoc extends Component
         ->get()
         ->pluck('name');
         $this->qlocs = $qlocs->toArray();
+        $this->dispatch('loc-applied', loc: $this->loc);
     }
 }

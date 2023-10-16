@@ -16,7 +16,7 @@
                 </div>
             </div>  
             <hr class="border-neutral-200 dark:border-neutral-700" />
-            <table class="table">
+            <table wire:key="tags-table" class="table">
                 @foreach($tags as $tag)
                 <tr wire:key="tag-tr-{{ $tag->id.$loop->index }}" tabindex="0" x-on:click="$dispatch('open-modal', 'edit-tag-{{ $tag->id }}')">
                     <td>
@@ -28,11 +28,13 @@
                 </x-modal> 
                 @endforeach
             </table>
-            @if(!$tags->count())
-                <div class="text-center py-12">
-                    {{ __('Tak ada tag ditemukan') }}
-                </div>
-            @endif
+            <div wire:key="tags-none">
+                @if(!$tags->count())
+                    <div class="text-center py-12">
+                        {{ __('Tak ada tag ditemukan') }}
+                    </div>
+                @endif
+            </div>
         </div>
     </div>  
     <div class="flex items-center relative h-16">

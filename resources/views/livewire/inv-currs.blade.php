@@ -9,7 +9,7 @@
     </div>
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">
-            <table class="table">
+            <table wire:key="currs-table" class="table">
                 <tr class="uppercase text-xs">
                     <th>
                         {{ __('Nama') }}

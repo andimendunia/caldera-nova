@@ -23,8 +23,8 @@ class InvItemsForm extends Component
 
     #[Url] 
     public $code;
-    public $price = 0;
-    public $price_sec = 0;
+    public $price;
+    public $price_sec;
     public $curr_id;
     public $loc;
     public $tags = [];
@@ -32,14 +32,36 @@ class InvItemsForm extends Component
     #[Url] 
     public $area_id;
     public $uom;
-    public $uoms = [];
-    public $qty_main;
-    public $qty_used;
-    public $qty_rep;
+    public $quoms = [];
+    // public $qty_main;
+    // public $qty_used;
+    // public $qty_rep;
     public $qty_main_min;
     public $qty_main_max;
+    public $denom = 1;
+    public $up = 0;
     public $photo;
     public $is_active;
+
+    public function rules()
+    {
+        return [
+            'name'      => ['required','min:1', 'max:128'],
+            'desc'      => ['required', 'min:1', 'max:256'],
+            'code'      => ['nullable', 'size:11'],
+            'price'     => ['nullable', 'numeric', 'min:0', 'max:999000000'],
+            'price_sec' => ['nullable', 'numeric', 'min:0', 'max:999000000'],
+            'loc'       => ['nullable', 'alpha_dash', 'max:20'],
+            'tags.*'    => ['nullable', 'alpha_dash', 'max:20'],
+            // 'qty_main'  => ['nullable', 'integer', 'min:0', 'max:99999'],
+            // 'qty_used'  => ['nullable', 'integer', 'min:0', 'max:99999'],
+            // 'qty_rep'   => ['nullable', 'integer', 'min:0', 'max:99999'],
+            'uom'       => ['required', 'min:1', 'max:5'],
+            'denom'     => ['nullable', 'integer', 'min:1', 'max:1000'],
+            'qty_main_min'  => ['nullable', 'integer', 'min:0', 'max:99999'],
+            'qty_main_max'  => ['nullable', 'integer', 'min:0', 'max:99999'],
+        ];
+    }
 
 
     public function mount()
@@ -49,6 +71,10 @@ class InvItemsForm extends Component
         $this->curr_main = InvCurr::find(1);
         $mode = '';
 
+        // fill global inventory param
+        $this->currs = InvCurr::where('id', '<>', 1)->get(); 
+        $this->quoms = InvUom::orderBy('name')->get()->pluck('name')->toArray(); 
+
         if ($item) {
             // edit mode fill all properties
             $mode = 'edit';
@@ -56,8 +82,7 @@ class InvItemsForm extends Component
         } elseif ($area) {
             // create mode needs area_id (required) and code (optional)
             $mode = 'create';
-            $this->currs = InvCurr::where('id', '<>', 1)->get(); 
-            $this->uoms = InvUom::where('inv_area_id', $area->id)->get(); 
+            // example
             $this->tags = ['smack', 'my', 'ass'];
 
         } 
@@ -89,16 +114,46 @@ class InvItemsForm extends Component
     {
         $rate = $this->curr_sec->rate ?? 0;
         $this->price = $rate ? round(((double)$this->price_sec / (double)$rate), 2) : 0;
+        $this->calcUp();
     }
 
-    #[On('tags-saved')] 
+    #[On('loc-applied')] 
+    public function updatLoc($loc)
+    {
+        $this->loc = $loc;
+    }
+
+    #[On('tags-applied')] 
     public function updateTags($tags)
     {
         $this->tags = $tags;
     }
 
-    public function checkTags()
+    public function calcUp()
     {
-        dd($this->tags);
+        $price = (double)$this->price;
+        $denom = (int)$this->denom;
+        $uom = $this->uom;
+
+        if ($price > 0 && $denom > 1 && $uom) {
+            $this->up = round(($price / $denom), 2);
+        } else {
+            $this->up = 0;
+        }
     }
+
+    public function updated($property)
+    {
+        if ($property == 'price' || $property == 'denom' || $property == 'uom') {
+            $this->calcUp();
+        } 
+    }
+
+    public function save()
+    {
+        $validated = $this->validate();
+        dd($validated);
+
+    }
+
 }

@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit="save()" class="p-6">
+    <form wire:submit="apply()" class="p-6">
         <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
             {{ __('Tag') }}
         </h2>
@@ -26,18 +26,9 @@
                 <x-text-button type="button" class="mt-3" wire:click="addTag"><i class="fa fa-plus mr-2"></i>{{ __('Tambah tag') }}</x-text-button>
             @endif
         </div>
-        <div class="flex mt-6">
-            <div class="ml-auto">
-                <x-secondary-button type="button" x-on:click="$dispatch('close')">
-                    {{ __('Tutup') }}
-                </x-secondary-button>
-                <x-primary-button type="submit" class="ml-3">
-                    {{ __('Simpan') }}
-                </x-primary-button>
-            </div>
-        </div>
     </form>
-    {{-- <div wire:loading.class.remove="hidden"
-        class="w-full h-full absolute top-0 left-0 bg-white dark:bg-neutral-800 opacity-80 hidden"></div>
-    <x-spinner wire:loading.class.remove="hidden" class="hidden"></x-spinner> --}}
+    <div wire:loading.class.remove="hidden" wire:target="apply" class="w-full h-full absolute top-0 left-0 bg-white dark:bg-neutral-800 opacity-80 hidden">
+        <x-spinner></x-spinner>
+    </div>
+    
 </div>
