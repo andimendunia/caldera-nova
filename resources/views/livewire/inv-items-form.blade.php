@@ -58,8 +58,13 @@
                 </x-select>
             @endif
             <div wire:key="prices">
-                <x-text-input-curr wire:model.live="price" id="price" min="0" step=".01" class="mt-4" curr="{{ $curr_main->name }}"
-                    type="number" placeholder="0" />
+                @if($curr_sec->name ?? false)
+                    <x-text-input-curr wire:model.live="price" readonly id="price" min="0" step=".01" class="mt-4" curr="{{ $curr_main->name }}"
+                        type="number" placeholder="0" />
+                @else
+                    <x-text-input-curr wire:model.live="price" id="price" min="0" step=".01" class="mt-4" curr="{{ $curr_main->name }}"
+                        type="number" placeholder="0" />
+                @endif
                 <div wire:key="err-price">
                     @error('price')
                         <x-input-error messages="{{ $message }}" class="m-2" />
@@ -204,11 +209,9 @@
                 </x-modal>
             </div>
             <div wire:key="err-tags">
-                @foreach($errors->get('tags.*') as $messages)
-                    @foreach($messages as $message)
-                        <x-input-error messages="{{ $message }}" class="m-2" />
-                    @endforeach
-                @endforeach
+                @if(count($errors->get('tags.*')))
+                    <x-input-error messages="{{ current($errors->get('tags.*'))[0] }}" class="m-2" />
+                @endif
             </div>
             <div class="mt-8 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
                 {{ __('Batas qty utama') }}</div>

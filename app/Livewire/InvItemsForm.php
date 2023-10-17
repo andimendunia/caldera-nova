@@ -23,8 +23,8 @@ class InvItemsForm extends Component
 
     #[Url] 
     public $code;
-    public $price;
-    public $price_sec;
+    public $price = 0;
+    public $price_sec = 0;
     public $curr_id;
     public $loc;
     public $tags = [];
@@ -49,15 +49,16 @@ class InvItemsForm extends Component
             'name'      => ['required','min:1', 'max:128'],
             'desc'      => ['required', 'min:1', 'max:256'],
             'code'      => ['nullable', 'size:11'],
+            'curr_id'   => ['nullable', 'integer'],
             'price'     => ['nullable', 'numeric', 'min:0', 'max:999000000'],
             'price_sec' => ['nullable', 'numeric', 'min:0', 'max:999000000'],
-            'loc'       => ['nullable', 'alpha_dash', 'max:20'],
-            'tags.*'    => ['nullable', 'alpha_dash', 'max:20'],
             // 'qty_main'  => ['nullable', 'integer', 'min:0', 'max:99999'],
             // 'qty_used'  => ['nullable', 'integer', 'min:0', 'max:99999'],
             // 'qty_rep'   => ['nullable', 'integer', 'min:0', 'max:99999'],
             'uom'       => ['required', 'min:1', 'max:5'],
             'denom'     => ['nullable', 'integer', 'min:1', 'max:1000'],
+            'loc'       => ['nullable', 'alpha_dash', 'max:20'],
+            'tags.*'    => ['nullable', 'alpha_dash', 'max:20'],
             'qty_main_min'  => ['nullable', 'integer', 'min:0', 'max:99999'],
             'qty_main_max'  => ['nullable', 'integer', 'min:0', 'max:99999'],
         ];
@@ -151,6 +152,10 @@ class InvItemsForm extends Component
 
     public function save()
     {
+        // update:
+        // trim inputs: name, desc, code, uom, loc, tags
+        // uppercase: uom, loc
+        // lowercase: tags
         $validated = $this->validate();
         dd($validated);
 
