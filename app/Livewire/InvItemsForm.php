@@ -152,10 +152,28 @@ class InvItemsForm extends Component
 
     public function save()
     {
-        // update:
-        // trim inputs: name, desc, code, uom, loc, tags
-        // uppercase: uom, loc
-        // lowercase: tags
+
+        // validate if photo url exist
+
+        // (double)price, and (double)price_sec
+
+        // if curr_id existdb && price_sec notzero, calculate (double)rate and (double)price_main
+        // else curr_id = null, price_sec = 0
+
+        $props = ['name', 'desc', 'code', 'uom', 'loc'];
+        foreach($props as $prop) {
+            $this->$prop = trim($this->$prop);
+        }
+        
+        $this->tags = array_map('trim', $this->tags);
+        
+        $propUps = ['uom', 'loc'];
+        foreach ($propUps as $propUp) {
+            $this->$propUp = strtoupper($this->$propUp);
+        }
+
+        $this->tags = array_map('strtolower', $this->tags);
+
         $validated = $this->validate();
         dd($validated);
 
