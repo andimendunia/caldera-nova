@@ -81,47 +81,6 @@
                 @endif
             </div>
             <div class="grid grid-cols-2 gap-x-3 mt-4">
-                {{-- <div>
-                    <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
-                        for="qty_main">
-                        {{ __('Utama') }}
-                    </label>
-                    <x-text-input wire:model="qty_main" id="qty_main" type="number"
-                        placeholder="0" />
-                </div>
-                <div>
-                    <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
-                        for="qty_used">
-                        {{ __('Bekas') }}
-                    </label>
-                    <x-text-input wire:model="qty_used" id="qty_used" type="number"
-                        placeholder="0" />
-                </div>
-                <div>
-                    <label class="block font-medium text-sm text-neutral-700 dark:text-neutral-300"
-                        for="qty_rep">
-                        {{ __('Diperbaiki') }}
-                    </label>
-                    <x-text-input wire:model="qty_rep" id="qty_rep" type="number"
-                        placeholder="0" />
-                </div>
-                <div class="col-span-3">
-                    <div wire:key="err-qty_main">
-                        @error('qty_main')
-                            <x-input-error messages="{{ $message }}" class="mx-2 mb-2" />
-                        @enderror
-                    </div>
-                    <div wire:key="err-qty_used">
-                        @error('qty_used')
-                            <x-input-error messages="{{ $message }}" class="mx-2 mb-2" />
-                        @enderror
-                    </div>
-                    <div wire:key="err-qty_rep">
-                        @error('qty_rep')
-                            <x-input-error messages="{{ $message }}" class="mx-2 mb-2" />
-                        @enderror
-                    </div>
-                </div> --}}
                 <div>
                     <label class="block mb-1 font-medium text-sm text-neutral-700 dark:text-neutral-300"
                         for="uom">

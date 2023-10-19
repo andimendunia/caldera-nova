@@ -11,9 +11,15 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex uppercase">
                     <x-nav-link :href="route('inventory')" :active="request()->is('inventory*')">
                         {{ __('Inventaris') }}
+                    </x-nav-link>
+                    <x-nav-link href="/okc">
+                        {{ __('Data OKC') }}
+                    </x-nav-link>
+                    <x-nav-link href="/help">
+                        {{ __('Bantuan') }}
                     </x-nav-link>
                 </div>
             </div>
