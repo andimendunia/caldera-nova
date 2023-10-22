@@ -27,6 +27,7 @@ return new class extends Migration
             $table->unsignedInteger('qty_rep');
             $table->unsignedInteger('qty_main_min');
             $table->unsignedInteger('qty_main_max');
+            $table->unsignedInteger('denom');
             $table->dateTime('loc_updated_at')->nullable();
             $table->string('photo')->nullable();
             $table->boolean('is_active');
@@ -37,23 +38,6 @@ return new class extends Migration
             $table->index('inv_uom_id');
             $table->index('inv_loc_id');
             $table->index('inv_area_id');
-            $table->unique(['code','inv_area_id']);
-            //name
-            //desc
-            //code
-            //price
-            //price_sec
-            //inv_curr_id 
-            //inv_uom_id
-            //inv_loc_id
-            //inv_area_id
-            //qty_main
-            //qty_used
-            //qty_rep
-            //qty_main_min
-            //qty_main_max
-            //loc_updated_at
-            //photo
 
             // table: inv_circs
             //qty
@@ -66,17 +50,6 @@ return new class extends Migration
             //evaluator_id
             //status 1 approved, 2 rejected, null pending
             //remarks
-
-            // table: inv_currs
-            //name
-            //rate
-
-            // table: inv_area
-            // name: 
-            
-            // table: inv_locs, inv_tags
-            //name
-            //inv_area_id
 
             // table: inv_item_tags
             //inv_item_id

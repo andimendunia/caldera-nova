@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class InvItemLoc extends Component
 {
-    public $area_id;
+    public $inv_area_id;
 
     public $loc;
     public $qlocs = [];
@@ -20,7 +20,7 @@ class InvItemLoc extends Component
     public function updatedLoc()
     {
         $qloc = '%'.$this->loc.'%';
-        $qlocs = InvLoc::where('inv_area_id', $this->area_id)
+        $qlocs = InvLoc::where('inv_area_id', $this->inv_area_id)
         ->where('name', 'LIKE', $qloc)
         ->orderBy('name')
         ->take(100)

@@ -8,13 +8,13 @@
         </p>        
         <div class="mt-6">
             <x-text-input wire:model="code" class="mt-4" type="text" placeholder="{{ __('Kode item') }}" />
-            <x-select wire:model="area_id" class="mt-4">
+            <x-select wire:model="inv_area_id" class="mt-4">
                 <option value=""></option>
                 @foreach($areas as $area)
                 <option value="{{ $area->id }}">{{ $area->name }}</option>
                 @endforeach
             </x-select>  
-            @error('area_id')
+            @error('inv_area_id')
                 <x-input-error messages="{{ $message }}" class="mt-2" />
             @enderror
         </div>        

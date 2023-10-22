@@ -1,5 +1,5 @@
 <div class="block sm:flex gap-x-6">
-    <livewire:inv-item-photo />
+    <livewire:inv-item-photo :mode="$id ? 'edit' : 'create'" />
     <form wire:submit="save()" class="w-full overflow-hidden">
         <div class="px-4 pb-4">
             <div class="text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
@@ -28,7 +28,7 @@
             <div class="mt-8 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
                 {{ __('Info harga') }}</div>
             @if($currs->count())
-                <x-select wire:model.live="curr_id" class="mt-4">
+                <x-select wire:model.live="inv_curr_id" class="mt-4">
                     <option value="">{{__('Gunakan hanya').' '.$curr_main->name}}</option>
                         @foreach($currs as $curr)
                             <option wire:key="{{ 'curr'.$loop->index }}" value="{{ $curr->id }}">{{ __('Dengan').' '. $curr->name }}</option>
@@ -124,7 +124,7 @@
             <div class="mt-8 text-medium text-sm uppercase  text-neutral-400 dark:text-neutral-600">
                 {{ __('Klasifikasi') }} — TT MM</div>
             <div class="mt-3">
-                <livewire:inv-item-loc :$loc :$area_id />
+                <livewire:inv-item-loc :$loc :$inv_area_id />
                 <div wire:key="err-loc">
                     @error('loc')
                         <x-input-error messages="{{ $message }}" class="m-2" />
@@ -142,7 +142,7 @@
                         @endif
                 </x-text-button>
                 <x-modal name="inv-item-tags">
-                    <livewire:inv-item-tags :$tags :$area_id lazy />
+                    <livewire:inv-item-tags :$tags :$inv_area_id lazy />
                 </x-modal>
             </div>
             <div wire:key="err-tags">
@@ -182,6 +182,7 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" wire:model="photo" />
             <div class="mt-8">
                 <x-primary-button type="submit">{{ __('Simpan') }}</x-primary-button>
             </div>

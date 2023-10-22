@@ -1,6 +1,5 @@
-<div>
+<div x-data="{ dropping: false }" >
     <div class="relative rounded-none sm:w-48 h-48 md:w-72 md:h-72 lg:w-80 lg:h-80 bg-neutral-200 dark:bg-neutral-700 sm:rounded overflow-hidden"
-        x-data="{ dropping: false }" 
         x-on:dragover.prevent="dropping = true">
         <div wire:key="ph" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -11,9 +10,9 @@
             </svg>
         </div>
         @if($photo)
-        <img wire:key="img" class="absolute w-full h-full object-cover top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="{{ $photo->temporaryUrl() }}" />
+        <img class="absolute w-full h-full object-cover top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="{{ $photo->temporaryUrl() }}" />
         @endif
-        <div wire:key="dropping" wire:loading.class="hidden" class="absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80  p-3"
+        <div wire:loading.class="hidden" class="absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80  p-3"
             x-cloak x-show="dropping">
             <div class="flex justify-around items-center w-full h-full border-dashed border-2 border-neutral-500  text-neutral-500 dark:text-neutral-400 rounded">
                 <div class="text-center">
@@ -26,24 +25,32 @@
                 </div>
             </div>
         </div>
-        <input wire:key="input" wire:model="photo" type="file" class="absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
+        <input wire:model="photo" x-ref="invItemPhoto" type="file" class="absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
             x-cloak x-show="dropping"
             x-on:dragover.prevent="dropping = true"
             x-on:dragleave.prevent="dropping = false"
             x-on:drop="dropping = false" />
-        <div wire:key="spinner" wire:loading.class.remove="hidden" wire:target="photo" class="hidden absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-neutral-800 opacity-80">
+        <div wire:loading.class.remove="hidden" wire:target="photo" class="hidden absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-neutral-800 opacity-80">
             <x-spinner />
         </div>
     </div>
-    <div class="p-4 text-sm text-neutral-600 dark:text-neutral-400">
-        <div class="mb-4">
-            <x-link href="#"><i
-                    class="fa fa-fw fa-upload mr-3"></i>{{ __('Unggah foto') }}</x-link><br />
+    <div wire:key="tools">
+        @if($mode == 'create' || $mode == 'edit')
+        <div class="p-4 text-sm text-neutral-600 dark:text-neutral-400">
+            <div wire:key="discard">
+                @if($photo)
+                <div class="mb-4">
+                    <x-text-button type="button" wire:click="$set('photo', '')"><i class="fa fa-fw fa-times mr-3"></i>{{ __('Buang foto') }}</x-text-button>
+                </div>
+                @endif
+            </div>
+            <div class="mb-4">
+                <x-text-button type="button" x-on:click="$refs.invItemPhoto.click()"><i class="fa fa-fw fa-upload mr-3"></i>{{ __('Unggah foto') }}</x-text-button>
+            </div>
+            <div>
+                <x-text-button type="button"><i class="fa fa-fw fa-file-import mr-3"></i>{{ __('Tarik dari ttconsumable') }}</x-text-button>
+            </div>
         </div>
-        <div>
-            <x-link href="#"><i
-                    class="fa fa-fw fa-file-import mr-3"></i>{{ __('Tarik dari ttconsumable') }}</x-link>
-        </div>
+        @endif
     </div>
-    <input wire:model="photo" type="file" accept="image/*" class="hidden" />
 </div>

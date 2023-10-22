@@ -13,7 +13,7 @@ class InvItemsFirst extends Component
     public $areas;
 
     #[Rule('required')]
-    public $area_id;
+    public $inv_area_id;
 
     public function placeholder()
     {
@@ -35,13 +35,13 @@ class InvItemsFirst extends Component
         $this->code = strtoupper(trim($this->code));
         $this->validate();
 
-        $item = InvItem::where('inv_area_id', $this->area_id)->where('code', $this->code)->first();
+        $item = InvItem::where('inv_area_id', $this->inv_area_id)->where('code', $this->code)->first();
 
         if ($item)
         {
             return redirect(route('inventory.items', [ 'id' => $item->id ]));
         } else {
-            return redirect(route('inventory.items.create', [ 'area_id' => $this->area_id, 'code' => $this->code ]));
+            return redirect(route('inventory.items.create', [ 'inv_area_id' => $this->inv_area_id, 'code' => $this->code ]));
         }        
 
     }

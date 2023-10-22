@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class InvItemTags extends Component
 {
-    public $area_id;
+    public $inv_area_id;
     public $tags = [];
     public $qtags = [];
 
@@ -46,7 +46,7 @@ class InvItemTags extends Component
     public function updatedTags($value, $index)
     {
         $tag = '%'.$value.'%';
-        $qtags = InvTag::where('inv_area_id', $this->area_id)
+        $qtags = InvTag::where('inv_area_id', $this->inv_area_id)
         ->where('name', 'LIKE', $tag)
         ->orderBy('name')
         ->take(100)
