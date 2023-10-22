@@ -2,39 +2,43 @@
     <div class="sm:py-12 max-w-4xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
         <div class="block sm:flex gap-x-6">
             <div>
-                <div class="flex w-full rounded-none sm:w-48 h-48 md:w-72 md:h-72 lg:w-80 lg:h-80 bg-neutral-200 dark:bg-neutral-700 sm:rounded">
+                <livewire:inv-item-photo mode="show" :id="$invItem->id" :url="$invItem->photo ? ('/storage/inv-items/'.$invItem->photo) : ''" />
+                {{-- <div class="flex w-full relative rounded-none sm:w-48 h-48 md:w-72 md:h-72 lg:w-80 lg:h-80 bg-neutral-200 dark:bg-neutral-700 sm:rounded">
                     <div class="m-auto">
                         <svg xmlns="http://www.w3.org/2000/svg"  class="block h-32 w-auto fill-current text-neutral-800 dark:text-neutral-200 opacity-25" viewBox="0 0 38.777 39.793"><path d="M19.396.011a1.058 1.058 0 0 0-.297.087L6.506 5.885a1.058 1.058 0 0 0 .885 1.924l12.14-5.581 15.25 7.328-15.242 6.895L1.49 8.42A1.058 1.058 0 0 0 0 9.386v20.717a1.058 1.058 0 0 0 .609.957l18.381 8.633a1.058 1.058 0 0 0 .897 0l18.279-8.529a1.058 1.058 0 0 0 .611-.959V9.793a1.058 1.058 0 0 0-.599-.953L20 .105a1.058 1.058 0 0 0-.604-.095zM2.117 11.016l16.994 7.562a1.058 1.058 0 0 0 .867-.002l16.682-7.547v18.502L20.6 37.026V22.893a1.059 1.059 0 1 0-2.117 0v14.224L2.117 29.432z" /></svg>
                     </div>
-                </div>
+                    @if($invItem->photo)
+                    <img src="" class="absolute top-0 left-0 w-full h-full object-cover" />
+                    @endif
+                </div> --}}
                 <div class="flex p-4 text-sm text-neutral-600 dark:text-neutral-400">
-                    <div class="grow">Diperbarui: 3 hari yang lalu</div>
+                    <div class="grow">{{ __('Updated:').' '.$invItem->updated_at->diffForHumans()}}</div>
                     <x-link class="uppercase" href="{{ route('inventory.items.edit', ['id' => $invItem ]) }}"><i class="fa fa-pen"></i></x-link>               
                 </div>
             </div>
             <div class="w-full overflow-hidden">
                 <div class="px-4">
-                    <h1 class="text-2xl mb-2 text-neutral-900 dark:text-neutral-100">
-                        A long link given as the item name
-                    </h1>   
-                    <p class="mb-4">
-                        A long link given as the item name
-                    </p>
+                    <h1 class="text-2xl mb-2 text-neutral-900 dark:text-neutral-100">{{ $invItem->name }}</h1>   
+                    <p class="mb-4">{{ $invItem->desc }}</p>
                 </div>
                 <div class="text-neutral-600 dark:text-neutral-400">
                     <hr class="border-neutral-200 dark:border-neutral-800" />
                     <div class="p-4">
-                        <div class="mb-2">
-                            TBE10-191001 • USD 123.00 / EA 
+                        <div class="flex mb-2">
+                            <div>{{ $invItem->code ?? 'Tak ada kode' }}</div>
+                            <div class="mx-2">•</div>
+                            <div>{{ $invItem->price ? ($invCurr->name . ' ' . number_format($invItem->price, 2) . ' / ' . $invItem->inv_uom->name) : __('Tak ada harga') }}</div>
                         </div>
                         <div>
-                            <span class="mr-4"><i class="fa fa-map-marker-alt mr-2"></i>A2.1.1</span>
+                            <span class="mr-4"><i class="fa fa-map-marker-alt mr-2"></i>{{ $invItem->loc_id ? $invItem->loc->name : __('Tak ada lokasi')}}</span>
                             <span><i class="fa fa-tag mr-2"></i>okc, sparepart</span> 
                         </div>
                     </div>
                     <hr class="border-neutral-200 dark:border-neutral-800" />
-                    <div class="p-4 text-sm">
-                        Aktif • TT MM
+                    <div class="flex p-4 text-sm">
+                        <div>{{ $invItem->is_active ? __('Aktif') : __('Nonaktif')}}</div>
+                        <div class="mx-2">•</div>
+                        <div>{{ $invItem->inv_area->name }}</div>
                     </div>
                 </div>
                 <div x-data="{

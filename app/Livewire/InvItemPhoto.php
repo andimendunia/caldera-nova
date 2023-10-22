@@ -15,12 +15,12 @@ class InvItemPhoto extends Component
 
     public $mode;
     public $id;
+    public $url;
 
     public function mount()
     {
         switch ($this->mode) {
             case 'show':
-                # code...
                 break;
             case 'create':
                 # code...
@@ -43,10 +43,5 @@ class InvItemPhoto extends Component
     {
         $filename = $this->photo ? $this->photo->getFilename() : '';
         $this->dispatch('photo-updated', photo: $filename);
-    }
-
-    public function debug()
-    {
-        dd($this->photo);
     }
 }

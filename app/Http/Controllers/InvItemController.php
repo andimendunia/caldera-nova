@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InvCurr;
+use App\Models\InvItem;
 use Illuminate\Http\Request;
 
 class InvItemController extends Controller
@@ -10,9 +12,10 @@ class InvItemController extends Controller
         $title = 'Nama barang';
         $prev = route('inventory', ['nav' => 'search']);
 
-        $invItem = $id;
+        $invItem = InvItem::findOrFail($id);
+        $invCurr = InvCurr::find(1);
 
-        return view('inventory.items.show', compact('title', 'prev', 'invItem',));
+        return view('inventory.items.show', compact('title', 'prev', 'invItem', 'invCurr'));
     }
 
     public function edit($id) {

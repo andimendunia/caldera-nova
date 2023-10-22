@@ -271,7 +271,7 @@ class InvItemsForm extends Component
             ]);
         }
 
-        dd('Successfully created');
+        return redirect(route('inventory.items.show', ['id' => $item->id]));
     }
 
 }

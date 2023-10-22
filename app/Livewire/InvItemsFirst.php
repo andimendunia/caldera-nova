@@ -35,7 +35,7 @@ class InvItemsFirst extends Component
         $this->code = strtoupper(trim($this->code));
         $this->validate();
 
-        $item = InvItem::where('inv_area_id', $this->inv_area_id)->where('code', $this->code)->first();
+        $item = $this->code ? $item = InvItem::where('inv_area_id', $this->inv_area_id)->where('code', $this->code)->first() : '';
 
         if ($item)
         {
