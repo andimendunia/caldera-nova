@@ -16,9 +16,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Renderless;
-use Intervention\Image\Facades\Image;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\Storage;
 
 class InvItemsForm extends Component
 {
@@ -246,29 +244,7 @@ class InvItemsForm extends Component
 
         // $this->photo if null don't update photo, else update.
         if ($this->photo) {         
-
-            $photo = storage_path('app/livewire-tmp/'.$this->photo);        
-            $image = Image::make($photo);
-        
-            // Resize the image to a maximum height of 600 pixels while maintaining aspect ratio
-            $image->resize(600, 600, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-            
-            $image->encode('jpg', 70);
-
-            // Set file name and save to disk and save filename to inv_item
-            $id     = $item->id;
-            $time   = Carbon::now()->format('YmdHis');
-            $rand   = Str::random(5);
-            $name   = $id.'_'.$time.'_'.$rand.'.jpg';
-
-            Storage::put('/public/inv-items/'.$name, $image);
-
-            $item->update([
-                'photo' => $name,
-            ]);
+            $item->updatePhoto($this->photo);
         }
 
         return redirect(route('inventory.items.show', ['id' => $item->id]));

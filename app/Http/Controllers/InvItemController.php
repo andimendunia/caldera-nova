@@ -12,10 +12,14 @@ class InvItemController extends Controller
         $title = 'Nama barang';
         $prev = route('inventory', ['nav' => 'search']);
 
-        $invItem = InvItem::findOrFail($id);
-        $invCurr = InvCurr::find(1);
+        $inv_item = InvItem::findOrFail($id);
+        $inv_curr = InvCurr::find(1);
 
-        return view('inventory.items.show', compact('title', 'prev', 'invItem', 'invCurr'));
+        $loc = $inv_item->inv_loc->name ?? '';
+        $item_tags = $inv_item->tags_array();
+        $tags = implode(', ', $item_tags);
+
+        return view('inventory.items.show', compact('title', 'prev', 'inv_item', 'inv_curr', 'loc', 'tags'));
     }
 
     public function edit($id) {

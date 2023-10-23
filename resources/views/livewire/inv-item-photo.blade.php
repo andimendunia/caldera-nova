@@ -12,9 +12,6 @@
         @if($url)
         <img class="absolute w-full h-full object-cover top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="{{ $url }}" />
         @endif
-        @if($photo)
-        <img class="absolute w-full h-full object-cover top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="{{ $photo->temporaryUrl() }}" />
-        @endif
         <div wire:loading.class="hidden" class="absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80  p-3"
             x-cloak x-show="dropping">
             <div class="flex justify-around items-center w-full h-full border-dashed border-2 border-neutral-500  text-neutral-500 dark:text-neutral-400 rounded">
@@ -41,9 +38,9 @@
         @if($mode == 'create' || $mode == 'edit')
         <div class="p-4 text-sm text-neutral-600 dark:text-neutral-400">
             <div wire:key="discard">
-                @if($photo)
+                @if($url)
                 <div class="mb-4">
-                    <x-text-button type="button" wire:click="$set('photo', '')"><i class="fa fa-fw fa-times mr-3"></i>{{ __('Buang foto') }}</x-text-button>
+                    <x-text-button type="button" wire:click="$set('url', '')"><i class="fa fa-fw fa-times mr-3"></i>{{ __('Buang foto') }}</x-text-button>
                 </div>
                 @endif
             </div>

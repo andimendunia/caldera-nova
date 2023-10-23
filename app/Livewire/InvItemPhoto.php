@@ -2,37 +2,18 @@
 
 namespace App\Livewire;
 
+use App\Models\InvItem;
 use Livewire\Component;
-use Livewire\Attributes\Rule;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Validator;
 
 class InvItemPhoto extends Component
 {
     use WithFileUploads;
-    
-    #[Rule('image|max:1024')] // 1MB Max
-    public $photo;
-
     public $mode;
     public $id;
     public $url;
-
-    public function mount()
-    {
-        switch ($this->mode) {
-            case 'show':
-                break;
-            case 'create':
-                # code...
-                break;
-            case 'edit':
-                # code...
-                break;
-            default:
-                return abort('403', 'Missing parameter at InvItemPhoto');
-                break;
-        }
-    }
+    public $photo;
 
     public function render()
     {
@@ -41,7 +22,37 @@ class InvItemPhoto extends Component
 
     public function updatedPhoto()
     {
-        $filename = $this->photo ? $this->photo->getFilename() : '';
-        $this->dispatch('photo-updated', photo: $filename);
+        $validator = Validator::make(
+            ['photo' => $this->photo ],
+            ['photo' => 'nullable|mimetypes:image/jpeg,image/png,image/gif|max:1024'],
+            ['mimetypes' => __('Berkas harus jpg, png, atau gif'), 'max' => __('Berkas maksimal 1 MB')]
+        );
+
+        if ($validator->fails()) {
+
+            $errors = $validator->errors();
+            $error = $errors->first('photo');
+            $this->js('notyf.error("'.$error.'")'); 
+
+        } else {
+
+            $this->url = $this->photo->temporaryUrl();
+            $photo = $this->photo ? $this->photo->getFilename() : '';
+
+            if ($this->mode == 'create' || $this->mode == 'edit') {
+                $this->dispatch('photo-updated', photo: $photo);
+            } 
+
+            if ($this->mode == 'show') {
+                $item = InvItem::find($this->id);
+                if ($item) {
+                    $item->updatePhoto($photo);
+                    $this->js('notyf.success("'.__('Foto diperbarui').'")'); 
+                }
+            }
+
+        }
+
+
     }
 }

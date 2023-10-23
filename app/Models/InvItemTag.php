@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class InvItemTag extends Model
 {
@@ -12,4 +13,10 @@ class InvItemTag extends Model
         'inv_item_id',
         'inv_tag_id',
     ];
+
+    public function inv_tag() : BelongsTo
+    {
+        return $this->belongsTo(InvTag::class);
+    }
+    
 }
