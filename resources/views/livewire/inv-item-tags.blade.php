@@ -1,8 +1,14 @@
-<div>
-    <form wire:submit="apply()" class="p-6">
+<div wire:click.outside="apply">
+    <div class="p-6">
+        @if($isForm)
         <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
             {{ __('Tag') }}
         </h2>
+        @else
+        <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+            {{ __('Edit tag') }}
+        </h2>
+        @endif
         @foreach($tags as $i => $tag)
         <div class="flex mt-3">
             <div class="w-full">
@@ -26,9 +32,5 @@
                 <x-text-button type="button" class="mt-3" wire:click="addTag"><i class="fa fa-plus mr-2"></i>{{ __('Tambah tag') }}</x-text-button>
             @endif
         </div>
-    </form>
-    <div wire:loading.class.remove="hidden" wire:target="apply" class="w-full h-full absolute top-0 left-0 bg-white dark:bg-neutral-800 opacity-80 hidden">
-        <x-spinner></x-spinner>
-    </div>
-    
+    </div>  
 </div>

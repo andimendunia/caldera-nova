@@ -79,27 +79,80 @@ class InvItem extends Model
 
     public function updatePhoto($photo)
     {
-        $path = storage_path('app/livewire-tmp/'.$photo);        
-        $image = Image::make($path);
-    
-        // Resize the image to a maximum height of 600 pixels while maintaining aspect ratio
-        $image->resize(600, 600, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
+        if($photo) {
+            if ($this->photo != $photo) {
+                $path = storage_path('app/livewire-tmp/'.$photo);        
+                $image = Image::make($path);
+            
+                // Resize the image to a maximum height of 600 pixels while maintaining aspect ratio
+                $image->resize(600, 600, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+                
+                $image->encode('jpg', 70);
         
-        $image->encode('jpg', 70);
+                // Set file name and save to disk and save filename to inv_item
+                $id     = $this->id;
+                $time   = Carbon::now()->format('YmdHis');
+                $rand   = Str::random(5);
+                $name   = $id.'_'.$time.'_'.$rand.'.jpg';
+        
+                Storage::put('/public/inv-items/'.$name, $image);
+        
+                return $this->update([
+                    'photo' => $name,
+                ]);
+            }
+        } else {
+            return $this->update([
+                'photo' => null,
+            ]);
+        }
 
-        // Set file name and save to disk and save filename to inv_item
-        $id     = $this->id;
-        $time   = Carbon::now()->format('YmdHis');
-        $rand   = Str::random(5);
-        $name   = $id.'_'.$time.'_'.$rand.'.jpg';
 
-        Storage::put('/public/inv-items/'.$name, $image);
+    }
 
-        return $this->update([
-            'photo' => $name,
-        ]);
+    public function updateLoc($loc)
+    {
+        $loc = trim(strtoupper($loc));
+        if ($loc) {
+            $inv_loc = InvLoc::firstOrCreate([
+                'inv_area_id'   => $this->inv_area_id,
+                'name'          => $loc,
+            ]);
+            return $this->update([
+                'inv_loc_id' => $inv_loc->id,
+            ]);
+        } else {
+            return $this->update([
+                'inv_loc_id' => null,
+            ]);
+
+        }
+    }
+
+    public function updateTags($tags)
+    {
+        $tags = array_map('strtolower', $tags);
+        $tags = array_map('trim', $tags);
+        $tags = array_diff($tags, ['']);
+
+        $tag_ids = [];
+        foreach ($tags as $tag) {
+            $tag_ids[] = InvTag::firstOrCreate([
+                'inv_area_id'   => $this->inv_area_id,
+                'name'          => $tag,
+            ])->id;
+        }   
+
+        InvItemTag::where('inv_item_id', $this->id)->delete();
+
+        foreach ($tag_ids as $tag_id) {
+            InvItemtag::firstOrCreate([
+                'inv_item_id'   => $this->id,
+                'inv_tag_id'    => $tag_id
+            ]);
+        }
     }
 }

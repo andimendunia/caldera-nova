@@ -9,13 +9,12 @@ use Illuminate\Http\Request;
 class InvItemController extends Controller
 {
     public function show($id) {
-        $title = 'Nama barang';
         $prev = route('inventory', ['nav' => 'search']);
 
         $inv_item = InvItem::findOrFail($id);
-        $inv_curr = InvCurr::find(1);
+        $title = $inv_item->name;
 
-        return view('inventory.items.show', compact('title', 'prev', 'inv_item', 'inv_curr'));
+        return view('inventory.items.show', compact('title', 'prev', 'inv_item'));
     }
 
     public function edit($id) {

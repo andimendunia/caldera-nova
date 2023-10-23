@@ -1,5 +1,5 @@
 <div x-data="{ dropping: false }" >
-    <div class="relative rounded-none sm:w-48 h-48 md:w-72 md:h-72 lg:w-80 lg:h-80 bg-neutral-200 dark:bg-neutral-700 sm:rounded overflow-hidden"
+    <div class="relative rounded-none sm:w-48 h-48 md:w-72 md:h-72 lg:w-80 lg:h-80 bg-neutral-200 dark:bg-neutral-700 sm:rounded-md overflow-hidden"
         x-on:dragover.prevent="dropping = true">
         <div wire:key="ph" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div wire:key="tools">
-        @if($mode == 'create' || $mode == 'edit')
+        @if($isForm)
         <div class="p-4 text-sm text-neutral-600 dark:text-neutral-400">
             <div wire:key="discard">
                 @if($url)

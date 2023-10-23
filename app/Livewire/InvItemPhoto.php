@@ -11,6 +11,9 @@ class InvItemPhoto extends Component
 {
     use WithFileUploads;
     public $mode;
+
+    public $isForm = false;
+
     public $id;
     public $url;
     public $photo;
@@ -39,11 +42,9 @@ class InvItemPhoto extends Component
             $this->url = $this->photo->temporaryUrl();
             $photo = $this->photo ? $this->photo->getFilename() : '';
 
-            if ($this->mode == 'create' || $this->mode == 'edit') {
+            if ($this->isForm) {
                 $this->dispatch('photo-updated', photo: $photo);
-            } 
-
-            if ($this->mode == 'show') {
+            } else {
                 $item = InvItem::find($this->id);
                 if ($item) {
                     $item->updatePhoto($photo);

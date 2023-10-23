@@ -1,4 +1,9 @@
-<div>
+<div wire:click.outside="apply" @if(!$isForm) class="p-6" @endif>
+    @if(!$isForm)
+    <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100 mb-3">
+        {{ __('Edit lokasi') }}
+    </h2>
+    @endif
     <x-text-input-icon wire:model.live="loc" icon="fa fa-fw fa-map-marker-alt" id="loc" list="qlocs"
     type="text" placeholder="{{ __('Lokasi') }}" />
     <datalist id="qlocs">

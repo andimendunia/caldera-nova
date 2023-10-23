@@ -11,7 +11,6 @@ use App\Models\InvCurr;
 use App\Models\InvItem;
 use Livewire\Component;
 use App\Models\InvItemTag;
-use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Illuminate\Validation\Rule;
@@ -64,6 +63,7 @@ class InvItemsForm extends Component
             'tags.*'        => ['nullable', 'alpha_dash', 'max:20'],
             'qty_main_min'  => ['required', 'integer', 'min:0', 'max:99999'],
             'qty_main_max'  => ['required', 'integer', 'min:0', 'max:99999'],
+            'is_active'     => ['required', 'boolean'],
 
             'inv_curr_id'   => ['nullable', 'integer', 'exists:App\Models\InvCurr,id'],
             'inv_area_id'   => ['required', 'integer', 'exists:App\Models\InvArea,id'],
@@ -124,7 +124,7 @@ class InvItemsForm extends Component
     }
 
     #[On('loc-applied')] 
-    public function updatLoc($loc)
+    public function updateLoc($loc)
     {
         $this->loc = $loc;
     }
@@ -181,71 +181,37 @@ class InvItemsForm extends Component
         $this->qty_main_max   = (int)$this->qty_main_max;
         $this->denom = $denom > 0 ? $denom : 1;
 
-        $props = ['name', 'desc', 'code', 'uom', 'loc'];
+        $props = ['name', 'desc', 'code', 'uom'];
         foreach($props as $prop) {
             $this->$prop = trim($this->$prop);
-        }
-        
-        $this->tags = array_map('trim', $this->tags);
-        
-        $propUps = ['uom', 'loc', 'code'];
+        }        
+      
+        $propUps = ['uom', 'code'];
         foreach ($propUps as $propUp) {
             $this->$propUp = strtoupper($this->$propUp);
         }
 
-        $this->tags = array_map('strtolower', $this->tags);
+        $this->is_active = $this->is_active !== null ? $this->is_active : false;
 
         $validated = $this->validate();
-
-        // get loc id by area, nullable
-        if ($this->loc) {
-            $loc = InvLoc::firstOrCreate([
-                'inv_area_id'   => $this->inv_area_id,
-                'name'          => $this->loc,
-            ]);
-            $validated['inv_loc_id'] = $loc->id;
-        }
 
         // get uom id, required
         $uom = InvUom::firstOrCreate([
             'name' => $this->uom
         ]);
-        $validated['inv_uom_id'] = $uom->id;
 
+        $validated['inv_curr_id'] = $this->inv_curr_id ? $this->inv_curr_id : null;
+        $validated['inv_uom_id'] = $uom->id;
         $validated['qty_main'] = 0;
         $validated['qty_used'] = 0;
         $validated['qty_rep'] = 0;
         $validated['is_active'] = false;
-
-        if(!$this->inv_curr_id) {
-            unset($validated['inv_curr_id']);
-        }
         
         $item = InvItem::create($validated);
 
-        $tag_ids = [];
-        foreach ($this->tags as $tagName) {
-            $tag_ids[] = InvTag::firstOrCreate([
-                'inv_area_id'   => $this->inv_area_id,
-                'name'          => $tagName,
-            ])->id;
-        }   
-
-        InvItemTag::where('inv_item_id', $item->id)->delete();
-
-        if (count($tag_ids)) {
-            foreach($tag_ids as $tag_id) {
-                InvItemtag::firstOrCreate([
-                    'inv_item_id' => $item->id,
-                    'inv_tag_id' => $tag_id
-                ]);
-            }
-        }
-
-        // $this->photo if null don't update photo, else update.
-        if ($this->photo) {         
-            $item->updatePhoto($this->photo);
-        }
+        $item->updateLoc($this->loc);
+        $item->updateTags($this->tags);
+        $item->updatePhoto($this->photo);
 
         return redirect(route('inventory.items.show', ['id' => $item->id]));
     }
