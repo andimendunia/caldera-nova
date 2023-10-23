@@ -110,7 +110,7 @@
                             {{__('Kelola wewenang')}}
                         </div>                        
                         <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
-                            {{__('Kelola wewenang inventaris pengguna')}}
+                            {{__('Kelola wewenang pengguna inventaris')}}
                         </div>
                     </div>
                 </div>

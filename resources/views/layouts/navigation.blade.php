@@ -18,6 +18,9 @@
                     <x-nav-link href="/okc">
                         {{ __('Data OKC') }}
                     </x-nav-link>
+                    <x-nav-link href="/projects">
+                        {{ __('Proyek') }}
+                    </x-nav-link>
                     <x-nav-link href="/help">
                         {{ __('Bantuan') }}
                     </x-nav-link>
@@ -78,6 +81,15 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('inventory')" :active="request()->routeIs('inventory')">
                 {{ __('Inventaris') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="#">
+                {{ __('Data OKC') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="#">
+                {{ __('Proyek') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="#">
+                {{ __('Bantuan') }}
             </x-responsive-nav-link>
         </div>
 

@@ -15,11 +15,7 @@ class InvItemController extends Controller
         $inv_item = InvItem::findOrFail($id);
         $inv_curr = InvCurr::find(1);
 
-        $loc = $inv_item->inv_loc->name ?? '';
-        $item_tags = $inv_item->tags_array();
-        $tags = implode(', ', $item_tags);
-
-        return view('inventory.items.show', compact('title', 'prev', 'inv_item', 'inv_curr', 'loc', 'tags'));
+        return view('inventory.items.show', compact('title', 'prev', 'inv_item', 'inv_curr'));
     }
 
     public function edit($id) {

@@ -3,6 +3,11 @@
         <div>
             <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0">
                 <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
+                <x-select name="status" id="inv-status" class="mt-3">
+                    <option value="">{{ __('Aktif')}}</option>
+                    <option value="">{{ __('Nonaktif') }}</option>
+                    <option value="">{{ __('Aktif dan Nonaktif') }}</option>
+                </x-select>
                 <x-select name="qtype" id="inv-qty-type" class="mt-3">
                     <option value="">{{ __('Qty total')}}</option>
                     <option value="">{{ __('Qty utama saja')}}</option>
@@ -51,11 +56,6 @@
                     <div x-show="open" x-cloak>
                         <x-text-input-icon icon="fa fa-fw fa-map-marker-alt" id="inv-loc" class="mt-3" name="loc" type="text" placeholder="{{ __('Lokasi') }}" />
                         <x-text-input-icon icon="fa fa-fw fa-tag" class="mt-3" id="inv-tag" name="tag" type="text" placeholder="{{ __('Tag') }}" />
-                        <x-select name="status" id="inv-status" class="mt-3">
-                            <option value="">{{ __('Aktif')}}</option>
-                            <option value="">{{ __('Nonaktif') }}</option>
-                            <option value="">{{ __('Aktif dan Nonaktif') }}</option>
-                        </x-select>
                         <x-select name="filter" id="inv-filter" class="mt-3">
                             <option value=""></option>
                             <option value="">{{ __('Tak ada lokasi') }}</option>

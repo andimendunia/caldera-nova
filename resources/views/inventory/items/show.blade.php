@@ -21,7 +21,7 @@
                             <div class="mx-2">•</div>
                             <div>{{ $inv_item->price ? ($inv_curr->name . ' ' . number_format($inv_item->price, 2) . ' / ' . $inv_item->inv_uom->name) : __('Tak ada harga') }}</div>
                         </div>
-                        <livewire:inv-item-info :id="$inv_item->id" :$loc :$tags />
+                        <livewire:inv-item-info :id="$inv_item->id" :loc="$inv_item->loc()" :tags="$inv_item->tags()" />
                     </div>
                     <hr class="border-neutral-200 dark:border-neutral-800" />
                     <div class="flex p-4 text-sm">

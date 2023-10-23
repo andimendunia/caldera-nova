@@ -50,6 +50,11 @@ class InvItem extends Model
         return $this->belongsTo(InvLoc::class);
     }
 
+    public function loc()
+    {
+        return $this->inv_loc->name ?? '';
+    }
+
     public function inv_item_tags(): HasMany
     {
         return $this->hasMany(InvItemTag::class);
@@ -64,6 +69,12 @@ class InvItem extends Model
     {
         $inv_tags = $this->inv_tags;
         return $inv_tags->pluck('name')->all();
+    }
+
+    public function tags()
+    {
+        $tags_array = $this->tags_array();
+        return implode(', ', $tags_array);
     }
 
     public function updatePhoto($photo)
