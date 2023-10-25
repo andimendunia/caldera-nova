@@ -1,22 +1,22 @@
 <div class="flex flex-col gap-x-4 md:gap-x-8 sm:flex-row">
     <div>
         <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0">
-            <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
-            <x-select name="status" id="inv-status" class="mt-3">
+            <x-text-input-icon wire:model.live="q" icon="fa fa-fw fa-search" id="inv-q" name="q" type="search" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
+            <x-select wire:model.live="status" class="mt-3">
                 <option value="">{{ __('Aktif')}}</option>
                 <option value="">{{ __('Nonaktif') }}</option>
                 <option value="">{{ __('Aktif dan Nonaktif') }}</option>
             </x-select>
-            <x-select name="qtype" id="inv-qty-type" class="mt-3">
+            <x-select wire:model.live="qty" class="mt-3">
                 <option value="">{{ __('Qty total')}}</option>
                 <option value="">{{ __('Qty utama saja')}}</option>
                 <option value="">{{ __('Qty bekas saja') }}</option>
                 <option value="">{{ __('Qty diperbaiki saja') }}</option>
             </x-select>
-            <div x-data="{ open: false }" class="my-5">
+            <div x-data="{ filter: @entangle('filter').live }" class="my-5">
                 <div class="mx-2 flex justify-between">
                     <div>
-                        <x-toggle x-model="open">{{ __('Filter') }}</x-toggle>
+                        <x-toggle x-model="filter">{{ __('Filter') }}</x-toggle>
                     </div>
                     <div class="flex items-center">
                         <x-dropdown align="right" width="48">
@@ -52,16 +52,16 @@
                         </x-dropdown>
                     </div>
                 </div>
-                <div x-show="open" x-cloak>
-                    <x-text-input-icon icon="fa fa-fw fa-map-marker-alt" id="inv-loc" class="mt-3" name="loc" type="text" placeholder="{{ __('Lokasi') }}" />
-                    <x-text-input-icon icon="fa fa-fw fa-tag" class="mt-3" id="inv-tag" name="tag" type="text" placeholder="{{ __('Tag') }}" />
-                    <x-select name="filter" id="inv-filter" class="mt-3">
+                <div x-show="filter" x-cloak>
+                    <x-text-input-icon wire:model.live="loc" icon="fa fa-fw fa-map-marker-alt" id="inv-loc" class="mt-3" type="search" placeholder="{{ __('Lokasi') }}" />
+                    <x-text-input-icon wire:model.live="tags" icon="fa fa-fw fa-tag" class="mt-3" id="inv-tag" type="search" placeholder="{{ __('Tag') }}" />
+                    <x-select wire:model.live="without" name="filter" class="mt-3">
                         <option value=""></option>
-                        <option value="">{{ __('Tak ada lokasi') }}</option>
-                        <option value="">{{ __('Tak ada tag') }}</option>
-                        <option value="">{{ __('Tak ada foto') }}</option>
-                        <option value="">{{ __('Tak ada kode item') }}</option>
-                        <option value="">{{ __('Tak ada batas qty') }}</option>
+                        <option value="loc">{{ __('Tak ada lokasi') }}</option>
+                        <option value="tags">{{ __('Tak ada tag') }}</option>
+                        <option value="photo">{{ __('Tak ada foto') }}</option>
+                        <option value="code">{{ __('Tak ada kode item') }}</option>
+                        <option value="limit">{{ __('Tak ada batas qty') }}</option>
                     </x-select>
                     <div class="m-3">
                         <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-save"></i>{{__('Simpan filter')}}</x-text-button>
@@ -76,7 +76,7 @@
             </div>
             <hr class="my-5 border-neutral-300 dark:border-neutral-700" />
             <div class="m-3">
-                <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-xmark"></i>{{__('Atur ulang')}}</x-text-button>
+                <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-undo"></i>{{__('Atur ulang')}}</x-text-button>
             </div>
             <div class="m-3">
                 <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{__('Unduh CSV barang')}}</x-text-button>
@@ -90,14 +90,14 @@
         <div class="flex justify-between w-full px-3 sm:px-0">
             <div class="my-auto"><span>0</span><span class="hidden md:inline">{{' ' . __('barang')}}</span></div>
             <div class="flex">
-                <x-select name="sort" class="mr-3">
-                    <option value="">{{ __('Diperbarui') }}</option>
-                    <option value="">{{ __('Dibuat') }}</option>
-                    <option value="">{{ __('Termurah') }}</option>
-                    <option value="">{{ __('Termahal') }}</option>
-                    <option value="">{{ __('Paling sedikit') }}</option>
-                    <option value="">{{ __('Paling banyak') }}</option>
-                    <option value="">{{ __('Abjad') }}</option>
+                <x-select wire:model.live="sort" class="mr-3">
+                    <option value="updated">{{ __('Diperbarui') }}</option>
+                    <option value="created">{{ __('Dibuat') }}</option>
+                    <option value="price_low">{{ __('Termurah') }}</option>
+                    <option value="price_high">{{ __('Termahal') }}</option>
+                    <option value="qty_low">{{ __('Paling sedikit') }}</option>
+                    <option value="qty_high">{{ __('Paling banyak') }}</option>
+                    <option value="alpha">{{ __('Abjad') }}</option>
                 </x-select>
                 <div class="btn-group">
                     <x-secondary-button><i class="fa fa-fw fa-list"></i></x-secondary-button>
