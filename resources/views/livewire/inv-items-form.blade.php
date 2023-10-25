@@ -1,5 +1,5 @@
 <div class="block sm:flex gap-x-6">
-    <livewire:inv-item-photo isForm="true" />
+    <livewire:inv-item-photo isForm="true" :$url />
     <form wire:submit="save()" class="w-full overflow-hidden">
         <div class="px-4 pb-4">
             <div class="text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">

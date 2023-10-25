@@ -24,7 +24,8 @@ class InvItemsForm extends Component
     public $curr_sec;
     public $currs;
 
-    #[Url] 
+    public $inv_item;
+
     public $id;
     public $name;
     public $desc;
@@ -43,6 +44,7 @@ class InvItemsForm extends Component
     public $denom = 1;
     public $up = 0;
     public $photo;
+    public $url;
     public $is_active;
 
     #[Url] 
@@ -71,20 +73,22 @@ class InvItemsForm extends Component
     }
 
 
-    public function mount()
+    public function mount(InvItem $inv_item)
     {
-        $item = InvItem::find($this->id);
         $area = InvArea::find($this->inv_area_id);
-        $this->curr_main = InvCurr::find(1);
         $mode = '';
 
-        // fill global inventory param
-        $this->currs = InvCurr::where('id', '<>', 1)->get(); 
-        $this->quoms = InvUom::orderBy('name')->get()->pluck('name')->toArray(); 
-
-        if ($item) {
+        if ($inv_item) {
             // edit mode fill all properties
             $mode = 'edit';
+            $this->fill(
+                $inv_item->only('name', 'desc', 'code', 'price', 'inv_curr_id', 'price_sec', 'denom', 'qty_main_min', 'qty_main_max', 'photo', 'is_active')
+            );
+            //fill uom, loc, tags
+            $this->uom = $inv_item->inv_uom->name;
+            $this->loc = $inv_item->inv_loc->name ?? '';
+            $this->tags = $inv_item->tags_array();
+            $this->url = '/storage/inv-items/'.$inv_item->photo;
 
         } elseif ($area) {
             // create mode needs area_id (required) and inv_code (optional)
@@ -94,6 +98,11 @@ class InvItemsForm extends Component
         if (!$mode) {
             return abort('403', __('Parameter tidak sah'));
         }
+
+        // fill global inventory param
+        $this->currs = InvCurr::where('id', '<>', 1)->get(); 
+        $this->quoms = InvUom::orderBy('name')->get()->pluck('name')->toArray(); 
+        $this->curr_main = InvCurr::find(1);
         
     }
 

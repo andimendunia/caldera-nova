@@ -18,13 +18,13 @@ class InvItemController extends Controller
     }
 
     public function edit($id) {
-        $title = __('Edit').': '.'Nama barang';
         $prev = route('inventory.items.show', ['id' => $id]);
         $header = __('Edit barang');
 
-        $invItem = $id;
+        $inv_item = InvItem::findOrFail($id);
+        $title = __('Edit').': '.$inv_item->name;
 
-        return view('inventory.items.edit', compact('title', 'prev', 'header', 'invItem'));
+        return view('inventory.items.edit', compact('title', 'prev', 'header', 'inv_item'));
     }
 
     public function create(Request $request) {
