@@ -39,7 +39,7 @@ class InvItemPhoto extends Component
 
         } else {
 
-            $this->url = $this->photo->temporaryUrl();
+            $this->url = $this->photo ? $this->photo->temporaryUrl() : '';
             $photo = $this->photo ? $this->photo->getFilename() : '';
 
             if ($this->isForm) {
@@ -53,7 +53,12 @@ class InvItemPhoto extends Component
             }
 
         }
+    }
 
-
+    public function removePhoto()
+    {
+        $this->photo = '';
+        $this->url = '';
+        $this->dispatch('photo-updated', photo: '');
     }
 }

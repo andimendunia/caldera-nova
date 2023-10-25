@@ -33,7 +33,11 @@
             </div>
             <hr class="border-neutral-200 dark:border-neutral-800" />
             <div class="flex p-4 text-sm">
-                <div>{{ $inv_item->is_active ? __('Aktif') : __('Nonaktif')}}</div>
+                @if($inv_item->is_active)
+                <div>{{ __('Aktif') }}</div>
+                @else
+                <div class="text-red-500">{{ __('Nonaktif') }}</div>
+                @endif
                 <div class="mx-2">•</div>
                 <div>{{ $inv_item->inv_area->name }}</div>
             </div>

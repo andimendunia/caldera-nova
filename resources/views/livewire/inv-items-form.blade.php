@@ -1,9 +1,9 @@
 <div class="block sm:flex gap-x-6">
-    <livewire:inv-item-photo isForm="true" :$url />
+    <livewire:inv-item-photo isForm="true" :url="$inv_item->photo ?? false ? $url : ''" />
     <form wire:submit="save()" class="w-full overflow-hidden">
         <div class="px-4 pb-4">
             <div class="text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
-                {{ __('Info umum') }}</div>
+                {{ __('Informasi Dasar') }}</div>
             <x-text-input wire:model="name" class="mt-4" name="name" type="text"
                 placeholder="{{ __('Nama') }}" />
             <div wire:key="err-name">
@@ -25,8 +25,11 @@
                     <x-input-error messages="{{ $message }}" class="m-2" />
                 @enderror
             </div>
+            <div x-data="{ is_active: @entangle('is_active')}" class="mx-3 mt-4">
+                <x-toggle x-model="is_active" :checked="$is_active"><span x-text="is_active ? '{{ __('Aktif')}}' : '{{ __('Nonaktif')}}'"></span></x-toggle>
+            </div>
             <div class="mt-8 text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600">
-                {{ __('Info harga') }}</div>
+                {{ __('Harga dan Satuan') }}</div>
             @if($currs->count())
                 <x-select wire:model.live="inv_curr_id" class="mt-4">
                     <option value="">{{__('Gunakan hanya').' '.$curr_main->name}}</option>

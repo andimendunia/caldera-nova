@@ -56,7 +56,7 @@ class InvItemsForm extends Component
         return [
             'name'          => ['required','min:1', 'max:128'],
             'desc'          => ['required', 'min:1', 'max:256'],
-            'code'          => ['nullable', 'size:11', Rule::unique('inv_items')->where(fn (Builder $q) => $q->where('code', $this->code)->where('inv_area_id', $this->inv_area_id))->ignore($this->id)],
+            'code'          => ['nullable', 'size:11', Rule::unique('inv_items')->where(fn (Builder $q) => $q->where('code', $this->code)->where('inv_area_id', $this->inv_area_id))->ignore($this->inv_item->id ?? '')],
             'price'         => ['required', 'numeric', 'min:0', 'max:999000000'],
             'price_sec'     => ['required', 'numeric', 'min:0', 'max:999000000'],
             'uom'           => ['required', 'min:1', 'max:5'],
@@ -78,17 +78,18 @@ class InvItemsForm extends Component
         $area = InvArea::find($this->inv_area_id);
         $mode = '';
 
-        if ($inv_item) {
+        if ($inv_item->id) {
             // edit mode fill all properties
             $mode = 'edit';
             $this->fill(
-                $inv_item->only('name', 'desc', 'code', 'price', 'inv_curr_id', 'price_sec', 'denom', 'qty_main_min', 'qty_main_max', 'photo', 'is_active')
+                $inv_item->only('name', 'desc', 'code', 'price', 'inv_area_id', 'inv_curr_id', 'price_sec', 'denom', 'qty_main_min', 'qty_main_max', 'photo', 'is_active')
             );
             //fill uom, loc, tags
-            $this->uom = $inv_item->inv_uom->name;
+            $this->uom = $inv_item->inv_uom->name ?? '';
             $this->loc = $inv_item->inv_loc->name ?? '';
             $this->tags = $inv_item->tags_array();
             $this->url = '/storage/inv-items/'.$inv_item->photo;
+            $this->curr_sec = InvCurr::find($this->inv_curr_id);
 
         } elseif ($area) {
             // create mode needs area_id (required) and inv_code (optional)
@@ -179,7 +180,7 @@ class InvItemsForm extends Component
         $denom      = (int)$this->denom;
 
         if($curr && $price_sec && $rate > 0) {
-            $this->price     = $price_sec / $rate;
+            $this->price     = round(($price_sec / $rate),2);
         } else {
             $this->inv_curr_id  = '';
             $this->price        = $price;
@@ -202,6 +203,7 @@ class InvItemsForm extends Component
 
         $this->is_active = $this->is_active !== null ? $this->is_active : false;
 
+ 
         $validated = $this->validate();
 
         // get uom id, required
@@ -214,15 +216,18 @@ class InvItemsForm extends Component
         $validated['qty_main'] = 0;
         $validated['qty_used'] = 0;
         $validated['qty_rep'] = 0;
-        $validated['is_active'] = false;
-        
-        $item = InvItem::create($validated);
 
-        $item->updateLoc($this->loc);
-        $item->updateTags($this->tags);
-        $item->updatePhoto($this->photo);
+        if($this->inv_item->id ?? false) {
+            $this->inv_item->update($validated);
+        } else {
+            $this->inv_item = InvItem::create($validated);
+        }
 
-        return redirect(route('inventory.items.show', ['id' => $item->id]));
+        $this->inv_item->updateLoc($this->loc);
+        $this->inv_item->updateTags($this->tags);
+        $this->inv_item->updatePhoto($this->photo);
+
+        return redirect(route('inventory.items.show', ['id' => $this->inv_item->id]));
     }
 
 }
