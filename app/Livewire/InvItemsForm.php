@@ -219,15 +219,17 @@ class InvItemsForm extends Component
 
         if($this->inv_item->id ?? false) {
             $this->inv_item->update($validated);
+            $msg = __('Barang diperbarui');
         } else {
             $this->inv_item = InvItem::create($validated);
+            $msg = __('Barang dibuat');
         }
 
         $this->inv_item->updateLoc($this->loc);
         $this->inv_item->updateTags($this->tags);
         $this->inv_item->updatePhoto($this->photo);
 
-        return redirect(route('inventory.items.show', ['id' => $this->inv_item->id]));
+        return redirect(route('inventory.items.show', ['id' => $this->inv_item->id]))->with('status', $msg);
     }
 
 }

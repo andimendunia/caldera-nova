@@ -2,5 +2,8 @@
     <div class="sm:py-12 max-w-4xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
         <livewire:inv-item-show :$inv_item />
         <hr class="border-neutral-200 dark:border-neutral-800" />
+        @if(session('status'))
+        <div x-data x-init="$nextTick(() => {notyf.success('{{ session('status') }}')})"></div>
+        @endif
     </div>
 </x-inventory>
