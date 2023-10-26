@@ -73,12 +73,21 @@
 
 [x-cloak] { display: none !important; }
 
+
 input[type="checkbox"]:checked + label.custom-checkbox {
     @apply ring-2 ring-caldy-500 ring-offset-2 dark:ring-offset-gray-800;
 }
 
+.cal-radio input:checked+label {
+  @apply opacity-100;
+}
+
 .cal-radio input:checked+label .cal-checked {
   @apply block;
+}
+
+.cal-radio label i {
+  margin-right: -1px;
 }
 
 .btn-group, .spinner-group {
@@ -90,18 +99,20 @@ input[type="checkbox"]:checked + label.custom-checkbox {
 }
 
 .btn-group button:first-child, .btn-group .cal-radio:first-child label, .spinner-group button:first-child {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+  @apply rounded-l-md
 }
 
 .btn-group button:last-child, .btn-group .cal-radio:last-child label, .spinner-group button:last-child {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+  @apply rounded-r-md
 }
 
-.btn-group button:last-child, .btn-group .cal-radio:last-child label {
-    margin-left:-1px;
+.btn-group button, .btn-group .cal-radio label {
+  margin-left:-1px;
 }
+
+/* .btn-group button:last-child, .btn-group .cal-radio:last-child label {
+    margin-left:0px;
+} */
 
 @keyframes pbishort {
     0% {
@@ -184,6 +195,22 @@ input[type="checkbox"]:checked + label.custom-checkbox {
 
  .table th, .table td {
     @apply px-6 py-3;
+  }
+
+  .table.table-sm th, .table.table-sm td {
+    @apply p-2;
+  }
+
+  .table.table-sm th:first-child, .table.table-sm td:first-child {
+    @apply pl-4;
+  }
+
+  .table.table-sm th:last-child, .table.table-sm td:last-child {
+    @apply pr-4;
+  }
+
+  .table.table-truncate th, .table.table-sm td {
+    @apply truncate max-w-xs;
   }
 
   .spinner {

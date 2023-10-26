@@ -2,45 +2,160 @@
 
 namespace App\Livewire;
 
+use App\Models\InvLoc;
+use App\Models\InvTag;
+use App\Models\InvArea;
+use App\Models\InvCurr;
+use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
+use Illuminate\Database\Eloquent\Builder;
 
 class InvItemsSearch extends Component
 {
     use WithPagination;
 
     #[Url]
-    public $q;
+    public $q = '';
     public $qwords;
 
     #[Url]
-    public $status;
+    public $status = 'active';
     #[Url]
-    public $qty;
+    public $qty = 'total';
     #[Url]
-    public $filter;
+    public $filter = false;
 
     #[Url]
-    public $loc;
+    public $loc = '';
+    public $qlocs = [];
     #[Url]
-    public $tags;
-    public $tags_array;
-    #[Url]
-    public $without;
+    public $tag = '';
+    public $qtags = [];
 
     #[Url]
-    public $area_ids;
+    public $without = '';
+
+    public $areas;
+    #[Url]
+    public $area_ids = [];
 
     #[Url]
-    public $sort;
+    public $sort = 'updated';
     #[Url]
-    public $view;
+    public $view = 'content';
 
+    public $inv_curr;
     public $perPage = 24;
+
+    public function mount()
+    {
+        // update: call from pref
+        $this->area_ids = ['1'];
+        $this->sort = 'updated';
+        $this->view = 'content';
+        $this->status = 'active';
+        $this->qty = 'total';
+        $this->filter = false;
+        $this->inv_curr = InvCurr::find(1);
+
+        $this->areas = InvArea::all();
+    }
 
     public function render()
     {
-        return view('livewire.inv-items-search');
+        $q = trim($this->q);
+        $inv_items = InvItem::whereIn('inv_items.inv_area_id', $this->area_ids)
+        ->where(function (Builder $query) use ($q) {
+            $query->orWhere('inv_items.name', 'LIKE', '%'.$q.'%')
+                  ->orWhere('inv_items.desc', 'LIKE', '%'.$q.'%')
+                  ->orWhere('inv_items.code', 'LIKE', '%'.$q.'%');
+        });
+        switch ($this->status) {
+            case 'inactive':
+                $inv_items->where('inv_items.is_active', false);
+                break;
+            case 'both':
+                //
+                break;
+            default:
+                $inv_items->where('inv_items.is_active', true);
+                break;
+        }
+        if($this->filter) {
+            if($this->loc) {
+                $loc = trim($this->loc);
+                $inv_items->join('inv_locs', 'inv_items.inv_loc_id', '=', 'inv_locs.id')
+                ->where('inv_locs.name', 'like', '%'.$loc.'%');
+            }
+            if($this->tag) {
+                $tag = trim($this->tag);
+                $inv_items->join('inv_item_tags', 'inv_items.id', '=', 'inv_item_tags.inv_item_id')
+                ->join('inv_tags', 'inv_item_tags.inv_tag_id', '=', 'inv_tags.id')
+                ->where('inv_tags.name', 'like', '%'.$tag.'%');
+            }
+            if($this->without) {
+                switch ($this->without) {
+                    case 'loc':
+                        $inv_items->whereNull('inv_items.inv_loc_id');
+                        break;
+                    case 'tags':
+                        $inv_items->whereNotIn('id', function ($query) {
+                            $query->select('inv_item_id')->from('inv_item_tags');
+                        });
+                        break;
+                    case 'photo':
+                        $inv_items->whereNull('inv_items.photo');
+                        break;
+                    case 'code':
+                        $inv_items->whereNull('inv_items.code');
+                        break;
+                    case 'qty_main_min':
+                        $inv_items->where('inv_items.qty_main_min', 0);
+                        break;
+                    case 'qty_main_max':
+                        $inv_items->where('inv_items.qty_main_max', 0);
+                        break;
+                    
+                }
+            }
+        }
+
+        $inv_items = $inv_items->paginate($this->perPage);
+
+        return view('livewire.inv-items-search', compact('inv_items'));
     }
+
+    public function resetSearch()
+    {
+        // reset according user pref
+        $this->area_ids = ['1'];
+        $this->reset('q', 'status', 'qty', 'filter', 'loc', 'tag', 'without');
+    }
+
+    public function updatedLoc()
+    {
+        $qloc = trim($this->loc);
+        $qlocs = InvLoc::whereIn('inv_locs.inv_area_id', $this->area_ids)
+        ->where('name', 'LIKE', '%'.$qloc.'%')
+        ->orderBy('name')
+        ->take(100)
+        ->get()
+        ->pluck('name');
+        $this->qlocs = $qlocs->toArray();
+    }
+
+    public function updatedTag()
+    {
+        $qtag = trim($this->tag);
+        $qtags = InvTag::whereIn('inv_tags.inv_area_id', $this->area_ids)
+        ->where('name', 'LIKE', '%'.$qtag.'%')
+        ->orderBy('name')
+        ->take(100)
+        ->get()
+        ->pluck('name');
+        $this->qtags = $qtags->toArray();
+    }
+
 }
