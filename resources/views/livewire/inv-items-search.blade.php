@@ -100,8 +100,9 @@
                     <option value="alpha">{{ __('Abjad') }}</option>
                 </x-select>
                 <div class="btn-group">
-                    <x-secondary-button><i class="fa fa-fw fa-list"></i></x-secondary-button>
-                    <x-secondary-button><i class="fa fa-fw fa-border-all"></i></x-secondary-button>    
+                    <x-radio-button wire:model.live="view" value="list" name="view" id="view-list"><i class="fa fa-fw fa-grip-lines text-center m-auto"></i></x-radio-button>
+                    <x-radio-button wire:model.live="view" value="content" name="view" id="view-content"><i class="fa fa-fw fa-list text-center m-auto"></i></x-radio-button>
+                    <x-radio-button wire:model.live="view" value="grid" name="view" id="view-grid"><i class="fa fa-fw fa-border-all text-center m-auto"></i></x-radio-button>    
                 </div>                
             </div>
         </div>

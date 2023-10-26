@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <form id="cal-form" method="POST" action="{{ route('login') }}" class="relative">
         @csrf
 
         <!-- Email Address -->
@@ -44,11 +44,24 @@
 
             </div>
 
-
             <x-primary-button class="ml-3">
                 {{ __('Masuk') }}
             </x-primary-button>
         </div>
+        <div id="cal-spinner" class="hidden w-full h-full absolute top-0 left-0 bg-white/70 dark:bg-neutral-800/70">
+            <x-spinner />
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                function spin() {
+                    const spinner = document.getElementById('cal-spinner');
+                    spinner.classList.remove('hidden');
+                }
+                const form = document.getElementById('cal-form');
+                form.addEventListener('submit', spin);
+            });
+
+        </script>
     </form>
 
 </x-guest-layout>

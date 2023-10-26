@@ -12,8 +12,7 @@
         @endif        
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="/storage/fonts/figtree.css" rel="stylesheet" />
+        {{-- <link href="/storage/fonts/figtree.css" rel="stylesheet" /> --}}
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

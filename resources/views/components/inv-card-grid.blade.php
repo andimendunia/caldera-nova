@@ -9,7 +9,7 @@
                 </div>
             </div>
         </div>
-        <div class="truncate p-2 sm:p-4">
+        <div class="truncate p-2 lg:p-3">
             <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                 {{ $name }}
             </div>                        
