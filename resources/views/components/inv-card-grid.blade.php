@@ -11,7 +11,7 @@
             @if($url)
             <img class="absolute w-full h-full object-cover dark:brightness-75 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="{{ $url }}" />
             @endif
-            <div class="absolute bottom-0 right-0 font-medium text-sm px-3 py-1 rounded-tl-md bg-black/50">
+            <div class="absolute bottom-0 right-0 font-medium text-sm px-3 py-1 rounded-tl-md bg-white/50 dark:bg-black/50">
                 @switch($qty)
                 @case('main')
                     {{ $qty_main }}
@@ -38,7 +38,6 @@
             <div class="truncate mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                 <span class="mr-3"><i class="fa fa-map-marker-alt mr-2"></i>{{ $loc ? $loc : __('Tak ada lokasi') }}</span>                          
             </div>
-
         </div>
     </div>
 </x-card-link>

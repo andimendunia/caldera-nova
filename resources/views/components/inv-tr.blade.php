@@ -1,7 +1,22 @@
 @props(['href', 'name', 'desc', 'code', 'curr', 'price', 'uom', 'loc', 'tags', 'qty', 'qty_main', 'qty_used', 'qty_rep'])
 
 <tr>
-   <td>{{ $qty.' '.$uom }}</td>
+   <td>                
+        @switch($qty)
+        @case('main')
+            {{ $qty_main }}
+            @break
+        @case('used')
+            {{ $qty_used }}
+            @break
+        @case('rep')
+            {{ $qty_rep }}
+            @break
+        @default
+            {{ $qty_main + $qty_used + $qty_rep}}
+        @endswitch
+        {{ $uom }}
+    </td>
    <td>
        <span>{{ $name }}</span><br/>
        <span class="text-sm">{{ $desc }}</span>

@@ -3,67 +3,25 @@
         <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0">
             <x-text-input-icon wire:model.live="q" icon="fa fa-fw fa-search" id="inv-q" name="q" type="search"
                 placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
-            <x-select wire:model.live="status" class="mt-3">
-                <option value="active">{{ __('Aktif') }}</option>
-                <option value="inactive">{{ __('Nonaktif') }}</option>
-                <option value="both">{{ __('Aktif dan Nonaktif') }}</option>
+            <x-select wire:model.live="status" class="mt-4">
+                <option value="active">{{ __('Barang aktif') }}</option>
+                <option value="inactive">{{ __('Barang nonaktif') }}</option>
+                <option value="both">{{ __('Aktif dan nonaktif') }}</option>
             </x-select>
-            <x-select wire:model.live="qty" class="mt-3">
+            <x-select wire:model.live="qty" class="mt-4">
                 <option value="total">{{ __('Qty total') }}</option>
                 <option value="main">{{ __('Qty utama saja') }}</option>
                 <option value="used">{{ __('Qty bekas saja') }}</option>
                 <option value="rep">{{ __('Qty diperbaiki saja') }}</option>
             </x-select>
-            <div x-data="{ filter: @entangle('filter').live }" class="my-5">
-                <div class="mx-2 flex justify-between">
-                    <div>
-                        <x-toggle x-model="filter">{{ __('Filter') }}</x-toggle>
-                    </div>
-                    <div class="flex items-center">
-                        <x-dropdown align="right" width="48">
-                            <x-slot name="trigger">
-                                <button class="focus:outline-none transition ease-in-out duration-150">
-                                    <svg class="fill-transparent h-6 w-6" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path stroke="#6b7280" stroke-linecap='round' stroke-linejoin='round'
-                                            stroke-width='1.5' d='M6 6l4 4 4-4' />
-                                    </svg>
-                                </button>
-                            </x-slot>
-                            <x-slot name="content">
-                                {{-- <div class="text-sm text-neutral-400 dark:text-neutral-500 p-6 text-center">{{__('Tidak ada filter tersimpan')}}</div> --}}
-                                <x-dropdown-link href="#">
-                                    <span class="bg-neutral-600 rounded-full px-2 py-1 mr-2"><i
-                                            class="fa fa-tag mr-2"></i>okc</span>
-                                </x-dropdown-link>
-                                <x-dropdown-link href="#" class="flex flex-wrap gap-2">
-                                    <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap"><i
-                                            class="fa fa-search mr-2"></i>e10-19</div>
-                                    <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap">Tak ada foto
-                                    </div>
-                                </x-dropdown-link>
-                                <x-dropdown-link href="#" class="flex flex-wrap gap-2">
-                                    <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap"><i
-                                            class="fa fa-tag mr-2"></i>okc</div>
-                                    <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap">Nonaktif</div>
-                                </x-dropdown-link>
-                                <x-dropdown-link href="#" class="flex flex-wrap gap-2">
-                                    <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap"><i
-                                            class="fa fa-map-marker-alt mr-2"></i>G1.2.3</div>
-                                    <div class="bg-neutral-600 rounded-full px-2 py-1 whitespace-nowrap"><i
-                                            class="fa fa-tag mr-2"></i>ym laser</div>
-                                </x-dropdown-link>
-                                <hr class="border-neutral-300 dark:border-neutral-600" />
-                                <x-dropdown-link :href="route('account.edit')">
-                                    {{ __('Kelola') }}
-                                </x-dropdown-link>
-                            </x-slot>
-                        </x-dropdown>
-                    </div>
+            <div x-data="{ filter: @entangle('filter').live }" class="my-5 bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-hidden p-4">
+                <div class="flex items-start justify-between">
+                    <x-toggle x-model="filter">{{ __('Filter') }}</x-toggle>
+                    {{-- <x-text-button><i class="fa fa-ellipsis"></i></x-text-button> --}}
                 </div>
                 <div x-show="filter" x-cloak>
                     <x-text-input-icon wire:model.live="loc" icon="fa fa-fw fa-map-marker-alt" id="inv-loc"
-                        class="mt-3" type="search" placeholder="{{ __('Lokasi') }}" list="qlocs" />
+                        class="mt-4" type="search" placeholder="{{ __('Lokasi') }}" list="qlocs" />
                         <datalist id="qlocs">
                             @if(count($qlocs))
                                 @foreach($qlocs as $qloc)
@@ -71,7 +29,7 @@
                                 @endforeach
                             @endif
                         </datalist>
-                    <x-text-input-icon wire:model.live="tag" icon="fa fa-fw fa-tag" class="mt-3" id="inv-tag"
+                    <x-text-input-icon wire:model.live="tag" icon="fa fa-fw fa-tag" class="mt-4" id="inv-tag"
                         type="search" placeholder="{{ __('Tag') }}" list="qtags" />
                         <datalist id="qtags">
                             @if(count($qtags))
@@ -80,7 +38,7 @@
                                 @endforeach
                             @endif
                         </datalist>
-                    <x-select wire:model.live="without" name="filter" class="mt-3">
+                    <x-select wire:model.live="without" name="filter" class="mt-4 mb-2">
                         <option value=""></option>
                         <option value="loc">{{ __('Tak ada lokasi') }}</option>
                         <option value="tags">{{ __('Tak ada tag') }}</option>
@@ -89,13 +47,8 @@
                         <option value="qty_min">{{ __('Tak ada min qty utama') }}</option>
                         <option value="qty_max">{{ __('Tak ada maks qty utama') }}</option>
                     </x-select>
-                    <div class="m-3">
-                        <x-text-button type="button" class="text-sm"><i
-                                class="fa fa-fw mr-2 fa-save"></i>{{ __('Simpan filter') }}</x-text-button>
-                    </div>
                 </div>
             </div>
-            <hr class="my-5 border-neutral-300 dark:border-neutral-700" />
             <div class="m-3">
                 @foreach ($areas as $area)
                     <x-checkbox wire:model.live="area_ids" wire:key="inv-area-{{ $area->id }}" id="inv-area-{{ $area->id }}"
