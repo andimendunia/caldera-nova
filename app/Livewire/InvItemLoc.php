@@ -18,6 +18,22 @@ class InvItemLoc extends Component
     public $loc;
     public $qlocs = [];
 
+    public function rules()
+    {
+
+        return [
+            'loc' => ['nullable', 'alpha_dash', 'max:20'],
+        ];
+    }
+
+    public function messages() 
+    {
+        return [
+            'loc.alpha_dash' => __('Hanya huruf, angka, dan strip'),
+            'loc.max' => __('Maksimal 20 karakter'),
+        ];
+    }
+
     public function placeholder()
     {
         return view('livewire.modal-placeholder');
@@ -53,29 +69,14 @@ class InvItemLoc extends Component
         if ($this->isForm) {
             $this->dispatch('loc-applied', loc: $this->loc);
         } else {
-            $validator = Validator::make(
-                ['loc' => $this->loc ],
-                ['loc' => 'nullable|alpha_dash|max:20'],
-                ['alpha_dash' => __('Hanya boleh mengandung huruf, angka, dan strip'), 'max' => __('Maksimal 20 karakter')]
-            );
-
-            if ($validator->fails()) {
-
-                $errors = $validator->errors();
-                $error = $errors->first('loc');
-                $this->js('notyf.error("'.$error.'")'); 
-
-            } else {
-                $item = InvItem::find($this->id);
-                if($item) {
-                    if ($item->loc() !== $this->loc) {
-                        $item->updateLoc($this->loc);
-                        $this->js('notyf.success("'.__('Lokasi diperbarui').'")');
-                        $this->dispatch('updated');
-                    }
-                }
+            $this->validate();
+            $item = InvItem::find($this->id);
+            if($item) {
+                $item->updateLoc($this->loc);
+                $this->js('window.dispatchEvent(escKey)'); 
+                $this->js('notyf.success("'.__('Lokasi diperbarui').'")');
+                $this->dispatch('updated');
             }
-
         }
     }
 }

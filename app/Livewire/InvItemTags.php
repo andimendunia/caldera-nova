@@ -18,6 +18,22 @@ class InvItemTags extends Component
     public $tags = [];
     public $qtags = [];
 
+    public function rules()
+    {
+        return [
+            'tags.*' => ['nullable', 'alpha_dash', 'max:20'],
+        ];
+    }
+
+    public function messages() 
+    {
+        return [
+            'tags.*.alpha_dash' => __('Hanya huruf, angka, dan strip'),
+            'tags.*.max' => __('Maksimal 20 karakter'),
+        ];
+    }
+    
+
     public function placeholder()
     {
         return view('livewire.modal-placeholder');
@@ -66,26 +82,13 @@ class InvItemTags extends Component
         if ($this->isForm) {
             $this->dispatch('tags-applied', tags: $this->tags);
         } else {
-            $validator = Validator::make($this->tags,
-                ['*' => 'alpha_dash|min:1|max:20'],
-                ['*.alpha_dash' => __('Hanya boleh mengandung huruf, angka, dan strip'), '*.max' => __('Maksimal 20 karakter')]
-            );
-
-            if ($validator->fails()) {
-
-                $errors = $validator->errors();
-                $error = $errors->first();
-                $this->js('notyf.error("'.$error.'")'); 
-
-            } else {
-                $item = InvItem::find($this->id);
-                if($item) {
-                    if ($item->tags_array() !== $this->tags) {
-                        $item->updateTags($this->tags);
-                        $this->js('notyf.success("'.__('Tag diperbarui').'")');
-                        $this->dispatch('updated');
-                    }
-                }
+            $this->validate();
+            $item = InvItem::find($this->id);
+            if($item) {
+                $item->updateTags($this->tags);
+                $this->js('window.dispatchEvent(escKey)'); 
+                $this->js('notyf.success("'.__('Tag diperbarui').'")');
+                $this->dispatch('updated');
             }
 
         }

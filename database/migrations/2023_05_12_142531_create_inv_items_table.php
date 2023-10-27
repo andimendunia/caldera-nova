@@ -38,6 +38,7 @@ return new class extends Migration
             $table->index('inv_uom_id');
             $table->index('inv_loc_id');
             $table->index('inv_area_id');
+            $table->unique(['code','inv_area_id']);
 
             // table: inv_circs
             //qty

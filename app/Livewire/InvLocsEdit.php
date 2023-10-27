@@ -18,7 +18,7 @@ class InvLocsEdit extends Component
 
         return [
             'name' => [
-                'required', 'min:1', 'max:20',
+                'required', 'alpha_dash', 'min:1', 'max:20',
                 Rule::unique('inv_locs')->where(fn (Builder $q) => $q->where('name', $this->name)->where('inv_area_id', $this->loc->inv_area_id))->ignore($this->loc->id)],
         ];
     }

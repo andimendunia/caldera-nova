@@ -201,9 +201,9 @@ class InvItemsForm extends Component
             $this->$propUp = strtoupper($this->$propUp);
         }
 
+        $this->code = $this->code ? $this->code : null;
         $this->is_active = $this->is_active !== null ? $this->is_active : false;
 
- 
         $validated = $this->validate();
 
         // get uom id, required

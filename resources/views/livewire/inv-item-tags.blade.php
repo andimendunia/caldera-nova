@@ -1,4 +1,4 @@
-<div wire:click.outside="apply">
+<div>
     <div class="p-6">
         @if($isForm)
         <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
@@ -32,5 +32,13 @@
                 <x-text-button type="button" class="mt-3" wire:click="addTag"><i class="fa fa-plus mr-2"></i>{{ __('Tambah tag') }}</x-text-button>
             @endif
         </div>
+        @if(!$isForm)
+        <div class="flex">
+            <x-primary-button type="button" wire:click="apply" class="ml-auto mt-4">{{__('Perbarui')}}</x-primary-button>
+        </div>
+        @endif
+        <div wire:loading.class.remove="hidden" wire:target="apply"
+        class="w-full h-full absolute top-0 left-0 bg-white/70 dark:bg-neutral-800/70 hidden"></div>
+        <x-spinner wire:loading.class.remove="hidden" wire:target="apply" class="hidden"></x-spinner>
     </div>  
 </div>

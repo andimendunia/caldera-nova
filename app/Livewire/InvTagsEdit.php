@@ -18,7 +18,7 @@ class InvTagsEdit extends Component
 
         return [
             'name' => [
-                'required', 'min:1', 'max:20',
+                'required', 'alpha_dash', 'min:1', 'max:20',
                 Rule::unique('inv_tags')->where(fn (Builder $q) => $q->where('name', $this->name)->where('inv_area_id', $this->tag->inv_area_id))->ignore($this->tag->id)],
         ];
     }
