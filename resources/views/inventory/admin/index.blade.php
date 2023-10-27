@@ -169,16 +169,5 @@
         </div>
         @endif
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            Livewire.hook('element.init', ({ component }) => {
-                const n = component.name;
-                if (n == 'inv-items-first') {
-                    const i = component.el.getElementsByTagName('input');
-                    i.length > 0 ? i[0].focus() : false;
-                }
-            });
-        });
-    </script>
 </div>
     

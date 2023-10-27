@@ -24,13 +24,6 @@
                     component.name == 'inv-uoms' ? pgbar.classList.add('hidden') : false;
                 });
             });
-            Livewire.hook('element.init', ({ component }) => {
-                const n = component.name;
-                if (n == 'inv-uoms-edit') {
-                    const i = component.el.getElementsByTagName('input');
-                    i.length > 0 ? i[0].focus() : false;
-                }
-            });
         });
     </script>
 </div>

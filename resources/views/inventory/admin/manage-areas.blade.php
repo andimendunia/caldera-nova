@@ -12,13 +12,6 @@
                    component.name == 'inv-areas' ? pgbar.classList.add('hidden') : false;
                });
            });
-           Livewire.hook('element.init', ({ component }) => {
-                const n = component.name;
-                if (n == 'inv-areas-create' || n == 'inv-areas-edit') {
-                    const i = component.el.getElementsByTagName('input');
-                    i.length > 0 ? i[0].focus() : false;
-                }
-            });
        });
    </script>
 </div>

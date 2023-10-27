@@ -54,7 +54,10 @@
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 function spin() {
+                    const focEl = document.activeElement;
                     const spinner = document.getElementById('cal-spinner');
+
+                    focEl.blur();
                     spinner.classList.remove('hidden');
                 }
                 const form = document.getElementById('cal-form');

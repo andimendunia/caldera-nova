@@ -21,7 +21,7 @@
                 </div>
                 <div>
                     <x-text-button type="button" x-on:click="$dispatch('open-modal', 'edit-loc')" class="mr-4"><i class="fa fa-map-marker-alt mr-2"></i>{{ $loc ? $loc : __('Tak ada lokasi')}}</x-text-button>
-                    <x-modal :name="'edit-loc'">
+                    <x-modal :name="'edit-loc'" focusable>
                         <livewire:inv-item-loc :loc="$inv_item->loc()" :inv_area_id="$inv_item->inv_area_id" :id="$inv_item->id" lazy />                
                     </x-modal> 
                     <x-text-button type="button" x-on:click="$dispatch('open-modal', 'edit-tags')"><i class="fa fa-tag mr-2"></i>{{ $tags ? $tags : __('Tak ada tag')}}</x-text-button> 
