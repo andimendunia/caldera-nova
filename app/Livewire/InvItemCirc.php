@@ -12,6 +12,8 @@ class InvItemCirc extends Component
     public $qty_main;
     public $qty_used;
     public $qty_rep;
+    public $qty_main_min;
+    public $qty_main_max;
     public $curr;
     public $price;
     public $uom;

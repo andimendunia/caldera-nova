@@ -134,9 +134,39 @@ class InvItemsSearch extends Component
                 $inv_items->orderByDesc('inv_items.price');
                 break;
             case 'qty_low':
+                switch ($this->qty) {
+                    case 'total':
+                        $inv_items->selectRaw('*, (inv_items.qty_main + inv_items.qty_used + inv_items.qty_rep) as qty_total')
+                        ->orderBy('qty_total');
+                        break;
+                    case 'main':
+                        $inv_items->orderBy('inv_items.qty_main');
+                        break;
+                    case 'used':
+                        $inv_items->orderBy('inv_items.qty_used');
+                        break;
+                    case 'rep':
+                        $inv_items->orderBy('inv_items.qty_rep');
+                        break;
+                }
                 break;
-
             case 'qty_high':
+                switch ($this->qty) {
+                    case 'total':
+                        $inv_items->selectRaw('*, (inv_items.qty_main + inv_items.qty_used + inv_items.qty_rep) as qty_total')
+                        ->orderByDesc('qty_total');
+                        break;
+                    case 'main':
+                        $inv_items->orderByDesc('inv_items.qty_main');
+                        break;
+                    case 'used':
+                        $inv_items->orderByDesc('inv_items.qty_used');
+                        break;
+                    case 'rep':
+                        $inv_items->orderByDesc('inv_items.qty_rep');
+                        break;
+                }
+                break;
                 break;
 
             case 'alpha':

@@ -24,9 +24,17 @@
     <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">
         <div class="flex justify-between p-4">
             <div class="flex flex-col gap-y-3">
-                <div class="flex items-end">
-                    <div class="text-4xl mr-2" x-text="qty_main">{{ $qty_main }}</div>
-                    <div class="font-bold">{{ $uom }}</div>
+                <div class="flex items-center">
+                    <div class="text-4xl" x-text="qty_main">{{ $qty_main }}</div>
+                    <div class="font-bold ml-2">{{ $uom }}</div>
+                    @if($qty_main_min || $qty_main_max)
+                    <div class="sm:grid grid-cols-2 ml-5 gap-x-1 text-xs text-neutral-600 dark:text-neutral-400 hidden">
+                        <div>{{ __('Maks:') }}</div>
+                        <div>{{ $qty_main_max ? $qty_main_max : 0 }}</div>
+                        <div>{{ __('Min:') }}</div>
+                        <div>{{ $qty_main_min ? $qty_main_min : 0 }}</div>
+                    </div>
+                    @endif
                 </div>
                 <div x-show="qty_used || qty_rep" x-cloak class="text-sm">
                     <table>
@@ -48,7 +56,7 @@
             <div class="spinner-group my-auto">
                 <x-secondary-button @click="qty == null ? qty = -1 : --qty"><i
                         class="fa fa-fw fa-minus"></i></x-secondary-button>
-                <x-text-input-spinner x-model="qty" id="inv-circ-qty" class="w-24 pl-5 text-center"
+                <x-text-input-spinner x-model="qty" id="inv-circ-qty" class="w-20 p-2 text-center"
                     name="qty" type="number" value="" placeholder="Qty"></x-text-input-spinner>
                 <x-secondary-button @click="qty == null ? qty = 1 : ++qty"><i
                         class="fa fa-fw fa-plus"></i></x-secondary-button>
