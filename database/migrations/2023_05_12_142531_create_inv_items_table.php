@@ -40,17 +40,7 @@ return new class extends Migration
             $table->index('inv_area_id');
             $table->unique(['code','inv_area_id']);
 
-            // table: inv_circs
-            //qty
-            //qty_type
-            //qty_before
-            //qty_after
-            //amount
-            //user_id
-            //assigner_id
-            //evaluator_id
-            //status 1 approved, 2 rejected, null pending
-            //remarks
+
 
             // table: inv_item_tags
             //inv_item_id

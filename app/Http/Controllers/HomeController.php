@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,9 +19,11 @@ class HomeController extends Controller
             __('Hai, ') . Auth::user()->name.'!',
             __('Gimana gimana?'),
         );
+
+        $time = Carbon::now()->format('Y-m-d H:i');
         
         // Choose a random element from the $messages array
         $greeting = $greetings[array_rand($greetings)];
-        return view('home', compact('greeting'));
+        return view('home', compact('greeting', 'time'));
     }
 }

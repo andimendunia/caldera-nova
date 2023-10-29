@@ -1,8 +1,15 @@
 <div class="flex flex-col gap-x-4 md:gap-x-8 sm:flex-row">
     <div>
         <div class="w-full sm:w-44 md:w-56 px-3 sm:px-0">
-            <x-text-input-icon wire:model.live="q" icon="fa fa-fw fa-search" id="inv-q" name="q" type="search"
+            <x-text-input-icon wire:model.live="q" icon="fa fa-fw fa-search" id="inv-q" name="q" type="search" list="qwords"
                 placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
+                <datalist id="qwords">
+                    @if(count($qwords))
+                        @foreach($qwords as $qword)
+                            <option value="{{ $qword }}">
+                        @endforeach
+                    @endif
+                </datalist>
             <x-select wire:model.live="status" class="mt-4">
                 <option value="active">{{ __('Barang aktif') }}</option>
                 <option value="inactive">{{ __('Barang nonaktif') }}</option>

@@ -18,7 +18,7 @@
         </div>
         <div class="text-neutral-500">
             <div class="text-center mb-20">
-                <div class="mb-2">{{ __('Waktu server:').' '.'2023-08-29 08:57'}}</div>
+                <div class="mb-2">{{ __('Waktu server:').' '.$time}}</div>
                 <div>{{ __('5 pengguna daring')}}</div>   
             </div>
             <div class="flex flex-wrap justify-center gap-3">
