@@ -110,11 +110,11 @@ input[type="checkbox"]:checked + label.custom-checkbox {
   margin-left:-1px;
 }
 
-.spinner-group button:first-child {
+.btn-group button:first-child, .spinner-group button:first-child {
   @apply rounded-r-none
 }
 
-.spinner-group button:last-child {
+.btn-group button:last-child, .spinner-group button:last-child {
   @apply rounded-l-none
 }
 

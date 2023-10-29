@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\InvCurrController;
 use App\Http\Controllers\InvItemController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\PreferencesController;

@@ -122,10 +122,10 @@ class InvItemsSearch extends Component
         
         switch ($this->sort) {
             case 'updated':
-                $inv_items->orderBy('inv_items.updated_at');
+                $inv_items->orderByDesc('inv_items.updated_at');
                 break;
             case 'created':
-                $inv_items->orderBy('inv_items.created_at');
+                $inv_items->orderByDesc('inv_items.created_at');
                 break;            
             case 'price_low':
                 $inv_items->orderBy('inv_items.price');

@@ -71,7 +71,7 @@
                     <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{__('Unduh CSV sirkulasi')}}</x-text-button>
                 </div>
             </div>
-            <div class="sticky top-0 px-3 py-5">
+            <div class="sticky top-0 px-3 py-5 -mt-px">
                 <x-link-secondary-button class="w-full text-center" href="#content"><i class="fa fa-arrows-up-to-line mr-2"></i>{{ __('Ke atas') }}</x-link-secondary-button>
             </div>
         </div>
