@@ -17,16 +17,21 @@
                         <div class="text-center my-auto"><i class="fa fa-exclamation-circle"></i></div>
                     </x-checkbox-button>
                 </div>
-                <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
+                <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg p-4">
                     
                     <x-text-input-icon icon="fa fa-fw fa-user" id="inv-user" class="my-2" name="user" type="text" placeholder="{{ __('Pengguna') }}" />
-
+                    <div class="mt-4">
                         <x-checkbox wire:model.live="directions" wire:key="inv-dir-1" id="inv-dir-1"
-                            value="1"><i class="fa fa-fw fa-plus mr-2"></i>{{ __('Penambahan') }}</x-checkbox>
+                        value="1"><i class="fa fa-fw fa-plus mr-2"></i>{{ __('Penambahan') }}</x-checkbox>
+                    </div>
+                    <div class="mt-4">
                         <x-checkbox wire:model.live="directions" wire:key="inv-dir-2" id="inv-dir-2"
                             value="1"><i class="fa fa-fw fa-minus mr-2"></i>{{ __('Pengambilan') }}</x-checkbox>
+                    </div>
+                    <div class="mt-4">
                         <x-checkbox wire:model.live="directions" wire:key="inv-dir-3" id="inv-dir-3"
-                            value="1"><i class="far fa-fw fa-flag mr-2"></i>{{ __('Rekam') }}</x-checkbox>
+                            value="1"><i class="far fa-fw fa-flag mr-2"></i>{{ __('Pencatatan') }}</x-checkbox>
+                    </div>
                     
                 </div>
                 <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4">

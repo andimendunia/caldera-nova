@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('inv_circs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('inv_item_id')->constrained()->cascadeOnDelete();
             $table->integer('qty');
             $table->tinyInteger('qtype'); // 1: main, 2: used, 3: rep
             $table->integer('qty_before');

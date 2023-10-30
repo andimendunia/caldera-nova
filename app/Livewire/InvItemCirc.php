@@ -26,6 +26,9 @@ class InvItemCirc extends Component
     public $uom;
     public $remarks;
 
+    public $is_delegated = false;
+    public $is_immediate = false;
+
     public function rules()
     {
         return [
@@ -72,13 +75,14 @@ class InvItemCirc extends Component
             } else {
 
                 InvCirc::create([
+                    'inv_item_id'   => $inv_item->id,
                     'qty'           => $this->qty,
                     'qtype'         => $qtype,
                     'qty_before'    => $qty_before,
                     'qty_after'     => $qty_after,
                     'amount'        => round(($inv_item->price * $this->qty), 2),
                     'user_id'       => Auth::user()->id,
-                    'status'        => 0,
+                    'status'        => $this->is_immediate ? 1 : 0,
                     'remarks'       => $this->remarks
                 ]);
 

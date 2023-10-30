@@ -50,5 +50,17 @@
             </div>
         </div>
         <livewire:inv-item-circ :id="$inv_item->id" :qty_main="$inv_item->qty_main" :qty_used="$inv_item->qty_used" :qty_rep="$inv_item->qty_rep" :qty_main_min="$inv_item->qty_main_min" :qty_main_max="$inv_item->qty_main_max" :curr="$inv_curr->name" :price="$inv_item->price" :uom="$inv_item->inv_uom->name" />
+        <div x-data="{ circs: false }">
+            <div class="flex justify-between px-4 py-5 text-neutral-600 dark:text-neutral-400">
+                <div>Diambil 4 hari sekali</div>
+                <div><x-text-button @click="circs = !circs" type="button">Sirkulasi<i x-show="!circs"
+                            class="fa fa-chevron-down ml-2"></i><i x-show="circs" x-cloak
+                            class="fa fa-chevron-up ml-2"></i></x-text-button></div>
+            </div>
+            <div x-show="circs" x-cloak class="text-neutral-600 dark:text-neutral-400 mb-4">
+                <hr class="border-neutral-200 dark:border-neutral-800" />
+                <livewire:inv-item-circs :id="$inv_item->id" lazy />
+            </div>
+        </div>
     </div>
 </div>
