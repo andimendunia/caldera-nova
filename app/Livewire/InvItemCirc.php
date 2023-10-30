@@ -103,6 +103,7 @@ class InvItemCirc extends Component
 
                 $inv_item->is_active = true;
                 $inv_item->save();
+                $this->qty < 0 ? $inv_item->updateFreq() : false;
                 $this->dispatch('updated');
                 $this->js('notyf.success("'.__('Sirkulasi dibuat').'")'); 
                 $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';

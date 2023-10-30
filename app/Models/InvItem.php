@@ -25,6 +25,7 @@ class InvItem extends Model
         'qty_main',
         'qty_used',
         'qty_rep',
+        'freq',
         'qty_main_min',
         'qty_main_max',
         'is_active',
@@ -153,6 +154,43 @@ class InvItem extends Model
                 'inv_item_id'   => $this->id,
                 'inv_tag_id'    => $tag_id
             ]);
+        }
+    }
+
+    public function updateFreq()
+    {
+        // Fetch the required inv_circs from the table
+        $inv_circs = InvCirc::where('inv_item_id', $this->id)
+        ->where('qty', '<', 0)
+        ->orderBy('created_at', 'asc')
+        ->limit(100)
+        ->get();
+
+        if($inv_circs->count()) 
+        {
+            // Extract the date values and quantities
+            $dates = $inv_circs->pluck('created_at')->toArray();
+            $qtys = $inv_circs->pluck('qty')->toArray();
+
+            // Calculate the difference in days between the maximum and minimum date using Carbon
+            $startDate = Carbon::parse($dates[0]);
+            $endDate = Carbon::parse(end($dates));
+            $diffInDays = $endDate->diffInDays($startDate);
+
+            // Omitting the first qty from the most minimum date
+            $absQtys = array_map('abs', $qtys);
+            $absQtys[0] = 0;
+
+            // Calculate the absolute sum of qty (excluding the first qty)
+            $absoluteSum = array_sum($absQtys);
+
+            // Calculate the final result
+            if ($absoluteSum != 0) {
+                $output = $diffInDays / $absoluteSum;
+                $this->update([
+                    'freq' => round($output, 2)
+                ]);
+            }
         }
     }
 }

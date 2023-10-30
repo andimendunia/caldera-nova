@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedInteger('qty_main');
             $table->unsignedInteger('qty_used');
             $table->unsignedInteger('qty_rep');
+            $table->decimal('freq');
             $table->unsignedInteger('qty_main_min');
             $table->unsignedInteger('qty_main_max');
             $table->unsignedInteger('denom');

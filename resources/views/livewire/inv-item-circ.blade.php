@@ -92,7 +92,6 @@
                     </div>
                 </div>
             </div>
-
             <div x-show="(qty > 0) || (qty && qty_used_after) || (qty && qty_rep_after) || (!qtype && qty != 0)">
                 <x-select x-model="qtype" name="qtype" id="inv-qty-type" class="mt-3">
                     <option value=""></option>

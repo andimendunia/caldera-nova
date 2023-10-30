@@ -40,7 +40,7 @@
             </div>
             <div class="truncate">
                 <div class="truncate">
-                    <div class="text-xs truncate">{{ $user_name }}<span class="text-neutral-400 dark:text-neutral-600">{{ ' • '. $date_human}}</span></div>
+                    <div class="text-xs truncate text-neutral-400 dark:text-neutral-600">{{ $user_name }}<span class="">{{ ' • '. $date_human}}</span></div>
                     <div class="truncate">{{ $remarks }}</div>
                 </div>
             </div>

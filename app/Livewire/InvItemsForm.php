@@ -213,6 +213,7 @@ class InvItemsForm extends Component
 
         $validated['inv_curr_id'] = $this->inv_curr_id ? $this->inv_curr_id : null;
         $validated['inv_uom_id'] = $uom->id;
+        $validated['freq'] = 0;
         $validated['qty_main'] = 0;
         $validated['qty_used'] = 0;
         $validated['qty_rep'] = 0;

@@ -83,8 +83,10 @@
             </div>
             <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
                 @foreach ($areas as $area)
+                <div class="my-2">
                     <x-checkbox wire:model.live="area_ids" wire:key="inv-area-{{ $area->id }}" id="inv-area-{{ $area->id }}"
                         value="{{ $area->id }}">{{ $area->name }}</x-checkbox>
+                </div>
                 @endforeach
             </div>
             <div wire:key="reset-search">
@@ -92,7 +94,6 @@
                 <div class="m-3">
                     <x-text-button wire:click="resetSearch" type="button" class="text-sm"><i
                             class="fa fa-fw mr-2 fa-undo"></i>{{ __('Atur ulang') }}</x-text-button>
-
                 </div>
             @endif
             </div>
