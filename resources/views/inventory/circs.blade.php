@@ -2,65 +2,70 @@
     <div class="flex flex-col gap-x-2 md:gap-x-4 sm:flex-row">
         <div>
             <div class="w-full sm:w-44 md:w-64 px-3 sm:px-0">
-                <div class="py-3">
-                    <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
+                <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Cari...') }}" autofocus autocomplete="q" />
+                <div class="btn-group w-full h-11 mt-5">
+                    <x-checkbox-button wire:model.live="status" grow value="list" name="status" id="status-pending">
+                        <div class="text-center my-auto"><i class="fa fa-hourglass-half"></i></div>
+                    </x-checkbox-button>
+                    <x-checkbox-button wire:model.live="status" grow value="content" name="status" id="status-approved">
+                        <div class="text-center my-auto"><i class="fa fa-thumbs-up"></i></div>
+                    </x-checkbox-button>
+                    <x-checkbox-button wire:model.live="status" grow value="grid" name="status" id="status-rejected">
+                        <div class="text-center my-auto"><i class="fa fa-thumbs-down"></i></div>
+                    </x-checkbox-button>
+                    <x-checkbox-button wire:model.live="status" grow value="grid" name="status" id="status-expired">
+                        <div class="text-center my-auto"><i class="fa fa-exclamation-circle"></i></div>
+                    </x-checkbox-button>
                 </div>
-                <div class="my-5">
-                    <div class="flex justify-between mx-3">
+                <div class="btn-group w-full h-10 mt-5">
+                    <x-checkbox-button wire:model.live="direction" grow value="list" name="direction" id="direction-deposit">
+                        <div class="text-center my-auto"><i class="fa fa-plus"></i></div>
+                    </x-checkbox-button>
+                    <x-checkbox-button wire:model.live="direction" grow value="grid" name="direction" id="direction-withdrawal">
+                        <div class="text-center my-auto"><i class="fa fa-minus"></i></div>
+                    </x-checkbox-button>
+                    <x-checkbox-button wire:model.live="direction" grow value="content" name="direction" id="direction-record">
+                        <div class="text-center my-auto"><i class="far fa-flag"></i></div>
+                    </x-checkbox-button>
+                </div>
+                <x-text-input-icon icon="fa fa-fw fa-user" id="inv-user" class="mt-5" name="user" type="text" placeholder="{{ __('Pengguna') }}" />
+                <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4">
+                    <div class="flex items-start justify-between">
                         <div><i class="fa fa-calendar mr-3"></i>{{__('Rentang')}}</div>
-                        <x-dropdown align="right" width="48">
-                            <x-slot name="trigger">
-                                <button class="focus:outline-none transition ease-in-out duration-150">
-                                    <svg class="fill-transparent h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path stroke="#6b7280" stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 6l4 4 4-4'/>
-                                    </svg>
-                                </button>
-                            </x-slot>
-                            <x-slot name="content">
-                                <x-dropdown-link href="#">
-                                    {{ __('Hari ini') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link href="#">
-                                    {{ __('Kemarin') }}
-                                </x-dropdown-link>
-                                <hr class="border-neutral-300 dark:border-neutral-600" />
-                                <x-dropdown-link href="#">
-                                    {{ __('Bulan ini') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link href="#">
-                                    {{ __('Bulan kemarin') }}
-                                </x-dropdown-link>
-                            </x-slot>
-                        </x-dropdown>
+                        <div class="flex items-center">
+                            <x-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    <x-text-button><i class="fa fa-fw fa-ellipsis-v"></i></x-text-button>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <x-dropdown-link href="#">
+                                        {{ __('Hari ini') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link href="#">
+                                        {{ __('Kemarin') }}
+                                    </x-dropdown-link>
+                                    <hr class="border-neutral-300 dark:border-neutral-600" />
+                                    <x-dropdown-link href="#">
+                                        {{ __('Bulan ini') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link href="#">
+                                        {{ __('Bulan kemarin') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
                     </div>
-                    <x-text-input id="inv-date-start" class="mt-1" name="inv-date-start" type="date"></x-text-input>
-                    <x-text-input id="inv-date-end" class="mt-3" name="inv-date-end" type="date"></x-text-input>
-                </div>
-                <div class="my-5">
-                    <span class="p-3 inline-block"><i class="fa fa-filter mr-3"></i>Filter</span>
-                    <x-select name="inv-eval" id="inv-eval" class="mb-3">
-                        <option value="">{{__('Tertunda dan Disetujui')}}</option>
-                        <option value="">{{__('Tertunda')}}</option>
-                        <option value="">{{__('Disetujui')}}</option>
-                        <option value="">{{ __('Ditolak') }}</option>
-                    </x-select>
-                    <div class="mb-3">
-                        <x-text-input-icon icon="fa fa-fw fa-user" id="inv-user" class="mb-3" name="user" type="text" placeholder="{{ __('Pengguna') }}" />
-                    </div>
-                    <div class="m-3">
-                        <x-radio id="inv-act-all" name="inv-act" class="mb-4" checked>{{ __('Semua arah') }}</x-radio>
-                        <x-radio id="inv-act-deposit" name="inv-act" class="mb-4"><i class="fa fa-fw fa-plus mr-2"></i>Penambahan </x-radio>
-                        <x-radio id="inv-act-withdrawal" name="inv-act" class="mb-4"><i class="fa fa-fw fa-minus mr-2"></i>Pengambilan</x-radio>
-                        <x-radio id="inv-act-record" name="inv-act" class="mb-4"><i class="far fa-fw fa-flag mr-2"></i>Rekam qty</x-radio>
+                    <div class="mt-5">
+                        <x-text-input id="inv-date-start" class="mt-1" name="inv-date-start" type="date"></x-text-input>
+                        <x-text-input id="inv-date-end" class="mt-3" name="inv-date-end" type="date"></x-text-input>    
                     </div>
                 </div>
-                <hr class="my-5 border-neutral-300 dark:border-neutral-700" />
-                <div class="m-3">
-                    <x-checkbox id="inv-area-1" checked>TT MM</x-checkbox>
-                    <x-checkbox id="inv-area-2" checked>TT MM Cons</x-checkbox>
-                    <x-checkbox id="inv-area-3">TT Maintenance</x-checkbox>
+                <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
+                    
+                        <x-checkbox wire:model.live="area_ids" wire:key="inv-area-1" id="inv-area-1"
+                            value="1">TT MM</x-checkbox>
+                    
                 </div>
-                <hr class="my-5 border-neutral-300 dark:border-neutral-700" />
                 <div class="m-3">
                     <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-xmark"></i>{{__('Atur ulang')}}</x-text-button>
                 </div>

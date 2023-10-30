@@ -59,7 +59,7 @@ class InventoryController extends Controller
                 $prev = route('inventory', ['nav' => 'admin', 'view' => 'global']);
                 break;
             default:
-                $title = __('Inventaris');
+                $title = __('Beranda');
                 $navs = true;
         }
 
