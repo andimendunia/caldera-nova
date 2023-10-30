@@ -17,18 +17,18 @@
                         <div class="text-center my-auto"><i class="fa fa-exclamation-circle"></i></div>
                     </x-checkbox-button>
                 </div>
-                <div class="btn-group w-full h-10 mt-5">
-                    <x-checkbox-button wire:model.live="direction" grow value="list" name="direction" id="direction-deposit">
-                        <div class="text-center my-auto"><i class="fa fa-plus"></i></div>
-                    </x-checkbox-button>
-                    <x-checkbox-button wire:model.live="direction" grow value="grid" name="direction" id="direction-withdrawal">
-                        <div class="text-center my-auto"><i class="fa fa-minus"></i></div>
-                    </x-checkbox-button>
-                    <x-checkbox-button wire:model.live="direction" grow value="content" name="direction" id="direction-record">
-                        <div class="text-center my-auto"><i class="far fa-flag"></i></div>
-                    </x-checkbox-button>
+                <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
+                    
+                    <x-text-input-icon icon="fa fa-fw fa-user" id="inv-user" class="my-2" name="user" type="text" placeholder="{{ __('Pengguna') }}" />
+
+                        <x-checkbox wire:model.live="directions" wire:key="inv-dir-1" id="inv-dir-1"
+                            value="1"><i class="fa fa-fw fa-plus mr-2"></i>{{ __('Penambahan') }}</x-checkbox>
+                        <x-checkbox wire:model.live="directions" wire:key="inv-dir-2" id="inv-dir-2"
+                            value="1"><i class="fa fa-fw fa-minus mr-2"></i>{{ __('Pengambilan') }}</x-checkbox>
+                        <x-checkbox wire:model.live="directions" wire:key="inv-dir-3" id="inv-dir-3"
+                            value="1"><i class="far fa-fw fa-flag mr-2"></i>{{ __('Rekam') }}</x-checkbox>
+                    
                 </div>
-                <x-text-input-icon icon="fa fa-fw fa-user" id="inv-user" class="mt-5" name="user" type="text" placeholder="{{ __('Pengguna') }}" />
                 <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4">
                     <div class="flex items-start justify-between">
                         <div><i class="fa fa-calendar mr-3"></i>{{__('Rentang')}}</div>
@@ -56,8 +56,8 @@
                         </div>
                     </div>
                     <div class="mt-5">
-                        <x-text-input id="inv-date-start" class="mt-1" name="inv-date-start" type="date"></x-text-input>
-                        <x-text-input id="inv-date-end" class="mt-3" name="inv-date-end" type="date"></x-text-input>    
+                        <x-text-input id="inv-date-start" name="inv-date-start" type="date"></x-text-input>
+                        <x-text-input id="inv-date-end" class="mt-5 mb-1" name="inv-date-end" type="date"></x-text-input>    
                     </div>
                 </div>
                 <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
