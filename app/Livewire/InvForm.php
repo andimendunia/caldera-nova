@@ -2,24 +2,20 @@
 
 namespace App\Livewire;
 
-use Carbon\Carbon;
-use App\Models\InvLoc;
-use App\Models\InvTag;
 use App\Models\InvUom;
 use App\Models\InvArea;
 use App\Models\InvCurr;
 use App\Models\InvItem;
 use Livewire\Component;
-use App\Models\InvItemTag;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Renderless;
 use Illuminate\Database\Query\Builder;
 
-class InvItemsForm extends Component
+class InvForm extends Component
 {
-    
+
     public $curr_main;
     public $curr_sec;
     public $currs;
@@ -72,6 +68,13 @@ class InvItemsForm extends Component
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'tags.*.alpha_dash' => __('Tag hanya boleh berisi huruf, angka, dan strip')
+        ];
+    }
+
 
     public function mount(InvItem $inv_item)
     {
@@ -109,7 +112,7 @@ class InvItemsForm extends Component
 
     public function render()
     {
-        return view('livewire.inv-items-form');
+        return view('livewire.inv-form');
     }
 
     public function updatedInvCurrId()

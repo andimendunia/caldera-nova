@@ -61,54 +61,69 @@ class InvItemCirc extends Component
         $this->remarks = trim($this->remarks);
         $this->validate();
         
-        $inv_item = InvItem::find($this->id);
-        if($inv_item) {
+        $item = InvItem::find($this->id);
+
+        if($item) {
+
             // convert to number
             $qtype = ($this->qtype == 'main' ? 1 : ($this->qtype == 'used' ? 2 : ($this->qtype == 'rep' ? 3 : 0)));
-            // choose qty type
-            $qty_before = ($qtype == 1 ? $inv_item->qty_main : ($qtype == 2 ? $inv_item->qty_used : ($qtype == 3 ? $inv_item->qty_rep : 0)));
-           
-            $qty_after = $qty_before + $this->qty;
 
-            if ($qty_after < 0) {
-                $this->js('notyf.error("'.__('Qty barang negatif').'")'); 
-            } else {
+            switch ($qtype) {
+                case 1:
+                    $qty_before = $item->qty_main;
+                    break;
+                case 2:
+                    $qty_before = $item->qty_used;
+                    break;
+                case 3:
+                    $qty_before = $item->qty_rep;
+                    break;
+            }  
 
-                InvCirc::create([
-                    'inv_item_id'   => $inv_item->id,
-                    'qty'           => $this->qty,
-                    'qtype'         => $qtype,
-                    'qty_before'    => $qty_before,
-                    'qty_after'     => $qty_after,
-                    'amount'        => round(($inv_item->price * $this->qty), 2),
-                    'user_id'       => Auth::user()->id,
-                    'status'        => $this->is_immediate ? 1 : 0,
-                    'remarks'       => $this->remarks
-                ]);
+            $circ = InvCirc::create([
+                'inv_item_id'   => $item->id,
+                'qty'           => $this->qty,
+                'qtype'         => $qtype,
+                'qty_before'    => $qty_before,
+                'qty_after'     => $qty_before,
+                'amount'        => round(($item->price * $this->qty), 2),
+                'user_id'       => Auth::user()->id,
+                'status'        => 0,
+                'remarks'       => $this->remarks
+            ]);
+            $this->js('notyf.success("'.__('Sirkulasi dibuat').'")'); 
 
-                switch ($qtype) {
-                    case 1:
-                        $inv_item->qty_main = $qty_after;
-                        $this->qty_main = $qty_after;
-                        break;
-                    case 2:
-                        $inv_item->qty_used = $qty_after;
-                        $this->qty_used = $qty_after;
-                        break;
-                    case 3:
-                        $inv_item->qty_rep = $qty_after;
-                        $this->qty_rep = $qty_after;
-                        break;                  
+            $item->is_active = true;
+            $item->save();
+
+            if ($this->is_immediate) {
+                $msg = $circ->approve();
+                $this->js('notyf.'.$msg[0].'("'.$msg[1].'")'); 
+                if(isset($msg[2]) && isset($msg[3]))
+                {
+                    switch ($msg[2]) {
+                        case 1:
+                            $this->qty_main = $msg[3];
+                            break;
+                        case 2:
+                            $this->qty_used = $msg[3];
+                            break;
+                        case 3:
+                            $this->qty_rep = $msg[3];
+                            break;                  
+                    }
                 }
-
-                $inv_item->is_active = true;
-                $inv_item->save();
-                $this->qty < 0 ? $inv_item->updateFreq() : false;
-                $this->dispatch('updated');
-                $this->js('notyf.success("'.__('Sirkulasi dibuat').'")'); 
-                $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';
-                $this->reset(['qty', 'remarks']);
             }
+
+            if($this->qty < 0) {
+                $item->updateFreq();
+            }
+
+            $this->dispatch('updated');
+            $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';
+            $this->reset(['qty', 'remarks']);
+        } else {
+            $this->js('notyf.error("InvItem model not found")'); 
         }
     }
 }

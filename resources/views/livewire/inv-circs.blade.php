@@ -20,15 +20,15 @@
                 
                 <x-text-input-icon wire:model="user" icon="fa fa-fw fa-user" id="inv-user" class="my-2" type="search" placeholder="{{ __('Pengguna') }}" />
                 <div class="mt-4">
-                    <x-checkbox wire:model.live="directions" id="inv-dir-1"
+                    <x-checkbox wire:model.live="qdirs" id="inv-dir-1"
                     value="deposit"><i class="fa fa-fw fa-plus mr-2"></i>{{ __('Penambahan') }}</x-checkbox>
                 </div>
                 <div class="mt-4">
-                    <x-checkbox wire:model.live="directions" id="inv-dir-2"
+                    <x-checkbox wire:model.live="qdirs" id="inv-dir-2"
                         value="withdrawal"><i class="fa fa-fw fa-minus mr-2"></i>{{ __('Pengambilan') }}</x-checkbox>
                 </div>
                 <div class="mt-4">
-                    <x-checkbox wire:model.live="directions" id="inv-dir-3"
+                    <x-checkbox wire:model.live="qdirs" id="inv-dir-3"
                         value="capture"><i class="far fa-fw fa-flag mr-2"></i>{{ __('Pencatatan') }}</x-checkbox>
                 </div>
                 
@@ -78,25 +78,26 @@
             <div class="m-3">
                 <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-print"></i>{{__('Cetak semua')}}</x-text-button>
             </div>
-            <div class="m-3">
+            <div class="mx-3">
                 <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{__('Unduh CSV sirkulasi')}}</x-text-button>
             </div>
         </div>
-        <div class="sticky top-0 px-3 py-5 -mt-px">
-            <x-link-secondary-button class="w-full text-center" href="#content"><i class="fa fa-arrows-up-to-line mr-2"></i>{{ __('Ke atas') }}</x-link-secondary-button>
+        <div class="sticky top-0 p-3 opacity-0 sm:opacity-100">
+            <x-link href="#content" class="text-sm"><i
+                class="fa fa-fw mr-2 fa-arrows-up-to-line"></i>{{ __('Kembali ke atas') }}</x-link>
         </div>
     </div>
     <div x-data="{ ids: [] }" class="w-full" x-on:click.away="ids = []">
         <div x-show="!ids.length" class="flex justify-between w-full p-3">
-            <div class="my-auto">{{'0'.' '.__('sirkulasi')}}</div>
+            <div class="my-auto">{{$circs->total().' '.__('sirkulasi')}}</div>
             <div class="flex">
-                <x-select name="sort">
-                    <option value="">{{ __('Diperbarui') }}</option>
-                    <option value="">{{ __('Dibuat') }}</option>
-                    <option value="">{{ __('Termurah') }}</option>
-                    <option value="">{{ __('Termahal') }}</option>
-                    <option value="">{{ __('Paling sedikit') }}</option>
-                    <option value="">{{ __('Paling banyak') }}</option>
+                <x-select wire:model.live="sort">
+                    <option value="updated">{{ __('Diperbarui') }}</option>
+                    <option value="created">{{ __('Dibuat') }}</option>
+                    <option value="amount_low">{{ __('Termurah') }}</option>
+                    <option value="amount_high">{{ __('Termahal') }}</option>
+                    <option value="qty_low">{{ __('Paling sedikit') }}</option>
+                    <option value="qty_high">{{ __('Paling banyak') }}</option>
                 </x-select>
                 {{-- <div class="btn-group mr-3">
                     <x-secondary-button><i class="fa fa-fw fa-list"></i></x-secondary-button>
@@ -124,11 +125,7 @@
                     {{ __('Sirkulasi') }}
                 </h2>
                 <div class="flex items-center mb-4 gap-x-4">
-                    <div class="spinner-group my-auto">
-                        <x-secondary-button><i class="fa fa-fw fa-minus"></i></x-secondary-button>
-                        <x-text-input-spinner id="inv-circ-qty" class="w-24 pl-5 text-center" name="qty" type="number" value="" placeholder="Qty"></x-text-input-spinner>
-                        <x-secondary-button><i class="fa fa-fw fa-plus"></i></x-secondary-button>    
-                    </div>  
+                    54
                     <div>
                         EA
                     </div>
@@ -137,13 +134,16 @@
                     <span>Ambil</span><span class="mx-2">•</span><span>3.564,00 USD</span><span class="mx-2">•</span><span>10 → 8</span>
                 </div>
                 <hr class="border-neutral-300 dark:border-neutral-700 my-4">
-                <div class="flex text-sm">
+                <div class="flex text-sm gap-x-2">
                     <div class="grow truncate">
-                        <div class="truncate font-medium mb-2 text-neutral-900 dark:text-neutral-100">
-                            A BIG ITEM NAME
-                        </div> 
-                        <div class="truncate">
-                            A DESCRIPTION WITH BIG TEXT
+                        <div class="flex truncate gap-x-2">
+                            <div class="truncate font-medium text-neutral-900 dark:text-neutral-100">
+                                I COULD HAVE MY GUCCI ON
+                            </div>
+                            <div>•</div>
+                            <div class="truncate">
+                                I COULD WEAR MY LOUIS VOUITTON
+                            </div>
                         </div>
                     </div>
                     <div class="flex items-center">
@@ -178,22 +178,75 @@
                 </div>
             </div>
         </x-modal>
-        <div class="inv-circs mt-1 grid gap-3 px-0 sm:px-3">
+        @if (!$circs->count())
+            @if (!count($area_ids))
+                <div wire:key="no-area" class="py-20">
+                    <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
+                        <i class="fa fa-building relative"><i
+                                class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-400 dark:text-neutral-800"></i></i>
+                    </div>
+                    <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Pilih area inventaris') }}
+                    </div>
+                </div>
+            @elseif (!count($status))
+                <div wire:key="no-qdirs" class="py-20">
+                    <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
+                        <i class="fa fa-thumbs-up relative"><i
+                                class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-400 dark:text-neutral-800"></i></i>
+                    </div>
+                    <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Pilih status sirkulasi') }}
+                    </div>
+                </div>
+            @else
+                <div wire:key="no-match" class="py-20">
+                    <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
+                        <i class="fa fa-ghost"></i>
+                    </div>
+                    <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Tidak ada yang cocok') }}
+                    </div>
+                </div>
+            @endif
+        @else
+        <div wire:key="circs" class="inv-circs mt-1 grid gap-3 px-0 sm:px-3">
             @foreach($circs as $circ)
-            <x-circ-checkbox  id="circ-{{ $circ->id }}" model="ids"
+            <x-circ-checkbox wire:key="circ-{{ $circ->id }}" id="{{ $circ->id }}" model="ids"
             inv_name="{{ $circ->inv_item->name }}"
             inv_desc="{{ $circ->inv_item->desc }}"
             inv_code="{{ $circ->inv_item->code ?? __('Tak ada kode') }}"
             inv_uom="{{ $circ->inv_item->inv_uom->name }}"
             inv_loc="{{ $circ->inv_item->inv_loc->name ?? __('Tak ada lokasi') }}"
-            qty="{{ abs($circ->qty) }}"
+            qty="{{ $circ->qty }}"
+            qtype="{{ $circ->qtype }}"
             curr="{{ $curr->name }}"
             amount="{{ $circ->amount }}"
             user_name="{{ $circ->user->name }}"
             remarks="{{ $circ->remarks}}"
+            status="{{ $circ->status }}"
             date_human="{{ $circ->created_at->diffForHumans()}}">
             </x-circ-checkbox>
             @endforeach
+            <div class="flex items-center relative h-16">
+                @if(!$circs->isEmpty())
+                @if($circs->hasMorePages())
+                    <div wire:key="more" x-data="{
+                        observe(){
+                            const observer = new IntersectionObserver((circs) => {
+                                circs.forEach(circ => {
+                                    if(circ.isIntersecting) {
+                                        @this.loadMore()
+                                    }
+                                })
+                            })
+                            observer.observe(this.$el)
+                        }
+                    }" x-init="observe"></div>
+                    <x-spinner class="sm" />
+                @else
+                    <div class="mx-auto">{{__('Tidak ada lagi')}}</div>
+                @endif
+                @endif
+            </div>
         </div>
+        @endif  
     </div>
 </div>

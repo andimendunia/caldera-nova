@@ -33,4 +33,51 @@ class InvCirc extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function approve()
+    {
+        $item   = $this->inv_item;
+        $qtype  = $this->qtype;
+
+        // choose qty type
+        switch ($qtype) {
+            case 1:
+                $qty_before = $item->qty_main;
+                break;
+            case 2:
+                $qty_before = $item->qty_used;
+                break;
+            case 3:
+                $qty_before = $item->qty_rep;
+                break;
+        }        
+
+        if ($qtype) {
+            $qty_after = $qty_before + $this->qty;
+
+            if ($qty_after < 0) {
+                return ['error', __('Sirkulasi tak bisa disetujui (Qty barang negatif)')];
+
+            } else {
+                switch ($qtype) {
+                    case 1:
+                        $item->qty_main = $qty_after;
+                        break;
+                    case 2:
+                        $item->qty_used = $qty_after;
+                        break;
+                    case 3:
+                        $item->qty_rep = $qty_after;
+                        break;                  
+                }
+                $this->status = 1;
+                $this->save();
+                $item->save();
+                return ['success', __('Sirkulasi disetujui'), $qtype, $qty_after];
+            }
+        } else {
+            return ['error', 'Qtype is not defined'];
+        }
+
+    }
 }

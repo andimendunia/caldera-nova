@@ -1,4 +1,4 @@
-@props(['disabled' => false, 'id', 'model', 'inv_name', 'inv_desc', 'inv_code', 'inv_uom', 'inv_loc', 'qty', 'curr', 'amount', 'user_name', 'remarks', 'date_human'])
+@props(['disabled' => false, 'id', 'model', 'inv_name', 'inv_desc', 'inv_code', 'inv_uom', 'inv_loc', 'qty', 'curr', 'amount', 'user_name', 'remarks', 'status', 'date_human'])
 
 <input {{ $disabled ? 'disabled' : '' }} id="{{ 'circ-'.$id }}" value="{{ $id }}" type="checkbox" x-model={{ $model }} class="hidden">
 <label for="{{ 'circ-'.$id }}" {{ $attributes->merge(['class' => 'custom-checkbox cursor-pointer h-full flex items-center text-sm text-left text-neutral-600 dark:text-neutral-400 bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-hidden transition ease-in-out duration-150']) }}>
@@ -10,25 +10,48 @@
                 </div>
             </div>
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <i class="fa fa-plus mr-2"></i>{{$qty.' '.$inv_uom}}
+                @if($qty < 0)
+                    <i class="fa fa-fw fa-minus mr-2"></i>{{abs($qty).' '.$inv_uom}}
+                @elseif ($qty > 0)
+                    <i class="fa fa-fw fa-plus mr-2"></i>{{$qty.' '.$inv_uom}}
+                @else
+                    <i class="fa fa-fw fa-flag"></i>
+                @endif
+                
             </div>
         </div>
     </div>
     <div class="grow truncate px-2">
         <div class="flex items-center truncate">
             <div class="grow truncate p-3 sm:px-4">
-                <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                    {{ $inv_name }}
-                </div> 
-                <div class="truncate mb-1">
-                    {{ $inv_desc }}
+                <div class="flex truncate gap-x-2 mb-2">
+                    <div class="truncate font-medium text-neutral-900 dark:text-neutral-100">
+                        {{ $inv_name }}
+                    </div>
+                    <div>•</div>
+                    <div class="truncate">
+                        {{ $inv_desc }}
+                    </div>
                 </div>
                 <div class="truncate">
                     <i class="fa fa-map-marker-alt mr-2"></i>{{ $inv_loc.' • '.$inv_code.' • '.$curr.' '.$amount }}
                 </div>
             </div>
             <div>
-                <i class="fa fa-clock text-xs mx-2"></i>
+                @switch($status)
+                    @case(0)
+                        <i class="fa fa-hourglass-half"></i>
+                        @break
+                    @case(1)
+                        <i class="fa fa-thumbs-up"></i>
+                        @break
+                    @case(2)
+                        <i class="fa fa-thumbs-down"></i>
+                        @break
+                    @case(3)
+                        <i class="fa fa-exclamation-circle"></i>
+                        @break
+                @endswitch
             </div>
         </div>
         <hr class="border-neutral-300 dark:border-neutral-700">

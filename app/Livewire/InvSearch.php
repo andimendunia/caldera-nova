@@ -13,40 +13,34 @@ use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 
-class InvItemsSearch extends Component
+class InvSearch extends Component
 {
     use WithPagination;
 
     #[Url]
     public $q = '';
     public $qwords = [];
-
     #[Url]
     public $status = 'active';
     #[Url]
     public $qty = 'total';
     #[Url]
     public $filter = false;
-
     #[Url]
     public $loc = '';
     public $qlocs = [];
     #[Url]
     public $tag = '';
     public $qtags = [];
-
     #[Url]
     public $without = '';
-
     public $areas;
     #[Url]
     public $area_ids = [];
-
     #[Url]
     public $sort = 'updated';
     #[Url]
     public $view = 'content';
-
     public $inv_curr;
     public $perPage = 24;
 
@@ -54,14 +48,14 @@ class InvItemsSearch extends Component
     {
         // update: call from pref
         $this->area_ids = ['1'];
-        $this->sort = 'updated';
-        $this->view = 'content';
-        $this->status = 'active';
-        $this->qty = 'total';
-        $this->filter = false;
-        $this->inv_curr = InvCurr::find(1);
+        $this->view     = 'content';
+        $this->status   = 'active';
+        $this->sort     = 'updated';
+        $this->qty      = 'total';
+        $this->filter   = false;
 
         $this->areas = InvArea::all();
+        $this->inv_curr = InvCurr::find(1);
     }
 
     public function render()
@@ -74,14 +68,11 @@ class InvItemsSearch extends Component
                   ->orWhere('inv_items.code', 'LIKE', '%'.$q.'%');
         });
         switch ($this->status) {
+            case 'active':
+                $inv_items->where('inv_items.is_active', true);
+                break;
             case 'inactive':
                 $inv_items->where('inv_items.is_active', false);
-                break;
-            case 'both':
-                //
-                break;
-            default:
-                $inv_items->where('inv_items.is_active', true);
                 break;
         }
         if($this->filter) {
@@ -172,13 +163,12 @@ class InvItemsSearch extends Component
 
             case 'alpha':
                 $inv_items->orderBy('inv_items.name');
-                break;
-            
+                break;            
         }
 
         $inv_items = $inv_items->paginate($this->perPage);
 
-        return view('livewire.inv-items-search', compact('inv_items'));
+        return view('livewire.inv-search', compact('inv_items'));
     }
 
     public function resetSearch()

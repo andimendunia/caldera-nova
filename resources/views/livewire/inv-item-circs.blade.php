@@ -53,6 +53,9 @@
                     </div>
                 </x-circ-button>
             @endforeach
+            <div class="mt-4">
+                {{ $circs->links(data: ['scrollTo' => false]) }}
+            </div>
     @else
     <div class="my-10 text-center">
         {{ __('Tak ada sirkulasi ')}}

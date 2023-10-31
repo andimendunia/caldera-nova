@@ -162,7 +162,8 @@ class InvItem extends Model
         // Fetch the required inv_circs from the table
         $inv_circs = InvCirc::where('inv_item_id', $this->id)
         ->where('qty', '<', 0)
-        ->orderBy('created_at', 'asc')
+        ->where('status', 1)
+        ->orderBy('updated_at', 'asc')
         ->limit(100)
         ->get();
 

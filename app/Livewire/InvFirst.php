@@ -7,7 +7,7 @@ use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
 
-class InvItemsFirst extends Component
+class InvFirst extends Component
 {
     public $code;
     public $areas;
@@ -27,7 +27,7 @@ class InvItemsFirst extends Component
 
     public function render()
     {
-        return view('livewire.inv-items-first');
+        return view('livewire.inv-first');
     }
 
     public function first()

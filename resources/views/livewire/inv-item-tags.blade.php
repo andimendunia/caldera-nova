@@ -1,5 +1,5 @@
 <div>
-    <div class="p-6">
+    <div @if($isForm) Wire:click.away="apply" @endif class="p-6">
         @if($isForm)
         <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
             {{ __('Tag') }}

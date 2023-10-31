@@ -7,7 +7,7 @@
         @if(!$view)
         <div class="grid grid-cols-1 gap-3 my-8">
             <x-card-button type="button" x-data=""
-            x-on:click.prevent="$dispatch('open-modal', 'items-first')">
+            x-on:click.prevent="$dispatch('open-modal', 'inv-first')">
                 <div class="flex">
                     <div>
                         <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
@@ -24,8 +24,8 @@
                     </div>
                 </div>
             </x-card-button>
-            <x-modal name="items-first">
-                <livewire:inv-items-first lazy />
+            <x-modal name="inv-first">
+                <livewire:inv-first lazy />
             </x-modal>
             <x-card-link href="{{ route('inventory', ['nav' => 'mass-circ'])}}">
                 <div class="flex">
