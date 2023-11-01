@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use App\Models\InvArea;
 use App\Models\InvCirc;
 use App\Models\InvCurr;
@@ -20,9 +21,9 @@ class InvCircs extends Component
     #[Url]
     public $qdirs = ['deposit', 'withdrawal', 'capture'];
     #[Url]
-    public $date_start;
+    public $start_at;
     #[Url]
-    public $date_end;
+    public $end_at;
     #[Url]
     public $area_ids = [];
     #[Url]
@@ -38,6 +39,9 @@ class InvCircs extends Component
         $this->status   = ['pending', 'approved', 'rejected'];
         $this->qdirs    = ['deposit', 'withdrawal', 'capture'];
         $this->sort     = 'updated';
+
+        $this->start_at = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $this->end_at   = Carbon::now()->endOfMonth()->format('Y-m-d');
 
         $this->areas = InvArea::all();
         $this->curr = InvCurr::find(1);
@@ -78,6 +82,48 @@ class InvCircs extends Component
             $circs->where('inv_circs.status', 9);
         }
 
+        $user = trim($this->user);
+        if($user) {
+            $circs->join('users', 'inv_circs.user_id', '=', 'users.id')
+            ->select('inv_circs.*', 'users.name as user_names', 'users.emp_id');
+            $circs->where(function (Builder $query) use ($user) {
+                $query->orWhere('users.name', 'LIKE', '%'.$user.'%')
+                ->orWhere('users.emp_id', 'LIKE', '%'.$user.'%');
+            });
+        }
+
+        $qdirs = $this->qdirs;
+        if(count($qdirs)) {
+            $circs->where(function (Builder $query) use ($qdirs) {
+                $query;
+                if(in_array('deposit', $qdirs)) {
+                    $query->orWhere('inv_circs.qty', '>', 0);
+                }
+                if(in_array('withdrawal', $qdirs)) {
+                    $query->orWhere('inv_circs.qty', '<', 0);
+                }
+                if(in_array('capture', $qdirs)) {
+                    $query->orWhere('inv_circs.qty', 0);
+                }
+            });
+        } else {
+            $circs->whereNull('qty');
+        }
+
+        if($this->start_at && $this->end_at) {
+
+            $start  = Carbon::parse($this->start_at);
+            $end    = Carbon::parse($this->end_at)->addDay();
+
+            $circs->whereBetween('inv_circs.updated_at', [$start, $end]);
+
+        } else {
+            $circs->whereNull('inv_circs.updated_at');
+        }
+
+
+        
+
         switch ($this->sort) {
             case 'updated':
                 $circs->orderByDesc('inv_circs.updated_at');
@@ -102,6 +148,39 @@ class InvCircs extends Component
         $circs = $circs->paginate($this->perPage);
 
         return view('livewire.inv-circs', compact('circs'));
+    }
+
+    public function setToday()
+    {
+        $this->start_at = Carbon::now()->startOfDay()->format('Y-m-d');
+        $this->end_at = Carbon::now()->endOfDay()->format('Y-m-d');
+    }
+
+    public function setYesterday()
+    {
+        $this->start_at = Carbon::yesterday()->startOfDay()->format('Y-m-d');
+        $this->end_at = Carbon::yesterday()->endOfDay()->format('Y-m-d');
+    }
+
+    public function setThisMonth()
+    {
+        $this->start_at = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $this->end_at = Carbon::now()->endOfMonth()->format('Y-m-d');
+    }
+
+    public function setLastMonth()
+    {
+        $this->start_at = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
+        $this->end_at = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
+    }
+
+    public function resetCircs()
+    {
+        $this->area_ids = ['1'];
+        
+        $this->start_at = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $this->end_at   = Carbon::now()->endOfMonth()->format('Y-m-d');
+        $this->reset('q', 'status', 'user', 'qdirs');
     }
 
     public function loadMore()

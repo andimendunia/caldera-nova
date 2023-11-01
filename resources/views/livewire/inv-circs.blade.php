@@ -15,7 +15,7 @@
             </div>
             <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg p-4">
                 
-                <x-text-input-icon wire:model="user" icon="fa fa-fw fa-user" id="inv-user" class="my-2" type="search" placeholder="{{ __('Pengguna') }}" />
+                <x-text-input-icon wire:model.live="user" icon="fa fa-fw fa-user" id="inv-user" class="my-2" type="search" placeholder="{{ __('Pengguna') }}" />
                 <div class="mt-4">
                     <x-checkbox wire:model.live="qdirs" id="inv-dir-1"
                     value="deposit"><i class="fa fa-fw fa-plus mr-2"></i>{{ __('Penambahan') }}</x-checkbox>
@@ -39,17 +39,17 @@
                                 <x-text-button><i class="fa fa-fw fa-ellipsis-v"></i></x-text-button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link href="#">
+                                <x-dropdown-link href="#" wire:click.prevent="setToday">
                                     {{ __('Hari ini') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="#">
+                                <x-dropdown-link href="#" wire:click.prevent="setYesterday">
                                     {{ __('Kemarin') }}
                                 </x-dropdown-link>
                                 <hr class="border-neutral-300 dark:border-neutral-600" />
-                                <x-dropdown-link href="#">
+                                <x-dropdown-link href="#" wire:click.prevent="setThisMonth">
                                     {{ __('Bulan ini') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="#">
+                                <x-dropdown-link href="#" wire:click.prevent="setLastMonth">
                                     {{ __('Bulan kemarin') }}
                                 </x-dropdown-link>
                             </x-slot>
@@ -57,8 +57,8 @@
                     </div>
                 </div>
                 <div class="mt-5">
-                    <x-text-input wire:model.live="date_start" id="inv-date-start" type="date"></x-text-input>
-                    <x-text-input wire:model.live="date_end" id="inv-date-end" type="date" class="mt-5 mb-1" ></x-text-input>    
+                    <x-text-input wire:model.live="start_at" id="inv-date-start" type="date"></x-text-input>
+                    <x-text-input wire:model.live="end_at" id="inv-date-end" type="date" class="mt-3 mb-1" ></x-text-input>    
                 </div>
             </div>
             <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
@@ -70,7 +70,7 @@
                 @endforeach                
             </div>
             <div class="m-3">
-                <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-xmark"></i>{{__('Atur ulang')}}</x-text-button>
+                <x-text-button wire:click="resetCircs" type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-undo"></i>{{__('Atur ulang')}}</x-text-button>
             </div>
             <div class="m-3">
                 <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-print"></i>{{__('Cetak semua')}}</x-text-button>
@@ -79,7 +79,7 @@
                 <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{__('Unduh CSV sirkulasi')}}</x-text-button>
             </div>
         </div>
-        <div class="sticky top-0 py-4 opacity-0 sm:opacity-100">
+        <div class="sticky top-0 py-5 opacity-0 sm:opacity-100">
             <x-link-secondary-button href="#content"><i class="fa fa-fw mr-2 fa-arrows-up-to-line"></i>{{ __('Ke atas') }}</x-link-secondary-button>
         </div>
     </div>
@@ -193,6 +193,24 @@
                     <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Pilih status sirkulasi') }}
                     </div>
                 </div>
+            @elseif (!count($qdirs))
+                <div wire:key="no-qdirs" class="py-20">
+                    <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
+                        <i class="fa fa-arrow-right-arrow-left relative"><i
+                                class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-500 dark:text-neutral-400"></i></i>
+                    </div>
+                    <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Pilih arah sirkulasi') }}
+                    </div>
+                </div>
+            @elseif (!$start_at || !$end_at)
+            <div wire:key="no-qdirs" class="py-20">
+                <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
+                    <i class="fa fa-calendar relative"><i
+                            class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-500 dark:text-neutral-400"></i></i>
+                </div>
+                <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Tentukan rentang tanggal') }}
+                </div>
+            </div>
             @else
                 <div wire:key="no-match" class="py-20">
                     <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">

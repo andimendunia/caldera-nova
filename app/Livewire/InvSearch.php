@@ -79,13 +79,15 @@ class InvSearch extends Component
             if($this->loc) {
                 $loc = trim($this->loc);
                 $inv_items->join('inv_locs', 'inv_items.inv_loc_id', '=', 'inv_locs.id')
-                ->where('inv_locs.name', 'like', '%'.$loc.'%');
+                ->where('inv_locs.name', 'like', '%'.$loc.'%')
+                ->select('inv_items.*', 'inv_locs.name as loc_names');
             }
             if($this->tag) {
                 $tag = trim($this->tag);
                 $inv_items->join('inv_item_tags', 'inv_items.id', '=', 'inv_item_tags.inv_item_id')
                 ->join('inv_tags', 'inv_item_tags.inv_tag_id', '=', 'inv_tags.id')
-                ->where('inv_tags.name', 'like', '%'.$tag.'%');
+                ->where('inv_tags.name', 'like', '%'.$tag.'%')
+                ->select('inv_items.*', 'inv_tags.name as tag_names');
             }
             switch ($this->without) {
                 case 'loc':
