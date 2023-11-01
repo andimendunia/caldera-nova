@@ -12,9 +12,6 @@
                 <x-checkbox-button wire:model.live="status" grow value="rejected" name="status" id="status-rejected">
                     <div class="text-center my-auto"><i class="fa fa-thumbs-down"></i></div>
                 </x-checkbox-button>
-                <x-checkbox-button wire:model.live="status" grow value="expired" name="status" id="status-expired">
-                    <div class="text-center my-auto"><i class="fa fa-exclamation-circle"></i></div>
-                </x-checkbox-button>
             </div>
             <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg p-4">
                 
@@ -78,13 +75,12 @@
             <div class="m-3">
                 <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-print"></i>{{__('Cetak semua')}}</x-text-button>
             </div>
-            <div class="mx-3">
+            <div class="m-3">
                 <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{__('Unduh CSV sirkulasi')}}</x-text-button>
             </div>
         </div>
-        <div class="sticky top-0 p-3 opacity-0 sm:opacity-100">
-            <x-link href="#content" class="text-sm"><i
-                class="fa fa-fw mr-2 fa-arrows-up-to-line"></i>{{ __('Kembali ke atas') }}</x-link>
+        <div class="sticky top-0 py-4 opacity-0 sm:opacity-100">
+            <x-link-secondary-button href="#content"><i class="fa fa-fw mr-2 fa-arrows-up-to-line"></i>{{ __('Ke atas') }}</x-link-secondary-button>
         </div>
     </div>
     <div x-data="{ ids: [] }" class="w-full" x-on:click.away="ids = []">
@@ -183,7 +179,7 @@
                 <div wire:key="no-area" class="py-20">
                     <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
                         <i class="fa fa-building relative"><i
-                                class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-400 dark:text-neutral-800"></i></i>
+                                class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-500 dark:text-neutral-400"></i></i>
                     </div>
                     <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Pilih area inventaris') }}
                     </div>
@@ -192,7 +188,7 @@
                 <div wire:key="no-qdirs" class="py-20">
                     <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
                         <i class="fa fa-thumbs-up relative"><i
-                                class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-400 dark:text-neutral-800"></i></i>
+                                class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-500 dark:text-neutral-400"></i></i>
                     </div>
                     <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Pilih status sirkulasi') }}
                     </div>
@@ -202,7 +198,7 @@
                     <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
                         <i class="fa fa-ghost"></i>
                     </div>
-                    <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Tidak ada yang cocok') }}
+                    <div class="text-center text-neutral-500 dark:text-neutral-600">{{ __('Tidak ada yang cocok') }}
                     </div>
                 </div>
             @endif
@@ -215,6 +211,7 @@
             inv_code="{{ $circ->inv_item->code ?? __('Tak ada kode') }}"
             inv_uom="{{ $circ->inv_item->inv_uom->name }}"
             inv_loc="{{ $circ->inv_item->inv_loc->name ?? __('Tak ada lokasi') }}"
+            inv_photo="{{ $circ->inv_item->photo }}"
             qty="{{ $circ->qty }}"
             qtype="{{ $circ->qtype }}"
             curr="{{ $curr->name }}"

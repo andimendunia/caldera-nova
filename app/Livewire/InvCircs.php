@@ -14,7 +14,7 @@ class InvCircs extends Component
     #[Url]
     public $q;
     #[Url]
-    public $status = ['pending', 'approved', 'rejected', 'expired'];
+    public $status = ['pending', 'approved', 'rejected'];
     #[Url]
     public $user;
     #[Url]
@@ -35,7 +35,7 @@ class InvCircs extends Component
     {
         // update: call from pref
         $this->area_ids = ['1'];
-        $this->status   = ['pending', 'approved', 'rejected', 'expired'];
+        $this->status   = ['pending', 'approved', 'rejected'];
         $this->qdirs    = ['deposit', 'withdrawal', 'capture'];
         $this->sort     = 'updated';
 
@@ -63,7 +63,6 @@ class InvCircs extends Component
             'pending'   => 0,
             'approved'  => 1,
             'rejected'  => 2,
-            'expired'   => 3
         ];
         $status = [];
         foreach ($this->status as $i) {
@@ -76,7 +75,7 @@ class InvCircs extends Component
         if (count($status)) {
             $circs->whereIn('inv_circs.status', $status);
         } else {
-            $circs->where('inv_circs.status', 4);
+            $circs->where('inv_circs.status', 9);
         }
 
         switch ($this->sort) {

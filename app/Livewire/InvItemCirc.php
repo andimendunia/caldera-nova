@@ -5,10 +5,8 @@ namespace App\Livewire;
 use App\Models\InvCirc;
 use App\Models\InvItem;
 use Livewire\Component;
-use Livewire\Attributes\On;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Renderless;
 
 class InvItemCirc extends Component
 {

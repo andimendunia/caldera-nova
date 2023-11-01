@@ -7,9 +7,8 @@ use App\Models\InvCurr;
 use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\Attributes\On;
-use Livewire\WithPagination;
 
-class InvShow extends Component
+class InvItemShow extends Component
 {
     public InvItem $inv_item;
     public InvCurr $inv_curr;
@@ -37,6 +36,6 @@ class InvShow extends Component
 
         $loc = $this->inv_item->loc();
         $tags = $this->inv_item->tags();
-        return view('livewire.inv-show', compact('loc', 'tags', 'circMsg', 'freqMsg'));
+        return view('livewire.inv-item-show', compact('loc', 'tags', 'circMsg', 'freqMsg'));
     }
 }

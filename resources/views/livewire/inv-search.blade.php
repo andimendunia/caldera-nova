@@ -144,7 +144,7 @@
                 <div wire:key="no-area" class="py-20">
                     <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
                         <i class="fa fa-building relative"><i
-                                class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-400 dark:text-neutral-800"></i></i>
+                                class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-500 dark:text-neutral-400"></i></i>
                     </div>
                     <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Pilih area inventaris') }}
                     </div>

@@ -45,9 +45,6 @@
                                 @case(2)
                                     <i class="fa fa-thumbs-down"></i>
                                     @break
-                                @case(3)
-                                    <i class="fa fa-exclamation-circle"></i>
-                                    @break
                             @endswitch
                         </div>
                     </div>

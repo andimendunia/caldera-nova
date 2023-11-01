@@ -6,4 +6,15 @@
         <div x-data x-init="$nextTick(() => {notyf.success('{{ session('status') }}')})"></div>
         @endif
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            Livewire.hook('commit', ({ component, respond }) => {
+                const pgbar = document.getElementById('pgbar');
+                ( component.name == 'inv-item-show' || component.name == 'inv-item-circ' || component.name == 'inv-item-circs' ) ? pgbar.classList.remove('hidden') : false;
+                respond(() => {
+                    ( component.name == 'inv-item-show' || component.name == 'inv-item-circ' || component.name == 'inv-item-circs' ) ? pgbar.classList.add('hidden') : false;
+                });
+            });
+        });
+    </script>
 </x-inventory>
