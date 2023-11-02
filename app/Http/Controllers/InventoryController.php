@@ -35,7 +35,7 @@ class InventoryController extends Controller
                 $prev = route('inventory', ['nav' => 'admin']);
                 break;
             case 'mass-update':
-                $title = __('Perbarui massal');
+                $title = __('Edit massal');
                 $prev = route('inventory', ['nav' => 'admin']);
                 break;
             case 'manage-locs':
@@ -56,6 +56,10 @@ class InventoryController extends Controller
                 break;
             case 'manage-uoms':
                 $title = __('Kelola UOM');
+                $prev = route('inventory', ['nav' => 'admin', 'view' => 'global']);
+                break;
+            case 'manage-auth':
+                $title = __('Kelola wewenang');
                 $prev = route('inventory', ['nav' => 'admin', 'view' => 'global']);
                 break;
             default:

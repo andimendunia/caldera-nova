@@ -12,8 +12,8 @@
     @case('mass-circ')
         @include('inventory.admin.mass-circ')
         @break
-    @case('mass-update')
-        @include('inventory.admin.mass-update')
+    @case('mass-edit')
+        @include('inventory.admin.mass-edit')
         @break
     @case('manage-locs')
         @include('inventory.admin.manage-locs')
@@ -30,14 +30,12 @@
     @case('manage-uoms')
         @include('inventory.admin.manage-uoms')
         @break
+    @case('manage-auth')
+        @include('inventory.admin.manage-auth')
+        @break
     @default
     <div class="max-w-xl lg:max-w-6xl mx-auto px-4">
-        <form action="{{ route('inventory') }}" method="GET">
-            <input type="hidden" name="nav" value="search" />
-            <div class="max-w-sm mx-auto py-16 text-neutral-800 dark:text-neutral-200">
-                <x-text-input-icon icon="fa fa-fw fa-search" id="inv-q" name="q" type="text" placeholder="{{ __('Aku ingin mencari...') }}" autofocus autocomplete="q" />
-            </div>
-        </form>
+        <livewire:inv-home-search />
         <div class="text-neutral-500 dark:text-neutral-200 pb-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4">
                 <x-modal name="inv-obpanel">

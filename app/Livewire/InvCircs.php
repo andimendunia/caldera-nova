@@ -138,10 +138,10 @@ class InvCircs extends Component
                 $circs->orderByDesc('inv_circs.amount');
                 break;
             case 'qty_low':
-                $circs->orderBy('inv_circs.qty');
+                $circs->orderByRaw('ABS(qty)');
                 break;
             case 'qty_high':
-                $circs->orderByDesc('inv_circs.qty');
+                $circs->orderByRaw('ABS(qty) DESC');
                 break;        
         }
 

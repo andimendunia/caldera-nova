@@ -44,19 +44,19 @@
                     </div>
                 </div>
             </x-card-link>
-            <x-card-link href="{{ route('inventory', ['nav' => 'mass-update'])}}">
+            <x-card-link href="{{ route('inventory', ['nav' => 'mass-edit'])}}">
                 <div class="flex">
                     <div>
                         <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
-                            <div class="m-auto"><i class="fa fa-arrows-rotate"></i></div>
+                            <div class="m-auto"><i class="fa fa-pen"></i></div>
                         </div>
                     </div>
                     <div class="grow truncate py-2 sm:py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                            {{__('Perbarui massal')}}
+                            {{__('Edit massal')}}
                         </div>                        
                         <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
-                            {{__('Lakukan pembaruan informasi barang secara massal')}}
+                            {{__('Lakukan pengeditan barang secara massal')}}
                         </div>
                     </div>
                 </div>
