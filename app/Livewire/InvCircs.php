@@ -59,7 +59,8 @@ class InvCircs extends Component
             $circs->where(function (Builder $query) use ($q) {
                 $query->orWhere('inv_items.name', 'LIKE', '%'.$q.'%')
                       ->orWhere('inv_items.desc', 'LIKE', '%'.$q.'%')
-                      ->orWhere('inv_items.code', 'LIKE', '%'.$q.'%');
+                      ->orWhere('inv_items.code', 'LIKE', '%'.$q.'%')
+                      ->orWhere('inv_circs.remarks', 'LIKE', '%'.$q.'%');
             });
         }
 
@@ -119,10 +120,7 @@ class InvCircs extends Component
 
         } else {
             $circs->whereNull('inv_circs.updated_at');
-        }
-
-
-        
+        }        
 
         switch ($this->sort) {
             case 'updated':
