@@ -13,11 +13,13 @@ class InvHomeSearch extends Component
     public $q;
     public $qwords = [];
     public $area_ids = [];
+    public $route;
 
     public function mount()
     {
         // update: get from pref
         $this->area_ids = InvArea::all()->pluck('id')->toArray();
+        $this->route = route('inventory', ['nav' => 'search']);
     }
 
     public function render()

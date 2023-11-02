@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('emp_id')->unique();
             $table->string('password');
+            $table->string('photo')->nullable();
             $table->dateTime('seen_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -2,7 +2,7 @@
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">          
             <div class="flex items-center justify-between px-6 py-3">
-                <div class="text-xs font-bold uppercase">{{ 0 . ' ' . __('pengguna inventaris') }}</div>
+                <div class="text-xs font-bold uppercase">{{ 0 . ' ' . __('pengguna') }}</div>
                 <div class="w-40">
                     <x-text-input-search wire:model.live="q" id="inv-q" placeholder="{{ __('CARI') }}"></x-text-input-search>
                 </div>

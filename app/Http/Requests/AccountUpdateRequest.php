@@ -16,8 +16,7 @@ class AccountUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'max:255'],
-            'emp_id' => ['min:8', 'max:10', Rule::unique(User::class)->ignore($this->user()->id)],
+            'name' => ['string', 'max:50'],
         ];
     }
 }
