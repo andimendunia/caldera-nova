@@ -53,7 +53,7 @@ class User extends Authenticatable
                 $image = Image::make($path);
             
                 // Resize the image to a maximum height of 600 pixels while maintaining aspect ratio
-                $image->resize(600, 600, function ($constraint) {
+                $image->resize(192, 192, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 });
