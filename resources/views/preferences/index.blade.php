@@ -78,8 +78,8 @@
                             {{ __('Bahasa') }}
                         </h2>             
                         <div class="mt-6">
-                            <x-radio id="lang-id" name="lang" class="mb-4">Bahasa Indonesia</x-radio>
-                            <x-radio id="lang-en" name="lang" class="mb-4">English (US)</x-radio>
+                            <x-radio id="lang-id" name="lang">Bahasa Indonesia</x-radio>
+                            <x-radio id="lang-en" name="lang">English (US)</x-radio>
                         </div>        
                         <div class="mt-6 flex justify-end">
                             <x-secondary-button x-on:click="$dispatch('close')">
@@ -104,7 +104,7 @@
                                 {{__('Tema')}}
                             </div>                        
                             <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
-                                {{__('Patuhi tema sistem')}}
+                                {{__('Patuhi sistem + Ungu Caldera')}}
                             </div>
                         </div>
                     </div>

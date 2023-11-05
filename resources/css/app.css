@@ -4,6 +4,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --color-50: 243 240 249;
+    --color-100: 230 226 244;
+    --color-200: 206 198 235;
+    --color-300: 180 165 225;
+    --color-400: 153 132 214;
+    --color-500: 127 99 204;
+    --color-600: 114 87 195;
+    --color-700: 101 77 184;
+    --color-800: 87 65 174;
+    --color-900: 119 94 150;
+    --color-950: 44 38 92;
+    /* ... */
+  }
+}
+
+:root {
+  --color-50: 228 243 243;    /* Lightest */
+  --color-100: 187 224 224;
+  --color-200: 146 204 204;
+  --color-300: 104 185 185;
+  --color-400: 63 165 165;
+  --color-500: 22 146 146;     /* Default */
+  --color-600: 19 128 128;
+  --color-700: 16 109 109;
+  --color-800: 13 89 89;
+  --color-900: 10 70 70;      /* Darkest */
+  --color-950: 6 42 42;       /* Darkest */ 
+}
+
+
 /* latin */
 @font-face {
   font-family: 'Figtree';
