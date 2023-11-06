@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\InvItemController;
 use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\PreferencesController;
+use App\Http\Controllers\PrefController;
 
 
 /*
@@ -31,7 +31,11 @@ Route::controller(InvItemController::class)->group(function () {
     Route::get('/inventory/items/{id}/edit', 'edit')->middleware('auth')->name('inventory.items.edit');
 });
 
-Route::get('/preferences', [PreferencesController::class, 'index'])->middleware('auth')->name('preferences');
+Route::controller(PrefController::class)->group(function () {
+    Route::patch('/prefs/lang', 'updateLang')->middleware('auth')->name('prefs.update.lang');
+    Route::patch('/prefs/theme', 'updateTheme')->middleware('auth')->name('prefs.update.theme');
+    Route::get('/prefs','index')->middleware('auth')->name('prefs');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/account', [AccountController::class, 'edit'])->name('account.edit');

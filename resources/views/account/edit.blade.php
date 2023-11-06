@@ -5,7 +5,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-neutral-800 dark:text-neutral-200 leading-tight">
-            <x-link href="{{ route('preferences') }}" class="inline-block py-6"><i class="fa fa-arrow-left"></i></x-link><span class="ml-4">{{ __('Akun') }}</span>
+            <x-link href="{{ route('prefs') }}" class="inline-block py-6"><i class="fa fa-arrow-left"></i></x-link><span class="ml-4">{{ __('Akun') }}</span>
         </h2>
     </x-slot>
 

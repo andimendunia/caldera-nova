@@ -52,7 +52,7 @@
                         <x-dropdown-link :href="route('account.edit')">
                             {{ __('Notifikasi') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('preferences')">
+                        <x-dropdown-link :href="route('prefs')">
                             {{ __('Preferensi') }}
                         </x-dropdown-link>
                         <hr class="border-neutral-300 dark:border-neutral-600" />
@@ -108,7 +108,7 @@
                 <x-responsive-nav-link :href="route('account.edit')">
                     {{ __('Notifikasi') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('preferences')">
+                <x-responsive-nav-link :href="route('prefs')">
                     {{ __('Preferensi') }}
                 </x-responsive-nav-link>
 

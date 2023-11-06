@@ -35,7 +35,7 @@ class AccountController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('preferences')->with('status', 'account-updated');
+        return Redirect::route('prefs')->with('status', 'account-updated');
     }
 
     /**

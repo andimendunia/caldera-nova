@@ -9,6 +9,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -77,7 +78,10 @@ class User extends Authenticatable
                 'photo' => null,
             ]);
         }
-
-
+    }
+    
+    public function prefs(): HasMany
+    {
+        return $this->hasMany(Pref::class);
     }
 }

@@ -43,7 +43,7 @@
                                 {{__('Kata sandi')}}
                             </div>                        
                             <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
-                                {{__('Perbarui kata sandi')}}
+                                {{ $pua ? __('Terakhir diperbarui:') .' '. Carbon\Carbon::parse($pua)->diffForHumans() : __('Ubah kata sandi') }}
                             </div>
                         </div>
                     </div>
@@ -66,21 +66,26 @@
                                 {{__('Bahasa')}}
                             </div>                        
                             <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
-                                {{__('Bahasa Indonesia')}}
+                                {{__('Ubah bahasa tampilan')}}
                             </div>
                         </div>
                     </div>
                 </x-card-button>
-                <x-modal name="change-language">
-                    <form method="post" action="#" class="text-neutral-900 dark:text-neutral-100 p-6">
-                        @csrf        
+                <x-modal name="change-language" :show="$errors->updateLang->isNotEmpty()">
+                    <form method="post" action="{{ route('prefs.update.lang')}}" class="text-neutral-900 dark:text-neutral-100 p-6">
+                        @csrf  
+                        @method('patch')      
                         <h2 class="text-lg font-medium ">
                             {{ __('Bahasa') }}
                         </h2>             
                         <div class="mt-6">
-                            <x-radio id="lang-id" name="lang">Bahasa Indonesia</x-radio>
-                            <x-radio id="lang-en" name="lang">English (US)</x-radio>
-                        </div>        
+                            <x-radio id="lang-id" name="lang" value="id" :checked="$lang == 'id'" >Bahasa Indonesia</x-radio>
+                            <x-radio id="lang-en" name="lang" value="en" :checked="$lang == 'en'" >English (US)</x-radio>
+                            <x-radio id="lang-ko" name="lang" value="ko">한국</x-radio>
+                        </div>   
+                        @if($errors->updateLang->get('lang'))
+                        <span class="text-red-500">한국어는 아직 지원되지 않습니다.</span>
+                        @endif    
                         <div class="mt-6 flex justify-end">
                             <x-secondary-button x-on:click="$dispatch('close')">
                                 {{ __('Batal') }}
@@ -92,7 +97,7 @@
                         </div>
                     </form>
                 </x-modal>
-                <x-card-link href="{{ route('preferences', ['nav' => 'theme']) }}">
+                <x-card-link href="{{ route('prefs', ['nav' => 'theme']) }}">
                     <div class="flex">
                         <div>
                             <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
@@ -104,7 +109,7 @@
                                 {{__('Tema')}}
                             </div>                        
                             <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
-                                {{__('Patuhi sistem + Ungu Caldera')}}
+                                {{__('Ubah latar dan warna aksen')}}
                             </div>
                         </div>
                     </div>
@@ -114,7 +119,7 @@
         @if (session('status') === 'account-updated')
         <script>
             document.addEventListener("DOMContentLoaded", () => {
-                notyf.success('Akun diperbarui');
+                notyf.success('{{ __('Akun diperbarui') }}');
             });
         </script>
             {{-- <p
@@ -124,6 +129,13 @@
                 x-init="setTimeout(() => show = false, 2000)"
                 class="text-sm text-neutral-600 dark:text-neutral-400"
             ><i class="fa fa-check-circle mr-1"></i>{{ __('Diperbarui') }}</p> --}}
+        @endif
+        @if (session('status') === 'lang-updated')
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                notyf.success('{{ __('Bahasa diperbarui') }}');
+            });
+        </script>
         @endif
     </div>   
 </x-app-layout>

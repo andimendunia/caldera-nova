@@ -5,12 +5,14 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-neutral-800 dark:text-neutral-200 leading-tight">
-            <x-link href="{{ route('preferences') }}" class="inline-block py-6"><i
+            <x-link href="{{ route('prefs') }}" class="inline-block py-6"><i
                     class="fa fa-arrow-left"></i></x-link><span class="ml-4">{{ __('Tema') }}</span>
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <form method="post" action="{{ route('prefs.update.theme') }}" class="py-12">
+        @csrf  
+        @method('patch')   
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 space-y-6 text-sm text-neutral-900 dark:text-neutral-100">
             <div class="bg-white dark:bg-neutral-800 shadow p-6 sm:rounded-lg mb-6">
                 <h2 class="text-lg font-medium mb-3">
@@ -18,10 +20,10 @@
                 </h2>
                 <fieldset class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4">
                     <div>
-                        <input type="radio" name="theme-bg" id="theme-bg-auto"
-                            class="peer hidden [&:checked_+_label_svg]:block" checked />
-                        <label for="theme-bg-auto"
-                            class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <input type="radio" name="bg" id="bg-auto"
+                            class="peer hidden [&:checked_+_label_svg]:block" value="auto" @if($bg == 'auto') checked @endif />
+                        <label for="bg-auto"
+                            class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <p><i class="text-neutral-500 fa fa-circle-half-stroke"></i></p>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -35,10 +37,10 @@
                         </label>
                     </div>
                     <div>
-                        <input type="radio" name="theme-bg" id="theme-bg-light"
-                            class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-bg-light"
-                            class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <input type="radio" name="bg" id="bg-light"
+                            class="peer hidden [&:checked_+_label_svg]:block" value="light" @if($bg == 'light') checked @endif />
+                        <label for="bg-light"
+                            class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <p><i class="text-neutral-500 fa fa-sun"></i></p>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -52,10 +54,10 @@
                         </label>
                     </div>
                     <div>
-                        <input type="radio" name="theme-bg" id="theme-bg-dark"
+                        <input type="radio" name="bg" id="bg-dark" value="dark" @if($bg == 'dark') checked @endif
                             class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-bg-dark"
-                            class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <label for="bg-dark"
+                            class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <p><i class="text-neutral-500 fa fa-moon"></i></p>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -76,10 +78,10 @@
                 </h2>
                 <fieldset class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4">
                     <div>
-                        <input type="radio" name="theme-color" id="theme-color-caldy"
+                        <input type="radio" name="accent" value="purple" @if($accent == 'purple') checked @endif id="accent-purple"
                             class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-color-caldy"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <label for="accent-purple"
+                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <div style="color: rgb(127, 99, 204);" class="flex gap-1"><i  class="fa fa-square"></i></div>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -93,10 +95,10 @@
                         </label>
                     </div>
                     <div>
-                        <input type="radio" name="theme-color" id="theme-color-01"
+                        <input type="radio" name="accent" value="green" @if($accent == 'green') checked @endif id="accent-green"
                             class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-color-01"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <label for="accent-green"
+                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <div style="color: rgb(90, 160, 85);" class="flex gap-1"><i  class="fa fa-square"></i></div>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -110,10 +112,10 @@
                         </label>
                     </div>
                     <div>
-                        <input type="radio" name="theme-color" id="theme-color-02"
+                        <input type="radio" name="accent" value="pink" @if($accent == 'pink') checked @endif id="accent-pink"
                             class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-color-02"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <label for="accent-pink"
+                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <div style="color: rgb(255, 105, 134);" class="flex gap-1"><i  class="fa fa-square"></i></div>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -127,10 +129,10 @@
                         </label>
                     </div>
                     <div>
-                        <input type="radio" name="theme-color" id="theme-color-03"
+                        <input type="radio" name="accent" value="blue" @if($accent == 'blue') checked @endif id="accent-blue"
                             class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-color-03"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <label for="accent-blue"
+                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <div style="color: rgb(59, 138, 208);" class="flex gap-1"><i  class="fa fa-square"></i></div>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -144,10 +146,10 @@
                         </label>
                     </div>
                     <div>
-                        <input type="radio" name="theme-color" id="theme-color-05"
+                        <input type="radio" name="accent" value="teal" @if($accent == 'teal') checked @endif id="accent-teal"
                             class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-color-05"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <label for="accent-teal"
+                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <div style="color: rgb(22, 146, 146);" class="flex gap-1"><i  class="fa fa-square"></i></div>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -161,10 +163,10 @@
                         </label>
                     </div>
                     <div>
-                        <input type="radio" name="theme-color" id="theme-color-06"
+                        <input type="radio" name="accent" value="orange" @if($accent == 'orange') checked @endif id="accent-orange"
                             class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-color-06"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <label for="accent-orange"
+                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <div style="color: rgb(255, 121, 16);" class="flex gap-1"><i  class="fa fa-square"></i></div>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -178,10 +180,10 @@
                         </label>
                     </div>
                     <div>
-                        <input type="radio" name="theme-color" id="theme-color-07"
+                        <input type="radio" name="accent" value="grey" @if($accent == 'grey') checked @endif id="accent-grey"
                             class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-color-07"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <label for="accent-grey"
+                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <div style="color: rgb(122, 122, 122);" class="flex gap-1"><i  class="fa fa-square"></i></div>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -195,10 +197,10 @@
                         </label>
                     </div>
                     <div>
-                        <input type="radio" name="theme-color" id="theme-color-08"
+                        <input type="radio" name="accent" value="brown" @if($accent == 'brown') checked @endif id="accent-brown"
                             class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-color-08"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <label for="accent-brown"
+                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <div style="color: rgb(181, 99, 0);" class="flex gap-1"><i  class="fa fa-square"></i></div>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -212,10 +214,10 @@
                         </label>
                     </div>
                     <div>
-                        <input type="radio" name="theme-color" id="theme-color-09"
+                        <input type="radio" name="accent" value="yellow" @if($accent == 'yellow') checked @endif id="accent-yellow"
                             class="peer hidden [&:checked_+_label_svg]:block" />
-                        <label for="theme-color-09"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
+                        <label for="accent-yellow"
+                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 p-4 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
                             <div class="flex items-center justify-between text-2xl">
                                 <div style="color: rgb(255, 193, 36);" class="flex gap-1"><i  class="fa fa-square"></i></div>
                                 <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
@@ -235,5 +237,12 @@
                 <x-primary-button>{{ __('Terapkan') }}</x-primary-button>
             </div>
         </div>
-    </div>
+    </form>
+    @if (session('status') === 'updated')
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            notyf.success('{{ __('Tema diperbarui') }}');
+        });
+    </script>
+    @endif
 </x-app-layout>
