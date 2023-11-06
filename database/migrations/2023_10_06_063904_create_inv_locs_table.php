@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->unique(['name','inv_area_id']);
+            $table->index('inv_area_id');
         });
     }
 

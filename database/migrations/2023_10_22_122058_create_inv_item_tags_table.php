@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->unique(['inv_item_id','inv_tag_id']);
+            $table->index('inv_item_id');
+            $table->index('inv_tag_id');
         });
     }
 

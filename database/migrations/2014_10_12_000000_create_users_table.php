@@ -21,12 +21,15 @@ return new class extends Migration
             $table->dateTime('seen_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->index('emp_id');
+
         });
         
         DB::table('users')->insert([
             [
-                'name'      => 'Andi Permana',
-                'emp_id'    => 'TT17110594',
+                'name'      => 'Superuser',
+                'emp_id'    => 'SUPERUSER',
                 'password'  => '$2y$10$HR/Et5LBPfAW2frIq/u1zOXTXojDSmJM/cJgKnIawOlCrn/x2Ws3W']
         ]);
     }

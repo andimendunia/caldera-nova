@@ -25,6 +25,11 @@ return new class extends Migration
             $table->tinyInteger('status'); // 0: pending, 1: approved, 2:rejected 3: expired
             $table->string('remarks');
             $table->timestamps();
+
+            $table->index('inv_item_id');
+            $table->index('user_id');
+            $table->index('assigner_id');
+            $table->index('evaluator_id');
         });
     }
 

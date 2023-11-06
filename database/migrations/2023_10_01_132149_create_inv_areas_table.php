@@ -20,7 +20,7 @@ return new class extends Migration
 
         DB::table('inv_areas')->insert([
             [
-                'name' => 'Area asali',
+                'name' => 'AREA ASALI',
             ]
         ]);
     }
