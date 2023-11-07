@@ -57,11 +57,11 @@ class UserPhoto extends Component
 
     public function shuffle()
     {
-        $x = rand(1, 65);
+        $x = rand(1, 36);
 
         // Format the number to ensure it's within the range of 001 to 065
         $y = sprintf('%03d', $x);
-        $path = storage_path('app/public/default-avatars/zzsacdfb_' . $y . '.jpg');        
+        $path = storage_path('app/public/default-avatars/vmewqnp4_' . $y . '.jpg');        
         $image = Image::make($path);
     
         // Resize the image to a maximum height of 600 pixels while maintaining aspect ratio
@@ -81,7 +81,7 @@ class UserPhoto extends Component
 
         Storage::put('//livewire-tmp/'.$name, $image);
 
-        $this->url = 'storage/default-avatars/zzsacdfb_' . $y . '.jpg';
+        $this->url = 'storage/default-avatars/vmewqnp4_' . $y . '.jpg';
         $this->dispatch('photo-updated', $name);
     }
 }
