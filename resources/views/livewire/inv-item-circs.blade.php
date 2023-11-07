@@ -54,7 +54,7 @@
             </div>
     @else
     <div class="my-10 text-center">
-        {{ __('Tak ada sirkulasi ')}}
+        {{ __('Tak ada sirkulasi')}}
     </div>
     @endif
 </div>

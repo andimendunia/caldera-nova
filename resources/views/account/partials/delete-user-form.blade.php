@@ -18,7 +18,7 @@
             </h2>
 
             <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-                {{ __('Setelah akunmu dihapus, informasi yang bertautan dengan akunmu akan tetap ada, namun nama yang terkandung akan ditampilkan sebagai "Akun yang dihapus" dan foto profil bawaan akan digunakan.') }}
+                {{ __('Setelah akunmu dihapus, informasi yang bertautan dengan akunmu akan tetap ada, namun nama yang terkandung akan ditampilkan sebagai Akun yang dihapus dan foto profil bawaan akan digunakan.') }}
             </p>
 
             <div class="mt-6">

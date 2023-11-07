@@ -4,7 +4,7 @@
             {{ $areas->count() . ' ' . __('area terdaftar') }}
         </div>
         <x-secondary-button type="button" class="my-auto" x-data=""
-                x-on:click.prevent="$dispatch('open-modal', 'create-area')">{{ __('Tambah') }}</x-secondary-button>
+                x-on:click.prevent="$dispatch('open-modal', 'create-area')">{{ __('Buat') }}</x-secondary-button>
     
     </div>
     <div class="w-full mt-5">

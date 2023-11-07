@@ -26,10 +26,10 @@ class InvItemShow extends Component
         $freq = (double)$this->inv_item->freq;
         if($freq > 0 && $freq < 1) {
             $freq = round((1/$freq), 2);
-            $freqMsg = __('Diambil ').$freq.' '.$this->inv_item->inv_uom->name.' '.__('setiap hari');
+            $freqMsg = __('Diambil').' '.$freq.' '.$this->inv_item->inv_uom->name.' '.__('setiap hari');
         } elseif($freq > 1) {
             $freq = round($freq, 0);
-            $freqMsg = __('Diambil 1 ').$this->inv_item->inv_uom->name.' '.__('setiap').' '.$freq.__(' hari');
+            $freqMsg = __('Diambil 1').' '.$this->inv_item->inv_uom->name.' '.__('setiap').' '.$freq.' '.__('hari');
         } else {
             $freqMsg = __('Tak ada frekuensi ambil');
         }

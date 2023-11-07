@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pref;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\RedirectResponse;
 
 class PrefController extends Controller
@@ -50,9 +51,13 @@ class PrefController extends Controller
         
         // Update the specific keys or add new keys if they don't exist
         $existingData['lang'] = $validated['lang']; // Update 'lang' key
+
+        App::setLocale($validated['lang']);
+        session()->put('lang', $validated['lang']);
         
         // Update the 'data' field with the modified JSON
         $pref->update(['data' => json_encode($existingData)]);
+        
 
         return back()->with('status', 'lang-updated');
     }

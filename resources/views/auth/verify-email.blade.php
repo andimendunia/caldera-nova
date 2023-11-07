@@ -1,11 +1,11 @@
 <x-guest-layout>
     <div class="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+        {{ __('Terima kasih telah mendaftar! Sebelum memulai, bisakah kamu memverifikasi alamat emailmu dengan mengeklik tautan yang baru saja Caldera kirim melalui email? Jika kamu tidak menerima email, kami dengan senang hati akan mengirimkan lagi.') }}
     </div>
 
     @if (session('status') == 'verification-link-sent')
         <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+            {{ __('Tautan verifikasi baru telah dikirim ke alamat email yang kamu berikan saat pendaftaran.') }}
         </div>
     @endif
 
@@ -15,7 +15,7 @@
 
             <div>
                 <x-primary-button>
-                    {{ __('Resend Verification Email') }}
+                    {{ __('Kirim ulang email verifikasi') }}
                 </x-primary-button>
             </div>
         </form>
@@ -24,7 +24,7 @@
             @csrf
 
             <button type="submit" class="underline text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-caldy-500 dark:focus:ring-offset-neutral-800">
-                {{ __('Log Out') }}
+                {{ __('Keluar') }}
             </button>
         </form>
     </div>

@@ -16,10 +16,10 @@
                     </div>
                     <div class="grow text-left truncate py-2 sm:py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                            {{__('Tambah barang baru')}}
+                            {{__('Buat barang baru')}}
                         </div>                        
                         <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
-                            {{__('Tambah barang menggunakan kode item')}}
+                            {{__('Buat barang menggunakan kode')}}
                         </div>
                     </div>
                 </div>

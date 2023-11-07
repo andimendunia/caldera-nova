@@ -97,7 +97,7 @@
                                     {{ __('Jika kamu ingin membagi harga utama menjadi satuan yang lebih kecil, isi denominasi sebagai pembagi.') }}
                                 </p>
                                 <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-                                    {{ __('Contoh: Harga utama USD 100 / PACK. Ada 20 EA setiap PACK, maka isi "20" di denominasi dan "EA" di UOM.') }}
+                                    {{ __('Contoh: Harga utama USD 100 / PACK. Ada 20 EA setiap PACK, maka isi 20 di denominasi dan EA di UOM.') }}
                                 </p>
                                 <div class="mt-6 flex justify-end">
                                     <x-secondary-button type="button" x-on:click="$dispatch('close')">

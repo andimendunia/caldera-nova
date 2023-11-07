@@ -49,13 +49,13 @@
                             <td class="text-right" x-text="qty_used_after"></td>
                             <td class="pl-1">{{ $uom }}</td>
                             <td class="px-1">:</td>
-                            <td>{{ __('Bekas' . ' ') }}</td>
+                            <td>{{ __('Bekas') . ' ' }}</td>
                         </tr>
                         <tr x-show="qty_rep_after">
                             <td class="text-right" x-text="qty_rep_after"></td>
                             <td class="pl-1">{{ $uom }}</td>
                             <td class="px-1">:</td>
-                            <td>{{ __('Diperbaiki' . ' ') }}</td>
+                            <td>{{ __('Diperbaiki') . ' ' }}</td>
                         </tr>
                     </table>
                 </div>

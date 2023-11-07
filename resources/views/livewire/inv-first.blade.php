@@ -1,7 +1,7 @@
 <div>
     <form wire:submit="first" class="p-6">    
         <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
-            {{ __('Tambah barang') }}
+            {{ __('Buat barang') }}
         </h2>        
         <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
             {{ __('Caldera akan mencari barang dengan area dan kode item yang kamu tentukan di bawah. Bila tidak ditemukan, kamu akan diarahkan ke halaman buat barang.') }}

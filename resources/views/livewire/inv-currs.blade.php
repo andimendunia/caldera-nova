@@ -4,7 +4,7 @@
             {{ $currs->count() . ' ' . __('mata uang terdaftar') }}
         </div>
         <x-secondary-button type="button" class="my-auto" x-data=""
-            x-on:click.prevent="$dispatch('open-modal', 'create-curr')">{{ __('Tambah') }}</x-secondary-button>
+            x-on:click.prevent="$dispatch('open-modal', 'create-curr')">{{ __('Buat') }}</x-secondary-button>
 
     </div>
     <div class="w-full mt-5">
