@@ -18,9 +18,9 @@
                     <x-nav-link href="/okc">
                         {{ __('Data OKC') }}
                     </x-nav-link>
-                    <x-nav-link href="/projects">
+                    {{-- <x-nav-link href="/projects">
                         {{ __('Proyek') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     <x-nav-link href="/help">
                         {{ __('Bantuan') }}
                     </x-nav-link>
@@ -89,9 +89,9 @@
             <x-responsive-nav-link href="#">
                 {{ __('Data OKC') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="#">
+            {{-- <x-responsive-nav-link href="#">
                 {{ __('Proyek') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
             <x-responsive-nav-link href="#">
                 {{ __('Bantuan') }}
             </x-responsive-nav-link>

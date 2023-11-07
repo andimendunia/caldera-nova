@@ -1,4 +1,4 @@
-@props(['disabled' => false, 'id', 'model', 'inv_name', 'inv_desc', 'inv_code', 'inv_uom', 'inv_loc', 'inv_photo', 'qty', 'curr', 'amount', 'user_name', 'remarks', 'status', 'user_photo', 'date_human'])
+@props(['disabled' => false, 'id', 'model', 'inv_name', 'inv_desc', 'inv_code', 'inv_uom', 'inv_loc', 'inv_photo', 'qty', 'qtype', 'curr', 'amount', 'user_name', 'remarks', 'status', 'user_photo', 'assigner', 'date_human'])
 
 <input {{ $disabled ? 'disabled' : '' }} id="{{ 'circ-'.$id }}" value="{{ $id }}" type="checkbox" x-model={{ $model }} class="hidden">
 <label for="{{ 'circ-'.$id }}" {{ $attributes->merge(['class' => 'custom-checkbox cursor-pointer h-full flex items-center text-sm text-left text-neutral-600 dark:text-neutral-400 bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-hidden transition ease-in-out duration-150']) }}>
@@ -68,8 +68,8 @@
             </div>
             <div class="truncate">
                 <div class="truncate">
-                    <div class="text-xs truncate text-neutral-400 dark:text-neutral-600">{{ $user_name }}<span class="">{{ ' • '. $date_human}}</span></div>
-                    <div class="truncate">{{ $remarks }}</div>
+                    <div class="text-xs truncate text-neutral-400 dark:text-neutral-600">{{ $user_name }} @if($assigner) <span title="{{ $assigner }}">• <i class="fa fa-handshake-angle"></i></span> @endif {{ ' • '. $date_human}}</div>
+                    <div class="truncate">@switch($qtype) @case(2) <x-badge>{{ __('Bekas') }}</x-badge> @break @case(3) <x-badge>{{ __('Diperbaiki') }}</x-badge> @break @endswitch{{ $remarks }}</div>
                 </div>
             </div>
         </div>

@@ -218,8 +218,8 @@
    "Ubah nama atau foto akun" :  "Change account name or photo",
    "Ulangi dari awal" :  "Start over",
    "Unduh berkas contoh" :  "Download sample file",
-   "Unduh CSV barang" :  "Download item CSV",
-   "Unduh CSV sirkulasi" :  "Download circulation CSV",
+   "Unduh CSV barang" :  "Download items CSV",
+   "Unduh CSV sirkulasi" :  "Download circulations CSV",
    "Unduh sirkulasi" :  "Download circulations",
    "Unggah berkas terlebih dahulu" :  "Upload file first",
    "Unggah foto" :  "Upload photo",
@@ -248,5 +248,11 @@
    "Barang diperbarui": "Item updated",
    "Foto diperbarui": "Photo updated",
    "Buat": "Create",
-   "Edit barang" : "Edit item"
+   "Edit barang" : "Edit item",
+   "Beranda" : "Home",
+   "Cari" : "Search",
+   "Administrasi" : "Administration",
+   "Pilih jenis qty" : "Choose qty type",
+   "Keterangan wajib diisi" : "Remarks is required",
+   "Didelegasikan oleh:" : "Delegated by:"
 }

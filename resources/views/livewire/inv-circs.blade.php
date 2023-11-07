@@ -234,6 +234,7 @@
             qtype="{{ $circ->qtype }}"
             curr="{{ $curr->name }}"
             amount="{{ $circ->amount }}"
+            assigner="{{ $circ->assigner_id ? __('Didelegasikan oleh:') . ' ' . $circ->assigner->name . ' (' . $circ->assigner->emp_id . ')' : ''}}"
             user_name="{{ $circ->user->name }}"
             remarks="{{ $circ->remarks}}"
             status="{{ $circ->status }}"

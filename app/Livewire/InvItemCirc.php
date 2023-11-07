@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use App\Models\InvCirc;
 use App\Models\InvItem;
 use Livewire\Component;
@@ -23,6 +24,8 @@ class InvItemCirc extends Component
     public $price;
     public $uom;
     public $remarks;
+
+    public $user;
 
     public $is_delegated = false;
     public $is_immediate = false;
@@ -78,6 +81,11 @@ class InvItemCirc extends Component
                     break;
             }  
 
+            $user = '';
+            if ($this->user) {
+                $user = User::where('emp_id', $this->user)->first();
+            }
+
             $circ = InvCirc::create([
                 'inv_item_id'   => $item->id,
                 'qty'           => $this->qty,
@@ -85,7 +93,8 @@ class InvItemCirc extends Component
                 'qty_before'    => $qty_before,
                 'qty_after'     => $qty_before,
                 'amount'        => round(($item->price * $this->qty), 2),
-                'user_id'       => Auth::user()->id,
+                'user_id'       => $user ? $user->id : Auth::user()->id,
+                'assigner_id'   => $user ? Auth::user()->id : null,
                 'status'        => 0,
                 'remarks'       => $this->remarks
             ]);
@@ -119,9 +128,14 @@ class InvItemCirc extends Component
 
             $this->dispatch('updated');
             $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';
-            $this->reset(['qty', 'remarks']);
+            $this->reset(['qty', 'remarks', 'user']);
         } else {
             $this->js('notyf.error("InvItem model not found")'); 
         }
+    }
+
+    public function updatedUser()
+    {
+        $this->dispatch('user-updated', $this->user);
     }
 }

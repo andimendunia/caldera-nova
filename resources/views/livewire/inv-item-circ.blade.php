@@ -99,18 +99,27 @@
                     <option value="used">{{ __('Qty bekas') }}</option>
                     <option value="rep">{{ __('Qty diperbaiki') }}</option>
                 </x-select>
-                @error('qtype')
-                    <x-input-error messages="{{ $message }}" class="mt-2" />
-                @enderror
+                <div wire:key="error-qtype">
+                    @error('qtype')
+                        <x-input-error messages="{{ $message }}" class="mt-2" />
+                    @enderror
+                </div>
             </div>
             <x-text-input wire:model="remarks" id="inv-remarks" class="mt-3" type="text"
                 placeholder="{{ __('Keterangan') }}" autocomplete="inv-remarks" />
-            @error('remarks')
-                <x-input-error messages="{{ $message }}" class="mt-2" />
-            @enderror
-            <div x-data="{ delegate: @entangle('is_delegated') }" class="">
-                <div x-show="delegate" x-cloak>
-                    <x-text-input-icon icon="fa fa-fw fa-user" x-ref="user" id="inv-user" class="mt-3" name="user" type="text" placeholder="{{ __('Delegasikan ke...') }}" />
+            <div wire:key="error-remarks">
+                @error('remarks')
+                    <x-input-error messages="{{ $message }}" class="mt-2" />
+                @enderror
+            </div>
+            <div x-data="{ delegate: @entangle('is_delegated'), open: false, user: @entangle('user').live }" x-on:user-selected="user = $event.detail[0]; open = false" class="">
+                <div x-show="delegate" x-cloak x-on:click.away="open = false">
+                    <x-text-input-icon x-model="user" icon="fa fa-fw fa-user" x-ref="user" x-on:focus="open = true"  id="inv-user" class="mt-3" type="search" placeholder="{{ __('Delegasikan ke...') }}" />
+                    <div class="relative" x-show="open" x-cloak>
+                        <div class="absolute top-1 left-0 w-full">
+                            <livewire:user-select />
+                        </div>
+                    </div>
                 </div>
                 <div class="flex gap-x-5 my-5">
                     <x-checkbox x-model="delegate" @click="$nextTick(() => { delegate ? $refs.user.focus() : false })" id="inv-delegate">{{ __('Delegasikan') }}</x-checkbox>

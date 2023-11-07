@@ -29,7 +29,7 @@
                         </div>
                         <div class="truncate">
                             <div class="truncate">
-                                <div class="text-xs truncate text-neutral-400 dark:text-neutral-600">{{ $circ->user->name }}<span class="mx-1">•</span>{{ $circ->created_at->diffForHumans() }}</div>
+                                <div class="text-xs truncate text-neutral-400 dark:text-neutral-600">{{ $circ->user->name }} @if($circ->assigner_id) <span title="{{ __('Didelegasikan oleh:') . ' ' . $circ->assigner->name . ' ('. $circ->assigner->emp_id .')' }}">• <i class="fa fa-handshake-angle"></i></span> @endif <span class="mx-1">•</span>{{ $circ->created_at->diffForHumans() }}</div>
                                 <div class="text-base truncate">@switch($circ->qtype) @case(2) <x-badge>{{ __('Bekas') }}</x-badge> @break @case(3) <x-badge>{{ __('Diperbaiki') }}</x-badge> @break @endswitch {{ $circ->remarks }}</div>
                             </div>
                         </div>

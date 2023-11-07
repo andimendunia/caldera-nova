@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('photo')->nullable();
             $table->dateTime('seen_at')->nullable();
+            $table->boolean('is_active');
             $table->rememberToken();
             $table->timestamps();
 
@@ -30,7 +31,9 @@ return new class extends Migration
             [
                 'name'      => 'Superuser',
                 'emp_id'    => 'SUPERUSER',
-                'password'  => '$2y$10$HR/Et5LBPfAW2frIq/u1zOXTXojDSmJM/cJgKnIawOlCrn/x2Ws3W']
+                'password'  => '$2y$10$HR/Et5LBPfAW2frIq/u1zOXTXojDSmJM/cJgKnIawOlCrn/x2Ws3W',
+                'is_active' => 1
+            ],
         ]);
     }
 

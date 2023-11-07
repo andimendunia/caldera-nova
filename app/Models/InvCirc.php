@@ -34,6 +34,11 @@ class InvCirc extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function assigner(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function approve()
     {
         $item   = $this->inv_item;

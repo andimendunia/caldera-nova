@@ -21,7 +21,7 @@ class PrefController extends Controller
 
         switch ($nav) {
             case 'theme':
-                $bg = isset($data['bg']) ? $data['bg'] : 'light';
+                $bg = isset($data['bg']) ? $data['bg'] : 'auto';
                 $accent = isset($data['accent']) ? $data['accent'] : 'purple';
                 return view('prefs.theme', compact('bg', 'accent'));
                 break;
