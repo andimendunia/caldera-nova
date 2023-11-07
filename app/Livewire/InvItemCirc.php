@@ -84,6 +84,9 @@ class InvItemCirc extends Component
             $user = '';
             if ($this->user) {
                 $user = User::where('emp_id', $this->user)->first();
+                if($user->id == Auth::user()->id) {
+                    $user = '';
+                }
             }
 
             $circ = InvCirc::create([

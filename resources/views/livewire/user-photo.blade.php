@@ -36,6 +36,9 @@
                 @endif
             </div>
             <div class="mb-4">
+                <x-text-button wire:click="shuffle" type="button"><i class="fa fa-shuffle mr-2"></i>{{ __('Foto random') }}</x-text-button>
+            </div>
+            <div class="mb-4">
                 <x-text-button type="button" x-on:click="$refs.temp.click()"><i class="fa fa-upload mr-2"></i>{{ __('Unggah foto') }}</x-text-button>
             </div>
         </div>
