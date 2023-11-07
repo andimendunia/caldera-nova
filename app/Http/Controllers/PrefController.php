@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Pref;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
 class PrefController extends Controller
@@ -14,15 +13,15 @@ class PrefController extends Controller
         $nav = $request['nav'];
         $data = '';
 
-        $accountPref = Pref::where('user_id', Auth::user()->id)->where('name', 'account')->first();
+        $accountPref = Pref::where('user_id', $request->user()->id)->where('name', 'account')->first();
         if ($accountPref) {
             $data = json_decode($accountPref->data, true);
         } 
 
         switch ($nav) {
             case 'theme':
-                $bg = isset($data['theme-bg']) ? $data['theme-bg'] : 'light';
-                $accent = isset($data['theme-accent']) ? $data['theme-accent'] : 'purple';
+                $bg = isset($data['bg']) ? $data['bg'] : 'light';
+                $accent = isset($data['accent']) ? $data['accent'] : 'purple';
                 return view('prefs.theme', compact('bg', 'accent'));
                 break;
             
@@ -70,13 +69,15 @@ class PrefController extends Controller
             ['data' => json_encode([])] // Create a new empty JSON object if the record doesn't exist
         );
         
+        
         // Fetch the existing 'data' field
         $existingData = json_decode($pref->data, true);
         
         // Update the specific keys or add new keys if they don't exist
-        $existingData['theme-bg'] = $validated['bg']; // Update 'lang' key
-        $existingData['theme-accent'] = $validated['accent']; // Update 'lang' key
-        
+        $existingData['bg'] = $validated['bg']; // Update 'lang' key
+        $existingData['accent'] = $validated['accent']; // Update 'lang' key
+        session(['bg' => $validated['bg']]);
+        session(['accent' => $validated['accent']]);
         // Update the 'data' field with the modified JSON
         $pref->update(['data' => json_encode($existingData)]);
 

@@ -19,21 +19,113 @@
     --color-950: 44 38 92;
     /* ... */
   }
+  html body.green {
+    --color-50: 218 235 216;   /* Lightest */
+    --color-100: 194 221 189;
+    --color-200: 169 206 162;
+    --color-300: 145 191 136;
+    --color-400: 120 175 110;
+    --color-500: 96 160 85;     /* Default */
+    --color-600: 86 144 76;
+    --color-700: 76 129 66;
+    --color-800: 65 114 57;
+    --color-900: 54 99 47;
+    --color-950: 31 70 26;     /* Darkest */
+  }
+  html body.pink {
+    --color-50: 255 240 243;    /* Lightest */
+    --color-100: 255 213 221;
+    --color-200: 255 186 200;
+    --color-300: 255 159 178;
+    --color-400: 255 132 156;
+    --color-500: 255 105 134;     /* Default */
+    --color-600: 224 92 118;
+    --color-700: 193 80 103;
+    --color-800: 162 67 87;
+    --color-900: 130 54 71;      /* Darkest */
+    --color-950: 72 30 39;      /* Darkest */
+  }
+  html body.blue {
+    --color-50: 222 235 246;    /* Lightest */
+    --color-100: 189 216 238;
+    --color-200: 157 197 231;
+    --color-300: 124 177 223;
+    --color-400: 92 158 216;
+    --color-500: 59 138 208;     /* Default */
+    --color-600: 51 120 179;
+    --color-700: 44 101 149;
+    --color-800: 36 83 120;
+    --color-900: 29 64 90;      /* Darkest */
+    --color-950: 16 31 54; 
+  }
+  html body.teal {
+    --color-50: 228 243 243;    /* Lightest */
+    --color-100: 187 224 224;
+    --color-200: 146 204 204;
+    --color-300: 104 185 185;
+    --color-400: 63 165 165;
+    --color-500: 22 146 146;     /* Default */
+    --color-600: 19 128 128;
+    --color-700: 16 109 109;
+    --color-800: 13 89 89;
+    --color-900: 10 70 70;      /* Darkest */
+    --color-950: 6 42 42;      /* Darkest */
+  }
+  html body.orange {
+    --color-50: 255 241 216;    /* Lightest */
+    --color-100: 255 217 176;
+    --color-200: 255 193 136;
+    --color-300: 255 169 96;
+    --color-400: 255 145 56;
+    --color-500: 255 121 16;     /* Default */
+    --color-600: 224 106 14;
+    --color-700: 192 91 12;
+    --color-800: 161 77 10;
+    --color-900: 129 62 8;      /* Darkest */
+    --color-950: 72 34 5;      /* Darkest */
+  }
+  html body.grey {
+    --color-50: 242 242 242;    /* Lightest */
+    --color-100: 218 218 218;
+    --color-200: 194 194 194;
+    --color-300: 170 170 170;
+    --color-400: 146 146 146;
+    --color-500: 122 122 122;     /* Default */
+    --color-600: 105 105 105;
+    --color-700: 88 88 88;
+    --color-800: 71 71 71;
+    --color-900: 54 54 54;      /* Darkest */
+    --color-950: 30 30 30;      /* Darkest */
+  }
+  html body.brown {
+    --color-50: 251 244 235;    /* Lightest */
+    --color-100: 237 215 186;
+    --color-200: 223 186 136;
+    --color-300: 209 157 87;
+    --color-400: 195 128 37;
+    --color-500: 181 99 0;     /* Default */
+    --color-600: 158 88 0;
+    --color-700: 135 76 0;
+    --color-800: 113 65 0;
+    --color-900: 90 53 0;      /* Darkest */
+    --color-950: 50 30 0;      /* Darkest */
+  }
+  html body.yellow {
+    --color-50: 255 250 221;    /* Lightest */
+    --color-100: 255 239 184;
+    --color-200: 255 227 147;
+    --color-300: 255 216 110;
+    --color-400: 255 204 73;
+    --color-500: 255 193 36;     /* Default */
+    --color-600: 221 172 31;
+    --color-700: 186 150 27;
+    --color-800: 151 129 22;
+    --color-900: 117 107 18;      /* Darkest */
+    --color-950: 65 59 10;     
+  }
 }
 
-:root {
-  --color-50: 228 243 243;    /* Lightest */
-  --color-100: 187 224 224;
-  --color-200: 146 204 204;
-  --color-300: 104 185 185;
-  --color-400: 63 165 165;
-  --color-500: 22 146 146;     /* Default */
-  --color-600: 19 128 128;
-  --color-700: 16 109 109;
-  --color-800: 13 89 89;
-  --color-900: 10 70 70;      /* Darkest */
-  --color-950: 6 42 42;       /* Darkest */ 
-}
+
 
 
 /* latin */

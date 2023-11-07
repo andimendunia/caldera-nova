@@ -18,8 +18,8 @@
                 <h2 class="text-lg font-medium mb-3">
                     {{ __('Latar') }}
                 </h2>
-                <fieldset class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4">
-                    <div>
+                <fieldset class="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-4">
+                    {{-- <div>
                         <input type="radio" name="bg" id="bg-auto"
                             class="peer hidden [&:checked_+_label_svg]:block" value="auto" @if($bg == 'auto') checked @endif />
                         <label for="bg-auto"
@@ -35,7 +35,7 @@
                             </div>
                             <p class="mt-1">{{ __('Patuhi sistem') }}</p>
                         </label>
-                    </div>
+                    </div> --}}
                     <div>
                         <input type="radio" name="bg" id="bg-light"
                             class="peer hidden [&:checked_+_label_svg]:block" value="light" @if($bg == 'light') checked @endif />

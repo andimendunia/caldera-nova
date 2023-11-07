@@ -24,7 +24,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans {{ session('bg').' '.session('accent') }} antialiased">
         <div id="pgbar" class="fixed w-full overflow-hidden progress-bar indeterminate hidden">
             <div class="short-bar bg-caldy-400"></div>
             <div class="long-bar bg-caldy-400"></div>
