@@ -4,6 +4,7 @@
 
     <form id="cal-form" method="POST" action="{{ route('login') }}" class="relative">
         @csrf
+        <input type="hidden" id="bgm" name="bgm" />
 
         <!-- Email Address -->
         <div>
@@ -62,8 +63,10 @@
                 }
                 const form = document.getElementById('cal-form');
                 form.addEventListener('submit', spin);
-            });
 
+                const bgm = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                document.getElementById('bgm').value = bgm;
+            });
         </script>
     </form>
 

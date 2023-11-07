@@ -36,11 +36,15 @@ class AuthenticatedSessionController extends Controller
             $data = json_decode($accountPref->data, true);
         } 
         $lang   = isset($data['lang']) ? $data['lang'] : 'id';
-        $bg     = isset($data['bg']) ? $data['bg'] : 'light';
+        $bg     = isset($data['bg']) ? $data['bg'] : 'auto';
         $accent = isset($data['accent']) ? $data['accent'] : 'purple';
 
+        if ($bg == 'auto' && $request['bgm'] == 'dark') {
+            session(['bg' => 'dark']);
+        } else {
+            session(['bg' => $bg]);
+        }
         session(['lang' => $lang]);
-        session(['bg' => $bg]);
         session(['accent' => $accent]);
 
         return redirect()->intended(RouteServiceProvider::HOME);

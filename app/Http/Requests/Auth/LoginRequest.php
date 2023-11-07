@@ -29,6 +29,7 @@ class LoginRequest extends FormRequest
         return [
             'emp_id' => ['required', 'alpha_num'],
             'password' => ['required', 'string'],
+            'bgm' => ['nullable', 'string']
         ];
     }
 

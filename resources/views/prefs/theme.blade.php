@@ -13,13 +13,14 @@
     <form method="post" action="{{ route('prefs.update.theme') }}" class="py-12">
         @csrf  
         @method('patch')   
+        <input type="hidden" name="bgm" id="bgm" />
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 space-y-6 text-sm text-neutral-900 dark:text-neutral-100">
             <div class="bg-white dark:bg-neutral-800 shadow p-6 sm:rounded-lg mb-6">
                 <h2 class="text-lg font-medium mb-3">
                     {{ __('Latar') }}
                 </h2>
-                <fieldset class="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-4">
-                    {{-- <div>
+                <fieldset class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4">
+                    <div>
                         <input type="radio" name="bg" id="bg-auto"
                             class="peer hidden [&:checked_+_label_svg]:block" value="auto" @if($bg == 'auto') checked @endif />
                         <label for="bg-auto"
@@ -35,7 +36,7 @@
                             </div>
                             <p class="mt-1">{{ __('Patuhi sistem') }}</p>
                         </label>
-                    </div> --}}
+                    </div>
                     <div>
                         <input type="radio" name="bg" id="bg-light"
                             class="peer hidden [&:checked_+_label_svg]:block" value="light" @if($bg == 'light') checked @endif />
@@ -238,6 +239,12 @@
             </div>
         </div>
     </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const bgm = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.getElementById('bgm').value = bgm;
+        });
+    </script>
     @if (session('status') === 'updated')
     <script>
         document.addEventListener("DOMContentLoaded", () => {

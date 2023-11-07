@@ -237,6 +237,7 @@
             user_name="{{ $circ->user->name }}"
             remarks="{{ $circ->remarks}}"
             status="{{ $circ->status }}"
+            user_photo="{{ $circ->user->photo }}"
             date_human="{{ $circ->created_at->diffForHumans()}}">
             </x-circ-checkbox>
             @endforeach
