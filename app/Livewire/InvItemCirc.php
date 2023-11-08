@@ -25,7 +25,7 @@ class InvItemCirc extends Component
     public $uom;
     public $remarks;
 
-    public $user;
+    public $userq;
 
     public $is_delegated = false;
     public $is_immediate = false;
@@ -137,8 +137,8 @@ class InvItemCirc extends Component
         }
     }
 
-    public function updatedUser()
+    public function updatedUserq()
     {
-        $this->dispatch('user-updated', $this->user);
+        $this->dispatch('userq-updated', $this->userq);
     }
 }

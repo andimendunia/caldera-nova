@@ -18,13 +18,13 @@ class UserSelect extends Component
         return view('livewire.user-select');
     }
 
-    #[On('user-updated')] 
-    public function search($user)
+    #[On('userq-updated')] 
+    public function search($userq)
     {
-        if($user) {
-            $this->users = User::where(function (Builder $query) use ($user) {
-                $query->orWhere('name', 'LIKE', '%'.$user.'%')
-                      ->orWhere('emp_id', 'LIKE', '%'.$user.'%');
+        if($userq) {
+            $this->users = User::where(function (Builder $query) use ($userq) {
+                $query->orWhere('name', 'LIKE', '%'.$userq.'%')
+                      ->orWhere('emp_id', 'LIKE', '%'.$userq.'%');
             })->where('is_active', 1)->get();
         } else {
             $this->users = [];

@@ -112,9 +112,9 @@
                     <x-input-error messages="{{ $message }}" class="mt-2" />
                 @enderror
             </div>
-            <div x-data="{ delegate: @entangle('is_delegated'), open: false, user: @entangle('user').live }" x-on:user-selected="user = $event.detail[0]; open = false" class="">
+            <div x-data="{ delegate: @entangle('is_delegated'), open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail[0]; open = false">
                 <div x-show="delegate" x-cloak x-on:click.away="open = false">
-                    <x-text-input-icon x-model="user" icon="fa fa-fw fa-user" x-ref="user" x-on:focus="open = true"  id="inv-user" class="mt-3" type="search" placeholder="{{ __('Delegasikan ke...') }}" />
+                    <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-ref="userq" x-on:focus="open = true"  id="inv-user" class="mt-3" type="search" placeholder="{{ __('Delegasikan ke...') }}" />
                     <div class="relative" x-show="open" x-cloak>
                         <div class="absolute top-1 left-0 w-full">
                             <livewire:user-select />
@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <div class="flex gap-x-5 my-5">
-                    <x-checkbox x-model="delegate" @click="$nextTick(() => { delegate ? $refs.user.focus() : false })" id="inv-delegate">{{ __('Delegasikan') }}</x-checkbox>
+                    <x-checkbox x-model="delegate" @click="$nextTick(() => { delegate ? $refs.userq.focus() : false })" id="inv-delegate">{{ __('Delegasikan') }}</x-checkbox>
                     <x-checkbox wire:model="is_immediate" id="inv-immediate">{{ __('Langsung setujui') }}</x-checkbox>
                 </div>
             </div>
