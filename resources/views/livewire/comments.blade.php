@@ -1,4 +1,6 @@
 <div>
+    <h1 class="text-xl text-neutral-900 dark:text-neutral-100">{{ __('Komentar').' '.'(0)'}}</h1>
+    <textarea class="block w-full border-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 focus:border-caldy-500 dark:focus:border-caldy-600 focus:ring-caldy-500 dark:focus:ring-caldy-600 rounded-md shadow-sm"></textarea>
     <div x-data="{ userq: @entangle('userq').live, updateUserq: function(event) { 
         const textarea = event.target;
         const word = this.getWordAtPosition(textarea);
