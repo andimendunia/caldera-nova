@@ -2,8 +2,8 @@
     <div wire:key="photo">
         <div class="sticky top-5 left-0">
             <livewire:inv-item-photo :id="$inv_item->id" :url="$inv_item->photo ? '/storage/inv-items/' . $inv_item->photo : ''" />
-            <div class="flex px-4 py-5 text-sm text-neutral-600 dark:text-neutral-400">
-                <div class="grow">{{ __('Updated:') . ' ' . $inv_item->updated_at->diffForHumans() }}</div>
+            <div class="flex px-4 py-8 sm:py-5 text-sm text-neutral-600 dark:text-neutral-400">
+                <div class="grow">{{ __('Diperbarui:') . ' ' . $inv_item->updated_at->diffForHumans() }}</div>
                 <x-link class="uppercase" href="{{ route('inventory.items.edit', ['id' => $inv_item]) }}"><i
                         class="fa fa-pen"></i></x-link>
             </div>
@@ -16,7 +16,7 @@
         </div>
         <div class="text-neutral-600 dark:text-neutral-400">
             <hr class="border-neutral-200 dark:border-neutral-800" />
-            <div class="px-4 py-5">
+            <div class="px-4 py-8 sm:py-5">
                 <div class="flex mb-3">
                     <div>{{ $inv_item->code ? $inv_item->code : __('Tak ada kode') }}</div>
                     <div class="mx-3">•</div>
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <hr class="border-neutral-200 dark:border-neutral-800" />
-            <div class="flex px-4 py-5 text-sm">
+            <div class="flex px-4 py-8 sm:py-5 text-sm">
                 @if ($inv_item->is_active)
                     <div>{{ __('Aktif') }}</div>
                 @else
@@ -51,7 +51,7 @@
         </div>
         <livewire:inv-item-circ :id="$inv_item->id" :qty_main="$inv_item->qty_main" :qty_used="$inv_item->qty_used" :qty_rep="$inv_item->qty_rep" :qty_main_min="$inv_item->qty_main_min" :qty_main_max="$inv_item->qty_main_max" :curr="$inv_curr->name" :price="$inv_item->price" :uom="$inv_item->inv_uom->name" />
         <div x-data="{ circs: false }">
-            <div class="flex justify-between px-4 py-5 text-neutral-600 dark:text-neutral-400 text-sm">
+            <div class="flex justify-between px-4 py-8 sm:py-5 text-neutral-600 dark:text-neutral-400 text-sm">
                 <div>{{ $freqMsg }}</div>
                 <div><x-text-button @click="circs = !circs" type="button">{{ $circMsg }}<i x-show="!circs"
                             class="fa fa-chevron-down ml-2"></i><i x-show="circs" x-cloak

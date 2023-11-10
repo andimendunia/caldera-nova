@@ -28,7 +28,7 @@
             qty_used_after = qty_used;
             qty_rep_after = qty_rep;"
         class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">
-        <div class="flex justify-between p-4">
+        <div class="flex justify-between px-4 py-8 sm:py-4">
             <div class="flex flex-col gap-y-3">
                 <div class="flex items-center">
                     <div class="text-4xl" x-text="qty_main_after">{{ $qty_main }}</div>
@@ -69,9 +69,9 @@
                         class="fa fa-fw fa-plus"></i></x-secondary-button>
             </div>
         </div>
-        <div x-show="parseInt(qty) === 0 || qty > 0 || qty < 0" x-cloak class="px-4 pb-5">
+        <div x-show="parseInt(qty) === 0 || qty > 0 || qty < 0" x-cloak class="px-4 pb-8 sm:pb-5">
             <div x-show="qty < 0 || qty > 0" x-cloak>
-                <hr class="border-neutral-300 dark:border-neutral-600 mb-4" />
+                <hr class="border-neutral-300 dark:border-neutral-600 mb-8 sm:mb-4" />
                 <div class="flex justify-center">
                     <div x-show="qty < 0" x-cloak>{{ __('Ambil') }}</div>
                     <div x-show="qty > 0" x-cloak>{{ __('Tambah') }}</div>
