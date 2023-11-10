@@ -1,4 +1,4 @@
-<div x-data="{ buttons: false }"  x-on:click.away="buttons = false" class="pb-12">
+<div x-data="{ buttons: false }"  x-on:click.away="buttons = false" class="pb-32">
     <div class="flex w-full items-center justify-between mb-4">
         <h1 >{{ __('Komentar').' '.'(0)'}}</h1>
         <x-text-button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-uom')">
