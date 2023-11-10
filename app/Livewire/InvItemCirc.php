@@ -82,8 +82,9 @@ class InvItemCirc extends Component
             }  
 
             $user = '';
-            if ($this->user) {
-                $user = User::where('emp_id', $this->user)->first();
+            if ($this->userq) {
+                $q = trim($this->userq);
+                $user = User::where('emp_id', $q)->first();
                 if($user->id == Auth::user()->id) {
                     $user = '';
                 }
@@ -131,7 +132,7 @@ class InvItemCirc extends Component
 
             $this->dispatch('updated');
             $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';
-            $this->reset(['qty', 'remarks', 'user']);
+            $this->reset(['qty', 'remarks', 'userq']);
         } else {
             $this->js('notyf.error("InvItem model not found")'); 
         }

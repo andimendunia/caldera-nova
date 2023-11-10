@@ -15,7 +15,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
             ],
-            refresh: true,
+            refresh: false,
         }),
         // livewire({  // <-- add livewire plugin
         //     refresh: ['resources/css/app.css'],  // <-- will refresh css (tailwind ) as well

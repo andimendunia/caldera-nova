@@ -13,9 +13,9 @@
         document.addEventListener("DOMContentLoaded", () => {
             Livewire.hook('commit', ({ component, respond }) => {
                 const pgbar = document.getElementById('pgbar');
-                ( component.name == 'inv-item-show' || component.name == 'inv-item-circ' || component.name == 'inv-item-circs' ) ? pgbar.classList.remove('hidden') : false;
+                ( component.name == 'inv-item-show' || component.name == 'inv-item-circ' || component.name == 'inv-item-circs' || component.name == 'comments' || component.name == 'com-item-write' ) ? pgbar.classList.remove('hidden') : false;
                 respond(() => {
-                    ( component.name == 'inv-item-show' || component.name == 'inv-item-circ' || component.name == 'inv-item-circs' ) ? pgbar.classList.add('hidden') : false;
+                    ( component.name == 'inv-item-show' || component.name == 'inv-item-circ' || component.name == 'inv-item-circs' || component.name == 'comments' || component.name == 'com-item-write' ) ? pgbar.classList.add('hidden') : false;
                 });
             });
         });
