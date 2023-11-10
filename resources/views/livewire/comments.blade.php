@@ -28,7 +28,7 @@
                 <div>{{ $comment->user->name . ' • ' . $comment->updated_at->diffForHumans() }}</div>
                 <div><i class="fa fa-ellipsis"></i></div>
             </div>
-            <div>{{ $comment->content }}</div>
+            <div>{!! nl2br($comment->parseContent()) !!}</div>
         </div>
     </div>
     @endforeach

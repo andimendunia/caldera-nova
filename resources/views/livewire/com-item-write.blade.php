@@ -1,6 +1,7 @@
 <div x-data="{
     userp: false,
     userq: @entangle('userq').live,
+    content: @entangle('content'),
     updateUserq: function(event) {
         const textarea = event.target;
         const word = this.getWordAtPosition(textarea);
@@ -25,7 +26,7 @@
     },
     replaceWord: function(empid) {
         const textarea = this.$refs.comment;
-        const value = textarea.value;
+        const value = this.content;
         const cursorPosition = textarea.selectionStart;
         const textBeforeCursor = value.slice(0, cursorPosition);
 
@@ -36,7 +37,7 @@
         if (lastWord.startsWith('@')) {
             const replacedText = textBeforeCursor.slice(0, textBeforeCursor.length - lastWord.length) + replacedWord;
             const updatedText = replacedText + value.slice(cursorPosition);
-            textarea.value = updatedText;
+            this.content = updatedText;
             this.userp = false;
             this.userq = `${empid}`; // Update userq property
             this.$refs.comment.focus();
@@ -83,7 +84,7 @@
             </div>
         </div>
         <div class="w-full">
-            <textarea wire:model="content" rows="1" name="comment" x-ref="comment" x-on:focusin="buttons = true" x-on:input="updateUserq"
+            <textarea x-model="content" rows="1" name="comment" x-ref="comment" x-on:focusin="buttons = true" x-on:input="updateUserq"
                 placeholder="{{ __('Tulis komentar...') }}" style="min-height:66px;"
                 class="block w-full border-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 focus:border-caldy-500 dark:focus:border-caldy-600 focus:ring-caldy-500 dark:focus:ring-caldy-600 rounded-md shadow-sm mb-3"></textarea>
                 <x-input-error :messages="$errors->get('content')" class="mb-2" />
@@ -92,6 +93,7 @@
                     <x-text-button type="button"><i class="fa fa-paperclip mr-2"></i>{{ __('Lampirkan') }}</x-text-button>
                 </div>
                 <div>
+                    <span class="mr-2 text-xs font-mono" x-text="990 - (content ? content.length : 0)"></span>
                     <x-primary-button type="submit">{{ __('Kirim') }}</x-primary-button>
                 </div>
             </div>

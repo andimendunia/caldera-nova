@@ -21,7 +21,7 @@ class ComItemWrite extends Component
     {
         return [
             'user_id'   => ['required', 'integer', 'exists:App\Models\User,id'],
-            'content'   => ['required', 'min:1', 'max:256'],
+            'content'   => ['required', 'min:1', 'max:990'],
         ];
     }
 

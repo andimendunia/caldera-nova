@@ -22,4 +22,20 @@ class ComItem extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function parseContent()
+    {
+        $pattern = '/@(\w+)/';
+
+        return preg_replace_callback($pattern, function($matches) {
+            $username = $matches[1];
+            $user = User::where('emp_id', $username)->first();
+    
+            if ($user) {
+                return '<a href="#" class="text-neutral-400 dark:text-neutral-600">@' . $user->name . '</a>';
+            }
+    
+            return '@' . $username; // If the user doesn't exist, return the original text
+        }, e($this->content));
+    }
 }
