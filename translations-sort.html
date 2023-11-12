@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Sorter</title>
+</head>
+<body>
+    <h1>JSON Sorter</h1>
+    
+    <label for="jsonInput">Enter JSON:</label>
+    <textarea id="jsonInput" rows="10" cols="50"></textarea>
+    
+    <br>
+    
+    <button onclick="sortJson()">Sort Alphabetically</button>
+    
+    <br>
+    
+    <label for="sortedOutput">Sorted JSON:</label>
+    <textarea id="sortedOutput" rows="10" cols="50" readonly></textarea>
+
+    <script>
+        function sortJson() {
+            var jsonInput = document.getElementById('jsonInput').value;
+
+            try {
+                var jsonObject = JSON.parse(jsonInput);
+                var sortedJsonObject = {};
+
+                // Sort keys alphabetically (case-insensitive)
+                Object.keys(jsonObject).sort(function(a, b) {
+                    return a.toLowerCase().localeCompare(b.toLowerCase());
+                }).forEach(function(key) {
+                    sortedJsonObject[key] = jsonObject[key];
+                });
+
+                var sortedOutput = JSON.stringify(sortedJsonObject, null, 2);
+                document.getElementById('sortedOutput').value = sortedOutput;
+            } catch (error) {
+                alert('Error parsing or sorting JSON: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

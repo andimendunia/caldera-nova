@@ -3,7 +3,7 @@
         <div class="sticky top-5 left-0">
             <livewire:inv-item-photo :id="$inv_item->id" :url="$inv_item->photo ? '/storage/inv-items/' . $inv_item->photo : ''" />
             <div class="flex px-4 py-8 sm:py-5 text-sm text-neutral-600 dark:text-neutral-400">
-                <div class="grow">{{ __('Diperbarui:') . ' ' . $inv_item->updated_at->diffForHumans() }}</div>
+                <div class="grow">{{ __('Diperbarui') . ': ' . $inv_item->updated_at->diffForHumans() }}</div>
                 <x-link class="uppercase" href="{{ route('inventory.items.edit', ['id' => $inv_item]) }}"><i
                         class="fa fa-pen"></i></x-link>
             </div>

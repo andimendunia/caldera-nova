@@ -110,8 +110,6 @@ class InvItem extends Model
                 'photo' => null,
             ]);
         }
-
-
     }
 
     public function updateLoc($loc)

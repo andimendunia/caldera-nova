@@ -7,23 +7,34 @@ use App\Models\ComItem;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\WithFileUploads;
 
 class ComItemWrite extends Component
 {
+    use WithFileUploads;
+
     public $mod;
     public $users = [];
     public $userq;
     public $user_id;
     public $content;
-
-
+    public $files = [];
+    
     public function rules()
     {
         return [
             'user_id'   => ['required', 'integer', 'exists:App\Models\User,id'],
-            'content'   => ['required', 'min:1', 'max:990'],
+            'content'   => ['required_without:files', 'max:999'],
+            'files.*'   => ['max:51200'],
         ];
     }
+
+    // public function messages()
+    // {
+    //     return [
+    //         'content' => __('Isi komentar tidak boleh kosong.')
+    //     ];
+    // }
 
     public function mount()
     {
@@ -59,15 +70,31 @@ class ComItemWrite extends Component
         } else {
             // parent
             $mod_id = $this->mod->id;
-            ComItem::create([
+            $com_item = ComItem::create([
                 'user_id' => $this->user_id,
                 'content'   => $this->content,
                 'mod'       => $name,
                 'mod_id'    => $mod_id
             ]);
-            $this->reset(['content']);
+
+            // handle files here
+            foreach($this->files as $file) {
+                $com_item->saveFile($file);
+            }
+
+            $this->reset(['content', 'files']);
             $this->js('notyf.success("'.__('Komentar ditambahkan').'")'); 
             $this->dispatch('comment-added');
         }
+    }
+
+    public function resetFiles()
+    {
+        $this->reset(['files']);
+    }
+
+    public function updatedFiles()
+    {
+        // dd($this->files);
     }
 }

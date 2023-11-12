@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('com_items')->onDelete('cascade');
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->timestamps();
 
             $table->index('mod');

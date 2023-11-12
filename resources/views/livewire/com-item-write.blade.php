@@ -86,14 +86,24 @@
         <div class="w-full">
             <textarea x-model="content" rows="1" name="comment" x-ref="comment" x-on:focusin="buttons = true" x-on:input="updateUserq"
                 placeholder="{{ __('Tulis komentar...') }}" style="min-height:66px;"
-                class="block w-full border-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 focus:border-caldy-500 dark:focus:border-caldy-600 focus:ring-caldy-500 dark:focus:ring-caldy-600 rounded-md shadow-sm mb-3"></textarea>
-                <x-input-error :messages="$errors->get('content')" class="mb-2" />
-            <div class="flex justify-between">
+                class="block w-full border-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 focus:border-caldy-500 dark:focus:border-caldy-600 focus:ring-caldy-500 dark:focus:ring-caldy-600 rounded-md shadow-sm"></textarea>
+                <x-input-error :messages="$errors->get('content')" class="mt-1" />
+            <div wire:key="files" class="flex justify-between items-start mt-3">
+                @if(count($files))
                 <div class="text-sm">
-                    <x-text-button type="button"><i class="fa fa-paperclip mr-2"></i>{{ __('Lampirkan') }}</x-text-button>
+                    @foreach($files as $file)
+                    <div class="mb-1">{{ $file->getClientOriginalName() }}</div>
+                    @endforeach
+                    <x-text-button type="button" wire:click="resetFiles" class="mt-3"><i class="fa fa-times mr-2"></i>{{ __('Buang lampiran') }}</x-text-button>
                 </div>
+                @else
+                <div class="text-sm">
+                    <x-text-button type="button" x-on:click="$refs.upload.click()"><i class="fa fa-paperclip mr-2"></i>{{ __('Lampirkan') }}</x-text-button>
+                    <input x-ref="upload" type="file" wire:model="files" hidden multiple />
+                </div>
+                @endif
                 <div>
-                    <span class="mr-2 text-xs font-mono" x-text="990 - (content ? content.length : 0)"></span>
+                    <span class="mr-2 text-xs font-mono" x-text="999 - (content ? content.length : 0)"></span>
                     <x-primary-button type="submit">{{ __('Kirim') }}</x-primary-button>
                 </div>
             </div>

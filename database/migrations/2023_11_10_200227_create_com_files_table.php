@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('com_item_id')->constrained()->cascadeOnDelete();
             $table->string('name');
+            $table->string('client_name');
             $table->boolean('is_image');
             $table->timestamps();
         });
