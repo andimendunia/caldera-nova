@@ -67,19 +67,32 @@ class ComItemWrite extends Component
     public function save()
     {
         $this->validate();
+        // dd($this);
         
         $name = class_basename($this->mod);
         if ($name == 'ComItem') {
             // child
-            $parent_id = $this->mod->id;
+            $com_item = ComItem::create([
+                'user_id'   => $this->user_id,
+                'content'   => $this->content,
+                'parent_id' => $this->mod->parent_id ? $this->mod->parent_id : $this->mod->id
+            ]);
+
+            // handle files here
+            foreach($this->files as $file) {
+                $com_item->saveFile($file);
+            }
+
+            $this->reset(['content', 'files']);
+            $this->js('notyf.success("'.__('Balasan ditambahkan').'")'); 
+            $this->dispatch('comment-added');
         } else {
             // parent
-            $mod_id = $this->mod->id;
             $com_item = ComItem::create([
                 'user_id' => $this->user_id,
                 'content'   => $this->content,
                 'mod'       => $name,
-                'mod_id'    => $mod_id
+                'mod_id'    => $this->mod->id
             ]);
 
             // handle files here

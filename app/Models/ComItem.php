@@ -32,6 +32,11 @@ class ComItem extends Model
         return $this->hasMany(ComFile::class);
     }
 
+    public function children(): HasMany
+    {
+        return $this->hasMany(ComItem::class, 'parent_id');
+    }
+
     public function parseContent()
     {
         $pattern = '/@(\w+)/';
