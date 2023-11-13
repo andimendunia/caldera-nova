@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('client_name');
             $table->boolean('is_image');
+            $table->integer('size');
+            $table->string('ext');
             $table->timestamps();
         });
     }

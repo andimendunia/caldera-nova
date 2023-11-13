@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ComItem extends Model
 {
@@ -24,6 +25,11 @@ class ComItem extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function files(): HasMany
+    {
+        return $this->hasMany(ComFile::class);
     }
 
     public function parseContent()
@@ -49,6 +55,7 @@ class ComItem extends Model
         $time   = Carbon::now()->format('YmdHis');
         $rand   = Str::random(10);
         $name   = $id.'_'.$time.'_'.$rand.'.jpg';
+        $ext    = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
 
         // check is_image
         $mimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -61,6 +68,8 @@ class ComItem extends Model
             'com_item_id'   => $id,
             'name'          => $name,
             'client_name'   => $file->getClientOriginalName(),
+            'size'          => $file->getSize(),
+            'ext'           => $ext ? $ext : '?',  
             'is_image'      => $is_image,
         ]);
     }

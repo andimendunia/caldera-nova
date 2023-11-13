@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\ComFile;
 use App\Models\ComItem;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Storage;
 
 class Comments extends Component
 {
@@ -25,6 +27,15 @@ class Comments extends Component
     {
         $comments = ComItem::orderByDesc('updated_at')->where('mod', $this->name)->where('mod_id', $this->id)->get();
         return view('livewire.comments', compact('comments'));
+    }
+
+    public function download($id)
+    {
+        $file = ComFile::find($id);
+        if($file) {
+            $this->js('notyf.success("'.__('Pengunduhan dimulai...').'")'); 
+            return Storage::download('/public/com-files/'.$file->name, $file->client_name);
+        }
     }
 
 }

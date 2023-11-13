@@ -29,12 +29,17 @@ class ComItemWrite extends Component
         ];
     }
 
-    // public function messages()
-    // {
-    //     return [
-    //         'content' => __('Isi komentar tidak boleh kosong.')
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'content.required_without' => __('Isi komentar atau unggah lampiran')
+        ];
+    }
+
+    public function placeholder()
+    {
+        return view('livewire.modal-placeholder');
+    }
 
     public function mount()
     {

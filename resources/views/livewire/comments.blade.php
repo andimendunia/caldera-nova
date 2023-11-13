@@ -26,11 +26,35 @@
         <div class="w-full">
             <div class="flex text-xs text-neutral-400 dark:text-neutral-600 mb-1 justify-between">
                 <div>{{ $comment->user->name . ' • ' . $comment->updated_at->diffForHumans() }}</div>
-                <div><i class="fa fa-ellipsis"></i></div>
+                {{-- <div><i class="fa fa-ellipsis"></i></div> --}}
             </div>
             <div>{!! nl2br($comment->parseContent()) !!}</div>
+            @if($comment->files->count())
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+                @foreach($comment->files->all() as $file)
+                <x-card-button type="button" class="p-3" wire:click="download('{{ $file->id }}')">
+                    <div class="flex justify-center items-center h-24">
+                        <div class="flex flex-col items-center gap-1">
+                            <div><i class="{{ $file->getIcon() }} text-xl "></i></div>
+                            <div class="text-xs">{{$file->ext.' • '.$file->getFormattedSize()}}</div>
+                        </div>
+                    </div>
+                    <div class="truncate">{{ $file->client_name }}</div>
+                </x-card-button>
+                @endforeach
+            </div>
+            @endif
+            <div x-data="{ open: false }">
+                <div x-show="!open" class="text-neutral-400 dark:text-neutral-600 text-sm mt-2">
+                    <x-text-button type="button" x-on:click="open = !open">{{ __('Balas') }}</x-text-button>
+                </div>
+                <div x-show="open" x-cloak>
+                    <livewire:com-item-write mod="$comment" lazy />
+                </div>
+            </div>
         </div>
     </div>
+    
     @endforeach
     @endif
 </div>
