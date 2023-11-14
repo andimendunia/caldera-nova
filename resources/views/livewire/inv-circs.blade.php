@@ -180,7 +180,7 @@
             date_human="{{ $circ->created_at->diffForHumans()}}">
             </x-circ-checkbox>
             <x-modal name="circ-edit-{{ $circ->id }}">
-                <livewire:inv-circ-edit :$circ lazy />
+                <livewire:inv-circ-edit wire:key="modal-{{ $circ->id }}" :$circ lazy />
             </x-modal>
             @endforeach
             <div class="flex items-center relative h-16">

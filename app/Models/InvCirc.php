@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +31,11 @@ class InvCirc extends Model
     }
 
     public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function evaluator(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -75,8 +81,12 @@ class InvCirc extends Model
                         $item->qty_rep = $qty_after;
                         break;                  
                 }
-                $this->status = 1;
-                $this->save();
+                $this->update([
+                    'status'        => 1,
+                    'qty_before'    => $qty_before,
+                    'qty_after'     => $qty_after,
+                    'evaluator_id'  => Auth::user()->id
+                ]);
                 $item->save();
                 return ['success', __('Sirkulasi disetujui'), $qtype, $qty_after];
             }
@@ -84,5 +94,50 @@ class InvCirc extends Model
             return ['error', 'Qtype is not defined'];
         }
 
+    }
+
+    public function getIcon()
+    {
+        switch ($this->status) {
+            case 0:
+                return 'fa-hourglass-half';
+                break;
+            case 1:
+                return 'fa-thumbs-up';
+                break;
+            case 2:
+                return 'fa-thumbs-down';
+                break;
+        }
+    }
+
+    public function getStatus()
+    {
+        switch ($this->status) {
+            case 0:
+                return __('Tertunda');
+                break;
+            case 1:
+                return __('Disetujui');
+                break;
+            case 2:
+                return __('Ditolak');
+                break;
+        }
+    }
+
+    public function getQtype()
+    {
+        switch ($this->qtype) {
+            case 1:
+                return __('Utama');
+                break;
+            case 2:
+                return __('Bekas');
+                break;
+            case 3:
+                return __('Diperbaiki');
+                break;
+        }
     }
 }

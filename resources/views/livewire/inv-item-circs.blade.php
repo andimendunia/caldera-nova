@@ -3,9 +3,10 @@
         <div class="text-sm p-4">
             <x-text-button type="button"><i class="fa fa-download mr-2"></i>{{ __('Unduh sirkulasi') }}</x-text-button>
         </div>
-        <div class="grid grid-col-1">
+        <div wire:key="circs" class="grid grid-col-1">
             @foreach ($circs as $circ)
-                <x-circ-button class="px-4 py-2 text-sm truncate">
+            <div wire:key="circ-for-{{ $circ->id }}" class="p-1 truncate">
+                <x-circ-button wire:key="circ-button-{{ $circ->id }}" class="p-2 text-sm truncate w-full" x-on:click.prevent="$dispatch('open-modal', 'circ-edit-{{ $circ->id }}')">
                     <div class="flex items-center">
                         <div>
                             <div class="w-24 truncate text-base">
@@ -33,21 +34,15 @@
                                 <div class="text-base truncate">@switch($circ->qtype) @case(2) <x-badge>{{ __('Bekas') }}</x-badge> @break @case(3) <x-badge>{{ __('Diperbaiki') }}</x-badge> @break @endswitch {{ $circ->remarks }}</div>
                             </div>
                         </div>
-                        <div class="ml-auto pl-2 text-sm">
-                            @switch($circ->status)
-                                @case(0)
-                                    <i class="fa fa-hourglass-half"></i>
-                                    @break
-                                @case(1)
-                                    <i class="fa fa-thumbs-up"></i>
-                                    @break
-                                @case(2)
-                                    <i class="fa fa-thumbs-down"></i>
-                                    @break
-                            @endswitch
+                        <div class="ml-auto pl-4 text-sm">
+                            <i class="fa {{ $circ->getIcon() }}"></i>
                         </div>
                     </div>
                 </x-circ-button>
+                <x-modal name="circ-edit-{{ $circ->id }}">
+                    <livewire:inv-circ-edit wire:key="inv-circ-edit-{{ $circ->id }}" :$circ lazy />
+                </x-modal>
+            </div>
             @endforeach
             <div class="mt-4">
                 {{ $circs->links(data: ['scrollTo' => false]) }}

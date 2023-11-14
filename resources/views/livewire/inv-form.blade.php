@@ -2,7 +2,7 @@
     <livewire:inv-item-photo isForm="true" :url="$inv_item->photo ?? false ? $url : ''" />
     <form wire:submit="save()" class="w-full overflow-hidden">
         <div class="px-4 pb-4">
-            <div class="bg-white dark:bg-neutral-800 shadow rounded-lg p-4 mb-6">
+            <div class="bg-white dark:bg-neutral-800 shadow rounded-lg p-4 mb-4">
                 <div class="text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600 mb-4">
                     {{ __('Informasi Dasar') }}</div>
                 <x-text-input wire:model="name" type="text" placeholder="{{ __('Nama') }}" />
@@ -23,12 +23,12 @@
                         <x-input-error messages="{{ $message }}" class="m-2" />
                     @enderror
                 </div>
-                <div x-data="{ is_active: @entangle('is_active') }" class="mx-3 mt-4">
+                <div x-data="{ is_active: @entangle('is_active') }" class="mt-4">
                     <x-toggle x-model="is_active" :checked="$is_active"><span
                             x-text="is_active ? '{{ __('Aktif') }}' : '{{ __('Nonaktif') }}'"></span></x-toggle>
                 </div>
             </div>
-            <div class="bg-white dark:bg-neutral-800 shadow rounded-lg p-4 mb-6">
+            <div class="bg-white dark:bg-neutral-800 shadow rounded-lg p-4 mb-4">
                 <div class="text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600 mb-4">
                     {{ __('Harga dan Satuan') }}</div>
                 @if ($currs->count())
@@ -129,7 +129,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white dark:bg-neutral-800 shadow rounded-lg p-4 mb-6">
+            <div class="bg-white dark:bg-neutral-800 shadow rounded-lg p-4 mb-4">
                 <div class="text-medium text-sm uppercase  text-neutral-400 dark:text-neutral-600 mb-4">
                     {{ __('Lokasi dan Tag') }} — TT MM</div>
                 <livewire:inv-item-loc isForm="true" :$loc :$inv_area_id />
@@ -158,7 +158,7 @@
                     @endif
                 </div>
             </div>
-            <div class="bg-white dark:bg-neutral-800 shadow rounded-lg p-4 mb-6">
+            <div class="bg-white dark:bg-neutral-800 shadow rounded-lg p-4 mb-4">
                 <div class="text-medium text-sm uppercase text-neutral-400 dark:text-neutral-600 mb-4">
                     {{ __('Batas qty utama') }}</div>
                 <div class="grid grid-cols-2 gap-x-3">

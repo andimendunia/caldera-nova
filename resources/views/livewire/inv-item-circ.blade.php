@@ -117,7 +117,7 @@
                     <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-ref="userq" x-on:focus="open = true"  id="inv-user" class="mt-3" type="search" placeholder="{{ __('Delegasikan ke...') }}" />
                     <div class="relative" x-show="open" x-cloak>
                         <div class="absolute top-1 left-0 w-full">
-                            <livewire:user-select />
+                            <livewire:user-select wire:key="user-select" />
                         </div>
                     </div>
                 </div>

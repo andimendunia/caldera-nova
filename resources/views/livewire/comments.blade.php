@@ -3,11 +3,11 @@
         <h1>{{ __('Komentar') . ' ' . '(' . $count . ')' }}</h1>
     </div>
     {{-- <hr class="border-neutral-300 dark:border-neutral-600" /> --}}
-    <livewire:com-item-write :$mod />
+    <livewire:com-item-write wire:key="write-parent" :$mod />
     @if ($comments->count())
         @foreach ($comments as $comment)
             <hr class=" border-neutral-200 dark:border-neutral-800" />
-            <div class="flex gap-x-4 my-4">
+            <div wire:key="comment-{{ $comment->id }}" class="flex gap-x-4 my-4">
                 <div>
                     <div class="w-8 h-8 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
                         @if ($comment->user->photo)
@@ -29,38 +29,50 @@
                         {{-- <div><i class="fa fa-ellipsis"></i></div> --}}
                     </div>
                     <div>{!! nl2br($comment->parseContent()) !!}</div>
-                    @if ($comment->files->count())
-                        <div
-                            class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-                            @foreach ($comment->files->all() as $file)
-                                <x-card-button type="button" class="p-3"
-                                    wire:click="download('{{ $file->id }}')">
-                                    <div class="flex justify-center items-center h-24">
-                                        <div class="flex flex-col items-center gap-1">
-                                            <div><i class="{{ $file->getIcon() }} text-xl "></i></div>
-                                            <div class="text-xs">{{ $file->ext . ' • ' . $file->getFormattedSize() }}</div>
+                    <div wire:key="files-{{ $comment->id }}">
+                        @if ($comment->files->count())
+                            <div
+                                class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+                                @foreach ($comment->files->all() as $file)
+                                    <x-card-button wire:key="file-{{ $file->id }}" type="button" class="p-3"
+                                        wire:click="download('{{ $file->id }}')">
+                                        <div class="flex justify-center items-center h-24">
+                                            <div class="flex flex-col items-center gap-1">
+                                                <div><i class="{{ $file->getIcon() }} text-xl "></i></div>
+                                                <div class="text-xs">
+                                                    {{ $file->ext . ' • ' . $file->getFormattedSize() }}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="truncate">{{ $file->client_name }}</div>
-                                </x-card-button>
-                            @endforeach
-                        </div>
-                    @endif
+                                        <div class="truncate">{{ $file->client_name }}</div>
+                                    </x-card-button>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
                     <div x-data="{ open: false, setFocus: function() { $nextTick(() => $refs.container.querySelector('textarea').focus()); } }" x-on:click.away="open = false" x-ref="container">
                         <div class="text-neutral-400 dark:text-neutral-600 text-sm mt-2">
                             <x-text-button type="button" x-on:mousedown="open = true"
                                 x-on:mouseup="setFocus()">{{ __('Balas') }}</x-text-button>
                         </div>
                         <div x-show="open" x-cloak>
-                            <livewire:com-item-write wire:key="write-first-{{ $comment->id }}" :$mod :parent_id="$comment->id" />
+                            <livewire:com-item-write wire:key="write-first-{{ $comment->id }}" :$mod
+                                :parent_id="$comment->id" />
                         </div>
                     </div>
-                    <div x-data="{ open: false, emp_id: '', setFocus: function() { $nextTick(() => { const ta = $refs.container.querySelector('textarea');
+                    <div x-data="{
+                        open: false,
+                        emp_id: '',
+                        setFocus: function() {
+                            $nextTick(() => {
+                                const ta = $refs.container.querySelector('textarea');
                                 ta.focus();
-                                ta.value = '@' + this.emp_id + ' ' }); } }" x-on:click.away="open = false" x-ref="container">
+                                ta.value = '@' + this.emp_id + ' '
+                            });
+                        }
+                    }" x-on:click.away="open = false" x-ref="container">
                         @foreach ($comment->children as $child)
                             <hr class=" border-neutral-200 dark:border-neutral-800 mt-4" />
-                            <div class="flex gap-x-4 my-4">
+                            <div wire:key="child-{{ $child->id }}" class="flex gap-x-4 my-4">
                                 <div>
                                     <div
                                         class="w-8 h-8 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
@@ -89,13 +101,14 @@
                                         <div
                                             class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 text-sm text-neutral-600 dark:text-neutral-400">
                                             @foreach ($child->files->all() as $file)
-                                                <x-card-button type="button" class="p-3"
-                                                    wire:click="download('{{ $file->id }}')">
+                                                <x-card-button wire:key="file-{{ $file->id }}" type="button"
+                                                    class="p-3" wire:click="download('{{ $file->id }}')">
                                                     <div class="flex justify-center items-center h-24">
                                                         <div class="flex flex-col items-center gap-1">
                                                             <div><i class="{{ $file->getIcon() }} text-xl "></i></div>
                                                             <div class="text-xs">
-                                                                {{ $file->ext . ' • ' . $file->getFormattedSize() }}</div>
+                                                                {{ $file->ext . ' • ' . $file->getFormattedSize() }}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="truncate">{{ $file->client_name }}</div>
@@ -111,8 +124,9 @@
                                 </div>
                             </div>
                         @endforeach
-                        <div x-show="open" x-cloak>
-                            <livewire:com-item-write wire:key="write-second-{{ $comment->id }}" :$mod :parent_id="$comment->id" />
+                        <div x-show="open" wire:key="wrap-second-{{ $comment->id }}" x-cloak>
+                            <livewire:com-item-write wire:key="write-second-{{ $comment->id }}" :$mod
+                                :parent_id="$comment->id" />
                         </div>
                     </div>
                 </div>

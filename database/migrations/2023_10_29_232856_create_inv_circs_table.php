@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId('evaluator_id')->nullable()->references('id')->on('users')->nullOnDelete();
             $table->tinyInteger('status'); // 0: pending, 1: approved, 2:rejected 3: expired
             $table->string('remarks');
+            $table->string('comment')->nullable();
             $table->timestamps();
 
             $table->index('inv_item_id');

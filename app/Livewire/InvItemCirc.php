@@ -69,18 +69,6 @@ class InvItemCirc extends Component
             // convert to number
             $qtype = ($this->qtype == 'main' ? 1 : ($this->qtype == 'used' ? 2 : ($this->qtype == 'rep' ? 3 : 0)));
 
-            switch ($qtype) {
-                case 1:
-                    $qty_before = $item->qty_main;
-                    break;
-                case 2:
-                    $qty_before = $item->qty_used;
-                    break;
-                case 3:
-                    $qty_before = $item->qty_rep;
-                    break;
-            }  
-
             $user = '';
             if ($this->userq) {
                 $q = trim($this->userq);
@@ -94,8 +82,8 @@ class InvItemCirc extends Component
                 'inv_item_id'   => $item->id,
                 'qty'           => $this->qty,
                 'qtype'         => $qtype,
-                'qty_before'    => $qty_before,
-                'qty_after'     => $qty_before,
+                'qty_before'    => 0,
+                'qty_after'     => 0,
                 'amount'        => round(($item->price * $this->qty), 2),
                 'user_id'       => $user ? $user->id : Auth::user()->id,
                 'assigner_id'   => $user ? Auth::user()->id : null,
