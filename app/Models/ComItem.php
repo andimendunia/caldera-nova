@@ -54,20 +54,19 @@ class ComItem extends Model
     }
 
     public function saveFile($file)
-    {
-        $path = storage_path('app/livewire-tmp/'.$file);        
+    {   
         $id     = $this->id;
         $time   = Carbon::now()->format('YmdHis');
         $rand   = Str::random(10);
-        $name   = $id.'_'.$time.'_'.$rand.'.jpg';
         $ext    = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+        $name   = $file->hashName();
 
         // check is_image
         $mimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
         $fileMimeType = $file->getMimeType();
         $is_image = in_array($fileMimeType, $mimeTypes) ? true : false;
 
-        Storage::put('/public/com-files/'.$name, $path);
+        Storage::put('/public/com-files/', $file);
 
         return ComFile::create([
             'com_item_id'   => $id,

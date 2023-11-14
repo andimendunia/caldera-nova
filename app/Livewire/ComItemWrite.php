@@ -14,6 +14,7 @@ class ComItemWrite extends Component
     use WithFileUploads;
 
     public $mod;
+    public $parent_id;
     public $users = [];
     public $userq;
     public $user_id;
@@ -70,40 +71,27 @@ class ComItemWrite extends Component
         // dd($this);
         
         $name = class_basename($this->mod);
-        if ($name == 'ComItem') {
-            // child
-            $com_item = ComItem::create([
-                'user_id'   => $this->user_id,
-                'content'   => $this->content,
-                'parent_id' => $this->mod->parent_id ? $this->mod->parent_id : $this->mod->id
+        $com_item = ComItem::create([
+            'user_id' => $this->user_id,
+            'content'   => $this->content,
+            'mod'       => $name,
+            'mod_id'    => $this->mod->id,
+        ]);
+
+        if ($this->parent_id) {
+            $com_item->update([
+                'parent_id' => $this->parent_id,
             ]);
-
-            // handle files here
-            foreach($this->files as $file) {
-                $com_item->saveFile($file);
-            }
-
-            $this->reset(['content', 'files']);
-            $this->js('notyf.success("'.__('Balasan ditambahkan').'")'); 
-            $this->dispatch('comment-added');
-        } else {
-            // parent
-            $com_item = ComItem::create([
-                'user_id' => $this->user_id,
-                'content'   => $this->content,
-                'mod'       => $name,
-                'mod_id'    => $this->mod->id
-            ]);
-
-            // handle files here
-            foreach($this->files as $file) {
-                $com_item->saveFile($file);
-            }
-
-            $this->reset(['content', 'files']);
-            $this->js('notyf.success("'.__('Komentar ditambahkan').'")'); 
-            $this->dispatch('comment-added');
         }
+
+        // handle files here
+        foreach($this->files as $file) {
+            $com_item->saveFile($file);
+        }
+
+        $this->reset(['content', 'files']);
+        $this->js('notyf.success("'.__('Komentar ditambahkan').'")'); 
+        $this->dispatch('comment-added');
     }
 
     public function resetFiles()

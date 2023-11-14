@@ -25,16 +25,20 @@ class Comments extends Component
     #[On('comment-added')]
     public function render()
     {
-        $comments = ComItem::orderByDesc('updated_at')->where('mod', $this->name)->where('mod_id', $this->id)->get();
-        return view('livewire.comments', compact('comments'));
+        $comments = ComItem::orderByDesc('updated_at')->where('mod', $this->name)->where('mod_id', $this->id)->whereNull('parent_id')->get();
+        $count = ComItem::orderByDesc('updated_at')->where('mod', $this->name)->where('mod_id', $this->id)->count();
+        return view('livewire.comments', compact('comments', 'count'));
     }
 
     public function download($id)
     {
         $file = ComFile::find($id);
-        if($file) {
+
+        if ($file && Storage::exists('/public/com-files/' . $file->name ?? '')) {
             $this->js('notyf.success("'.__('Pengunduhan dimulai...').'")'); 
-            return Storage::download('/public/com-files/'.$file->name, $file->client_name);
+            return Storage::download('/public/com-files/' . $file->name, $file->client_name);
+        } else {
+            $this->js('notyf.error("'.__('Berkas tidak ditemukan').'")');
         }
     }
 
