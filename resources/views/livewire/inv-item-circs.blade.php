@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="ml-auto pl-4 text-sm">
-                            <i class="fa {{ $circ->getIcon() }}"></i>
+                            <i class="fa {{ $circ->getStatusIcon() }}"></i>
                         </div>
                     </div>
                 </x-circ-button>

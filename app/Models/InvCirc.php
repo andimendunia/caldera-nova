@@ -96,7 +96,18 @@ class InvCirc extends Model
 
     }
 
-    public function getIcon()
+    public function getDirIcon()
+    {
+        if ($this->qty < 0) {
+            return 'fa-minus';
+        } elseif ($this->qty > 0) {
+            return 'fa-plus';
+        } else {
+            return 'fa-flag';
+        }
+    }
+
+    public function getStatusIcon()
     {
         switch ($this->status) {
             case 0:

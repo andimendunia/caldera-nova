@@ -102,7 +102,7 @@
             <div class="flex gap-x-2 items-center">
                 <x-secondary-button x-show="ids.length === 1"
                 class="flex items-center h-full" x-data=""
-                x-on:click.prevent="$dispatch('open-modal', 'circ-edit-'+ids[0])"><i class="fa fa-fw fa-pen"></i></x-secondary-button> 
+                x-on:click.prevent="$dispatch('open-modal', 'circ-show-'+ids[0])"><i class="fa fa-fw fa-eye"></i></x-secondary-button> 
                 <x-secondary-button class="flex items-center h-full"><i class="fa fa-fw fa-print"></i><span class="ml-2 hidden lg:inline">{{__('Cetak')}}</span></x-secondary-button> 
                 <div class="btn-group">
                     <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-up"></i><span class="ml-2">{{__('Setujui')}}</span></x-secondary-button>
@@ -159,29 +159,32 @@
                 </div>
             @endif
         @else
-        <div wire:key="circs" class="inv-circs mt-1 grid gap-3 px-0 sm:px-3">
+        <div wire:key="circs" class="inv-circs mt-1 grid gap-1 px-0 sm:px-3">
             @foreach($circs as $circ)
-            <x-circ-checkbox wire:key="circ-{{ $circ->id }}" id="{{ $circ->id }}" model="ids"
-            inv_name="{{ $circ->inv_item->name }}"
-            inv_desc="{{ $circ->inv_item->desc }}"
-            inv_code="{{ $circ->inv_item->code ?? __('Tak ada kode') }}"
-            inv_uom="{{ $circ->inv_item->inv_uom->name }}"
-            inv_loc="{{ $circ->inv_item->inv_loc->name ?? __('Tak ada lokasi') }}"
-            inv_photo="{{ $circ->inv_item->photo }}"
-            qty="{{ $circ->qty }}"
-            qtype="{{ $circ->qtype }}"
-            curr="{{ $curr->name }}"
-            amount="{{ $circ->amount }}"
-            assigner="{{ $circ->assigner_id ? __('Didelegasikan oleh:') . ' ' . $circ->assigner->name . ' (' . $circ->assigner->emp_id . ')' : ''}}"
-            user_name="{{ $circ->user->name }}"
-            remarks="{{ $circ->remarks}}"
-            status="{{ $circ->status }}"
-            user_photo="{{ $circ->user->photo }}"
-            date_human="{{ $circ->created_at->diffForHumans()}}">
-            </x-circ-checkbox>
-            <x-modal name="circ-edit-{{ $circ->id }}">
-                <livewire:inv-circ-edit wire:key="modal-{{ $circ->id }}" :$circ lazy />
-            </x-modal>
+            <div class="truncate p-1" wire:key="circ-container-{{ $circ->id }}">
+                <x-circ-checkbox wire:key="circ-{{ $circ->id }}" id="{{ $circ->id }}" model="ids"
+                    inv_name="{{ $circ->inv_item->name }}"
+                    inv_desc="{{ $circ->inv_item->desc }}"
+                    inv_code="{{ $circ->inv_item->code ?? __('Tak ada kode') }}"
+                    inv_uom="{{ $circ->inv_item->inv_uom->name }}"
+                    inv_loc="{{ $circ->inv_item->inv_loc->name ?? __('Tak ada lokasi') }}"
+                    inv_photo="{{ $circ->inv_item->photo }}"
+                    dir_icon="{{ $circ->getDirIcon() }}"
+                    qty="{{ $circ->qty }}"
+                    qtype="{{ $circ->qtype }}"
+                    curr="{{ $curr->name }}"
+                    amount="{{ $circ->amount }}"
+                    assigner="{{ $circ->assigner_id ? __('Didelegasikan oleh:') . ' ' . $circ->assigner->name . ' (' . $circ->assigner->emp_id . ')' : ''}}"
+                    user_name="{{ $circ->user->name }}"
+                    remarks="{{ $circ->remarks}}"
+                    status="{{ $circ->status }}"
+                    user_photo="{{ $circ->user->photo }}"
+                    date_human="{{ $circ->created_at->diffForHumans()}}">
+                    </x-circ-checkbox>
+                    <x-modal name="circ-show-{{ $circ->id }}">
+                        <livewire:inv-circ-edit wire:key="modal-{{ $circ->id }}" :$circ lazy />
+                    </x-modal>
+            </div>
             @endforeach
             <div class="flex items-center relative h-16">
                 @if(!$circs->isEmpty())

@@ -1,7 +1,7 @@
-@props(['disabled' => false, 'id', 'model', 'inv_name', 'inv_desc', 'inv_code', 'inv_uom', 'inv_loc', 'inv_photo', 'qty', 'qtype', 'curr', 'amount', 'user_name', 'remarks', 'status', 'user_photo', 'assigner', 'date_human'])
+@props(['disabled' => false, 'id', 'model', 'inv_name', 'inv_desc', 'inv_code', 'inv_uom', 'inv_loc', 'inv_photo', 'dir_icon', 'qty', 'qtype', 'curr', 'amount', 'user_name', 'remarks', 'status', 'user_photo', 'assigner', 'date_human'])
 
 <input {{ $disabled ? 'disabled' : '' }} id="{{ 'circ-'.$id }}" value="{{ $id }}" type="checkbox" x-model={{ $model }} class="hidden">
-<label for="{{ 'circ-'.$id }}" {{ $attributes->merge(['class' => 'custom-checkbox cursor-pointer h-full flex items-center text-sm text-left text-neutral-600 dark:text-neutral-400 bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-hidden transition ease-in-out duration-150']) }}>
+<label for="{{ 'circ-'.$id }}" {{ $attributes->merge(['class' => 'custom-checkbox cursor-pointer h-full flex items-center text-sm text-left text-neutral-600 dark:text-neutral-400 bg-white dark:bg-neutral-800 shadow rounded-lg overflow-hidden transition ease-in-out duration-150']) }}>
     <div class="h-full">
         <div class="w-28 h-full relative truncate text-base text-neutral-900 dark:text-neutral-100">
             @if($inv_photo)
@@ -14,13 +14,7 @@
             </div>
             @endif
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                @if($qty < 0)
-                    <i class="fa fa-fw fa-minus mr-2"></i>{{abs($qty).' '.$inv_uom}}
-                @elseif ($qty > 0)
-                    <i class="fa fa-fw fa-plus mr-2"></i>{{$qty.' '.$inv_uom}}
-                @else
-                    <i class="fa fa-fw fa-flag"></i>
-                @endif
+                <i class="fa fa-fw {{ $dir_icon }} mr-2"></i>{{($qty < 0 ? abs($qty) : $qty).' '.$inv_uom}}
                 
             </div>
         </div>

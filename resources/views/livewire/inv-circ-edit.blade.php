@@ -4,27 +4,29 @@
         <div x-show="!edit" class="mb-6">
             <div
                 class="flex justify-between items-center text-lg mb-4 font-medium text-neutral-900 dark:text-neutral-100">
-                <h2><i class="fa {{ $circ->getIcon() }} mr-2"></i>
-                    {{ $dir }}
+                <h2>
+                    {{ __('Sirkulasi') }}
                 </h2>
-
                 <x-text-button type="button" x-on:click="$dispatch('close')"><i class="fa fa-times"></i></x-text-button>
             </div>
-            <div class="flex items-center mb-4">
-                <div class="text-4xl">
+            <div class="flex justify-center items-center gap-x-2 mb-6">
+                <div>
+                    <i class="fa {{ $circ->getDirIcon() }}"></i>
+                </div>
+                <div>
                     {{ abs($qty) }}
                 </div>
-                <div class="ml-2">
+                <div>
                     {{ $uom }}
                 </div>
-                <div class="mx-2">
+                <div>
                     •
                 </div>
                 <div>
                     {{ number_format(abs($amount), 2) . ' ' . $curr }}
                 </div>
                 @if ($circ->status == 1)
-                    <div class="mx-2">
+                    <div>
                         •
                     </div>
                     <div>
@@ -32,7 +34,7 @@
                     </div>
                 @endif
             </div>
-            <div class="flex items-center gap-x-2">
+            <div class="flex items-start gap-x-3">
                 <div>
                     <div class="w-8 h-8 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
                         @if ($circ->user->photo)
@@ -50,7 +52,7 @@
                 </div>
                 <div>
                     <div class="whitespace-normal">
-                        <div class="text-xs text-neutral-400 dark:text-neutral-600">{{ $circ->user->name }} @if ($circ->assigner_id)
+                        <div class="text-xs text-neutral-400 dark:text-neutral-600 mb-1">{{ $circ->user->name }} @if ($circ->assigner_id)
                                 <span
                                     title="{{ __('Didelegasikan oleh:') . ' ' . $circ->assigner->name . ' (' . $circ->assigner->emp_id . ')' }}">•
                                     <i class="fa fa-handshake-angle"></i></span>
@@ -99,18 +101,27 @@
         </div>
         <div x-show="!edit" class="mt-6">
             @if ($circ->status == 0)
-                <div class="flex justify-between gap-x-2">
-                    <div>
-                        <x-secondary-button x-on:click="edit = true"
-                            type="button">{{ __('Edit') }}</x-secondary-button>
-                    </div>
-                    <div class="flex gap-x-2">
-
-                        <x-primary-button type="button">{{ __('Setujui') }}</x-primary-button>
-                        <x-primary-button type="button">{{ __('Tolak') }}</x-primary-button>
-
+            <div x-data="{ eval: false }">
+                <div x-show="!eval" class="flex justify-end gap-x-2">
+                    <x-secondary-button x-on:click="edit = true"
+                    type="button">{{ __('Edit') }}</x-secondary-button>
+                    <x-primary-button type="button" x-on:click="eval = true;">{{ __('Evaluasi') }}</x-primary-button>
+                </div>
+                <div x-show="eval">
+                    <x-text-input wire:model="comment" id="inv-comment" type="text"
+                    placeholder="{{ __('Komentar') }}" autocomplete="inv-comment" />
+                    <div class="flex justify-between mt-3">
+                        <x-secondary-button type="button" x-on:click="eval = false;"
+                        type="button">{{ __('Kembali') }}</x-secondary-button>
+                        <div class="flex gap-x-2">
+                            <x-primary-button type="button" x-on:click="eval = false"
+                            type="button">{{ __('Setujui') }}</x-primary-button>
+                            <x-primary-button type="button" x-on:click="eval = false"
+                            type="button">{{ __('Tolak') }}</x-primary-button>
+                        </div>
                     </div>
                 </div>
+            </div>
             @endif
             @if ($circ->evaluator_id)
                 <div class="flex items-center gap-x-2">
@@ -133,7 +144,7 @@
                         <div class="whitespace-normal">
                             <div class="text-xs text-neutral-400 dark:text-neutral-600">{{ $circ->evaluator->name }}
                                 <span class="mx-1">•</span>{{ $circ->updated_at }}</div>
-                            <div class="text-base"><x-badge>{{ $circ->getStatus() }}</x-badge> {{ $circ->comment }}
+                            <div class="text-base"><x-badge><i class="fa {{ $circ->getStatusIcon() }} mr-2"></i>{{ $circ->getStatus() }}</x-badge> {{ $circ->comment }}
                             </div>
                         </div>
                     </div>
