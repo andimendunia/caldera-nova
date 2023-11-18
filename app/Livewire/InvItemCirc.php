@@ -95,7 +95,7 @@ class InvItemCirc extends Component
             $item->is_active = true;
             $item->save();
 
-            if ($this->is_immediate) {
+            if ($this->is_immediate || $this->qty === 0) {
                 $msg = $circ->approve();
                 $this->js('notyf.'.$msg[0].'("'.$msg[1].'")'); 
                 if(isset($msg[2]) && isset($msg[3]))

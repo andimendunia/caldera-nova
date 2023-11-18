@@ -123,7 +123,9 @@
                 </div>
                 <div class="flex gap-x-5 my-5">
                     <x-checkbox x-model="delegate" @click="$nextTick(() => { delegate ? $refs.userq.focus() : false })" id="inv-delegate">{{ __('Delegasikan') }}</x-checkbox>
-                    <x-checkbox wire:model="is_immediate" id="inv-immediate">{{ __('Langsung setujui') }}</x-checkbox>
+                    <div x-show="qty !== 0">
+                        <x-checkbox wire:model="is_immediate"  id="inv-immediate">{{ __('Langsung setujui') }}</x-checkbox>
+                    </div>
                 </div>
             </div>
             <x-primary-button type="submit" md class="w-full flex justify-center mt-4">

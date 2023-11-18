@@ -5,31 +5,30 @@
             <div
                 class="flex justify-between items-center text-lg mb-4 font-medium text-neutral-900 dark:text-neutral-100">
                 <h2>
-                    {{ __('Sirkulasi') }}
+                    {{ $dir }}
                 </h2>
                 <x-text-button type="button" x-on:click="$dispatch('close')"><i class="fa fa-times"></i></x-text-button>
             </div>
-            <div class="flex justify-center items-center gap-x-2 mb-6">
+            <div class="flex items-center gap-x-2 mb-6">
                 <div>
                     <i class="fa {{ $circ->getDirIcon() }}"></i>
                 </div>
-                <div>
+                <div class="text-4xl">
                     {{ abs($qty) }}
                 </div>
                 <div>
                     {{ $uom }}
                 </div>
+                @if($circ->qty !== 0)
                 <div>
                     •
                 </div>
                 <div>
                     {{ number_format(abs($amount), 2) . ' ' . $curr }}
                 </div>
+                @endif
                 @if ($circ->status == 1)
-                    <div>
-                        •
-                    </div>
-                    <div>
+                    <div class="ml-auto">
                         {{ $circ->qty_before . ' → ' . $circ->qty_after }}
                     </div>
                 @endif
