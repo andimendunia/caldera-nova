@@ -12,13 +12,13 @@
             price: @entangle('price'),
             get cost() {
                 const qty = parseInt(this.qty);
-                return (qty && this.qtype == 'main') ? qty * this.price : 0;
+                return (qty && this.qtype == 1) ? qty * this.price : 0;
             },
             calcQty() {
                 const qty = parseInt(this.qty)
-                this.qty_main_after = (qty && this.qtype == 'main') ? this.qty_main + qty : this.qty_main;
-                this.qty_used_after = (qty && this.qtype == 'used') ? this.qty_used + qty : this.qty_used;
-                this.qty_rep_after = (qty && this.qtype == 'rep') ? this.qty_rep + qty : this.qty_rep;
+                this.qty_main_after = (qty && this.qtype == 1) ? this.qty_main + qty : this.qty_main;
+                this.qty_used_after = (qty && this.qtype == 2) ? this.qty_used + qty : this.qty_used;
+                this.qty_rep_after = (qty && this.qtype == 3) ? this.qty_rep + qty : this.qty_rep;
             }
         }" 
         x-init="
@@ -82,11 +82,11 @@
                             x-text="Math.abs(cost).toLocaleString(undefined, {minimumIntegerDigits: 1, minimumFractionDigits: 2, maximumFractionDigits: 2,})">
                         </div>
                     </div>
-                    <div x-show="qtype == 'used'" class="flex">
+                    <div x-show="qtype == 2" class="flex">
                         <div class="mx-2">•</div>
                         <div>{{ __('Bekas') }}</div>
                     </div>
-                    <div x-show="qtype == 'rep'" class="flex">
+                    <div x-show="qtype == 3" class="flex">
                         <div class="mx-2">•</div>
                         <div>{{ __('Diperbaiki') }}</div>
                     </div>
@@ -95,9 +95,9 @@
             <div x-show="(qty > 0) || (qty && qty_used_after) || (qty && qty_rep_after) || (!qtype && qty != 0)">
                 <x-select x-model="qtype" name="qtype" id="inv-qty-type" class="mt-3">
                     <option value=""></option>
-                    <option value="main">{{ __('Qty utama') }}</option>
-                    <option value="used">{{ __('Qty bekas') }}</option>
-                    <option value="rep">{{ __('Qty diperbaiki') }}</option>
+                    <option value="1">{{ __('Qty utama') }}</option>
+                    <option value="2">{{ __('Qty bekas') }}</option>
+                    <option value="3">{{ __('Qty diperbaiki') }}</option>
                 </x-select>
                 <div wire:key="error-qtype">
                     @error('qtype')
@@ -112,8 +112,8 @@
                     <x-input-error messages="{{ $message }}" class="mt-2" />
                 @enderror
             </div>
-            <div x-data="{ delegate: @entangle('is_delegated'), open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail[0]; open = false">
-                <div x-show="delegate" x-cloak x-on:click.away="open = false">
+            <div x-data="{ open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail[0]; open = false">
+                <div x-on:click.away="open = false">
                     <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-ref="userq" x-on:focus="open = true"  id="inv-user" class="mt-3" type="search" placeholder="{{ __('Delegasikan ke...') }}" />
                     <div class="relative" x-show="open" x-cloak>
                         <div class="absolute top-1 left-0 w-full">
@@ -121,11 +121,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex gap-x-5 my-5">
-                    <x-checkbox x-model="delegate" @click="$nextTick(() => { delegate ? $refs.userq.focus() : false })" id="inv-delegate">{{ __('Delegasikan') }}</x-checkbox>
-                    <div x-show="qty !== 0">
-                        <x-checkbox wire:model="is_immediate"  id="inv-immediate">{{ __('Langsung setujui') }}</x-checkbox>
-                    </div>
+                <div x-show="qty !== 0" class="flex gap-x-5 my-5">
+                    <x-checkbox wire:model="is_immediate"  id="inv-immediate">{{ __('Langsung setujui') }}</x-checkbox>
                 </div>
             </div>
             <x-primary-button type="submit" md class="w-full flex justify-center mt-4">
@@ -139,7 +136,7 @@
                     <div class="mx-2" x-text="Math.abs(qty)"></div>
                     <div>{{ $uom }}</div>
                 </div>
-                <div x-show="parseInt(qty) === 0"><i class="far fa-fw fa-flag mr-2"></i>{{ __('Catat Qty') }}
+                <div x-show="parseInt(qty) === 0"><i class="fa fa-fw fa-code-commit mr-2"></i>{{ __('Catat') }}
                 </div>
             </x-primary-button>
         </div>

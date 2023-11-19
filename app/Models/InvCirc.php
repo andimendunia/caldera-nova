@@ -61,37 +61,42 @@ class InvCirc extends Model
             case 3:
                 $qty_before = $item->qty_rep;
                 break;
-        }        
+        } 
 
-        if ($qtype) {
-            $qty_after = $qty_before + $this->qty;
+        $qty_after = $qty_before + $this->qty;
 
-            if ($qty_after < 0) {
-                return ['error', __('Sirkulasi tak bisa disetujui (Qty barang negatif)')];
+        if ($qty_after < 0) {
+            return [
+                'success' => false,
+                'message' => __('Sirkulasi tak bisa disetujui karena qty barang akan menjadi negatif.'),
+            ];
 
-            } else {
-                switch ($qtype) {
-                    case 1:
-                        $item->qty_main = $qty_after;
-                        break;
-                    case 2:
-                        $item->qty_used = $qty_after;
-                        break;
-                    case 3:
-                        $item->qty_rep = $qty_after;
-                        break;                  
-                }
-                $this->update([
-                    'status'        => 1,
-                    'qty_before'    => $qty_before,
-                    'qty_after'     => $qty_after,
-                    'evaluator_id'  => Auth::user()->id
-                ]);
-                $item->save();
-                return ['success', __('Sirkulasi disetujui'), $qtype, $qty_after];
-            }
         } else {
-            return ['error', 'Qtype is not defined'];
+            switch ($qtype) {
+                case 1:
+                    $item->qty_main = $qty_after;
+                    break;
+                case 2:
+                    $item->qty_used = $qty_after;
+                    break;
+                case 3:
+                    $item->qty_rep = $qty_after;
+                    break;                  
+            }
+            $item->is_active = true;
+            $item->save();
+            $this->qty < 0 ? $item->updateFreq() : false;
+            $this->status       = 1;
+            $this->qty_before   = $qty_before;
+            $this->qty_after    = $qty_after;
+            $this->evaluator_id = Auth::user()->id;
+
+            return [
+                'success'   => true,
+                'message'   => __('Sirkulasi disetujui.'),
+                'qtype'     => $qtype,
+                'qty_after' => $qty_after,
+            ];
         }
 
     }
@@ -103,7 +108,7 @@ class InvCirc extends Model
         } elseif ($this->qty > 0) {
             return 'fa-plus';
         } else {
-            return 'fa-flag';
+            return 'fa-code-commit';
         }
     }
 

@@ -26,7 +26,7 @@
                 </div>
                 <div class="mt-4">
                     <x-checkbox wire:model.live="qdirs" id="inv-dir-3"
-                        value="capture"><i class="far fa-fw fa-flag mr-2"></i>{{ __('Pencatatan') }}</x-checkbox>
+                        value="capture"><i class="fa fa-fw fa-code-commit mr-2"></i>{{ __('Pencatatan') }}</x-checkbox>
                 </div>
                 
             </div>

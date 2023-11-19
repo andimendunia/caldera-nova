@@ -26,15 +26,13 @@ class InvItemCirc extends Component
     public $remarks;
 
     public $userq;
-
-    public $is_delegated = false;
     public $is_immediate = false;
 
     public function rules()
     {
         return [
             'qty'       => 'required|integer|min:-99999|max:99999',
-            'qtype'     => ['required_unless:qty,0', Rule::in(['main', 'used', 'rep'])],
+            'qtype'     => 'required_unless:qty,0|min:1|max:3',
             'remarks'   => 'required|string'
         ];
     }
@@ -49,7 +47,7 @@ class InvItemCirc extends Component
 
     public function mount()
     {
-        $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';
+        $this->qtype = $this->qty_used || $this->qty_rep ? '' : 1;
     }
 
     public function render()
@@ -66,9 +64,6 @@ class InvItemCirc extends Component
 
         if($item) {
 
-            // convert to number
-            $qtype = ($this->qtype == 'main' ? 1 : ($this->qtype == 'used' ? 2 : ($this->qtype == 'rep' ? 3 : 0)));
-
             $user = '';
             if ($this->userq) {
                 $q = trim($this->userq);
@@ -78,45 +73,44 @@ class InvItemCirc extends Component
                 }
             }
 
-            $circ = InvCirc::create([
-                'inv_item_id'   => $item->id,
-                'qty'           => $this->qty,
-                'qtype'         => $qtype,
-                'qty_before'    => 0,
-                'qty_after'     => 0,
-                'amount'        => round(($item->price * $this->qty), 2),
-                'user_id'       => $user ? $user->id : Auth::user()->id,
-                'assigner_id'   => $user ? Auth::user()->id : null,
-                'status'        => 0,
-                'remarks'       => $this->remarks
-            ]);
-            $this->js('notyf.success("'.__('Sirkulasi dibuat').'")'); 
-
-            $item->is_active = true;
-            $item->save();
+            $circ = new InvCirc();
+            $circ->inv_item_id  = $item->id;
+            $circ->qty          = $this->qty;
+            $circ->qtype        = $this->qtype;
+            $circ->amount       = round(($item->price * $this->qty), 2);
+            $circ->user_id      = $user ? $user->id : Auth::user()->id;
+            $circ->assigner_id  = $user ? Auth::user()->id : null;
+            $circ->remarks      = $this->remarks;
+            $circ->qty_before   = 0;
+            $circ->qty_after    = 0;
+            $circ->status       = 0;
 
             if ($this->is_immediate || $this->qty === 0) {
-                $msg = $circ->approve();
-                $this->js('notyf.'.$msg[0].'("'.$msg[1].'")'); 
-                if(isset($msg[2]) && isset($msg[3]))
-                {
-                    switch ($msg[2]) {
+                // immediate approval
+                $approve = $circ->approve();
+                if ($approve['success']) {
+                    switch ($approve['qtype']) {
                         case 1:
-                            $this->qty_main = $msg[3];
+                            $this->qty_main = $approve['qty_after'];
                             break;
                         case 2:
-                            $this->qty_used = $msg[3];
+                            $this->qty_used = $approve['qty_after'];
                             break;
                         case 3:
-                            $this->qty_rep = $msg[3];
-                            break;                  
+                            $this->qty_rep = $approve['qty_after'];
+                            break;
                     }
+                    $this->js('notyf.success("'.__('Sirkulasi dibuat dan disetujui langsung').'")'); 
+                } else {
+                    $this->js('notyf.error("'.$approve['message'].'")'); 
                 }
-            }
 
-            if($this->qty < 0) {
-                $item->updateFreq();
+            } else {
+                // pending approval
+                 $this->js('notyf.success("'.__('Sirkulasi dibuat').'")'); 
             }
+            $circ->save();
+
 
             $this->dispatch('updated');
             $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';

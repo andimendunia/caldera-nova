@@ -161,7 +161,7 @@ class InvItem extends Model
         $inv_circs = InvCirc::where('inv_item_id', $this->id)
         ->where('qty', '<', 0)
         ->where('status', 1)
-        ->orderBy('updated_at', 'asc')
+        ->orderBy('updated_at', 'desc')
         ->limit(100)
         ->get();
 
@@ -187,7 +187,7 @@ class InvItem extends Model
             if ($absoluteSum != 0) {
                 $output = $diffInDays / $absoluteSum;
                 $this->update([
-                    'freq' => round($output, 2)
+                    'freq' => round($output, 4)
                 ]);
             }
         }

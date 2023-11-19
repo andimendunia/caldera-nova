@@ -1,38 +1,52 @@
-<div>
-    <div wire:key="inv-circ-edit-content-{{ $circ->id }}" x-data="{ edit: false }"
-        class="text-neutral-600 dark:text-neutral-400 p-6">
-        <div x-show="!edit" class="mb-6">
-            <div
-                class="flex justify-between items-center text-lg mb-4 font-medium text-neutral-900 dark:text-neutral-100">
-                <h2>
-                    {{ $dir }}
-                </h2>
-                <x-text-button type="button" x-on:click="$dispatch('close')"><i class="fa fa-times"></i></x-text-button>
+<div class="p-6">
+    <div class="flex justify-between items-center text-lg mb-6 font-medium text-neutral-900 dark:text-neutral-100">
+        <h2>
+            {{ __('Sirkulasi') }}
+        </h2>
+        <x-text-button type="button" x-on:click="$dispatch('close')"><i class="fa fa-times"></i></x-text-button>
+    </div>
+    <div class="flex text-sm gap-x-2 p-4 mb-6 border border-neutral-200 dark:border-neutral-700 rounded-lg">
+        <div class="grow truncate">
+            <div class="flex truncate gap-x-2">
+                <div class="truncate font-medium text-neutral-900 dark:text-neutral-100">
+                    {{ $circ->inv_item->name }}
+                </div>
+                <div>•</div>
+                <div class="truncate">
+                    {{ $circ->inv_item->desc }}
+                </div>
             </div>
-            <div class="flex items-center gap-x-2 mb-6">
-                <div>
-                    <i class="fa {{ $circ->getDirIcon() }}"></i>
-                </div>
-                <div class="text-4xl">
-                    {{ abs($qty) }}
-                </div>
-                <div>
-                    {{ $uom }}
-                </div>
-                @if($circ->qty !== 0)
+        </div>
+        <div class="flex items-center">
+            <x-link href="{{ route('inventory.items.show', ['id' => $circ->inv_item_id]) }}" target="_blank"><i
+                    class="fa fa-external-link-alt"></i></x-link>
+        </div>
+    </div>
+    @if ($circ->status)
+        <div class="flex items-center gap-x-2">
+            <div>
+                <i class="fa {{ $circ->getDirIcon() }}"></i>
+            </div>
+            <div class="text-4xl">
+                {{ abs($qty) }}
+            </div>
+            <div>
+                {{ $uom }}
+            </div>
+            @if ($circ->qty !== 0)
                 <div>
                     •
                 </div>
                 <div>
                     {{ number_format(abs($amount), 2) . ' ' . $curr }}
                 </div>
-                @endif
-                @if ($circ->status == 1)
-                    <div class="ml-auto">
-                        {{ $circ->qty_before . ' → ' . $circ->qty_after }}
-                    </div>
-                @endif
+            @endif
+            <div class="ml-auto">
+                {{ $circ->qty_before . ' → ' . $circ->qty_after }}
             </div>
+        </div>
+        <hr class="border-neutral-200 dark:border-neutral-700 my-6">
+        <div class="grid gap-y-6">
             <div class="flex items-start gap-x-3">
                 <div>
                     <div class="w-8 h-8 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
@@ -51,11 +65,13 @@
                 </div>
                 <div>
                     <div class="whitespace-normal">
-                        <div class="text-xs text-neutral-400 dark:text-neutral-600 mb-1">{{ $circ->user->name }} @if ($circ->assigner_id)
+                        <div class="text-xs text-neutral-400 dark:text-neutral-600 mb-1">{{ $circ->user->name }}
+                            @if ($circ->assigner_id)
                                 <span
                                     title="{{ __('Didelegasikan oleh:') . ' ' . $circ->assigner->name . ' (' . $circ->assigner->emp_id . ')' }}">•
                                     <i class="fa fa-handshake-angle"></i></span>
-                            @endif <span class="mx-1">•</span>{{ $circ->created_at }}</div>
+                            @endif <span class="mx-1">•</span>{{ $circ->created_at }}
+                        </div>
                         <div class="text-base">
                             @if ($circ->qtype !== 1)
                                 <x-badge>{{ $circ->getQtype() }}</x-badge>
@@ -64,66 +80,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div x-show="edit" x-cloak>
-            <div
-            class="flex justify-between items-center text-lg mb-4 font-medium text-neutral-900 dark:text-neutral-100">
-            <h2>
-                {{ __('Edit sirkulasi') }}
-            </h2>
-
-            <x-text-button type="button" x-on:click="$dispatch('close')"><i class="fa fa-times"></i></x-text-button>
-        </div>
-
-        </div>
-        <hr class="border-neutral-300 dark:border-neutral-700">
-        <div class="flex text-sm gap-x-2 my-4">
-            <div class="grow truncate">
-                <div class="flex truncate gap-x-2">
-                    <div class="truncate font-medium text-neutral-900 dark:text-neutral-100">
-                        {{ $circ->inv_item->name }}
-                    </div>
-                    <div>•</div>
-                    <div class="truncate">
-                        {{ $circ->inv_item->desc }}
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-center">
-                <x-link href="{{ route('inventory.items.show', ['id' => $circ->inv_item_id]) }}" target="_blank"><i
-                        class="fa fa-external-link-alt"></i></x-link>
-            </div>
-        </div>
-        <hr class="border-neutral-300 dark:border-neutral-700">
-        <div x-show="edit" x-cloak class="mt-6">
-            <x-secondary-button type="button" x-on:click="edit = false">{{ __('Kembali') }}</x-secondary-button>
-        </div>
-        <div x-show="!edit" class="mt-6">
-            @if ($circ->status == 0)
-            <div x-data="{ eval: false }">
-                <div x-show="!eval" class="flex justify-end gap-x-2">
-                    <x-secondary-button x-on:click="edit = true"
-                    type="button">{{ __('Edit') }}</x-secondary-button>
-                    <x-primary-button type="button" x-on:click="eval = true;">{{ __('Evaluasi') }}</x-primary-button>
-                </div>
-                <div x-show="eval">
-                    <x-text-input wire:model="comment" id="inv-comment" type="text"
-                    placeholder="{{ __('Komentar') }}" autocomplete="inv-comment" />
-                    <div class="flex justify-between mt-3">
-                        <x-secondary-button type="button" x-on:click="eval = false;"
-                        type="button">{{ __('Kembali') }}</x-secondary-button>
-                        <div class="flex gap-x-2">
-                            <x-primary-button type="button" x-on:click="eval = false"
-                            type="button">{{ __('Setujui') }}</x-primary-button>
-                            <x-primary-button type="button" x-on:click="eval = false"
-                            type="button">{{ __('Tolak') }}</x-primary-button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
             @if ($circ->evaluator_id)
-                <div class="flex items-center gap-x-2">
+                <div class="flex items-center gap-x-3">
                     <div>
                         <div class="w-8 h-8 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
                             @if ($circ->evaluator->photo)
@@ -142,14 +100,92 @@
                     <div>
                         <div class="whitespace-normal">
                             <div class="text-xs text-neutral-400 dark:text-neutral-600">{{ $circ->evaluator->name }}
-                                <span class="mx-1">•</span>{{ $circ->updated_at }}</div>
-                            <div class="text-base"><x-badge><i class="fa {{ $circ->getStatusIcon() }} mr-2"></i>{{ $circ->getStatus() }}</x-badge> {{ $circ->comment }}
+                                <span class="mx-1">•</span>{{ $circ->updated_at }}
+                            </div>
+                            <div class="text-base"><x-badge><i
+                                        class="fa {{ $circ->getStatusIcon() }} mr-2"></i>{{ $circ->getStatus() }}</x-badge>
+                                {{ $circ->comment }}
                             </div>
                         </div>
                     </div>
                 </div>
             @endif
         </div>
-    </div>
+    @else
+        <div x-data="{
+            qty: @entangle('qty'),
+            qtype: @entangle('qtype'),
+            price: @entangle('price'),
+            get cost() {
+                const qty = parseInt(this.qty);
+                return (qty && this.qtype == 1) ? qty * this.price : 0;
+            }
+        }">
+            <div class="flex mb-6 justify-between">
+                <div class="flex items-center gap-x-1">
+                    <div>
+                        <i x-show="qty < 0" class="fa fa-minus mr-2"></i>
+                        <i x-show="qty > 0" class="fa fa-plus mr-2"></i>
+                        <i x-show="qty === 0" class="fa fa-code-commit mr-2"></i>
+                    </div>
+                    <div>
+                        <div x-show="qty < 0" x-cloak>{{ __('Ambil') }}</div>
+                        <div x-show="qty > 0" x-cloak>{{ __('Tambah') }}</div>
+                        <div x-show="qty === 0" x-cloak>{{ __('Catat') }}</div>
+                        <div x-show="cost" class="flex text-xs">
+                            <div class="me-1">{{ $curr }}</div>
+                            <div
+                                x-text="Math.abs(cost).toLocaleString(undefined, {minimumIntegerDigits: 1, minimumFractionDigits: 2, maximumFractionDigits: 2,})">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="spinner-group my-auto">
+                    <x-secondary-button @click="qty == null ? qty = -1 : --qty"><i
+                            class="fa fa-fw fa-minus"></i></x-secondary-button>
+                    <x-text-input-spinner x-model="qty" id="inv-circ-qty" class="w-20 p-2 text-center" name="qty"
+                        type="number" value="" placeholder="Qty"></x-text-input-spinner>
+                    <x-secondary-button @click="qty == null ? qty = 1 : ++qty"><i
+                            class="fa fa-fw fa-plus"></i></x-secondary-button>
+                </div>
+            </div>
+            <div>
+                <x-select x-model="qtype" name="qtype" id="inv-qty-type" class="mt-3">
+                    <option value="1">{{ __('Qty utama') }}</option>
+                    <option value="2">{{ __('Qty bekas') }}</option>
+                    <option value="3">{{ __('Qty diperbaiki') }}</option>
+                </x-select>
+                <div wire:key="error-qtype">
+                    @error('qtype')
+                        <x-input-error messages="{{ $message }}" class="mt-2" />
+                    @enderror
+                </div>
+            </div>
+            <x-text-input wire:model="remarks" id="inv-remarks" class="mt-3" type="text"
+                placeholder="{{ __('Keterangan') }}" autocomplete="inv-remarks" />
+            <div wire:key="error-remarks">
+                @error('remarks')
+                    <x-input-error messages="{{ $message }}" class="mt-2" />
+                @enderror
+            </div>
+            <div x-data="{ open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail[0]; open = false">
+                <div x-on:click.away="open = false">
+                    <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-ref="userq" x-on:focus="open = true"
+                        id="inv-user" class="mt-3" type="search" placeholder="{{ __('Delegasikan ke...') }}" />
+                    <div class="relative" x-show="open" x-cloak>
+                        <div class="absolute top-1 left-0 w-full">
+                            <livewire:user-select wire:key="user-select" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div x-show="qty !== ''" class="flex justify-end gap-x-2 mt-6">
+                <x-secondary-button type="button" wire:click="approve"><i class="fa fa-thumbs-up mr-2"></i>{{ __('Setujui') }}</x-secondary-button>
+                <x-secondary-button x-show="qty < 0 || qty > 0" type="button" wire:click="reject"><i class="fa fa-thumbs-down mr-2"></i>{{ __('Tolak') }}</x-secondary-button>
+            </div>
+        </div>
+    @endif
+
+
 
 </div>

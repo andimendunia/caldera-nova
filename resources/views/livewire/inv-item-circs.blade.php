@@ -10,13 +10,7 @@
                     <div class="flex items-center">
                         <div>
                             <div class="w-24 truncate text-base">
-                                @if ($circ->qty < 0)
-                                    <i class="fa fa-fw fa-minus mr-1"></i>{{ abs($circ->qty) . ' ' . $circ->inv_item->inv_uom->name }}
-                                @elseif ($circ->qty > 0)
-                                    <i class="fa fa-fw fa-plus mr-1"></i>{{ $circ->qty . ' ' . $circ->inv_item->inv_uom->name }}
-                                @else
-                                    <i class="fa fa-fw fa-flag mr-1"></i>
-                                @endif
+                                <i class="fa fa-fw mr-1 {{ $circ->getDirIcon() }}"></i>{{ ($circ->qty < 0 ? abs($circ->qty) : $circ->qty) . ' ' . $circ->inv_item->inv_uom->name }}
                             </div>
                         </div>
                         <div>
