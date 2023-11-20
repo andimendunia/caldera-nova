@@ -25,6 +25,10 @@ Route::controller(InventoryController::class)->group(function () {
     Route::get('/inventory', 'index')->middleware('auth')->name('inventory');
 });
 
+// Route::resource('inv_items', InvItemController::class)->only([
+//     'create', 'show', 'edit'
+// ]);
+
 Route::controller(InvItemController::class)->group(function () {
     Route::get('/inventory/items/create', 'create')->middleware('auth')->name('inventory.items.create');
     Route::get('/inventory/items/{id}', 'show')->middleware('auth')->name('inventory.items.show');

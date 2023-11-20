@@ -1,4 +1,4 @@
-<div {{ $attributes->merge([ 'class' => 'spinner']) }} data-layer="4">
+<div {{ $attributes->merge([ 'class' => 'spinner z-20']) }} data-layer="4">
      <div class="spinner-container">
        <div class="spinner-rotator">
          <div class="spinner-left">

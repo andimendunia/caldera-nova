@@ -1,7 +1,4 @@
 <div id="content" class="py-12 max-w-xl mx-auto sm:px-3 text-neutral-800 dark:text-neutral-200">
-   <x-modal name="create-area">
-       <livewire:inv-areas-create wire:key="areas-create" lazy />
-   </x-modal>
    <livewire:inv-areas wire:key="areas" />
    <script>
        document.addEventListener("DOMContentLoaded", () => {

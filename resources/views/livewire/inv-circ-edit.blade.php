@@ -172,8 +172,8 @@
                 </div>
                 <div x-data="{ open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail[0]; open = false">
                     <div x-on:click.away="open = false">
-                        <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-on:change="open = true" x-ref="userq"
-                            x-on:focus="open = true" id="inv-user" class="mt-3" type="search"
+                        <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-on:change="open = true"
+                            x-ref="userq" x-on:focus="open = true" id="inv-user" class="mt-3" type="search"
                             placeholder="{{ __('Delegasikan ke...') }}" />
                         <div class="relative" x-show="open" x-cloak>
                             <div class="absolute top-1 left-0 w-full">
@@ -182,11 +182,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end gap-x-2 mt-6">
-                    <x-secondary-button type="button" wire:click="approve"><i
-                            class="fa fa-thumbs-up mr-2"></i>{{ __('Setujui') }}</x-secondary-button>
-                    <x-secondary-button x-show="qty < 0 || qty > 0" type="button" wire:click="reject"><i
-                            class="fa fa-thumbs-down mr-2"></i>{{ __('Tolak') }}</x-secondary-button>
+                <div class="flex justify-end mt-6">
+                    <div class="btn-group">
+                        <x-secondary-button type="button" wire:click="approve"><i
+                                class="fa fa-thumbs-up mr-2"></i>{{ __('Setujui') }}</x-secondary-button>
+                        <x-secondary-button x-show="qty < 0 || qty > 0" type="button" wire:click="reject"><i
+                                class="fa fa-thumbs-down mr-2"></i>{{ __('Tolak') }}</x-secondary-button>
+                    </div>
                 </div>
             </div>
         @endif

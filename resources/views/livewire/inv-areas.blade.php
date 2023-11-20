@@ -7,6 +7,9 @@
                 x-on:click.prevent="$dispatch('open-modal', 'create-area')">{{ __('Buat') }}</x-secondary-button>
     
     </div>
+    <x-modal name="create-area">
+        <livewire:inv-areas-create wire:key="areas-create" lazy />
+    </x-modal>
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">            
             <table wire:key="areas-table" class="table">

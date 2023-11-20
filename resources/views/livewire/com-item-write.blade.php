@@ -44,7 +44,7 @@
         }
     }
 }" class="relative my-8">
-    <div class="relative" wire:target="save" wire:loading.class="opacity-50">
+    <div class="relative" wire:target="save" wire:loading.class="opacity-30">
         <div class="absolute bottom-1 left-0 w-full flex justify-center">
             @if(count($users))
             <div x-show="userp" class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-hidden">
@@ -109,6 +109,6 @@
             </div>
         </div>
     </form>  
-    <div wire:loading.class.remove="hidden" class="w-full h-full absolute top-0 left-0 rounded-lg hidden"></div>
+    <div wire:loading.class.remove="hidden" wire:target="save" class="w-full h-full absolute top-0 left-0 hidden"></div>
     <x-spinner wire:target="save" wire:loading.class.remove="hidden"  class="hidden"></x-spinner>  
 </div>

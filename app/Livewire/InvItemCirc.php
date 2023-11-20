@@ -113,6 +113,7 @@ class InvItemCirc extends Component
                         $this->qty_rep = $approve['qty_after'];
                         break;
                 }
+                $this->dispatch('circ-approved', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
                 $this->js('notyf.success("'.__('Sirkulasi dibuat dan disetujui langsung').'")'); 
             } else {
                 $this->js('notyf.error("'.$approve['message'].'")'); 
@@ -120,11 +121,11 @@ class InvItemCirc extends Component
 
         } else {
             // pending approval
+                $this->dispatch('circ-added');
                 $this->js('notyf.success("'.__('Sirkulasi dibuat').'")'); 
         }
         $circ->save();
 
-        $this->dispatch('updated');
         $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';
         $this->reset(['qty', 'remarks', 'userq']);
     }
@@ -147,6 +148,8 @@ class InvItemCirc extends Component
                 break;
             
         }
+        $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';
+        $this->reset(['qty', 'remarks', 'userq']);
     }
 
     public function updatedUserq()

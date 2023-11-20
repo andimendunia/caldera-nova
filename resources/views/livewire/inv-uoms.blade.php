@@ -6,6 +6,21 @@
         <x-text-button type="button" class="my-auto" x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'create-uom')"><i class="far fa-question-circle"></i></x-text-button>    
     </div>
+    <x-modal name="create-uom">
+        <div class="p-6">
+            <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                {{ __('Penambahan UOM') }}
+            </h2>
+            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+                {{__('Setiap UOM baru saat barang ditambahkan atau diedit, akan otomatis tersimpan di sini.')}}
+            </p>
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button type="button" x-on:click="$dispatch('close')">
+                    {{ __('Tutup') }}
+                </x-secondary-button>
+            </div>
+        </div>
+    </x-modal>
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">            
             <table wire:key="uoms-table" class="table">

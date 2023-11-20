@@ -19,14 +19,16 @@ class InvItemCircs extends Component
         return view('livewire.modal-placeholder');
     }
 
-    #[On('updated')]
+    #[On('circ-added')]
+    #[On('circ-approved')]
     public function render()
     {
         $circs = InvCirc::orderByDesc('updated_at')->where('inv_item_id', $this->id)->paginate($this->perPage);
         return view('livewire.inv-item-circs', compact('circs'));
     }
 
-    #[On('updated')]
+    #[On('circ-added')]
+    #[On('circ-approved')]
     public function pageInit()
     {
         $this->resetPage();

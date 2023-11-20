@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InvCurr;
 use App\Models\InvItem;
 use Illuminate\Http\Request;
 
 class InvItemController extends Controller
 {
     public function show($id) {
+        
         $prev = route('inventory', ['nav' => 'search']);
 
         $inv_item = InvItem::findOrFail($id);
