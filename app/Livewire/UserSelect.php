@@ -32,9 +32,4 @@ class UserSelect extends Component
 
     }
 
-    public function select($emp_id)
-    {
-        $this->dispatch('user-selected', $emp_id);
-    }
-
 }

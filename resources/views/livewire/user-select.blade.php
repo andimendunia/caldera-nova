@@ -1,8 +1,8 @@
 <div>
     @if(count($users))
-    <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-hidden">
+    <div class="bg-white dark:bg-neutral-800 shadow-lg sm:rounded-lg overflow-hidden">
         @foreach($users as $user)
-        <button type=button class="flex p-3 text-left w-full hover:bg-caldy-500/10 active:bg-caldy-500/30" wire:click="select('{{ $user->emp_id }}')">
+        <button type=button class="flex p-3 text-left w-full hover:bg-caldy-500/10 active:bg-caldy-500/30" x-on:click="$dispatch('user-selected', '{{ $user->emp_id }}')">
             <div class="w-8 h-8 my-auto mr-3 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
                 @if($user->photo)
                 <img class="w-full h-full object-cover dark:brightness-75" src="{{ '/storage/users/'.$user->photo }}" />
@@ -12,7 +12,7 @@
             </div>
             <div>
                 <div>{{ $user->name }}</div>
-                <div class="text-xs text-neutral-400 dark:text-neutral-600">{{ $user->emp_id }}</div>
+                <div class="text-xs text-neutral-400 dark:text-neutral-600" >{{ $user->emp_id }}</div>
             </div>            
         </button>
         @endforeach

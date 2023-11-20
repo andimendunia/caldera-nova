@@ -170,10 +170,10 @@
                         <x-input-error messages="{{ $message }}" class="mt-2" />
                     @enderror
                 </div>
-                <div x-data="{ open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail[0]; open = false">
+                <div x-data="{ open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail; open = false">
                     <div x-on:click.away="open = false">
                         <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-on:change="open = true"
-                            x-ref="userq" x-on:focus="open = true" id="inv-user" class="mt-3" type="search"
+                            x-ref="userq" x-on:focus="open = true" id="inv-user-{{ $circ->id }}" class="mt-3" type="text" autocomplete="off"
                             placeholder="{{ __('Delegasikan ke...') }}" />
                         <div class="relative" x-show="open" x-cloak>
                             <div class="absolute top-1 left-0 w-full">
@@ -193,6 +193,6 @@
             </div>
         @endif
     </div>
-    <x-spinner-bg wire:loading.class.remove="hidden"></x-spinner-bg>
-    <x-spinner wire:loading.class.remove="hidden" class="hidden"></x-spinner>
+    <x-spinner-bg wire:loading.class.remove="hidden" wire:target="approve" wire:target="reject"></x-spinner-bg>
+    <x-spinner wire:loading.class.remove="hidden"  wire:target="approve" wire:target="reject" class="hidden"></x-spinner>
 </div>

@@ -2,11 +2,18 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use App\Models\InvArea;
 use Livewire\Component;
 
 class InvAuthsCreate extends Component
 {
+    public $userq;
+    public $user_id;
+
+    public $area_id;
+    public $actions = [];
+
     public $areas;
 
     public function placeholder()
@@ -26,6 +33,17 @@ class InvAuthsCreate extends Component
 
     public function save()
     {
-        $this->js('alert("place code here")');
+        $this->userq = trim($this->userq);
+        // delegate to...
+        if ($this->userq) {
+            $user = User::where('emp_id', $this->userq)->first();
+            $this->user_id = $user ? $user->id : '';
+        }
+        dd($this);
+    }
+    
+    public function updatedUserq()
+    {
+        $this->dispatch('userq-updated', $this->userq);
     }
 }

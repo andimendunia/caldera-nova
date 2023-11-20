@@ -112,9 +112,9 @@
                     <x-input-error messages="{{ $message }}" class="mt-2" />
                 @enderror
             </div>
-            <div x-data="{ open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail[0]; open = false">
+            <div x-data="{ open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail; open = false">
                 <div x-on:click.away="open = false">
-                    <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-ref="userq" x-on:focus="open = true"  id="inv-user" class="mt-3" type="search" placeholder="{{ __('Delegasikan ke...') }}" />
+                    <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-ref="userq" x-on:focus="open = true" id="inv-user" class="mt-3" type="text" autocomplete="off" placeholder="{{ __('Delegasikan ke...') }}" />
                     <div class="relative" x-show="open" x-cloak>
                         <div class="absolute top-1 left-0 w-full">
                             <livewire:user-select wire:key="user-select" />
