@@ -27,7 +27,6 @@
             </x-primary-button>
         </div>
     </form>
-    <div wire:loading.class.remove="hidden"
-    class="w-full h-full absolute top-0 left-0 bg-white dark:bg-neutral-800 opacity-80 hidden"></div>
+    <x-spinner-bg wire:loading.class.remove="hidden"></x-spinner-bg>
     <x-spinner wire:loading.class.remove="hidden" class="hidden"></x-spinner>
 </div>

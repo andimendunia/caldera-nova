@@ -83,7 +83,7 @@
             <x-link-secondary-button href="#content"><i class="fa fa-fw mr-2 fa-arrows-up-to-line"></i>{{ __('Ke atas') }}</x-link-secondary-button>
         </div>
     </div>
-    <div x-data="{ ids: [] }" class="w-full" x-on:click.away="ids = []">
+    <div x-data="{ ids: @entangle('ids') }" class="w-full" x-on:click.away="ids = []">
         <div x-show="!ids.length" class="flex justify-between w-full p-3">
             <div class="my-auto">{{$circs->total().' '.__('sirkulasi')}}</div>
             <div class="flex">

@@ -6,7 +6,6 @@ use App\Models\InvTag;
 use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\Attributes\On;
-use Illuminate\Support\Facades\Validator;
 
 class InvItemTags extends Component
 {

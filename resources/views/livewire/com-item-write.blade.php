@@ -67,7 +67,7 @@
             @endif
         </div>        
     </div>    
-    <form wire:submit.prevent="save" class="flex gap-x-4" wire:target="save" wire:loading.class="opacity-50">
+    <form wire:submit.prevent="save" class="flex gap-x-4" wire:target="save" wire:loading.class="opacity-30">
         <div>
             <div class="w-8 h-8 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
                 @if (Auth::user()->photo)
@@ -109,5 +109,6 @@
             </div>
         </div>
     </form>  
+    <div wire:loading.class.remove="hidden" class="w-full h-full absolute top-0 left-0 rounded-lg hidden"></div>
     <x-spinner wire:target="save" wire:loading.class.remove="hidden"  class="hidden"></x-spinner>  
 </div>

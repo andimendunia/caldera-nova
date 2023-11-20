@@ -6,9 +6,9 @@
             qty_main: @entangle('qty_main'),
             qty_used: @entangle('qty_used'),
             qty_rep: @entangle('qty_rep'),
-            qty_main_after: 0,
-            qty_used_after: 0,
-            qty_rep_after: 0,
+            qty_main_after: @entangle('qty_main_after'),
+            qty_used_after: @entangle('qty_used_after'),
+            qty_rep_after: @entangle('qty_rep_after'),
             price: @entangle('price'),
             get cost() {
                 const qty = parseInt(this.qty);
@@ -92,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div x-show="(qty > 0) || (qty && qty_used_after) || (qty && qty_rep_after) || (!qtype && qty != 0)">
+            <div x-show="(qty >= 0) || (qty && qty_used_after) || (qty && qty_rep_after) || (!qtype && qty != 0)">
                 <x-select x-model="qtype" name="qtype" id="inv-qty-type" class="mt-3">
                     <option value=""></option>
                     <option value="1">{{ __('Qty utama') }}</option>

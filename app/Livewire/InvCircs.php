@@ -7,11 +7,13 @@ use App\Models\InvArea;
 use App\Models\InvCirc;
 use App\Models\InvCurr;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Illuminate\Database\Eloquent\Builder;
 
 class InvCircs extends Component
 {
+    public $ids = [];
     #[Url]
     public $q;
     #[Url]
@@ -47,7 +49,7 @@ class InvCircs extends Component
         $this->curr = InvCurr::find(1);
     }
 
-
+    #[On('updated')]
     public function render()
     {
         $q = trim($this->q);
@@ -144,6 +146,7 @@ class InvCircs extends Component
         }
 
         $circs = $circs->paginate($this->perPage);
+        $this->reset(['ids']);
 
         return view('livewire.inv-circs', compact('circs'));
     }

@@ -37,8 +37,7 @@
             <x-primary-button type="button" wire:click="apply" class="ml-auto mt-4">{{__('Perbarui')}}</x-primary-button>
         </div>
         @endif
-        <div wire:loading.class.remove="hidden" wire:target="apply"
-        class="w-full h-full absolute top-0 left-0 bg-white/70 dark:bg-neutral-800/70 hidden"></div>
+        <x-spinner-bg wire:loading.class.remove="hidden" wire:target="apply"></x-spinner-bg>
         <x-spinner wire:loading.class.remove="hidden" wire:target="apply" class="hidden"></x-spinner>
     </div>  
 </div>

@@ -50,7 +50,7 @@
             </div>
         </div>
         <div wire:key="inv-item-circ-container">
-            <livewire:inv-item-circ wire:key="inv-item-circ" :id="$inv_item->id" :qty_main="$inv_item->qty_main" :qty_used="$inv_item->qty_used" :qty_rep="$inv_item->qty_rep" :qty_main_min="$inv_item->qty_main_min" :qty_main_max="$inv_item->qty_main_max" :curr="$inv_curr->name" :price="$inv_item->price" :uom="$inv_item->inv_uom->name" />
+            <livewire:inv-item-circ wire:key="inv-item-circ" :inv_item_id="$inv_item->id" />
         </div>
         <div wire:key="inv-item-circs-container" x-data="{ circs: false }">
             <div class="flex justify-between px-4 py-8 sm:py-5 text-neutral-600 dark:text-neutral-400 text-sm">

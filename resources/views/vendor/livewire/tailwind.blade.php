@@ -50,9 +50,9 @@ $scrollIntoViewJsSnippet = ($scrollTo !== false)
                         @foreach ($elements as $element)
                             {{-- "Three Dots" Separator --}}
                             @if (is_string($element))
-                                <span aria-disabled="true">
-                                    <span class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 cursor-default leading-5 select-none">{{ $element }}</span>
-                                </span>
+                                <button type="button" disabled aria-disabled="true" aria-label="{{ __('pagination.previous') }}" class="px-4 py-2 font-semibold text-sm hover:bg-neutral-50 dark:hover:bg-neutral-700  disabled:opacity-25 rounded-md transition ease-in-out duration-150">
+                                    {{ $element }}
+                                </button>
                             @endif
 
                             {{-- Array Of Links --}}

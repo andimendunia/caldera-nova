@@ -92,10 +92,11 @@ class InvCirc extends Model
             $this->evaluator_id = Auth::user()->id;
 
             return [
-                'success'   => true,
-                'message'   => __('Sirkulasi disetujui.'),
-                'qtype'     => $qtype,
-                'qty_after' => $qty_after,
+                'success'       => true,
+                'message'       => __('Sirkulasi disetujui.'),
+                'qtype'         => $qtype,
+                'qty_before'    => $qty_before,
+                'qty_after'     => $qty_after,
             ];
         }
 
