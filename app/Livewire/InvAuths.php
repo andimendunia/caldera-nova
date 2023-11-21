@@ -20,16 +20,19 @@ class InvAuths extends Component
     {
         $q = trim($this->q);
         $auths = InvAuth::join('users', 'inv_auths.user_id', '=', 'users.id')
+        ->join('inv_areas', 'inv_auths.inv_area_id', '=', 'inv_areas.id')
         ->orderBy('inv_auths.user_id', 'desc');
         
         if ($q) {
             $auths->where(function (Builder $query) use ($q) {
                 $query->orWhere('users.name', 'LIKE', '%'.$q.'%')
-                      ->orWhere('users.emp_id', 'LIKE', '%'.$q.'%');
+                      ->orWhere('users.emp_id', 'LIKE', '%'.$q.'%')
+                      ->orWhere('inv_areas.name','LIKE', '%'.$q.'%');
             });
         }
-        
+
         $auths = $auths->paginate($this->perPage);
+
         return view('livewire.inv-auths', compact('auths'));
     }
 }

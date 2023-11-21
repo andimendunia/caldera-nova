@@ -16,13 +16,13 @@
     @if($navs)
     <x-slot name="navs">
         <x-nav-link href="{{ route('inventory', [ 'nav' => 'search'])}}" :active="$nav == 'search'">
-            <i class="fa mx-2 fa-fw fa-search"></i>
+            <i class="fa mx-2 fa-fw fa-search text-sm"></i>
         </x-nav-link>
         <x-nav-link href="{{ route('inventory', [ 'nav' => 'circs'])}}" :active="$nav == 'circs'">
-            <i class="fa mx-2 fa-fw fa-arrow-right-arrow-left"></i>
+            <i class="fa mx-2 fa-fw fa-arrow-right-arrow-left text-sm"></i>
         </x-nav-link>
         <x-nav-link href="{{ route('inventory', [ 'nav' => 'admin' ])}}" :active="$nav == 'admin'">
-            <i class="fa mx-2 fa-fw fa-ellipsis-h"></i>
+            <i class="fa mx-2 fa-fw fa-ellipsis-h text-sm"></i>
         </x-nav-link>
     </x-slot>
     @endif

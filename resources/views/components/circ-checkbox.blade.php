@@ -31,8 +31,14 @@
                         {{ $inv_desc }}
                     </div>
                 </div>
-                <div class="truncate">
-                    <i class="fa fa-map-marker-alt mr-2"></i>{{ $inv_loc.' • '.$inv_code.' • '.$curr.' '.$amount }}
+                <div class="flex truncate">
+                    <div>{{ $inv_loc }}</div>
+                    <div class="mx-2">•</div>
+                    <div>{{ $inv_code }}</div>
+                    @if($amount)
+                        <div class="mx-2">•</div>
+                        <div>{{ $curr . ' ' . $amount }}</div>
+                    @endif
                 </div>
             </div>
             <div>

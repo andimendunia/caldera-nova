@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Pref;
 use App\Models\InvLoc;
 use App\Models\InvTag;
 use App\Models\InvArea;
@@ -11,6 +12,7 @@ use Livewire\Component;
 use Illuminate\Support\Arr;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
 class InvSearch extends Component
@@ -46,14 +48,20 @@ class InvSearch extends Component
 
     public function mount()
     {
-        // update: call from pref
-        $this->area_ids = ['1'];
-        $this->view     = 'content';
-        $this->status   = 'active';
-        $this->sort     = 'updated';
-        $this->qty      = 'total';
-        $this->filter   = false;
+        $pref = Pref::where('user_id', Auth::user()->id)->where('name', 'inv-search')->first();
+        $pref = json_decode($pref->data ?? '{}', true);
+        $this->q        = isset($pref['q'])         ? $pref['q']        : '';
+        $this->status   = isset($pref['status'])    ? $pref['status']   : 'active';
+        $this->qty      = isset($pref['qty'])       ? $pref['qty']      : 'total';
+        $this->filter   = isset($pref['filter'])    ? $pref['filter']   : 'false';
+        $this->loc      = isset($pref['loc'])       ? $pref['loc']      : '';
+        $this->tag      = isset($pref['tag'])       ? $pref['tag']      : '';
+        $this->without  = isset($pref['without'])   ? $pref['without']  : '';
+        $this->area_ids = isset($pref['area_ids'])  ? $pref['area_ids'] : ['1'];
+        $this->sort     = isset($pref['sort'])      ? $pref['sort']     : 'updated';
+        $this->view     = isset($pref['view'])      ? $pref['view']     : 'content';
 
+        // update: follow auth as default for area_ids
         $this->areas = InvArea::all();
         $this->inv_curr = InvCurr::find(1);
     }
@@ -62,11 +70,11 @@ class InvSearch extends Component
     {
         $q = trim($this->q);
         $inv_items = InvItem::whereIn('inv_items.inv_area_id', $this->area_ids)
-        ->where(function (Builder $query) use ($q) {
-            $query->orWhere('inv_items.name', 'LIKE', '%'.$q.'%')
-                  ->orWhere('inv_items.desc', 'LIKE', '%'.$q.'%')
-                  ->orWhere('inv_items.code', 'LIKE', '%'.$q.'%');
-        });
+            ->where(function (Builder $query) use ($q) {
+                $query->orWhere('inv_items.name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('inv_items.desc', 'LIKE', '%' . $q . '%')
+                    ->orWhere('inv_items.code', 'LIKE', '%' . $q . '%');
+            });
         switch ($this->status) {
             case 'active':
                 $inv_items->where('inv_items.is_active', true);
@@ -75,19 +83,19 @@ class InvSearch extends Component
                 $inv_items->where('inv_items.is_active', false);
                 break;
         }
-        if($this->filter) {
-            if($this->loc) {
+        if ($this->filter) {
+            if ($this->loc) {
                 $loc = trim($this->loc);
                 $inv_items->join('inv_locs', 'inv_items.inv_loc_id', '=', 'inv_locs.id')
-                ->where('inv_locs.name', 'like', '%'.$loc.'%')
-                ->select('inv_items.*', 'inv_locs.name as loc_names');
+                    ->where('inv_locs.name', 'like', '%' . $loc . '%')
+                    ->select('inv_items.*', 'inv_locs.name as loc_names');
             }
-            if($this->tag) {
+            if ($this->tag) {
                 $tag = trim($this->tag);
                 $inv_items->join('inv_item_tags', 'inv_items.id', '=', 'inv_item_tags.inv_item_id')
-                ->join('inv_tags', 'inv_item_tags.inv_tag_id', '=', 'inv_tags.id')
-                ->where('inv_tags.name', 'like', '%'.$tag.'%')
-                ->select('inv_items.*', 'inv_tags.name as tag_names');
+                    ->join('inv_tags', 'inv_item_tags.inv_tag_id', '=', 'inv_tags.id')
+                    ->where('inv_tags.name', 'like', '%' . $tag . '%')
+                    ->select('inv_items.*', 'inv_tags.name as tag_names');
             }
             switch ($this->without) {
                 case 'loc':
@@ -110,17 +118,16 @@ class InvSearch extends Component
                 case 'qty_main_max':
                     $inv_items->where('inv_items.qty_main_max', 0);
                     break;
-                
-            }            
+            }
         }
-        
+
         switch ($this->sort) {
             case 'updated':
                 $inv_items->orderByDesc('inv_items.updated_at');
                 break;
             case 'created':
                 $inv_items->orderByDesc('inv_items.created_at');
-                break;            
+                break;
             case 'price_low':
                 $inv_items->orderBy('inv_items.price');
                 break;
@@ -131,7 +138,7 @@ class InvSearch extends Component
                 switch ($this->qty) {
                     case 'total':
                         $inv_items->selectRaw('*, (inv_items.qty_main + inv_items.qty_used + inv_items.qty_rep) as qty_total')
-                        ->orderBy('qty_total');
+                            ->orderBy('qty_total');
                         break;
                     case 'main':
                         $inv_items->orderBy('inv_items.qty_main');
@@ -148,7 +155,7 @@ class InvSearch extends Component
                 switch ($this->qty) {
                     case 'total':
                         $inv_items->selectRaw('*, (inv_items.qty_main + inv_items.qty_used + inv_items.qty_rep) as qty_total')
-                        ->orderByDesc('qty_total');
+                            ->orderByDesc('qty_total');
                         break;
                     case 'main':
                         $inv_items->orderByDesc('inv_items.qty_main');
@@ -165,17 +172,37 @@ class InvSearch extends Component
 
             case 'alpha':
                 $inv_items->orderBy('inv_items.name');
-                break;            
+                break;
         }
 
         $inv_items = $inv_items->paginate($this->perPage);
+
+        // remember preferences
+
+        $pref = Pref::updateOrCreate(
+            ['user_id' => Auth::user()->id, 'name' => 'inv-search'],
+            ['data' => json_encode([
+                'q'         => $this->q,
+                'status'    => $this->status,
+                'qty'       => $this->qty,
+                'filter'    => $this->filter,
+                'loc'       => $this->loc,
+                'tag'       => $this->tag,
+                'without'   => $this->without,
+                'area_ids'  => $this->area_ids,
+                'sort'      => $this->sort,
+                'view'      => $this->view,
+            ])]
+        );
+
+        // update: please restrict area ids according to authorization
 
         return view('livewire.inv-search', compact('inv_items'));
     }
 
     public function resetSearch()
     {
-        // reset according user pref
+        // reset according user access rights
         $this->area_ids = ['1'];
         $this->reset('q', 'status', 'qty', 'filter', 'loc', 'tag', 'without');
     }
@@ -184,11 +211,11 @@ class InvSearch extends Component
     {
         $qloc = trim($this->loc);
         $qlocs = InvLoc::whereIn('inv_locs.inv_area_id', $this->area_ids)
-        ->where('name', 'LIKE', '%'.$qloc.'%')
-        ->orderBy('name')
-        ->take(100)
-        ->get()
-        ->pluck('name');
+            ->where('name', 'LIKE', '%' . $qloc . '%')
+            ->orderBy('name')
+            ->take(100)
+            ->get()
+            ->pluck('name');
         $this->qlocs = $qlocs->toArray();
     }
 
@@ -196,11 +223,11 @@ class InvSearch extends Component
     {
         $qtag = trim($this->tag);
         $qtags = InvTag::whereIn('inv_tags.inv_area_id', $this->area_ids)
-        ->where('name', 'LIKE', '%'.$qtag.'%')
-        ->orderBy('name')
-        ->take(100)
-        ->get()
-        ->pluck('name');
+            ->where('name', 'LIKE', '%' . $qtag . '%')
+            ->orderBy('name')
+            ->take(100)
+            ->get()
+            ->pluck('name');
         $this->qtags = $qtags->toArray();
     }
 
@@ -210,14 +237,14 @@ class InvSearch extends Component
         // Fetch items that contain the keyword in their name column
         if ($keyword) {
             $inv_items = InvItem::select('name', 'desc', 'code')->whereIn('inv_area_id', $this->area_ids)
-            ->where(function (Builder $query) use ($keyword) {
-                $query->orWhere('name', 'LIKE', '%'.$keyword.'%')
-                      ->orWhere('desc', 'LIKE', '%'.$keyword.'%')
-                      ->orWhere('code', 'LIKE', '%'.$keyword.'%');
-            })->limit(100)->get()->toArray();
+                ->where(function (Builder $query) use ($keyword) {
+                    $query->orWhere('name', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('desc', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('code', 'LIKE', '%' . $keyword . '%');
+                })->limit(100)->get()->toArray();
             $inv_items = Arr::flatten($inv_items);
             $suggestions = [];
-    
+
             // Extract individual words from retrieved names
             foreach ($inv_items as $name) {
                 $words = explode(' ', strtolower($name));
@@ -234,5 +261,4 @@ class InvSearch extends Component
             $this->qwords = $suggestions;
         }
     }
-
 }

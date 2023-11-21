@@ -20,6 +20,7 @@ class InvItemShow extends Component
 
     #[On('updated')] 
     #[On('circ-approved')] 
+    #[On('circ-added')]
     public function render()
     {
         $pending = InvCirc::where('inv_item_id', $this->inv_item->id)->where('status', 0)->count();

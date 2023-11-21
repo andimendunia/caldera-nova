@@ -5,9 +5,10 @@ namespace App\Livewire;
 use App\Models\User;
 use App\Models\ComItem;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Livewire\Attributes\Renderless;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
-use Livewire\WithFileUploads;
 
 class ComItemWrite extends Component
 {
@@ -52,6 +53,7 @@ class ComItemWrite extends Component
         return view('livewire.com-item-write');
     }
 
+    #[Renderless]
     public function updatedUserq()
     {
         if($this->userq) {

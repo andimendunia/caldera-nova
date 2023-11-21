@@ -179,7 +179,7 @@
                     remarks="{{ $circ->remarks}}"
                     status="{{ $circ->status }}"
                     user_photo="{{ $circ->user->photo }}"
-                    date_human="{{ $circ->created_at->diffForHumans()}}">
+                    date_human="{{ $circ->updated_at->diffForHumans()}}">
                     </x-circ-checkbox>
                     <x-modal name="circ-show-{{ $circ->id }}">
                         <livewire:inv-circ-edit wire:key="modal-{{ $circ->id }}" :$circ lazy />

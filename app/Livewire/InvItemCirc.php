@@ -8,6 +8,7 @@ use App\Models\InvCurr;
 use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Renderless;
 use Illuminate\Support\Facades\Auth;
 
 class InvItemCirc extends Component
@@ -151,7 +152,8 @@ class InvItemCirc extends Component
         $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';
         $this->reset(['qty', 'remarks', 'userq']);
     }
-
+    
+    #[Renderless]
     public function updatedUserq()
     {
         $this->dispatch('userq-updated', $this->userq);

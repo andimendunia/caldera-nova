@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -192,4 +194,10 @@ class InvItem extends Model
             }
         }
     }
+    // protected function price(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn (string $value) => Auth::user()->id == 1 ? $value : 0,
+    //     );
+    // }
 }

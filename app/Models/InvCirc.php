@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -157,4 +158,11 @@ class InvCirc extends Model
                 break;
         }
     }
+
+    // protected function amount(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn (string $value) => Auth::user()->id == 1 ? $value : 0,
+    //     );
+    // }
 }

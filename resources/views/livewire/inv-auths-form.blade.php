@@ -3,7 +3,7 @@
         <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
             {{ __('Beri wewenang') }}
         </h2>
-        <div class="grid grid-cols-1 gap-y-3 mt-6">
+        <div class="grid grid-cols-1 gap-y-3 mt-3">
             <div x-data="{ open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail; open = false">
                 <div x-on:click.away="open = false">
                     <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-on:change="open = true"
@@ -15,18 +15,25 @@
                         </div>
                     </div>
                 </div>
+                <div wire:key="error-user_id">
+                    @error('user_id')
+                        <x-input-error messages="{{ $message }}" class="mt-2" />
+                    @enderror
+                </div>
             </div>
-            <x-select wire:model="area_id">
-                <option value=""></option>
-                @foreach ($areas as $area)
-                    <option value="{{ $area->id }}">{{ $area->name }}</option>
-                @endforeach
-            </x-select>
-        </div>
-        <div wire:key="error-inv_area_id">
-            @error('inv_area_id')
-                <x-input-error messages="{{ $message }}" class="mt-2" />
-            @enderror
+            <div>
+                <x-select wire:model="area_id">
+                    <option value=""></option>
+                    @foreach ($areas as $area)
+                        <option value="{{ $area->id }}">{{ $area->name }}</option>
+                    @endforeach
+                </x-select>
+                <div wire:key="error-area_id">
+                    @error('area_id')
+                        <x-input-error messages="{{ $message }}" class="mt-2" />
+                    @enderror
+                </div>
+            </div>
         </div>
         <div class="grid grid-cols-1 gap-y-3 mt-6">
             <div>{{ __('Barang') }}</div>

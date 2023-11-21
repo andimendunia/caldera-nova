@@ -3,29 +3,31 @@
 namespace App\Livewire;
 
 use Carbon\Carbon;
+use App\Models\Pref;
 use App\Models\InvArea;
 use App\Models\InvCirc;
 use App\Models\InvCurr;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
 class InvCircs extends Component
 {
     public $ids = [];
     #[Url]
-    public $q;
+    public $q = '';
     #[Url]
-    public $status = ['pending', 'approved', 'rejected'];
+    public $status = ['pending', 'approved'];
     #[Url]
-    public $user;
+    public $user = '';
     #[Url]
     public $qdirs = ['deposit', 'withdrawal', 'capture'];
     #[Url]
-    public $start_at;
+    public $start_at = '';
     #[Url]
-    public $end_at;
+    public $end_at = '';
     #[Url]
     public $area_ids = [];
     #[Url]
@@ -36,19 +38,31 @@ class InvCircs extends Component
 
     public function mount()
     {
-        // update: call from pref
-        $this->area_ids = ['1'];
-        $this->status   = ['pending', 'approved', 'rejected'];
-        $this->qdirs    = ['deposit', 'withdrawal', 'capture'];
-        $this->sort     = 'updated';
+        // // update: call from pref
+        // $this->area_ids = ['1'];
+        // $this->status   = ['pending', 'approved', 'rejected'];
+        // $this->qdirs    = ['deposit', 'withdrawal', 'capture'];
+        // $this->sort     = 'updated';
 
-        $this->start_at = Carbon::now()->startOfMonth()->format('Y-m-d');
-        $this->end_at   = Carbon::now()->endOfMonth()->format('Y-m-d');
+        // $this->start_at = Carbon::now()->startOfMonth()->format('Y-m-d');
+        // $this->end_at   = Carbon::now()->endOfMonth()->format('Y-m-d');
+
+        $pref = Pref::where('user_id', Auth::user()->id)->where('name', 'inv-circs')->first();
+        $pref = json_decode($pref->data ?? '{}', true);
+        $this->q        = isset($pref['q'])         ? $pref['q']        : '';
+        $this->status   = isset($pref['status'])    ? $pref['status']   : ['pending', 'approved'];
+        $this->user     = isset($pref['user'])      ? $pref['user']     : '';
+        $this->qdirs    = isset($pref['qdirs'])     ? $pref['qdirs']    : ['deposit', 'withdrawal', 'capture'];
+        $this->start_at = isset($pref['start_at'])  ? $pref['start_at'] : Carbon::now()->startOfMonth()->format('Y-m-d');;
+        $this->end_at   = isset($pref['end_at'])    ? $pref['end_at']   : Carbon::now()->endOfMonth()->format('Y-m-d');
+        $this->area_ids = isset($pref['area_ids'])  ? $pref['area_ids'] : ['1'];
+        $this->sort     = isset($pref['sort'])      ? $pref['sort']     : 'updated';
 
         $this->areas = InvArea::all();
         $this->curr = InvCurr::find(1);
     }
 
+    #[On('circ-approved')]
     #[On('updated')]
     public function render()
     {
@@ -146,7 +160,22 @@ class InvCircs extends Component
         }
 
         $circs = $circs->paginate($this->perPage);
-        $this->reset(['ids']);
+
+        $pref = Pref::updateOrCreate(
+            ['user_id' => Auth::user()->id, 'name' => 'inv-circs'],
+            ['data' => json_encode([
+                'q'         => $this->q,
+                'status'    => $this->status,
+                'user'      => $this->user,
+                'qdirs'     => $this->qdirs,
+                'start_at'  => $this->start_at,
+                'end_at'    => $this->end_at,
+                'area_ids'  => $this->area_ids,
+                'sort'      => $this->sort,
+            ])]
+        );
+
+        // update: please restrict area ids according to authorization
 
         return view('livewire.inv-circs', compact('circs'));
     }

@@ -7,8 +7,10 @@ use App\Models\InvCirc;
 use App\Models\InvCurr;
 use App\Models\InvItem;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Renderless;
 
 class InvCircEdit extends Component
 {
@@ -55,6 +57,7 @@ class InvCircEdit extends Component
         $this->curr     = InvCurr::find(1)->name;
     }
 
+    #[Renderless]
     public function updatedUserq()
     {
         $this->dispatch('userq-updated', $this->userq);
@@ -65,12 +68,13 @@ class InvCircEdit extends Component
         return view('livewire.modal-placeholder');
     }
 
+    #[On('circ-approved.{circ.id}')]
     public function render()
     {
         return view('livewire.inv-circ-edit');
     }
 
-    public function approve()
+    public function eval($type)
     {
         $this->remarks = trim($this->remarks);
         $this->userq = trim($this->userq);
@@ -88,8 +92,8 @@ class InvCircEdit extends Component
         $dirty = $this->circ->remarks != $this->remarks ? ++$dirty : $dirty;
         $dirty = $this->circ->user_id != $userId ? ++$dirty : $dirty;
 
-        $assignerId = $dirty ? Auth::user()->id : $this->circ->assigner_id;
-        $assignerId = $assignerId == Auth::user()->id ? null : $assignerId;
+        $assignerId = $dirty > 0 ? Auth::user()->id : $this->circ->assigner_id;
+        $assignerId = $assignerId == $userId ? null : $assignerId;
 
         $this->circ->qty        = $this->qty;
         $this->circ->qtype      = $this->qtype;
@@ -97,21 +101,23 @@ class InvCircEdit extends Component
         $this->circ->user_id    = $userId;
         $this->circ->assigner_id = $assignerId;
 
-        $approve = $this->circ->approve();
-        if ($approve['success']) {
-            $this->circ->save();
-            $this->js('window.dispatchEvent(escKey)'); 
-            $this->js('notyf.success("'.$approve['message'].'")'); 
-            $this->dispatch('circ-approved', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
-        } else {
-            $this->js('notyf.error("'.$approve['message'].'")'); 
+        switch ($type) {
+            case 'approve':
+                $approve = $this->circ->approve();
+                if ($approve['success']) {
+                    $this->circ->save();
+                    $this->js('window.dispatchEvent(escKey)'); 
+                    $this->js('notyf.success("'.$approve['message'].'")'); 
+                    $this->dispatch('circ-approved', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
+                    $this->dispatch('circ-approved.' . $this->circ->id);
+                } else {
+                    $this->js('notyf.error("'.$approve['message'].'")'); 
+                }
+                break;
+            case 'reject':
+                dd('WHYY you reject meeee.....');
+                break;            
         }
 
-    }
-
-    public function reject()
-    {
-        $this->remarks = trim($this->remarks);
-        $this->validate();
     }
 }
