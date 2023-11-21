@@ -10,6 +10,9 @@ use Livewire\Attributes\Renderless;
 
 class InvAuthsForm extends Component
 {
+    public InvAuth $auth;
+    public $auth_id = '';
+
     public $userq;
     public $user_id;
 
@@ -38,8 +41,15 @@ class InvAuthsForm extends Component
         return view('livewire.modal-placeholder');
     }
 
-    public function mount()
+    public function mount(InvAuth $auth)
     {
+        if ($auth->id) {
+            $this->auth_id = $auth->id;
+            $this->userq = $auth->user->emp_id;
+            $this->area_id = $auth->inv_area_id;
+            $this->actions = json_decode($auth->actions, true);
+        }
+
         $this->areas = InvArea::all();
     }
 
@@ -63,7 +73,7 @@ class InvAuthsForm extends Component
 
         if ($this->user_id == 1) {
             
-            $this->js('notyf.error("'.__('Superuser tidak perlu diberi wewenang').'")'); 
+            $this->js('notyf.error("'.__('Superuser sudah memiliki wewenang penuh').'")'); 
         } else {
             $auth = InvAuth::updateOrCreate(
                 ['user_id' => $this->user_id, 'inv_area_id' => $this->area_id],
@@ -73,11 +83,17 @@ class InvAuthsForm extends Component
             $this->dispatch('updated');
         }
 
+        !$this->auth_id ? $this->reset(['userq', 'user_id', 'area_id', 'actions']) : false;
+
         $this->js('window.dispatchEvent(escKey)'); 
-        $this->reset(['userq', 'user_id', 'area_id', 'actions']);
+    }
 
-
-
+    public function delete()
+    {
+        $this->auth->delete();
+        $this->js('window.dispatchEvent(escKey)'); 
+        $this->js('notyf.success("'.__('Wewenang dicabut').'")'); 
+        $this->dispatch('updated');
     }
     
     #[Renderless]

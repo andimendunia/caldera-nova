@@ -21,6 +21,8 @@ class InvAuths extends Component
         $q = trim($this->q);
         $auths = InvAuth::join('users', 'inv_auths.user_id', '=', 'users.id')
         ->join('inv_areas', 'inv_auths.inv_area_id', '=', 'inv_areas.id')
+        ->select('inv_auths.*', 'users.name as user_name', 'users.emp_id as user_emp_id', 'users.photo as user_photo', 'inv_areas.name as inv_area_name')
+        
         ->orderBy('inv_auths.user_id', 'desc');
         
         if ($q) {

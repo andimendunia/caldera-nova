@@ -106,7 +106,7 @@
                 <x-secondary-button class="flex items-center h-full"><i class="fa fa-fw fa-print"></i><span class="ml-2 hidden lg:inline">{{__('Cetak')}}</span></x-secondary-button> 
                 <div class="btn-group">
                     <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-up"></i><span class="ml-2">{{__('Setujui')}}</span></x-secondary-button>
-                    <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-down"></i><span class="ml-2 hidden lg:inline">{{__('Tolak')}}</span></x-secondary-button>                  
+                    <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-down"></i></x-secondary-button>                  
                 </div>
                 <x-text-button type="button" @click="ids = []" class="ml-2"><i class="fa fa-fw fa-times"></i></x-text-button>
             </div>

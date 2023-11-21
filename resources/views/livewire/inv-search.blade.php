@@ -30,8 +30,8 @@
                                 <x-text-button><i class="fa fa-fw fa-ellipsis-v"></i></x-text-button>
                             </x-slot>
                             <x-slot name="content">
-                                {{-- <div class="text-sm text-neutral-400 dark:text-neutral-500 p-6 text-center">{{__('Tidak ada filter tersimpan')}}</div> --}}
-                                <x-dropdown-link href="#" class="flex items-center">
+                                <div class="text-sm text-neutral-400 dark:text-neutral-500 p-6 text-center">{{__('Tak ada lokasi dan tag favorit')}}</div>
+                                {{-- <x-dropdown-link href="#" class="flex items-center">
                                     <i class="fa fa-tag fa-fw mr-2"></i>
                                     <div>general-electrical-something</div>
                                 </x-dropdown-link>
@@ -42,13 +42,16 @@
                                 <x-dropdown-link href="#" class="flex items-center">
                                     <i class="fa fa-map-marker-alt fa-fw mr-2"></i>
                                     <div>G1-2-3</div>
-                                </x-dropdown-link>
+                                </x-dropdown-link> --}}
                                 <hr class="border-neutral-300 dark:border-neutral-600" />
-                                <x-dropdown-link :href="route('account.edit')">
+                                <x-dropdown-link href="#" x-on:click.prevent="$dispatch('open-modal', 'favs-manage')">
                                     {{ __('Kelola') }}
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
+                        <x-modal name="favs-manage" >
+                            <livewire:inv-favs-manage wire:key="favs-manage" lazy />
+                        </x-modal>
                     </div>
                 </div>
                 <div x-show="filter" x-cloak>
@@ -57,7 +60,7 @@
                         <datalist id="qlocs">
                             @if(count($qlocs))
                                 @foreach($qlocs as $qloc)
-                                    <option wire:key="{{ 'qloc'.$loop->index }}" value="{{ $qloc }}">
+                                    <option wire:key="{{ 'qloc' . $loop->index }}" value="{{ $qloc }}">
                                 @endforeach
                             @endif
                         </datalist>
@@ -66,7 +69,7 @@
                         <datalist id="qtags">
                             @if(count($qtags))
                                 @foreach($qtags as $qtag)
-                                    <option wire:key="{{ 'qtag'.$loop->index }}" value="{{ $qtag }}">
+                                    <option wire:key="{{ 'qtag' . $loop->index }}" value="{{ $qtag }}">
                                 @endforeach
                             @endif
                         </datalist>

@@ -309,6 +309,14 @@ input[type="checkbox"]:checked + label.custom-checkbox {
     @apply w-full;
   }
 
+  .table .reveal {
+    @apply opacity-0 transition-opacity ease-in-out duration-150;
+  }
+
+  .table tr:hover .reveal {
+    @apply opacity-100;
+  }
+
   .table tr:first-child th {
     @apply border-b border-neutral-100 dark:border-neutral-700
   }

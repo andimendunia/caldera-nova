@@ -115,7 +115,7 @@ class InvItemCirc extends Component
                         break;
                 }
                 $this->dispatch('circ-approved', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
-                $this->js('notyf.success("'.__('Sirkulasi dibuat dan disetujui langsung').'")'); 
+                $this->js('notyf.success("'.__('Sirkulasi dibuat dan disetujui').'")'); 
             } else {
                 $this->js('notyf.error("'.$approve['message'].'")'); 
             }

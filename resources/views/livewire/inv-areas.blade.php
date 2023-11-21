@@ -3,8 +3,7 @@
         <div>
             {{ $areas->count() . ' ' . __('area terdaftar') }}
         </div>
-        <x-secondary-button type="button" class="my-auto" x-data=""
-                x-on:click.prevent="$dispatch('open-modal', 'create-area')">{{ __('Buat') }}</x-secondary-button>
+        <x-secondary-button type="button" class="my-auto" x-data="" x-on:click="$dispatch('open-modal', 'create-area')">{{ __('Buat') }}</x-secondary-button>
     
     </div>
     <x-modal name="create-area">
@@ -19,13 +18,13 @@
                     </th>
                 </tr>
                 @foreach($areas as $area)
-                <tr wire:key="area-tr-{{ $area->id.$loop->index }}" tabindex="0" x-on:click="$dispatch('open-modal', 'edit-area-{{ $area->id }}')">
+                <tr wire:key="area-tr-{{ $area->id . $loop->index }}" tabindex="0" x-on:click="$dispatch('open-modal', 'edit-area-{{ $area->id }}')">
                     <td>
                         {{ $area->name }}
                     </td> 
                 </tr>
                 <x-modal :name="'edit-area-'.$area->id">
-                    <livewire:inv-areas-edit wire:key="area-lw-{{ $area->id.$loop->index }}" :area="$area" lazy />                    
+                    <livewire:inv-areas-edit wire:key="area-lw-{{ $area->id . $loop->index }}" :area="$area" lazy />                    
                 </x-modal> 
                 @endforeach
             </table>

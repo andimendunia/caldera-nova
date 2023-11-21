@@ -14,7 +14,7 @@
                             <div class="m-auto"><i class="fa fa-plus"></i></div>
                         </div>
                     </div>
-                    <div class="grow text-left truncate py-2 sm:py-4">
+                    <div class="grow text-left truncate py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                             {{__('Buat barang baru')}}
                         </div>                        
@@ -34,7 +34,7 @@
                             <div class="m-auto"><i class="fa fa-arrow-right-arrow-left"></i></div>
                         </div>
                     </div>
-                    <div class="grow truncate py-2 sm:py-4">
+                    <div class="grow truncate py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                             {{__('Sirkulasi massal')}}
                         </div>                        
@@ -51,7 +51,7 @@
                             <div class="m-auto"><i class="fa fa-pen"></i></div>
                         </div>
                     </div>
-                    <div class="grow truncate py-2 sm:py-4">
+                    <div class="grow truncate py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                             {{__('Edit massal')}}
                         </div>                        
@@ -68,7 +68,7 @@
                             <div class="m-auto"><i class="fa fa-map-marker-alt"></i></div>
                         </div>
                     </div>
-                    <div class="grow truncate py-2 sm:py-4">
+                    <div class="grow truncate py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                             {{__('Kelola lokasi')}}
                         </div>                        
@@ -85,7 +85,7 @@
                             <div class="m-auto"><i class="fa fa-tag"></i></div>
                         </div>
                     </div>
-                    <div class="grow truncate py-2 sm:py-4">
+                    <div class="grow truncate py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                             {{__('Kelola tag')}}
                         </div>                        
@@ -105,7 +105,7 @@
                             <div class="m-auto"><i class="fa fa-user-lock"></i></div>
                         </div>
                     </div>
-                    <div class="grow truncate py-2 sm:py-4">
+                    <div class="grow truncate py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                             {{__('Kelola wewenang')}}
                         </div>                        
@@ -122,7 +122,7 @@
                             <div class="m-auto"><i class="fa fa-building"></i></div>
                         </div>
                     </div>
-                    <div class="grow truncate py-2 sm:py-4">
+                    <div class="grow truncate py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                             {{__('Kelola area')}}
                         </div>                        
@@ -139,7 +139,7 @@
                             <div class="m-auto"><i class="fa fa-coins"></i></div>
                         </div>
                     </div>
-                    <div class="grow truncate py-2 sm:py-4">
+                    <div class="grow truncate py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                             {{__('Kelola mata uang')}}
                         </div>                        
@@ -156,7 +156,7 @@
                             <div class="m-auto"><i class="fa fa-weight-scale"></i></div>
                         </div>
                     </div>
-                    <div class="grow truncate py-2 sm:py-4">
+                    <div class="grow truncate py-4">
                         <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                             {{__('Kelola UOM')}}
                         </div>                        

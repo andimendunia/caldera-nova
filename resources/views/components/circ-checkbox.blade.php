@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="flex truncate">
-                    <div>{{ $inv_loc }}</div>
+                    <div><i class="fa fa-fw fa-map-marker-alt mr-1"></i>{{ $inv_loc }}</div>
                     <div class="mx-2">•</div>
                     <div>{{ $inv_code }}</div>
                     @if($amount)

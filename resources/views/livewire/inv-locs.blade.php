@@ -18,13 +18,13 @@
             <hr class="border-neutral-200 dark:border-neutral-700" />
             <table wire:key="locs-table" class="table">
                 @foreach($locs as $loc)
-                <tr wire:key="loc-tr-{{ $loc->id.$loop->index }}" tabindex="0" x-on:click="$dispatch('open-modal', 'edit-loc-{{ $loc->id }}')">
+                <tr wire:key="loc-tr-{{ $loc->id . $loop->index }}" tabindex="0" x-on:click="$dispatch('open-modal', 'edit-loc-{{ $loc->id }}')">
                     <td>
                         {{ $loc->name }}
                     </td> 
                 </tr>
                 <x-modal :name="'edit-loc-'.$loc->id">
-                    <livewire:inv-locs-edit wire:key="loc-lw-{{ $loc->id.$loop->index }}" :loc="$loc" lazy />                    
+                    <livewire:inv-locs-edit wire:key="loc-lw-{{ $loc->id . $loop->index }}" :loc="$loc" lazy />                    
                 </x-modal> 
                 @endforeach
             </table>
