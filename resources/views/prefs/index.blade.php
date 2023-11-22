@@ -20,7 +20,7 @@
                                 <div class="m-auto"><i class="fa fa-circle-user"></i></div>
                             </div>
                         </div>
-                        <div class="grow truncate py-2 sm:py-4">
+                        <div class="grow truncate py-4">
                             <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                                 {{__('Akun')}}
                             </div>                        
@@ -38,7 +38,7 @@
                                 <div class="m-auto"><i class="fa fa-key"></i></div>
                             </div>
                         </div>
-                        <div class="grow text-left truncate py-2 sm:py-4">
+                        <div class="grow text-left truncate py-4">
                             <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                                 {{__('Kata sandi')}}
                             </div>                        
@@ -61,7 +61,7 @@
                                 <div class="m-auto"><i class="fa fa-language"></i></div>
                             </div>
                         </div>
-                        <div class="grow text-left truncate py-2 sm:py-4">
+                        <div class="grow text-left truncate py-4">
                             <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                                 {{__('Bahasa')}}
                             </div>                        
@@ -104,7 +104,7 @@
                                 <div class="m-auto"><i class="fa fa-brush"></i></div>
                             </div>
                         </div>
-                        <div class="grow truncate py-2 sm:py-4">
+                        <div class="grow truncate py-4">
                             <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                                 {{__('Tema')}}
                             </div>                        

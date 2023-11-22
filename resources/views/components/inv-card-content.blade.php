@@ -12,7 +12,7 @@
                 @endif
             </div>            
         </div>
-        <div class="flex grow truncate p-2 sm:p-4">
+        <div class="flex grow truncate py-4 px-2 sm:p-4">
             <div class="grow truncate">
                 <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
                     {{ $name }}
