@@ -1,11 +1,11 @@
-@props(['disabled' => false, 'id', 'model', 'inv_name', 'inv_desc', 'inv_code', 'inv_uom', 'inv_loc', 'inv_photo', 'dir_icon', 'qty', 'qtype', 'curr', 'amount', 'user_name', 'remarks', 'status', 'user_photo', 'assigner', 'date_human'])
+@props(['disabled' => false, 'id', 'model', 'name', 'desc', 'code', 'uom', 'loc', 'photo', 'dir_icon', 'qty', 'qtype', 'curr', 'amount', 'user_name', 'remarks', 'status', 'user_photo', 'assigner', 'date_human'])
 
 <input {{ $disabled ? 'disabled' : '' }} id="{{ 'circ-'.$id }}" value="{{ $id }}" type="checkbox" x-model={{ $model }} class="hidden">
 <label for="{{ 'circ-'.$id }}" {{ $attributes->merge(['class' => 'custom-checkbox cursor-pointer h-full flex items-center text-sm text-left text-neutral-600 dark:text-neutral-400 bg-white dark:bg-neutral-800 shadow rounded-lg overflow-hidden transition ease-in-out duration-150']) }}>
     <div class="h-full">
         <div class="w-28 h-full relative truncate text-base text-neutral-900 dark:text-neutral-100">
-            @if($inv_photo)
-            <img class="absolute w-full h-full opacity-30 object-cover dark:brightness-75 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="/storage/inv-items/{{ $inv_photo }}" />
+            @if($photo)
+            <img class="absolute w-full h-full opacity-30 object-cover dark:brightness-75 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="/storage/inv-items/{{ $photo }}" />
             @else
             <div class="absolute flex w-full h-full opacity-30 bg-neutral-200 dark:bg-neutral-700">
                 <div class="m-auto">
@@ -14,7 +14,7 @@
             </div>
             @endif
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <i class="fa fa-fw {{ $dir_icon }} mr-2"></i>{{($qty < 0 ? abs($qty) : $qty).' '.$inv_uom}}
+                <i class="fa fa-fw {{ $dir_icon }} mr-2"></i>{{($qty < 0 ? abs($qty) : $qty).' '.$uom}}
                 
             </div>
         </div>
@@ -24,17 +24,17 @@
             <div class="grow truncate p-3 sm:px-4">
                 <div class="flex truncate gap-x-2 mb-2">
                     <div class="truncate font-medium text-neutral-900 dark:text-neutral-100">
-                        {{ $inv_name }}
+                        {{ $name }}
                     </div>
                     <div>•</div>
                     <div class="truncate">
-                        {{ $inv_desc }}
+                        {{ $desc }}
                     </div>
                 </div>
                 <div class="flex truncate">
-                    <div><i class="fa fa-fw fa-map-marker-alt mr-1"></i>{{ $inv_loc }}</div>
+                    <div><i class="fa fa-fw fa-map-marker-alt mr-1"></i>{{ $loc }}</div>
                     <div class="mx-2">•</div>
-                    <div>{{ $inv_code }}</div>
+                    <div>{{ $code }}</div>
                     @if($amount)
                         <div class="mx-2">•</div>
                         <div>{{ $curr . ' ' . $amount }}</div>

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class InventoryController extends Controller
 {
     public function index(Request $request) {
+
+        Gate::authorize('viewAny', InvItem::class);
 
         $prev = '';
         $navs = false;

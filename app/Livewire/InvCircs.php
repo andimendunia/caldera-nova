@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use App\Models\Pref;
+use App\Models\User;
 use App\Models\InvArea;
 use App\Models\InvCirc;
 use App\Models\InvCurr;
@@ -33,20 +34,14 @@ class InvCircs extends Component
     #[Url]
     public $sort = 'updated';
     public $areas;
-    public $curr;
+    public $inv_curr;
     public $perPage = 10;
 
     public function mount()
     {
-        // // update: call from pref
-        // $this->area_ids = ['1'];
-        // $this->status   = ['pending', 'approved', 'rejected'];
-        // $this->qdirs    = ['deposit', 'withdrawal', 'capture'];
-        // $this->sort     = 'updated';
-
-        // $this->start_at = Carbon::now()->startOfMonth()->format('Y-m-d');
-        // $this->end_at   = Carbon::now()->endOfMonth()->format('Y-m-d');
-
+        $user = User::find(Auth::user()->id);
+        $this->areas = $user->id === 1 ? InvArea::all() : $user->inv_areas;
+                
         $pref = Pref::where('user_id', Auth::user()->id)->where('name', 'inv-circs')->first();
         $pref = json_decode($pref->data ?? '{}', true);
         $this->q        = isset($pref['q'])         ? $pref['q']        : '';
@@ -55,11 +50,10 @@ class InvCircs extends Component
         $this->qdirs    = isset($pref['qdirs'])     ? $pref['qdirs']    : ['deposit', 'withdrawal', 'capture'];
         $this->start_at = isset($pref['start_at'])  ? $pref['start_at'] : Carbon::now()->startOfMonth()->format('Y-m-d');;
         $this->end_at   = isset($pref['end_at'])    ? $pref['end_at']   : Carbon::now()->endOfMonth()->format('Y-m-d');
-        $this->area_ids = isset($pref['area_ids'])  ? $pref['area_ids'] : ['1'];
+        $this->area_ids = isset($pref['area_ids'])  ? $pref['area_ids'] : $this->areas->pluck('id')->toArray();
         $this->sort     = isset($pref['sort'])      ? $pref['sort']     : 'updated';
 
-        $this->areas = InvArea::all();
-        $this->curr = InvCurr::find(1);
+        $this->inv_curr = InvCurr::find(1);
     }
 
     #[On('circ-approved')]
@@ -67,8 +61,16 @@ class InvCircs extends Component
     public function render()
     {
         $q = trim($this->q);
+        // cleanup areas
+        $area_ids_set       = $this->area_ids;
+        $area_ids_allowed   = $this->areas->pluck('id')->toArray();
+        
+        $area_ids_clean = array_intersect($area_ids_set, $area_ids_allowed);
+        $area_ids_clean = array_values($area_ids_clean);
+
+
         $circs = InvCirc::join('inv_items', 'inv_circs.inv_item_id', '=', 'inv_items.id')
-        ->whereIn('inv_items.inv_area_id', $this->area_ids)
+        ->whereIn('inv_items.inv_area_id', $area_ids_clean)
         ->select('inv_circs.*', 'inv_items.name', 'inv_items.desc', 'inv_items.code');
 
         if ($q) {

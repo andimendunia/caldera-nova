@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -85,4 +86,26 @@ class User extends Authenticatable
     {
         return $this->hasMany(Pref::class);
     }
+
+    public function inv_auths(): HasMany
+    {
+        return $this->hasMany(InvAuth::class);
+    }
+
+    public function authInvArea($id): bool
+    {
+        return $this->inv_auths->where('inv_area_id', $id)->count() ? true : false;
+    }
+
+    public function inv_areas() : BelongsToMany
+    {
+        return $this->belongsToMany(InvArea::class, 'inv_auths', 'user_id', 'inv_area_id');
+    }
+    
+    public function invAreaIds(): array
+    {
+        return $this->inv_areas->pluck('id')->toArray();
+
+    }
+
 }

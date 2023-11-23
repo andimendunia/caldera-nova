@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\InvItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class InvItemController extends Controller
 {
     public function show($id) {
         
-        $prev = route('inventory', ['nav' => 'search']);
 
         $inv_item = InvItem::findOrFail($id);
+        Gate::authorize('view', $inv_item);
+        
+        $prev = route('inventory', ['nav' => 'search']);
         $title = $inv_item->name;
 
         return view('inventory.items.show', compact('title', 'prev', 'inv_item'));

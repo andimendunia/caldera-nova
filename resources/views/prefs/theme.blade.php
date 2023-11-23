@@ -233,6 +233,14 @@
                     </div>
                 </fieldset>
             </div> 
+            <div class="bg-white dark:bg-neutral-800 shadow p-6 sm:rounded-lg mb-6">
+                <h2 class="text-lg font-medium mb-3">
+                    {{ __('Lainnya') }}
+                </h2>
+                <div class="">
+                    <x-toggle>{{ __('Efek blur pada latar dialog') }}</x-toggle>
+                </div>
+            </div> 
             <div class="flex justify-between mx-3 sm:mx-0">
                 <div><i class="fa fa-info-circle mr-2"></i>{{__('Terapkan untuk melihat perubahan')}}</div>
                 <x-primary-button>{{ __('Terapkan') }}</x-primary-button>

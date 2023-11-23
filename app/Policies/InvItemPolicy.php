@@ -11,17 +11,21 @@ class InvItemPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user): Response
     {
-        //
+        return (count($user->invAreaIds()) > 0 || $user->id === 1)
+        ? Response::allow()
+        : Response::deny( __('Kamu tak memiliki wewenang untuk melihat inventaris.') );
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, InvItem $invItem): bool
+    public function view(User $user, InvItem $invItem): Response
     {
-        // return ($user->id == 1);
+        return $user->authInvArea($invItem->inv_area_id)
+        ? Response::allow()
+        : Response::deny( __('Kamu tak memiliki wewenang untuk melihat barang ini.') );
     }
 
     /**
@@ -62,5 +66,14 @@ class InvItemPolicy
     public function forceDelete(User $user, InvItem $invItem): bool
     {
         //
+    }
+
+    public function before(User $user, string $ability): bool|null
+    {
+        if ($user->id == 1) {
+            return true;
+        }
+    
+        return null;
     }
 }

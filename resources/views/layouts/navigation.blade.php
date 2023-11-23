@@ -12,9 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 text-xs sm:flex uppercase">
+                    @can('viewAny', App\Models\InvItem::class)
                     <x-nav-link :href="route('inventory')" :active="request()->is('inventory*')">
                         {{ __('Inventaris') }}
                     </x-nav-link>
+                    @endcan
                     <x-nav-link href="/okc">
                         {{ __('Data OKC') }}
                     </x-nav-link>

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Pref;
+use App\Models\User;
 use App\Models\InvLoc;
 use App\Models\InvTag;
 use App\Models\InvArea;
@@ -48,7 +49,11 @@ class InvSearch extends Component
 
     public function mount()
     {
-        $pref = Pref::where('user_id', Auth::user()->id)->where('name', 'inv-search')->first();
+        $user = User::find(Auth::user()->id);
+        // check for superuser
+        $this->areas = $user->id === 1 ? InvArea::all() : $user->inv_areas;
+
+        $pref = Pref::where('user_id', $user->id)->where('name', 'inv-search')->first();
         $pref = json_decode($pref->data ?? '{}', true);
         $this->q        = isset($pref['q'])         ? $pref['q']        : '';
         $this->status   = isset($pref['status'])    ? $pref['status']   : 'active';
@@ -57,19 +62,24 @@ class InvSearch extends Component
         $this->loc      = isset($pref['loc'])       ? $pref['loc']      : '';
         $this->tag      = isset($pref['tag'])       ? $pref['tag']      : '';
         $this->without  = isset($pref['without'])   ? $pref['without']  : '';
-        $this->area_ids = isset($pref['area_ids'])  ? $pref['area_ids'] : ['1'];
+        $this->area_ids = isset($pref['area_ids'])  ? $pref['area_ids'] : $this->areas->pluck('id')->toArray();
         $this->sort     = isset($pref['sort'])      ? $pref['sort']     : 'updated';
         $this->view     = isset($pref['view'])      ? $pref['view']     : 'content';
 
-        // update: follow auth as default for area_ids
-        $this->areas = InvArea::all();
         $this->inv_curr = InvCurr::find(1);
     }
 
     public function render()
     {
         $q = trim($this->q);
-        $inv_items = InvItem::whereIn('inv_items.inv_area_id', $this->area_ids)
+        // cleanup areas
+        $area_ids_set       = $this->area_ids;
+        $area_ids_allowed   = $this->areas->pluck('id')->toArray();
+        
+        $area_ids_clean = array_intersect($area_ids_set, $area_ids_allowed);
+        $area_ids_clean = array_values($area_ids_clean);
+
+        $inv_items = InvItem::whereIn('inv_items.inv_area_id', $area_ids_clean)
             ->where(function (Builder $query) use ($q) {
                 $query->orWhere('inv_items.name', 'LIKE', '%' . $q . '%')
                     ->orWhere('inv_items.desc', 'LIKE', '%' . $q . '%')
