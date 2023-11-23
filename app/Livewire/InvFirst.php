@@ -2,10 +2,12 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use App\Models\InvArea;
 use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class InvFirst extends Component
 {
@@ -22,7 +24,8 @@ class InvFirst extends Component
 
     public function mount()
     {
-        $this->areas = InvArea::all();
+        $user = User::find(Auth::user()->id);
+        $this->areas = InvArea::whereIn('id', $user->invAreaIdsCreate())->get();
     }
 
     public function render()

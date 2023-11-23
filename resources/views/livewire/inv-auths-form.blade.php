@@ -69,8 +69,8 @@
         <div class="grid grid-cols-1 gap-y-3 mt-6">
             <div>{{ __('Barang') }}</div>
             <x-checkbox id="item-create" wire:model="actions" value="item-create">{{ __('Buat barang ') }}</x-checkbox>
-            <x-checkbox id="item-loc" wire:model="actions" value="item-loc">{{ __('Perbarui lokasi barang') }}</x-checkbox>
-            <x-checkbox id="item-tag" wire:model="actions" value="item-tag">{{ __('Perbarui tag barang') }}</x-checkbox>
+            <x-checkbox id="item-loc" wire:model="actions" value="item-loc">{{ __('Perbarui langsung lokasi barang') }}</x-checkbox>
+            <x-checkbox id="item-tag" wire:model="actions" value="item-tag">{{ __('Perbarui langsung tag barang') }}</x-checkbox>
         </div>
         <div class="grid grid-cols-1 gap-y-3 mt-6">
             <div>{{ __('Sirkulasi') }}</div>

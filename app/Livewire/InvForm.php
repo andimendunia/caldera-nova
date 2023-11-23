@@ -11,6 +11,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Renderless;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Query\Builder;
 
 class InvForm extends Component
@@ -20,7 +21,7 @@ class InvForm extends Component
     public $curr_sec;
     public $currs;
 
-    public $inv_item;
+    public InvItem $inv_item;
 
     public $id;
     public $name;
@@ -173,7 +174,6 @@ class InvForm extends Component
 
     public function save()
     {
-
         // validate if photo url exist
 
         $curr       = InvCurr::find((int)$this->inv_curr_id);
@@ -222,10 +222,13 @@ class InvForm extends Component
         $validated['qty_rep'] = 0;
 
         if($this->inv_item->id ?? false) {
+            Gate::authorize('updateOrCreate', $this->inv_item);
             $this->inv_item->update($validated);
             $msg = __('Barang diperbarui');
         } else {
-            $this->inv_item = InvItem::create($validated);
+            $this->inv_item = new InvItem($validated);
+            Gate::authorize('updateOrCreate', $this->inv_item);
+            $this->inv_item->save();
             $msg = __('Barang dibuat');
         }
 

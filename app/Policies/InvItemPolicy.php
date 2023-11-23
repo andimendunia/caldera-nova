@@ -13,9 +13,9 @@ class InvItemPolicy
      */
     public function viewAny(User $user): Response
     {
-        return (count($user->invAreaIds()) > 0 || $user->id === 1)
+        return count($user->invAreaIds())
         ? Response::allow()
-        : Response::deny( __('Kamu tak memiliki wewenang untuk melihat inventaris.') );
+        : Response::deny( __('Kamu tak memiliki wewenang untuk melihat inventaris') );
     }
 
     /**
@@ -25,55 +25,45 @@ class InvItemPolicy
     {
         return $user->authInvArea($invItem->inv_area_id)
         ? Response::allow()
-        : Response::deny( __('Kamu tak memiliki wewenang untuk melihat barang ini.') );
+        : Response::deny( __('Kamu tak memiliki wewenang untuk melihat barang ini') );
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function updateLoc(User $user, InvItem $invItem) : bool
     {
-        // return ($user->id == 2);
+        $auth = $user->inv_auths->where('inv_area_id', $invItem->inv_area_id)->first();
+        $actions = json_decode($auth->actions ?? '{}', true);
+        return in_array('item-loc', $actions);
+
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, InvItem $invItem): bool
+    public function updateTag(User $user, InvItem $invItem) : bool
     {
-        //
+        $auth = $user->inv_auths->where('inv_area_id', $invItem->inv_area_id)->first();
+        $actions = json_decode($auth->actions ?? '{}', true);
+        return in_array('item-tag', $actions);
+
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, InvItem $invItem): bool
+    public function updateOrCreate(User $user, InvItem $invItem): Response
     {
-        //
+        $auth = $user->inv_auths->where('inv_area_id', $invItem->inv_area_id)->first();
+        $actions = json_decode($auth->actions ?? '{}', true);
+        return in_array('item-create', $actions)
+        ? Response::allow()
+        : Response::deny( __('Kamu tak memiliki wewenang untuk membuat atau memperbarui barang di') . ' ' . $invItem->inv_area->name) ;
+
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, InvItem $invItem): bool
+    public function eval(User $user, InvItem $invItem): bool
     {
-        //
+        $auth = $user->inv_auths->where('inv_area_id', $invItem->inv_area_id)->first();
+        $actions = json_decode($auth->actions ?? '{}', true);
+        return in_array('circ-eval', $actions);
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, InvItem $invItem): bool
-    {
-        //
-    }
 
     public function before(User $user, string $ability): bool|null
     {
-        if ($user->id == 1) {
-            return true;
-        }
-    
-        return null;
+        return $user->id == 1 ? true : null;
     }
 }

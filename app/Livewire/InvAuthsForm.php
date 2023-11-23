@@ -7,6 +7,7 @@ use App\Models\InvArea;
 use App\Models\InvAuth;
 use Livewire\Component;
 use Livewire\Attributes\Renderless;
+use Illuminate\Support\Facades\Gate;
 
 class InvAuthsForm extends Component
 {
@@ -60,6 +61,7 @@ class InvAuthsForm extends Component
 
     public function save()
     {
+       
         $this->userq = trim($this->userq);
         // delegate to...
         if ($this->userq) {
@@ -79,7 +81,7 @@ class InvAuthsForm extends Component
                 ['user_id' => $this->user_id, 'inv_area_id' => $this->area_id],
                 ['actions' => json_encode($this->actions)]
             ); 
-            $this->js('notyf.success("'.__('Wewenang diberikan').'")'); 
+            $this->js('notyf.success("'.__('Wewenang diperbarui').'")'); 
             $this->dispatch('updated');
         }
 

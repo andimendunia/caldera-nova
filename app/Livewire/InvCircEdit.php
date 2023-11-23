@@ -9,8 +9,9 @@ use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Renderless;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class InvCircEdit extends Component
 {
@@ -68,14 +69,21 @@ class InvCircEdit extends Component
         return view('livewire.modal-placeholder');
     }
 
-    #[On('circ-approved.{circ.id}')]
+    #[On('circ-updated.{circ.id}')]
     public function render()
     {
         return view('livewire.inv-circ-edit');
     }
 
+    public function update()
+    {
+        Gate::authorize('update', $this->circ);
+        dd('update bos');
+    }
+
     public function eval($type)
     {
+        Gate::authorize('eval', $this->circ);
         $this->remarks = trim($this->remarks);
         $this->userq = trim($this->userq);
         $this->validate();
@@ -103,13 +111,14 @@ class InvCircEdit extends Component
 
         switch ($type) {
             case 'approve':
+                
                 $approve = $this->circ->approve();
                 if ($approve['success']) {
                     $this->circ->save();
                     $this->js('window.dispatchEvent(escKey)'); 
                     $this->js('notyf.success("'.$approve['message'].'")'); 
-                    $this->dispatch('circ-approved', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
-                    $this->dispatch('circ-approved.' . $this->circ->id);
+                    $this->dispatch('circ-updated', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
+                    $this->dispatch('circ-updated.' . $this->circ->id);
                 } else {
                     $this->js('notyf.error("'.$approve['message'].'")'); 
                 }

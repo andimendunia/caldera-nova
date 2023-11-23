@@ -112,6 +112,7 @@
                     <x-input-error messages="{{ $message }}" class="mt-2" />
                 @enderror
             </div>
+            @if($invItemEval)
             <div x-data="{ open: false, userq: @entangle('userq').live }" x-on:user-selected="userq = $event.detail; open = false">
                 <div x-on:click.away="open = false">
                     <x-text-input-icon x-model="userq" icon="fa fa-fw fa-user" x-ref="userq" x-on:focus="open = true" id="inv-user" class="mt-3" type="text" autocomplete="off" placeholder="{{ __('Delegasikan ke...') }}" />
@@ -121,10 +122,13 @@
                         </div>
                     </div>
                 </div>
+                
                 <div x-show="qty !== 0" class="flex gap-x-5 my-5">
                     <x-checkbox wire:model="is_immediate"  id="inv-immediate">{{ __('Langsung setujui') }}</x-checkbox>
                 </div>
+                
             </div>
+            @endif
             <x-primary-button type="submit" md class="w-full flex justify-center mt-4">
                 <div x-show="qty < 0 || qty > 0" class="flex">
                     <div x-show="qty < 0" x-cloak>

@@ -23,7 +23,8 @@ class PrefController extends Controller
             case 'theme':
                 $bg = isset($data['bg']) ? $data['bg'] : 'auto';
                 $accent = isset($data['accent']) ? $data['accent'] : 'purple';
-                return view('prefs.theme', compact('bg', 'accent'));
+                $mblur = 1;
+                return view('prefs.theme', compact('bg', 'accent', 'mblur'));
                 break;
             
             default:
@@ -65,10 +66,11 @@ class PrefController extends Controller
     public function updateTheme(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'bgm' => ['nullable', 'string'],
-            'bg' => ['required', Rule::in(['auto', 'dark', 'light'])],
+            'bgm'   => ['nullable', 'string'],
+            'bg'    => ['required', Rule::in(['auto', 'dark', 'light'])],
             'accent' => ['required', Rule::in(['purple', 'green', 'pink', 'blue', 'teal', 'orange', 'grey', 'brown', 'yellow'])],
         ]);
+
 
          $pref = Pref::firstOrCreate(
             ['user_id' => $request->user()->id, 'name' => 'account'],
@@ -79,6 +81,7 @@ class PrefController extends Controller
         // Fetch the existing 'data' field
         $existingData = json_decode($pref->data, true);
         
+        // update: change to collection
         // Update the specific keys or add new keys if they don't exist
         $existingData['bg'] = $validated['bg']; // Update 'lang' key
         $existingData['accent'] = $validated['accent']; // Update 'lang' key

@@ -29,7 +29,7 @@ return new class extends Migration
         
         DB::table('users')->insert([
             [
-                'name'      => 'Superuser',
+                'name'      => 'System',
                 'emp_id'    => 'SUPERUSER',
                 'password'  => '$2y$10$HR/Et5LBPfAW2frIq/u1zOXTXojDSmJM/cJgKnIawOlCrn/x2Ws3W',
                 'is_active' => 1

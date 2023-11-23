@@ -101,6 +101,22 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(InvArea::class, 'inv_auths', 'user_id', 'inv_area_id');
     }
+
+    public function invAreaIdsCreate(): array
+    {
+        $ids = [];
+
+        foreach ($this->inv_auths as $auth) {
+            // Decode the "actions" string into an array
+            $actions = json_decode($auth['actions'], true);
+
+            // Check if "item-create" is present in the actions array
+            if (in_array('item-create', $actions)) {
+                $ids[] = $auth['inv_area_id'];
+            }
+        }
+        return $ids;
+    }
     
     public function invAreaIds(): array
     {

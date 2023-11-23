@@ -56,7 +56,7 @@ class InvCircs extends Component
         $this->inv_curr = InvCurr::find(1);
     }
 
-    #[On('circ-approved')]
+    #[On('circ-updated')]
     #[On('updated')]
     public function render()
     {
@@ -208,7 +208,7 @@ class InvCircs extends Component
 
     public function resetCircs()
     {
-        $this->area_ids = ['1'];
+        $this->area_ids = $this->areas->pluck('id')->toArray();
         
         $this->start_at = Carbon::now()->startOfMonth()->format('Y-m-d');
         $this->end_at   = Carbon::now()->endOfMonth()->format('Y-m-d');

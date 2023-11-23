@@ -114,6 +114,7 @@
                 @endif
             </div>
         @else
+        @canany(['eval', 'update'], $circ)
             <div x-data="{
                 qty: @entangle('qty'),
                 qtype: @entangle('qtype'),
@@ -182,17 +183,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end mt-6">
+                <div class="flex justify-end mt-6 gap-x-2">
+                    @can('update', $circ)
+                    <x-secondary-button type="button" wire:click="update">{{ __('Perbarui') }}</x-secondary-button>
+                    @endcan
+                    @can('eval', $circ)
                     <div class="btn-group">
                         <x-secondary-button type="button" wire:click="eval('approve')"><i
                                 class="fa fa-thumbs-up mr-2"></i>{{ __('Setujui') }}</x-secondary-button>
                         <x-secondary-button x-show="qty < 0 || qty > 0" type="button" wire:click="eval('reject')"><i
                                 class="fa fa-thumbs-down"></i></x-secondary-button>
                     </div>
+                    @endcan
                 </div>
             </div>
+            @else
+            View only
+            @endcan
         @endif
     </div>
+    <x-spinner-bg wire:loading.class.remove="hidden" wire:target="update"></x-spinner-bg>
+    <x-spinner wire:loading.class.remove="hidden"  wire:target="update" class="hidden"></x-spinner>
     <x-spinner-bg wire:loading.class.remove="hidden" wire:target="eval"></x-spinner-bg>
     <x-spinner wire:loading.class.remove="hidden"  wire:target="eval" class="hidden"></x-spinner>
 </div>

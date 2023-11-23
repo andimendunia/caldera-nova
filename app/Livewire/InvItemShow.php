@@ -2,11 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use App\Models\InvCirc;
 use App\Models\InvCurr;
 use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class InvItemShow extends Component
 {
@@ -19,7 +22,7 @@ class InvItemShow extends Component
     }
 
     #[On('updated')] 
-    #[On('circ-approved')] 
+    #[On('circ-updated')] 
     #[On('circ-added')]
     public function render()
     {
@@ -38,6 +41,10 @@ class InvItemShow extends Component
 
         $loc = $this->inv_item->loc();
         $tags = $this->inv_item->tags();
-        return view('livewire.inv-item-show', compact('loc', 'tags', 'circMsg', 'freqMsg'));
+
+        $user = User::find(Auth::user()->id);
+        $invItemEval = $user->can('eval', $this->inv_item); 
+        
+        return view('livewire.inv-item-show', compact('loc', 'tags', 'circMsg', 'freqMsg', 'invItemEval'));
     }
 }

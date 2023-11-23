@@ -133,7 +133,7 @@
         @if (session('status') === 'lang-updated')
         <script>
             document.addEventListener("DOMContentLoaded", () => {
-                notyf.success('{{ __('Bahasa diperbarui') }}');
+                notyf.success('{{ __('Preferensi bahasa diperbarui') }}');
             });
         </script>
         @endif

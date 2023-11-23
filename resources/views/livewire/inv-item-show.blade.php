@@ -27,13 +27,37 @@
                 <div>
                     <x-text-button type="button" x-on:click="$dispatch('open-modal', 'edit-loc')" class="mr-4"><i
                             class="fa fa-map-marker-alt mr-2"></i>{{ $loc ? $loc : __('Tak ada lokasi') }}</x-text-button>
-                    <x-modal :name="'edit-loc'" focusable>
+                    <x-modal :name="'edit-loc'">
+                        @can('updateLoc', $inv_item)
                         <livewire:inv-item-loc :loc="$inv_item->loc()" :inv_area_id="$inv_item->inv_area_id" :id="$inv_item->id" lazy />
+                        @else
+                        <div class="p-6">
+                            <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100 mb-3">
+                                {{ __('Perbarui lokasi') }}
+                            </h2>
+                            {{ __('Kamu tidak memiliki wewenang untuk perbarui langsung lokasi') }}
+                            <div class="flex justify-end mt-6">
+                                <x-secondary-button type="button" x-on:click="$dispatch('close')">{{ __('Paham') }}</x-secondary-button>
+                            </div>
+                        </div>
+                        @endcan
                     </x-modal>
                     <x-text-button type="button" x-on:click="$dispatch('open-modal', 'edit-tags')"><i
                             class="fa fa-tag mr-2"></i>{{ $tags ? $tags : __('Tak ada tag') }}</x-text-button>
                     <x-modal :name="'edit-tags'">
-                        <livewire:inv-item-tags :tags="$inv_item->tags_array()" :inv_area_id="$inv_item->inv_area_id" :id="$inv_item->id" lazy />
+                        @can('updateTag', $inv_item)
+                            <livewire:inv-item-tags :tags="$inv_item->tags_array()" :inv_area_id="$inv_item->inv_area_id" :id="$inv_item->id" lazy />
+                            @else
+                            <div class="p-6">
+                                <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100 mb-3">
+                                    {{ __('Perbarui tag') }}
+                                </h2>
+                                {{ __('Kamu tidak memiliki wewenang untuk perbarui langsung tag') }}
+                                <div class="flex justify-end mt-6">
+                                    <x-secondary-button type="button" x-on:click="$dispatch('close')">{{ __('Paham') }}</x-secondary-button>
+                                </div>
+                            </div>
+                            @endcan
                     </x-modal>
 
                 </div>
@@ -50,7 +74,7 @@
             </div>
         </div>
         <div wire:key="inv-item-circ-container">
-            <livewire:inv-item-circ wire:key="inv-item-circ" :inv_item_id="$inv_item->id" />
+            <livewire:inv-item-circ wire:key="inv-item-circ" :inv_item_id="$inv_item->id" :$invItemEval />
         </div>
         <div wire:key="inv-item-circs-container" x-data="{ circs: false }">
             <div class="flex justify-between px-4 py-8 sm:py-5 text-neutral-600 dark:text-neutral-400 text-sm">

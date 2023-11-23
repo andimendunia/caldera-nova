@@ -5,7 +5,7 @@
             <x-tab href="{{ route('inventory', [ 'nav' => 'admin', 'view' => 'global' ])}}" :active="$view == 'global'" class="text-center">{{__('Global')}}</x-tab>
         </div>
         @if(!$view)
-        <div class="grid grid-cols-1 gap-3 my-8">
+        <div class="grid grid-cols-1 gap-3 my-8 text-neutral-600 dark:text-neutral-400">
             <x-card-button type="button" x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'inv-first')">
                 <div class="flex">
@@ -25,8 +25,37 @@
                 </div>
             </x-card-button>
             <x-modal name="inv-first">
-                <livewire:inv-first lazy />
+                @if(count(Auth::user()->invAreaIdsCreate()) ? true : false)
+                    <livewire:inv-first lazy />
+                @else
+                <div class="p-6 ">
+                    <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100 mb-3">
+                        {{ __('Buat barang') }}
+                    </h2>
+                    {{ __('Kamu tidak memiliki wewenang untuk membuat barang di area inventaris manapun.') }}
+                    <div class="flex justify-end mt-6">
+                        <x-secondary-button type="button" x-on:click="$dispatch('close')">{{ __('Paham') }}</x-secondary-button>
+                    </div>
+                </div>
+                @endif
             </x-modal>
+            <x-card-link href="{{ route('inventory', ['nav' => 'mass-edit'])}}">
+                <div class="flex">
+                    <div>
+                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
+                            <div class="m-auto"><i class="fa fa-pen"></i></div>
+                        </div>
+                    </div>
+                    <div class="grow truncate py-4">
+                        <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                            {{__('Edit massal barang')}}
+                        </div>                        
+                        <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
+                            {{__('Lakukan pengeditan barang secara massal')}}
+                        </div>
+                    </div>
+                </div>
+            </x-card-link>
             <x-card-link href="{{ route('inventory', ['nav' => 'mass-circ'])}}">
                 <div class="flex">
                     <div>
@@ -40,23 +69,6 @@
                         </div>                        
                         <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
                             {{__('Lakukan penambahan atau pengambilan secara massal')}}
-                        </div>
-                    </div>
-                </div>
-            </x-card-link>
-            <x-card-link href="{{ route('inventory', ['nav' => 'mass-edit'])}}">
-                <div class="flex">
-                    <div>
-                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
-                            <div class="m-auto"><i class="fa fa-pen"></i></div>
-                        </div>
-                    </div>
-                    <div class="grow truncate py-4">
-                        <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                            {{__('Edit massal')}}
-                        </div>                        
-                        <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
-                            {{__('Lakukan pengeditan barang secara massal')}}
                         </div>
                     </div>
                 </div>

@@ -90,7 +90,7 @@ class InvCirc extends Model
             $this->status       = 1;
             $this->qty_before   = $qty_before;
             $this->qty_after    = $qty_after;
-            $this->evaluator_id = Auth::user()->id;
+            $this->evaluator_id = $this->qty === 0 ? 1 : Auth::user()->id;
 
             return [
                 'success'       => true,

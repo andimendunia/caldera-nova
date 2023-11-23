@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class InventoryController extends Controller
@@ -28,6 +30,8 @@ class InventoryController extends Controller
             case 'admin':
                 $title = __('Administrasi');
                 $navs = true;
+
+                $user = User::find(Auth::user()->id);
                 break;
             case 'mass-circ':
                 $title = __('Sirkulasi massal');

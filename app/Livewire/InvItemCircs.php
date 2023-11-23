@@ -20,7 +20,7 @@ class InvItemCircs extends Component
     }
 
     #[On('circ-added')]
-    #[On('circ-approved')]
+    #[On('circ-updated')]
     public function render()
     {
         $circs = InvCirc::orderByDesc('updated_at')->where('inv_item_id', $this->id)->paginate($this->perPage);
@@ -28,7 +28,7 @@ class InvItemCircs extends Component
     }
 
     #[On('circ-added')]
-    #[On('circ-approved')]
+    #[On('circ-updated')]
     public function pageInit()
     {
         $this->resetPage();

@@ -10,11 +10,13 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class InvItemCirc extends Component
 {
     public $inv_item_id;
-    
+    public $invItemEval = false;
+
     public $qty = '';
     public $qtype;
     public $qty_main;
@@ -78,29 +80,24 @@ class InvItemCirc extends Component
         $this->userq = trim($this->userq);
         $this->validate();
 
-        // delegate to...
-        $userId = Auth::user()->id;
-        if ($this->userq) {
-            $user = User::where('emp_id', $this->userq)->first();
-            $userId = $user ? $user->id : $userId;
-        }
-
-        $assignerId = $userId == Auth::user()->id ? null : Auth::user()->id;
-
         $circ = new InvCirc();
         $circ->inv_item_id  = $this->inv_item_id;
         $circ->qty          = $this->qty;
         $circ->qtype        = $this->qtype;
         $circ->amount       = round(($this->price * $this->qty), 2);
-        $circ->user_id      = $userId;
-        $circ->assigner_id  = $assignerId;
+        $circ->user_id      = Auth::user()->id;
         $circ->remarks      = $this->remarks;
         $circ->qty_before   = 0;
         $circ->qty_after    = 0;
         $circ->status       = 0;
 
-        if ($this->is_immediate || $this->qty === 0) {
-            // immediate approval
+        if($this->userq && Gate::allows('eval', $circ)) {
+            $user = User::where('emp_id', $this->userq)->first();
+            $circ->user_id      = $user ? $user->id : $circ->user_id;
+            $circ->assigner_id  = $circ->user_id == Auth::user()->id ? null : Auth::user()->id;
+        }
+
+        if ($this->is_immediate && Gate::allows('eval', $circ)) {
             $approve = $circ->approve();
             if ($approve['success']) {
                 switch ($approve['qtype']) {
@@ -114,14 +111,17 @@ class InvItemCirc extends Component
                         $this->qty_rep = $approve['qty_after'];
                         break;
                 }
-                $this->dispatch('circ-approved', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
+                $this->dispatch('circ-updated', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
                 $this->js('notyf.success("'.__('Sirkulasi dibuat dan disetujui').'")'); 
             } else {
                 $this->js('notyf.error("'.$approve['message'].'")'); 
             }
 
         } else {
-            // pending approval
+            // approve 0 qty or pending approval
+            if($this->qty === 0) {
+                $circ->approve();
+            }
                 $this->dispatch('circ-added');
                 $this->js('notyf.success("'.__('Sirkulasi dibuat').'")'); 
         }
@@ -131,7 +131,7 @@ class InvItemCirc extends Component
         $this->reset(['qty', 'remarks', 'userq']);
     }
 
-    #[On('circ-approved')]
+    #[On('circ-updated')]
     public function circApproved($data)
     {
         switch ($data['qtype']) {
