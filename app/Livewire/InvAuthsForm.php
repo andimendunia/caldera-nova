@@ -17,10 +17,13 @@ class InvAuthsForm extends Component
     public $userq;
     public $user_id;
 
+
     public $area_id;
     public $actions = [];
 
     public $areas;
+
+    public $is_superuser = false;
 
     public function rules()
     {
@@ -50,6 +53,7 @@ class InvAuthsForm extends Component
             $this->area_id = $auth->inv_area_id;
             $this->actions = json_decode($auth->actions, true);
         }
+        $this->is_superuser = Gate::allows('superuser');
 
         $this->areas = InvArea::all();
     }
@@ -61,6 +65,7 @@ class InvAuthsForm extends Component
 
     public function save()
     {
+        Gate::authorize('superuser');
        
         $this->userq = trim($this->userq);
         // delegate to...

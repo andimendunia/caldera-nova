@@ -74,7 +74,7 @@
             </div>
         </div>
         <div wire:key="inv-item-circ-container">
-            <livewire:inv-item-circ wire:key="inv-item-circ" :inv_item_id="$inv_item->id" :$invItemEval />
+            <livewire:inv-item-circ wire:key="inv-item-circ" :inv_item_id="$inv_item->id" :inv_area_id="$inv_item->inv_area_id" :$invItemEval  />
         </div>
         <div wire:key="inv-item-circs-container" x-data="{ circs: false }">
             <div class="flex justify-between px-4 py-8 sm:py-5 text-neutral-600 dark:text-neutral-400 text-sm">

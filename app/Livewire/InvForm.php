@@ -229,6 +229,10 @@ class InvForm extends Component
             $this->inv_item = new InvItem($validated);
             Gate::authorize('updateOrCreate', $this->inv_item);
             $this->inv_item->save();
+            $circ = InvCirc::create([
+
+            ]);
+            $circ->approve();
             $msg = __('Barang dibuat');
         }
 

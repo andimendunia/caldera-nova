@@ -59,6 +59,9 @@
   "Delegasikan ke...": "Delegate to...",
   "Delegasikan": "Delegate",
   "Dengan": "With",
+  "Pengaturan berikut hanya bisa dilihat" : "These settings are view-only",
+  "Pengaturan di Administrasi Global hanya bisa diubah oleh akun superuser." : "Settings in Global Administration can only be modified by superuser account.",
+  "Akses terbatas" : "Restricted access",
   "Denominasi": "Denomination",
   "Deskripsi": "Description",
   "Diambil 1": "Withdrawn 1",
@@ -108,6 +111,7 @@
   "Jingga sore": "Original orange",
   "Kamu berada di halaman aman. Mohon konfirmasi sandimu sebelum melanjutkan.": "You are on a secure page. Please confirm your password before proceeding.",
   "Kamu harus minta superuser untuk mengatur ulang kata sandimu jika lupa.": "You must ask the superuser to reset your password if you forgot.",
+  "Kamu tidak memiliki wewenang." : "You are not authorized.",
   "Kamu tak memiliki wewenang untuk melihat barang ini" : "You are not authorized to view this item",
   "Kamu tak memiliki wewenang untuk melihat inventaris" : "You are not authorized to view inventory",
   "Kamu tidak memiliki wewenang untuk perbarui langsung lokasi" : "You are not authorzied to do direct update location",
@@ -297,5 +301,8 @@
   "terpilih": "selected",
   "tertunda": "pending",
   "tindakan" : "actions",
-  "wewenang" : "authorizations"
+  "wewenang" : "authorizations",
+  "Wewenang" : "Authorization",
+  "Kamu tak memiliki wewenang untuk mengelola lokasi di area" : "You are not authorized to manage locations in",
+  "Kamu tak memiliki wewenang untuk mengelola tag di area" : "You are not authorized to manage tags in"
  }

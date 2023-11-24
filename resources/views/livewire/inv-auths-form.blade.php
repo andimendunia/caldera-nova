@@ -2,7 +2,7 @@
     <form wire:submit="save" class="p-6">
         <div class="flex justify-between items-start">
             <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
-                {{ $auth_id ? __('Edit wewenang') : __('Beri wewenang') }}
+                {{ __('Wewenang') }}
             </h2>
             <x-text-button type="button" x-on:click="$dispatch('close')"><i class="fa fa-times"></i></x-text-button>
         </div>
@@ -68,20 +68,21 @@
         </div>
         <div class="grid grid-cols-1 gap-y-3 mt-6">
             <div>{{ __('Barang') }}</div>
-            <x-checkbox id="item-create" wire:model="actions" value="item-create">{{ __('Buat barang ') }}</x-checkbox>
-            <x-checkbox id="item-loc" wire:model="actions" value="item-loc">{{ __('Perbarui langsung lokasi barang') }}</x-checkbox>
-            <x-checkbox id="item-tag" wire:model="actions" value="item-tag">{{ __('Perbarui langsung tag barang') }}</x-checkbox>
+            <x-checkbox id="{{ $auth->id ?? 'new'}}-item-create" :disabled="!$is_superuser" wire:model="actions" value="item-create">{{ __('Buat barang ') }}</x-checkbox>
+            <x-checkbox id="{{ $auth->id ?? 'new'}}-item-loc" :disabled="!$is_superuser" wire:model="actions" value="item-loc">{{ __('Perbarui langsung lokasi barang') }}</x-checkbox>
+            <x-checkbox id="{{ $auth->id ?? 'new'}}-item-tag" :disabled="!$is_superuser" wire:model="actions" value="item-tag">{{ __('Perbarui langsung tag barang') }}</x-checkbox>
         </div>
         <div class="grid grid-cols-1 gap-y-3 mt-6">
             <div>{{ __('Sirkulasi') }}</div>
-            <x-checkbox id="circ-create" wire:model="actions" value="circ-create">{{ __('Buat sirkulasi') }}</x-checkbox>
-            <x-checkbox id="circ-eval" wire:model="actions" value="circ-eval">{{ __('Evaluasi sirkulasi (setujui/tolak)') }}</x-checkbox>
+            <x-checkbox id="{{ $auth->id ?? 'new'}}-circ-create" :disabled="!$is_superuser" wire:model="actions" value="circ-create">{{ __('Buat sirkulasi') }}</x-checkbox>
+            <x-checkbox id="{{ $auth->id ?? 'new'}}-circ-eval" :disabled="!$is_superuser" wire:model="actions" value="circ-eval">{{ __('Evaluasi sirkulasi (setujui/tolak)') }}</x-checkbox>
         </div>
         <div class="grid grid-cols-1 gap-y-3 mt-6">
             <div>{{ __('Lain-lain') }}</div>
-            <x-checkbox id="manage-tag" wire:model="actions" value="manage-tag">{{ __('Kelola (edit/hapus) tag') }}</x-checkbox>
-            <x-checkbox id="manage-loc" wire:model="actions" value="manage-loc">{{ __('Kelola (edit/hapus) lokasi') }}</x-checkbox>
+            <x-checkbox id="{{ $auth->id ?? 'new'}}-manage-tag" :disabled="!$is_superuser" wire:model="actions" value="manage-tag">{{ __('Kelola (edit/hapus) tag') }}</x-checkbox>
+            <x-checkbox id="{{ $auth->id ?? 'new'}}-manage-loc" :disabled="!$is_superuser" wire:model="actions" value="manage-loc">{{ __('Kelola (edit/hapus) lokasi') }}</x-checkbox>
         </div>
+        @can('superuser')
         <div class="mt-6 flex justify-between items-end">
             <div>
                 @if($auth_id)
@@ -94,6 +95,7 @@
                 {{ __('Simpan') }}
             </x-primary-button>
         </div>
+        @endcan
     </form>
     <x-spinner-bg wire:loading.class.remove="hidden" wire:target="delete"></x-spinner-bg>
     <x-spinner wire:loading.class.remove="hidden" wire:target="delete" class="hidden"></x-spinner>

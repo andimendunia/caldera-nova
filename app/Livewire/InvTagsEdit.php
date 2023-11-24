@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\InvTag;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Query\Builder;
 
 class InvTagsEdit extends Component
@@ -47,6 +48,7 @@ class InvTagsEdit extends Component
         
         $tag = InvTag::find($this->tag->id);
         if ($tag) {
+            Gate::authorize('manage', $tag);
             $tag->update($validated);
             $this->js('window.dispatchEvent(escKey)'); 
             $this->js('notyf.success("'.__('Tag diperbarui').'")'); 
@@ -60,6 +62,7 @@ class InvTagsEdit extends Component
 
         $tag = InvTag::find($this->tag->id);
         if ($tag) {
+            Gate::authorize('manage', $tag);
             $tag->delete();
             $this->js('window.dispatchEvent(escKey)'); 
             $this->js('notyf.success("'.__('Tag dihapus').'")'); 

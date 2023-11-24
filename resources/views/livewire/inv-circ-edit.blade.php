@@ -100,7 +100,7 @@
                         </div>
                         <div>
                             <div class="whitespace-normal">
-                                <div class="text-xs text-neutral-400 dark:text-neutral-600">
+                                <div class="text-xs text-neutral-400 dark:text-neutral-600 mb-1">
                                     {{ $circ->evaluator->name }}
                                     <span class="mx-1">•</span>{{ $circ->updated_at }}
                                 </div>

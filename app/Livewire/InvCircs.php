@@ -219,4 +219,10 @@ class InvCircs extends Component
     {
         $this->perPage += 10;
     }
+
+    #[On('circ-updated')]
+    public function clearIds()
+    {
+        $this->reset('ids');
+    }
 }

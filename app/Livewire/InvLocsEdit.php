@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\InvLoc;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Query\Builder;
 
 class InvLocsEdit extends Component
@@ -12,6 +13,7 @@ class InvLocsEdit extends Component
     public InvLoc $loc;
 
     public $name = '';
+    public $can_update = false;
 
     public function rules()
     {
@@ -42,11 +44,14 @@ class InvLocsEdit extends Component
 
     public function update()
     {
+        
+
         $this->name = strtoupper($this->name);
         $validated = $this->validate();
         
         $loc = InvLoc::find($this->loc->id);
         if ($loc) {
+            Gate::authorize('manage', $loc);
             $loc->update($validated);
             $this->js('window.dispatchEvent(escKey)'); 
             $this->js('notyf.success("'.__('Lokasi diperbarui').'")'); 
@@ -60,6 +65,7 @@ class InvLocsEdit extends Component
 
         $loc = InvLoc::find($this->loc->id);
         if ($loc) {
+            Gate::authorize('manage', $loc);
             $loc->delete();
             $this->js('window.dispatchEvent(escKey)'); 
             $this->js('notyf.success("'.__('Lokasi dihapus').'")'); 

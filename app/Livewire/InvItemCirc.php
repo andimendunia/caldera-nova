@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Gate;
 class InvItemCirc extends Component
 {
     public $inv_item_id;
+    public $inv_area_id;
     public $invItemEval = false;
 
     public $qty = '';
@@ -35,6 +36,7 @@ class InvItemCirc extends Component
 
     public $userq;
     public $is_immediate = false;
+    public $can_create = false;
 
     public function rules()
     {
@@ -60,13 +62,12 @@ class InvItemCirc extends Component
             $item->only('qty_main', 'qty_used', 'qty_rep', 'qty_main_min', 'qty_main_max', 'price')
         );
 
-        // $this->qty_main_after = $item->qty_main;
-        // $this->qty_used_after = $item->qty_used;
-        // $this->qty_rep_after = $item->qty_rep;
-
         $this->curr     = InvCurr::find(1)->name;
         $this->uom      = $item->inv_uom->name;
         $this->qtype    = $this->qty_used || $this->qty_rep ? '' : 1;
+
+        $user = User::find(Auth::user()->id);
+        $this->can_create = in_array($this->inv_area_id, $user->invAreaIdsCircCreate());
     }
 
     public function render()
@@ -76,6 +77,7 @@ class InvItemCirc extends Component
 
     public function submit()
     {
+
         $this->remarks = trim($this->remarks);
         $this->userq = trim($this->userq);
         $this->validate();
@@ -90,6 +92,8 @@ class InvItemCirc extends Component
         $circ->qty_before   = 0;
         $circ->qty_after    = 0;
         $circ->status       = 0;
+
+        Gate::authorize('create', $circ);
 
         if($this->userq && Gate::allows('eval', $circ)) {
             $user = User::where('emp_id', $this->userq)->first();
@@ -125,6 +129,7 @@ class InvItemCirc extends Component
                 $this->dispatch('circ-added');
                 $this->js('notyf.success("'.__('Sirkulasi dibuat').'")'); 
         }
+
         $circ->save();
 
         $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';

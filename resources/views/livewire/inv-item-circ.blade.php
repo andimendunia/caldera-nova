@@ -61,12 +61,14 @@
                 </div>
             </div>
             <div class="spinner-group my-auto">
+                @if($can_create)
                 <x-secondary-button @click="qty == null ? qty = -1 : --qty"><i
                         class="fa fa-fw fa-minus"></i></x-secondary-button>
                 <x-text-input-spinner x-model="qty" id="inv-circ-qty" class="w-20 p-2 text-center" name="qty"
                     type="number" value="" placeholder="Qty"></x-text-input-spinner>
                 <x-secondary-button @click="qty == null ? qty = 1 : ++qty"><i
                         class="fa fa-fw fa-plus"></i></x-secondary-button>
+                @endif
             </div>
         </div>
         <div x-show="parseInt(qty) === 0 || qty > 0 || qty < 0" x-cloak class="px-4 pb-8 sm:pb-5">

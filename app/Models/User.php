@@ -102,17 +102,41 @@ class User extends Authenticatable
         return $this->belongsToMany(InvArea::class, 'inv_auths', 'user_id', 'inv_area_id');
     }
 
-    public function invAreaIdsCreate(): array
+    public function invAreaIdsItemCreate(): array
     {
         $ids = [];
 
-        foreach ($this->inv_auths as $auth) {
-            // Decode the "actions" string into an array
-            $actions = json_decode($auth['actions'], true);
+        if($this->id === 1) {
+            $ids = $this->invAreaIds();          
+        } else {
+            foreach ($this->inv_auths as $auth) {
+                // Decode the "actions" string into an array
+                $actions = json_decode($auth['actions'], true);
+    
+                // Check if "item-create" is present in the actions array
+                if (in_array('item-create', $actions)) {
+                    $ids[] = $auth['inv_area_id'];
+                }
+            }
+        }
+        return $ids;
+    }
+    
+    public function invAreaIdsCircCreate(): array
+    {
+        $ids = [];
 
-            // Check if "item-create" is present in the actions array
-            if (in_array('item-create', $actions)) {
-                $ids[] = $auth['inv_area_id'];
+        if($this->id === 1) {
+            $ids = $this->invAreaIds();          
+        } else {
+            foreach ($this->inv_auths as $auth) {
+                // Decode the "actions" string into an array
+                $actions = json_decode($auth['actions'], true);
+    
+                // Check if "item-create" is present in the actions array
+                if (in_array('circ-create', $actions)) {
+                    $ids[] = $auth['inv_area_id'];
+                }
             }
         }
         return $ids;
@@ -120,8 +144,7 @@ class User extends Authenticatable
     
     public function invAreaIds(): array
     {
-        return $this->inv_areas->pluck('id')->toArray();
-
+        return $this->id === 1 ? InvArea::all()->pluck('id')->toArray() : $this->inv_areas->pluck('id')->toArray();
     }
 
 }

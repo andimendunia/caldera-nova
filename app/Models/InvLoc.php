@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class InvLoc extends Model
 {
@@ -13,6 +14,11 @@ class InvLoc extends Model
         'name',
         'inv_area_id'
     ];
+
+    public function inv_area(): BelongsTo
+    {
+        return $this->belongsTo(InvArea::class);
+    }
 }
 
 

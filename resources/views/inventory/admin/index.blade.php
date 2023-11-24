@@ -1,11 +1,11 @@
 <div class="py-12">
-    <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-xl mx-auto sm:px-6 lg:px-8 text-neutral-600 dark:text-neutral-400">
         <div class="grid grid-cols-2">
             <x-tab href="{{ route('inventory', [ 'nav' => 'admin' ])}}" :active="!$view" class="text-center">{{__('Area')}}</x-tab>
             <x-tab href="{{ route('inventory', [ 'nav' => 'admin', 'view' => 'global' ])}}" :active="$view == 'global'" class="text-center">{{__('Global')}}</x-tab>
         </div>
         @if(!$view)
-        <div class="grid grid-cols-1 gap-3 my-8 text-neutral-600 dark:text-neutral-400">
+        <div class="grid grid-cols-1 gap-3 my-8 ">
             <x-card-button type="button" x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'inv-first')">
                 <div class="flex">
@@ -25,7 +25,7 @@
                 </div>
             </x-card-button>
             <x-modal name="inv-first">
-                @if(count(Auth::user()->invAreaIdsCreate()) ? true : false)
+                @if(count(Auth::user()->invAreaIdsItemCreate()) ? true : false)
                     <livewire:inv-first lazy />
                 @else
                 <div class="p-6 ">
@@ -109,6 +109,25 @@
             </x-card-link>
         </div>
         @else
+        @cannot('superuser')
+        <div class="my-6 text-sm text-center">{{ __('Pengaturan berikut hanya bisa dilihat') }}<x-text-button type="button" class="ml-2" x-data=""
+            x-on:click.prevent="$dispatch('open-modal', 'view-only')"><i class="far fa-question-circle"></i></x-text-button></div>
+        <x-modal name="view-only">
+            <div class="p-6">
+                <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                    {{ __('Akses terbatas') }}
+                </h2>
+                <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+                    {{__('Pengaturan di Administrasi Global hanya bisa diubah oleh akun superuser.')}}
+                </p>
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button type="button" x-on:click="$dispatch('close')">
+                        {{ __('Paham') }}
+                    </x-secondary-button>
+                </div>
+            </div>
+        </x-modal>
+        @endcannot
         <div class="grid grid-cols-1 gap-3 my-8">
             <x-card-link href="{{ route('inventory', ['nav' => 'manage-auth']) }}">
                 <div class="flex">

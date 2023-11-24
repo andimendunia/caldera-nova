@@ -4,8 +4,12 @@
             <div>
                 {{ count($auths) . ' ' . __('wewenang') }}
             </div>
-            <x-secondary-button type="button" class="my-auto" x-data=""
-                    x-on:click.prevent="$dispatch('open-modal', 'create-auth')">{{ __('Beri wewenang') }}</x-secondary-button>
+            <div>
+                @can('superuser')
+                <x-secondary-button type="button" class="my-auto" x-data=""
+                x-on:click.prevent="$dispatch('open-modal', 'create-auth')">{{ __('Beri wewenang') }}</x-secondary-button>
+                @endcan
+            </div>
         
         </div>
         <x-modal name="create-auth">
