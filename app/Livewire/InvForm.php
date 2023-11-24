@@ -216,23 +216,20 @@ class InvForm extends Component
 
         $validated['inv_curr_id'] = $this->inv_curr_id ? $this->inv_curr_id : null;
         $validated['inv_uom_id'] = $uom->id;
-        $validated['freq'] = 0;
-        $validated['qty_main'] = 0;
-        $validated['qty_used'] = 0;
-        $validated['qty_rep'] = 0;
+
 
         if($this->inv_item->id ?? false) {
             Gate::authorize('updateOrCreate', $this->inv_item);
             $this->inv_item->update($validated);
             $msg = __('Barang diperbarui');
         } else {
+            $validated['freq'] = 0;
+            $validated['qty_main'] = 0;
+            $validated['qty_used'] = 0;
+            $validated['qty_rep'] = 0;
             $this->inv_item = new InvItem($validated);
             Gate::authorize('updateOrCreate', $this->inv_item);
             $this->inv_item->save();
-            $circ = InvCirc::create([
-
-            ]);
-            $circ->approve();
             $msg = __('Barang dibuat');
         }
 

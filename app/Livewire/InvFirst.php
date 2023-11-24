@@ -25,7 +25,7 @@ class InvFirst extends Component
     public function mount()
     {
         $user = User::find(Auth::user()->id);
-        $this->areas = InvArea::whereIn('id', $user->invAreaIdsCreate())->get();
+        $this->areas = InvArea::whereIn('id', $user->invAreaIdsItemCreate())->get();
     }
 
     public function render()

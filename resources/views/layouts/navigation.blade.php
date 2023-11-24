@@ -18,7 +18,7 @@
                     </x-nav-link>
                     @endcan
                     <x-nav-link href="/okc">
-                        {{ __('Data OKC') }}
+                        {{ __('OKC') }}
                     </x-nav-link>
                     {{-- <x-nav-link href="/projects">
                         {{ __('Proyek') }}
@@ -89,7 +89,7 @@
                 {{ __('Inventaris') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="#">
-                {{ __('Data OKC') }}
+                {{ __('OKC') }}
             </x-responsive-nav-link>
             {{-- <x-responsive-nav-link href="#">
                 {{ __('Proyek') }}

@@ -29,5 +29,8 @@ GOTO END
 ECHO Membuka browser...
 start http://127.0.0.1:8000
 
-:END
-exit
+ECHO.
+ECHO Dadah.
+ECHO.
+
+@echo on
