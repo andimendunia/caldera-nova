@@ -103,7 +103,7 @@ class InvItemCirc extends Component
 
         if ($this->is_immediate && Gate::allows('eval', $circ)) {
             $approve = $circ->approve();
-            if ($approve['success']) {
+            if ($approve['status'] === 'success') {
                 switch ($approve['qtype']) {
                     case 1:
                         $this->qty_main = $approve['qty_after'];
@@ -115,7 +115,7 @@ class InvItemCirc extends Component
                         $this->qty_rep = $approve['qty_after'];
                         break;
                 }
-                $this->dispatch('circ-updated', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
+                $this->dispatch('circ-item-updated', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
                 $this->js('notyf.success("'.__('Sirkulasi dibuat dan disetujui').'")'); 
             } else {
                 $this->js('notyf.error("'.$approve['message'].'")'); 
@@ -126,17 +126,17 @@ class InvItemCirc extends Component
             if($this->qty === 0) {
                 $circ->approve();
             }
-                $this->dispatch('circ-added');
+                $this->dispatch('circ-updated');
                 $this->js('notyf.success("'.__('Sirkulasi dibuat').'")'); 
         }
 
         $circ->save();
 
         $this->qtype = $this->qty_used || $this->qty_rep ? '' : 'main';
-        $this->reset(['qty', 'remarks', 'userq']);
+        $this->reset(['qty', 'remarks', 'userq', 'is_immediate']);
     }
 
-    #[On('circ-updated')]
+    #[On('circ-item-updated')]
     public function circApproved($data)
     {
         switch ($data['qtype']) {

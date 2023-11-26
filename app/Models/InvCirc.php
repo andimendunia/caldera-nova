@@ -51,6 +51,8 @@ class InvCirc extends Model
         $item   = $this->inv_item;
         $qtype  = $this->qtype;
 
+        // update: add auth
+
         // choose qty type
         switch ($qtype) {
             case 1:
@@ -68,7 +70,7 @@ class InvCirc extends Model
 
         if ($qty_after < 0) {
             return [
-                'success' => false,
+                'success' => 'error',
                 'message' => __('Sirkulasi tak bisa disetujui karena qty barang akan menjadi negatif.'),
             ];
 
@@ -93,13 +95,26 @@ class InvCirc extends Model
             $this->evaluator_id = $this->qty === 0 ? 1 : Auth::user()->id;
 
             return [
-                'success'       => true,
+                'status'        => 'success',
                 'message'       => __('Sirkulasi disetujui.'),
                 'qtype'         => $qtype,
                 'qty_before'    => $qty_before,
                 'qty_after'     => $qty_after,
             ];
         }
+
+    }
+
+    public function reject()
+    {
+        // update: add auth
+        $this->status       = 2;
+        $this->evaluator_id = $this->qty === 0 ? 1 : Auth::user()->id;
+
+        return [
+            'status'    => 'success',
+            'message'   => __('Sirkulasi ditolak.'),
+        ];
 
     }
 

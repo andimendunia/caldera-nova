@@ -113,18 +113,24 @@ class InvCircEdit extends Component
             case 'approve':
                 
                 $approve = $this->circ->approve();
-                if ($approve['success']) {
+                if ($approve['status'] === 'success') {
                     $this->circ->save();
                     $this->js('window.dispatchEvent(escKey)'); 
-                    $this->js('notyf.success("'.$approve['message'].'")'); 
-                    $this->dispatch('circ-updated', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
+                    $this->dispatch('circ-item-updated', ['qtype' => $approve['qtype'], 'qty_after' => $approve['qty_after']]);
                     $this->dispatch('circ-updated.' . $this->circ->id);
-                } else {
-                    $this->js('notyf.error("'.$approve['message'].'")'); 
+                    $this->dispatch('circ-updated');
                 }
+                $this->js('notyf.'.$approve['status'].'("'.$approve['message'].'")'); 
                 break;
             case 'reject':
-                dd('WHYY you reject meeee.....');
+                $reject = $this->circ->reject();
+                if ($reject['status'] === 'success') {
+                    $this->circ->save();
+                    $this->js('window.dispatchEvent(escKey)'); 
+                    $this->dispatch('circ-updated.' . $this->circ->id);
+                    $this->dispatch('circ-updated');                    
+                } 
+                $this->js('notyf.'.$reject['status'].'("'.$reject['message'].'")'); 
                 break;            
         }
 

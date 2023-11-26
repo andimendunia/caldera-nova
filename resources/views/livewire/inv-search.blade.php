@@ -100,14 +100,13 @@
                 </div>
             @endif
             </div>
-            <div class="mx-3">
+            <div class="m-3">
                 <x-text-button type="button" class="text-sm"><i
                         class="fa fa-fw mr-2 fa-download"></i>{{ __('Unduh CSV barang') }}</x-text-button>
             </div>
         </div>
-        <div class="sticky top-0 p-3 opacity-0 sm:opacity-100">
-            <x-link href="#content" class="text-sm"><i
-                class="fa fa-fw mr-2 fa-arrows-up-to-line"></i>{{ __('Kembali ke atas') }}</x-link>
+        <div class="sticky top-0 py-5 opacity-0 sm:opacity-100">
+            <x-link-secondary-button href="#content"><i class="fa fa-fw mr-2 fa-arrows-up-to-line"></i>{{ __('Ke atas') }}</x-link-secondary-button>
         </div>
     </div>
     <div class="w-full">

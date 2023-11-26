@@ -1,11 +1,34 @@
 <div>
-    <div class="px-6 sm:px-0">
-        <x-select wire:model.live="area_id" class="w-full sm:w-64">
+    <div class="flex justify-between items-center px-6 sm:px-0">
+        <x-select wire:model.live="area_id" class="w-64">
             <option value=""></option>
             @foreach($areas as $area)
             <option value="{{ $area->id }}">{{ $area->name }}</option>
             @endforeach
         </x-select>  
+        <div>
+            @if($area_id)
+            @cannot('manage', $tags[0])
+            <x-text-button type="button" class="uppercase text-xs ml-2" x-data=""
+                x-on:click.prevent="$dispatch('open-modal', 'view-only')"><i class="fa fa-lock me-2"></i>{{ __('Lihat saja') }}</x-text-button>
+            <x-modal name="view-only">
+                <div class="p-6">
+                    <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                        {{ __('Akses terbatas') }}
+                    </h2>
+                    <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+                        {{__('Kamu tidak memiliki wewenang untuk mengelola tag di area ini.')}}
+                    </p>
+                    <div class="mt-6 flex justify-end">
+                        <x-secondary-button type="button" x-on:click="$dispatch('close')">
+                            {{ __('Paham') }}
+                        </x-secondary-button>
+                    </div>
+                </div>
+            </x-modal>
+            @endcannot
+            @endif
+        </div>
     </div>
     <div class="w-full mt-5">
         <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">          
@@ -23,9 +46,11 @@
                         {{ $tag->name }}
                     </td> 
                 </tr>
+                @can('manage', $tag)
                 <x-modal :name="'edit-tag-'.$tag->id">
                     <livewire:inv-tags-edit wire:key="tag-lw-{{ $tag->id . $loop->index }}" :tag="$tag" lazy />                    
-                </x-modal> 
+                </x-modal>
+                @endcan
                 @endforeach
             </table>
             <div wire:key="tags-none">

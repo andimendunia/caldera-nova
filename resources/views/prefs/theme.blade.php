@@ -14,7 +14,7 @@
         @csrf
         @method('patch')
         <input type="hidden" name="bgm" id="bgm" />
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 space-y-6 text-sm text-neutral-900 dark:text-neutral-100">
+        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8 space-y-6 text-sm text-neutral-900 dark:text-neutral-100">
             <div class="bg-white dark:bg-neutral-800 shadow p-6 sm:rounded-lg mb-6">
                 <h2 class="text-lg font-medium mb-3">
                     {{ __('Latar') }}

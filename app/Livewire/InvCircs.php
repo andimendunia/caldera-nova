@@ -56,8 +56,8 @@ class InvCircs extends Component
         $this->inv_curr = InvCurr::find(1);
     }
 
-    #[On('circ-updated')]
     #[On('updated')]
+    #[On('circ-updated')]
     public function render()
     {
         $q = trim($this->q);

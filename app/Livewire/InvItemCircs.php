@@ -19,7 +19,6 @@ class InvItemCircs extends Component
         return view('livewire.modal-placeholder');
     }
 
-    #[On('circ-added')]
     #[On('circ-updated')]
     public function render()
     {
@@ -27,7 +26,6 @@ class InvItemCircs extends Component
         return view('livewire.inv-item-circs', compact('circs'));
     }
 
-    #[On('circ-added')]
     #[On('circ-updated')]
     public function pageInit()
     {

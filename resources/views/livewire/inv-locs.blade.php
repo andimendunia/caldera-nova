@@ -1,6 +1,6 @@
 <div>
     <div class="flex justify-between items-center px-6 sm:px-0">
-        <x-select wire:model.live="area_id" class="w-full sm:w-64">
+        <x-select wire:model.live="area_id" class="w-64">
             <option value=""></option>
             @foreach($areas as $area)
             <option value="{{ $area->id }}">{{ $area->name }}</option>
@@ -9,8 +9,8 @@
         <div>
             @if($area_id)
             @cannot('manage', $locs[0])
-            <x-text-button type="button" class="ml-2" x-data=""
-                x-on:click.prevent="$dispatch('open-modal', 'view-only')">{{ __('Lihat saja') }}<i class="far fa-question-circle ml-2"></i></x-text-button>
+            <x-text-button type="button" class="uppercase text-xs ml-2" x-data=""
+                x-on:click.prevent="$dispatch('open-modal', 'view-only')"><i class="fa fa-lock me-2"></i>{{ __('Lihat saja') }}</x-text-button>
             <x-modal name="view-only">
                 <div class="p-6">
                     <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">

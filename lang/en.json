@@ -303,6 +303,7 @@
   "tindakan" : "actions",
   "Lihat saja" : "View-only",
   "Kamu tidak memiliki wewenang untuk mengelola lokasi di area ini.": "You are not authorized to manage locations in this area.",
+  "Kamu tidak memiliki wewenang untuk mengelola tag di area ini.": "You are not authorized to manage tags in this area.",
   "wewenang" : "authorizations",
   "Wewenang" : "Authorization",
   "Kamu tak memiliki wewenang untuk mengelola lokasi di area" : "You are not authorized to manage locations in",
