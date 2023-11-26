@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class InvItemPhoto extends Component
@@ -25,6 +26,7 @@ class InvItemPhoto extends Component
 
     public function updatedPhoto()
     {
+        
         $validator = Validator::make(
             ['photo' => $this->photo ],
             ['photo' => 'nullable|mimetypes:image/jpeg,image/png,image/gif|max:1024'],
@@ -47,6 +49,7 @@ class InvItemPhoto extends Component
             } else {
                 $item = InvItem::find($this->id);
                 if ($item) {
+                    Gate::authorize('updateOrCreate', $item);
                     $item->updatePhoto($photo);
                     $this->js('notyf.success("'.__('Foto diperbarui').'")'); 
                 }
