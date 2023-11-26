@@ -21,4 +21,9 @@ class InvLocPolicy
         : Response::deny( __('Kamu tak memiliki wewenang untuk mengelola lokasi di area') . ' ' . $invLoc->inv_area->name );
     }
 
+    public function before(User $user, string $ability): bool|null
+    {
+        return $user->id == 1 ? true : null;
+    }
+
 }

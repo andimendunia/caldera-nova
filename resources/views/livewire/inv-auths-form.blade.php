@@ -79,8 +79,8 @@
         </div>
         <div class="grid grid-cols-1 gap-y-3 mt-6">
             <div>{{ __('Lain-lain') }}</div>
-            <x-checkbox id="{{ $auth->id ?? 'new'}}-manage-tag" :disabled="!$is_superuser" wire:model="actions" value="manage-tag">{{ __('Kelola (edit/hapus) tag') }}</x-checkbox>
             <x-checkbox id="{{ $auth->id ?? 'new'}}-manage-loc" :disabled="!$is_superuser" wire:model="actions" value="manage-loc">{{ __('Kelola (edit/hapus) lokasi') }}</x-checkbox>
+            <x-checkbox id="{{ $auth->id ?? 'new'}}-manage-tag" :disabled="!$is_superuser" wire:model="actions" value="manage-tag">{{ __('Kelola (edit/hapus) tag') }}</x-checkbox>
         </div>
         @can('superuser')
         <div class="mt-6 flex justify-between items-end">
