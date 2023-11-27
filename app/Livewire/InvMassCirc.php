@@ -55,12 +55,10 @@ class InvMassCirc extends Component
             $records = iterator_to_array($records);
 
             foreach ($records as &$record) {
-                $record['status'] = '';
+                $record['status'] = 'ready';
             }
 
             $this->data = $records;
-
-            dd($this->data);
 
             // You can now loop through $csvData and work with your data
             // foreach ($csvData as $record) {
