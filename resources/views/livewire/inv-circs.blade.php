@@ -13,7 +13,7 @@
                     <div class="text-center my-auto"><i class="fa fa-thumbs-down"></i></div>
                 </x-checkbox-button>
             </div>
-            <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg p-4">
+            <div class="mt-4 bg-white dark:bg-neutral-800 shadow rounded-lg p-4">
                 
                 <x-text-input-icon wire:model.live="user" icon="fa fa-fw fa-user" id="inv-user" class="my-2" type="search" placeholder="{{ __('Pengguna') }}" />
                 <div class="mt-4">
@@ -30,7 +30,7 @@
                 </div>
                 
             </div>
-            <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4">
+            <div class="mt-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4">
                 <div class="flex items-start justify-between">
                     <div><i class="fa fa-calendar mr-3"></i>{{__('Rentang')}}</div>
                     <div class="flex items-center">
@@ -61,7 +61,9 @@
                     <x-text-input wire:model.live="end_at" id="inv-date-end" type="date" class="mt-3 mb-1" ></x-text-input>    
                 </div>
             </div>
-            <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
+        </div>
+        <div class="sticky top-0 py-5 opacity-0 sm:opacity-100">
+            <div class="bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
                 @foreach ($areas as $area)
                 <div class="my-2">
                     <x-checkbox wire:model.live="area_ids" wire:key="inv-area-{{ $area->id }}" id="inv-area-{{ $area->id }}"
@@ -69,17 +71,18 @@
                 </div>
                 @endforeach                
             </div>
-            <div class="m-3">
-                <x-text-button wire:click="resetCircs" type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-undo"></i>{{__('Atur ulang')}}</x-text-button>
+            <div class="py-4">
+                <div class="m-3">
+                    <x-text-button wire:click="resetCircs" type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-undo"></i>{{__('Atur ulang')}}</x-text-button>
+                </div>
+                <div class="m-3">
+                    <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-print"></i>{{__('Cetak semua')}}</x-text-button>
+                </div>
+                <div class="m-3">
+                    <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{__('Unduh CSV sirkulasi')}}</x-text-button>
+                </div>
             </div>
-            <div class="m-3">
-                <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-print"></i>{{__('Cetak semua')}}</x-text-button>
-            </div>
-            <div class="m-3">
-                <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{__('Unduh CSV sirkulasi')}}</x-text-button>
-            </div>
-        </div>
-        <div class="sticky top-0 py-5 opacity-0 sm:opacity-100">
+
             <x-link-secondary-button href="#content"><i class="fa fa-fw mr-2 fa-arrows-up-to-line"></i>{{ __('Ke atas') }}</x-link-secondary-button>
         </div>
     </div>

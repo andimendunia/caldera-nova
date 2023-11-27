@@ -21,7 +21,7 @@
                 <option value="used">{{ __('Qty bekas saja') }}</option>
                 <option value="rep">{{ __('Qty diperbaiki saja') }}</option>
             </x-select>
-            <div x-data="{ filter: @entangle('filter').live }" class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4">
+            <div x-data="{ filter: @entangle('filter').live }" class="mt-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4">
                 <div class="flex items-start justify-between">
                     <x-toggle x-model="filter">{{ __('Filter') }}</x-toggle>
                     <div class="flex items-center">
@@ -84,7 +84,9 @@
                     </x-select>
                 </div>
             </div>
-            <div class="my-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
+        </div>
+        <div class="sticky top-0 py-5 opacity-0 sm:opacity-100">
+            <div class="bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
                 @foreach ($areas as $area)
                 <div class="my-2">
                     <x-checkbox wire:model.live="area_ids" wire:key="inv-area-{{ $area->id }}" id="inv-area-{{ $area->id }}"
@@ -92,20 +94,20 @@
                 </div>
                 @endforeach
             </div>
-            <div wire:key="reset-search">
-                @if ($q || $status != 'active' || $qty != 'total' || $loc || $tag || $without)
-                <div class="m-3">
-                    <x-text-button wire:click="resetSearch" type="button" class="text-sm"><i
-                            class="fa fa-fw mr-2 fa-undo"></i>{{ __('Atur ulang') }}</x-text-button>
+            <div class="py-4">
+                <div wire:key="reset-search">
+                    @if ($q || $status != 'active' || $qty != 'total' || $filter || $loc || $tag || $without)
+                    <div class="m-3">
+                        <x-text-button wire:click="resetSearch" type="button" class="text-sm"><i
+                                class="fa fa-fw mr-2 fa-undo"></i>{{ __('Atur ulang') }}</x-text-button>
+                    </div>
+                @endif
                 </div>
-            @endif
+                <div class="m-3">
+                    <x-text-button type="button" class="text-sm"><i
+                            class="fa fa-fw mr-2 fa-download"></i>{{ __('Unduh CSV barang') }}</x-text-button>
+                </div>
             </div>
-            <div class="m-3">
-                <x-text-button type="button" class="text-sm"><i
-                        class="fa fa-fw mr-2 fa-download"></i>{{ __('Unduh CSV barang') }}</x-text-button>
-            </div>
-        </div>
-        <div class="sticky top-0 py-5 opacity-0 sm:opacity-100">
             <x-link-secondary-button href="#content"><i class="fa fa-fw mr-2 fa-arrows-up-to-line"></i>{{ __('Ke atas') }}</x-link-secondary-button>
         </div>
     </div>
