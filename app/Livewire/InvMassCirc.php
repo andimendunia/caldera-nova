@@ -12,8 +12,8 @@ class InvMassCirc extends Component
     use WithFileUploads;
 
     public $file;
-    public $is_valid = false;
-    public $data = [];
+    public $isValid     = false;
+    public $data        = [];
 
     public function render()
     {
@@ -33,13 +33,10 @@ class InvMassCirc extends Component
 
             $errors = $validator->errors();
             $error = $errors->first('file');
-            $this->is_valid = false;
+            $this->isValid = false;
             $this->js('notyf.error("'.$error.'")'); 
 
         } else {
-
-            $this->is_valid = true;
-
               // Get the path to the uploaded file
             $filePath = $this->file->getRealPath();
 
@@ -52,13 +49,14 @@ class InvMassCirc extends Component
 
             // Get the CSV data as an associative array
             $records = $csv->getRecords($keys);
-            $records = iterator_to_array($records);
+            $records = iterator_to_array($records, false);
 
             foreach ($records as &$record) {
-                $record['status'] = 'ready';
+                $record['status'] = '';
             }
 
             $this->data = $records;
+            $this->isValid = true;
 
             // You can now loop through $csvData and work with your data
             // foreach ($csvData as $record) {
@@ -86,6 +84,6 @@ class InvMassCirc extends Component
 
     public function reupload()
     {
-        $this->reset(['file', 'is_valid']);
+        $this->reset(['file', 'isValid']);
     }
 }
