@@ -42,7 +42,7 @@ class InvItemCirc extends Component
     {
         return [
             'qty'       => 'required|integer|min:-99999|max:99999',
-            'qtype'     => 'required|min:1|max:3',
+            'qtype'     => 'required|integer|min:1|max:3',
             'remarks'   => 'required|string'
         ];
     }

@@ -2,9 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use League\Csv\Reader;
+use App\Models\InvArea;
 use Livewire\Component;
+use Livewire\Attributes\Url;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class InvMassCirc extends Component
@@ -13,10 +18,16 @@ class InvMassCirc extends Component
 
     public $file;
     public $isValid     = false;
-    public $data        = [];
+    public $circs        = [];
+
+    #[Url] 
+    public $area_id = '';
+    public $areas;
 
     public function render()
     {
+        $user = User::find(Auth::user()->id);
+        $this->areas = InvArea::whereIn('id', $user->invAreaIdsItemCreate())->get();
         return view('livewire.inv-mass-circ');
     }
 
@@ -48,42 +59,37 @@ class InvMassCirc extends Component
             $keys = ['code', 'name', 'desc', 'uom', 'qty', 'qtype', 'remarks']; // Add more keys as needed
 
             // Get the CSV data as an associative array
-            $records = $csv->getRecords($keys);
-            $records = iterator_to_array($records, false);
+            $circs = $csv->getrecords($keys);
+            $rowCount = iterator_count($circs);
 
-            foreach ($records as &$record) {
-                $record['status'] = '';
+            if($rowCount > 100) {
+
+                $this->js('notyf.error("'. __('Data memiliki 100 baris lebih').'")'); 
+
+            } else {
+
+                $circs = iterator_to_array($circs, false);
+
+                foreach ($circs as &$circ) {
+                    $circ['status'] = '';
+                }
+    
+                $this->circs = $circs;
+                $this->isValid = true;
+
             }
 
-            $this->data = $records;
-            $this->isValid = true;
-
-            // You can now loop through $csvData and work with your data
-            // foreach ($csvData as $record) {
-            //     // $record is an associative array representing a row in the CSV
-            //     dd($record);
-            // }
-
         }
-    }
-
-    public function saveRow($rowData)
-    {
-        // Your logic to store the row data on the server
-        // Implement your saving logic here and return success or failure
-        // For example, you might save it to a database
-
-        // Simulate a success response for demonstration
-        $response = [
-            'status' => 'success',
-            'message'   => 'Simulasi'
-        ];
-
-        return $response;
     }
 
     public function reupload()
     {
         $this->reset(['file', 'isValid']);
+    }
+
+    public function download()
+    {
+        $this->js('notyf.success("'. __('Pengunduhan dimulai...').'")'); 
+        return Storage::download('/public/mass-circ.csv');
     }
 }

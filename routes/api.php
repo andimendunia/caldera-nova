@@ -18,5 +18,3 @@ use App\Http\Controllers\InvCircController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::post('/invCirc', [InvCircController::class, 'create'])->name('invCirc.create');

@@ -53,7 +53,7 @@ class InvForm extends Component
         return [
             'name'          => ['required','min:1', 'max:128'],
             'desc'          => ['required', 'min:1', 'max:256'],
-            'code'          => ['nullable', 'size:11', Rule::unique('inv_items')->where(fn (Builder $q) => $q->where('code', $this->code)->where('inv_area_id', $this->inv_area_id))->ignore($this->inv_item->id ?? '')],
+            'code'          => ['nullable', 'alpha_dash', 'size:11', Rule::unique('inv_items')->where(fn (Builder $q) => $q->where('code', $this->code)->where('inv_area_id', $this->inv_area_id))->ignore($this->inv_item->id ?? '')],
             'price'         => ['required', 'numeric', 'min:0', 'max:999000000'],
             'price_sec'     => ['required', 'numeric', 'min:0', 'max:999000000'],
             'uom'           => ['required', 'min:1', 'max:5'],

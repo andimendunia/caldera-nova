@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PrefController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\InvCircController;
 use App\Http\Controllers\InvItemController;
 use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\PrefController;
 
 
 /*
@@ -34,6 +35,9 @@ Route::controller(InvItemController::class)->group(function () {
     Route::get('/inventory/items/{id}', 'show')->middleware('auth')->name('inventory.items.show');
     Route::get('/inventory/items/{id}/edit', 'edit')->middleware('auth')->name('inventory.items.edit');
 });
+
+Route::controller(InvCircController::class)->group(function () {
+    Route::post('/inventory/circs/create', 'create')->middleware('auth')->name('inventory.circs.create');});
 
 Route::controller(PrefController::class)->group(function () {
     Route::patch('/prefs/lang', 'updateLang')->middleware('auth')->name('prefs.update.lang');

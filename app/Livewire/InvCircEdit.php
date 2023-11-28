@@ -41,7 +41,7 @@ class InvCircEdit extends Component
     {
         return [
             'qty'       => 'required|integer|min:-99999|max:99999',
-            'qtype'     => 'required_unless:qty,0|min:1|max:3',
+            'qtype'     => 'required_unless:qty,0|integer|min:1|max:3',
             'remarks'   => 'required|string'
         ];
     }

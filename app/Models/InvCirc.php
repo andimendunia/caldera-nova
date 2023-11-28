@@ -64,6 +64,8 @@ class InvCirc extends Model
             case 3:
                 $qty_before = $item->qty_rep;
                 break;
+            default:
+                $qty_before = $item->qty_main;
         } 
 
         $qty_after = $qty_before + $this->qty;
