@@ -77,8 +77,38 @@ class InvCircEdit extends Component
 
     public function update()
     {
+        // update: test this code
         Gate::authorize('update', $this->circ);
-        dd('update bos');
+        $this->remarks = trim($this->remarks);
+        $this->userq = Gate::allows('eval', $this->circ) ? trim ($this->userq) : '';
+        $this->validate();
+
+        if ($this->userq) {
+            $user = User::where('emp_id', $this->userq)->first();
+            $userId = $user ? $user->id : $this->circ->user_id;
+        }
+
+        $dirty = 0;
+        $dirty = $this->circ->qty != $this->qty ? ++$dirty : $dirty;
+        $dirty = $this->circ->qtype != $this->qtype ? ++$dirty : $dirty;
+        $dirty = $this->circ->remarks != $this->remarks ? ++$dirty : $dirty;
+        $dirty = $this->circ->user_id != $userId ? ++$dirty : $dirty;
+
+        $assignerId = $dirty > 0 ? Auth::user()->id : $this->circ->assigner_id;
+        $assignerId = $assignerId == $userId ? null : $assignerId;
+
+        $this->circ->qty        = $this->qty;
+        $this->circ->qtype      = $this->qtype;
+        $this->circ->remarks    = $this->remarks;
+        $this->circ->user_id    = $userId;
+        $this->circ->assigner_id = $assignerId;
+
+        $this->circ->save();
+        $this->js('window.dispatchEvent(escKey)'); 
+        $this->dispatch('circ-updated.' . $this->circ->id);
+        $this->dispatch('circ-updated'); 
+        
+        $this->js('notyf.success("' . __('Sirkulasi diperbarui') . '")'); 
     }
 
     public function eval($type)
