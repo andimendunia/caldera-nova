@@ -1,107 +1,33 @@
 <div>
     @if (!$isValid)
-        <div class="bg-white dark:bg-neutral-800 shadow p-6 sm:rounded-lg mb-6">
-            <fieldset class="grid grid-cols-3 gap-2 md:grid-cols-6 sm:gap-4">
-                <div>
-                    <input type="radio" name="prop" id="prop-name" class="peer hidden [&:checked_+_label_svg]:block"
-                        value="name" />
-                    <label for="prop-name"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 px-4 py-2 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
-                        <div class="flex items-center justify-between text-2xl">
-                            <p><i class="text-neutral-500 fa fa-cube"></i></p>
-                            <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <p class="mt-1">{{ __('Nama') }}</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" name="prop" id="prop-status"
-                        class="peer hidden [&:checked_+_label_svg]:block" value="status" />
-                    <label for="prop-status"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 px-4 py-2 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
-                        <div class="flex items-center justify-between text-2xl">
-                            <p><i class="text-neutral-500 fa fa-toggle-on"></i></p>
-                            <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <p class="mt-1">{{ __('Status') }}</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" name="prop" id="prop-price" value="price" class="peer hidden [&:checked_+_label_svg]:block" />
-                    <label for="prop-price"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 px-4 py-2 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
-                        <div class="flex items-center justify-between text-2xl">
-                            <p><i class="text-neutral-500 fa fa-coins"></i></p>
-                            <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <p class="mt-1">{{ __('Harga') }}</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" name="prop" id="prop-loc" value="loc" class="peer hidden [&:checked_+_label_svg]:block" />
-                    <label for="prop-loc"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 px-4 py-2 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
-                        <div class="flex items-center justify-between text-2xl">
-                            <p><i class="text-neutral-500 fa fa-map-marker-alt"></i></p>
-                            <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <p class="mt-1">{{ __('Lokasi') }}</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" name="prop" id="prop-tag" value="tag" class="peer hidden [&:checked_+_label_svg]:block" />
-                    <label for="prop-tag"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 px-4 py-2 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
-                        <div class="flex items-center justify-between text-2xl">
-                            <p><i class="text-neutral-500 fa fa-tag"></i></p>
-                            <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <p class="mt-1">{{ __('Tag') }}</p>
-                    </label>
-                </div>
-                <div>
-                    <input type="radio" name="prop" id="prop-qty-limit" value="qty-limit" class="peer hidden [&:checked_+_label_svg]:block" />
-                    <label for="prop-qty-limit"
-                        class="block h-full cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-700 px-4 py-2 hover:border-neutral-300 dark:hover:border-neutral-700 peer-checked:border-caldy-500 peer-checked:ring-1 peer-checked:ring-caldy-500">
-                        <div class="flex items-center justify-between text-2xl">
-                            <p><i class="text-neutral-500 fa fa-compress-alt"></i></p>
-                            <svg class="hidden h-6 w-6 text-caldy-600" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <p class="mt-1">{{ __('Batas qty') }}</p>
-                    </label>
-                </div>
-            </fieldset>
+    <div class="flex justify-center">
+        <div class="max-w-lg">
+            <div class="bg-white dark:bg-neutral-800 shadow p-6 sm:rounded-lg mb-6">
+                <fieldset class="mb-6">
+                    <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                        {{ __('Properti barang mana yang ingin diperbarui?') }}
+                    </h2>
+                    <div class="mt-4">
+                        <x-radio id="prop-name" name="prop" value="name">{{ __('Nama dan Deskripsi') }}</x-radio>
+                        <x-radio id="prop-status" name="prop" value="status">{{ __('Status (Aktif atau Nonaktif)') }}</x-radio>
+                        <x-radio id="prop-price" name="prop" value="price">{{ __('Harga dan Mata uang') }}</x-radio>
+                        <x-radio id="prop-loc" name="prop" value="loc">{{ __('Lokasi ') }}</x-radio>
+                        <x-radio id="prop-tag" name="prop" value="tag">{{ __('Tag ') }}</x-radio>
+                        <x-radio id="prop-limit" name="prop" value="limit">{{ __('Batas qty utama') }}</x-radio>
+                    </div>  
+                </fieldset>
+                <fieldset>
+                    <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                        {{ __('Identitas barang mana yang ingin digunakan?') }}
+                    </h2>
+                    <div class="mt-4">
+                        <x-radio id="ref-calid" name="ref" value="calid">{{ __('ID Caldera') }}</x-radio>
+                        <x-radio id="ref-code" name="ref" value="code">{{ __('Kode item') }}</x-radio>    
+                    </div>  
+                </fieldset>
+            </div>
         </div>
+    </div>
         <div class="flex">
             <div class="max-w-sm px-3 sm:px-0 mb-10 mx-auto">
                 <div class="flex flex-col gap-6 text-sm mx-auto text-center text-neutral-600 dark:text-neutral-400">

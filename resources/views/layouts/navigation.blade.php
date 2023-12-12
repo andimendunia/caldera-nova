@@ -17,8 +17,8 @@
                         {{ __('Inventaris') }}
                     </x-nav-link>
                     @endcan
-                    <x-nav-link href="/okc">
-                        {{ __('OKC') }}
+                    <x-nav-link href="/insights">
+                        {{ __('Wawasan') }}
                     </x-nav-link>
                     {{-- <x-nav-link href="/projects">
                         {{ __('Proyek') }}
@@ -89,7 +89,7 @@
                 {{ __('Inventaris') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="#">
-                {{ __('OKC') }}
+                {{ __('Wawasan') }}
             </x-responsive-nav-link>
             {{-- <x-responsive-nav-link href="#">
                 {{ __('Proyek') }}
