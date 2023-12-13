@@ -2,13 +2,13 @@
     @if (!$isValid)
         <div class="flex">
             <div class="max-w-sm px-3 sm:px-0 mb-10 mx-auto">
-                <div class="flex flex-col gap-6 text-sm mx-auto text-center text-neutral-600 dark:text-neutral-400">
+                <div class="flex flex-col gap-4 text-sm mx-auto text-center text-neutral-600 dark:text-neutral-400">
                     <div class="text-center text-neutral-500 pb-8 text-4xl"><i class="fa fa-upload"></i></div>
                     <x-secondary-button x-on:click="$refs.file.click()"
                         class="w-full mb-3">{{ __('Pilih file') }}</x-secondary-button>
                     <input x-ref="file" wire:model="file" type="file" accept=".csv" class="hidden" />
                     <div>
-                        <div>{{ __('Format CSV, ukuran maksimum 1 MB') }}</div>
+                        <div>{{ __('Format CSV, maksimum 100 baris') }}</div>
                         <div class="mt-2"><x-text-button wire:click="download"><i
                                     class="fa fa-download mr-2"></i>{{ __('Unduh templat') }}</x-text-button></div>
                     </div>
@@ -113,7 +113,8 @@
                 </div>
                 <div class="flex gap-2" x-show="!isStarted">
                     <x-secondary-button  wire:click="reupload"
-                        type="button">{{ __('Unggah ulang') }}</x-secondary-button>
+                        type="button"><i
+                        class="fa fa-undo mr-2"></i>{{ __('Ulangi dari awal') }}</x-secondary-button>
                     <x-primary-button x-on:click="massCreate" type="button"><i
                             class="fa fa-play mr-2"></i>{{ __('Mulai') }}</x-primary-button>
                 </div>
