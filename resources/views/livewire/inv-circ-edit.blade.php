@@ -127,9 +127,9 @@
                 <div class="flex mb-6 justify-between">
                     <div class="flex items-center gap-x-1">
                         <div>
-                            <i x-show="qty < 0" class="fa fa-minus mr-2"></i>
-                            <i x-show="qty > 0" class="fa fa-plus mr-2"></i>
-                            <i x-show="qty === 0" class="fa fa-code-commit mr-2"></i>
+                            <i x-show="qty < 0" class="fa fa-fw fa-minus mr-2"></i>
+                            <i x-show="qty > 0" class="fa fa-fw fa-plus mr-2"></i>
+                            <i x-show="qty == 0" class="fa fa-fw fa-code-commit mr-2"></i>
                         </div>
                         <div>
                             <div class="text-lg" x-show="qty < 0" x-cloak>{{ __('Ambil') }}</div>
@@ -184,16 +184,16 @@
                     </div>
                 </div>
                 <div class="flex justify-end mt-6 gap-x-2">
-                    @can('update', $circ)
-                    <x-secondary-button type="button" wire:click="update">{{ __('Perbarui') }}</x-secondary-button>
-                    @endcan
                     @can('eval', $circ)
                     <div class="btn-group">
                         <x-secondary-button type="button" wire:click="eval('approve')"><i
                                 class="fa fa-thumbs-up mr-2"></i>{{ __('Setujui') }}</x-secondary-button>
-                        <x-secondary-button x-show="qty < 0 || qty > 0" type="button" wire:click="eval('reject')"><i
+                        <x-secondary-button x-bind:disabled="!(qty < 0 || qty > 0)" type="button" wire:click="eval('reject')"><i
                                 class="fa fa-thumbs-down"></i></x-secondary-button>
                     </div>
+                    @endcan
+                    @can('update', $circ)
+                    <x-secondary-button type="button" wire:click="update">{{ __('Perbarui') }}</x-secondary-button>
                     @endcan
                 </div>
             </div>

@@ -1,9 +1,22 @@
 <div class="relative">
     <div wire:loading.class="opacity-30">
         @if ($circs->count())
-            <div class="text-sm p-4">
-                <x-text-button type="button"><i
-                        class="fa fa-download mr-2"></i>{{ __('Unduh sirkulasi') }}</x-text-button>
+            <div class="flex justify-between items-center p-4">
+                <div class="uppercase text-sm">
+                    {{ __('Sirkulasi') }}
+                </div>
+                <x-modal maxWidth="2xl" name="inv-item-circs-chart">
+                    <livewire:inv-item-circs-chart wire:key="inv-item-circs-chart" :$id lazy />
+                </x-modal>
+                <x-modal maxWidth="sm" name="inv-item-circs-download">
+                    <livewire:inv-item-circs-download wire:key="inv-item-circs-download" :$id lazy />
+                </x-modal>
+                <div class="btn-group">
+                    <x-secondary-button type="button" x-on:click.prevent="$dispatch('open-modal', 'inv-item-circs-chart')"><i
+                        class="fa fa-chart-line"></i></x-secondary-button>
+                    <x-secondary-button type="button" x-on:click.prevent="$dispatch('open-modal', 'inv-item-circs-download')"><i
+                        class="fa fa-download"></i></x-secondary-button>
+                </div>
             </div>
             <div wire:key="circs" class="grid grid-col-1">
                 @foreach ($circs as $circ)
