@@ -296,6 +296,8 @@
   "Udah makan belum?": "Have you eaten yet?",
   "Ulangi dari awal": "Start over",
   "Edit massal": "Bulk edit",
+  "Berkas harus jpg, png, atau gif": "File should be jpg, png, or gif",
+  "Berkas harus berupa CSV": "File should be CSV",
   "Unduh CSV barang": "Download items CSV",
   "Unduh templat" : "Download template",
   "Unduh CSV sirkulasi": "Download circulations CSV",
