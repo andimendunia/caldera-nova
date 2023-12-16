@@ -8,11 +8,11 @@
     <form wire:submit.prevent="download">
         <div class="mb-6">
             <x-input-label for="inv-date-start" :value="__('Dari')" />
-            <x-text-input wire:model.live="start_at" id="inv-date-start" type="date"></x-text-input>
+            <x-text-input wire:model.live="start_date" id="inv-date-start" type="date"></x-text-input>
         </div>
         <div class="mb-6">
             <x-input-label for="inv-date-end" :value="__('Sampai')" />
-            <x-text-input wire:model.live="end_at" id="inv-date-end" type="date"></x-text-input>
+            <x-text-input wire:model.live="end_date" id="inv-date-end" type="date"></x-text-input>
         </div>
         <x-primary-button type="submit"><i class="fa fa-download mr-2"></i>{{ __('Unduh') }}</x-primary-button>
     </form>
