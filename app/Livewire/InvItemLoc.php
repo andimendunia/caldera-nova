@@ -6,7 +6,6 @@ use App\Models\InvLoc;
 use App\Models\InvItem;
 use Livewire\Component;
 use Livewire\Attributes\On;
-use Illuminate\Support\Facades\Validator;
 
 class InvItemLoc extends Component
 {
