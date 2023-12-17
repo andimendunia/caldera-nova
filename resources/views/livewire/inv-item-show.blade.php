@@ -89,4 +89,13 @@
             </div>
         </div>
     </div>
+    <div x-data x-init="document.addEventListener('keydown', function(event) {
+        if (event.key === '#') {
+        const code = prompt();
+
+        if (code !== null) {
+        $wire.qu(code)
+        }
+                }
+    });"></div>
 </div>

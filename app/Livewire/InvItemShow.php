@@ -46,4 +46,21 @@ class InvItemShow extends Component
         
         return view('livewire.inv-item-show', compact('loc', 'tags', 'circMsg', 'freqMsg', 'invItemEval'));
     }
+
+    public function qu($code)
+    {
+        $mode = $code[0];
+        $name = substr($code, 2);
+
+        switch ($mode) {
+            case 'l':
+                $this->js('notyf.success("You are changing location to: '. $name .'")'); 
+                break;
+            case 't':
+                $this->js('notyf.success("You are adding a tag: '. $name .'")'); 
+                break;
+            
+        }
+ 
+    }
 }
