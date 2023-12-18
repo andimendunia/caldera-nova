@@ -1,20 +1,36 @@
 <div>
     @if (!$isValid)
-        <div class="flex">
-            <div class="max-w-sm px-3 sm:px-0 mb-10 mx-auto">
-                <div class="flex flex-col gap-4 text-sm mx-auto text-center text-neutral-600 dark:text-neutral-400">
-                    <div class="text-center text-neutral-500 pb-8 text-4xl"><i class="fa fa-upload"></i></div>
-                    <x-secondary-button x-on:click="$refs.file.click()"
-                        class="w-full mb-3">{{ __('Pilih file') }}</x-secondary-button>
-                    <input x-ref="file" wire:model="file" type="file" accept=".csv" class="hidden" />
-                    <div>
-                        <div>{{ __('Format CSV, maksimum 100 baris') }}</div>
-                        <div class="mt-2"><x-text-button wire:click="download"><i
-                                    class="fa fa-download mr-2"></i>{{ __('Unduh templat') }}</x-text-button></div>
+        <div class="max-w-lg mx-auto">
+            <ol class="flex items-center w-full p-3 mb-4 space-x-2 text-sm font-medium text-center text-neutral-500  sm:text-base sm:p-4 sm:space-x-4 rtl:space-x-reverse">
+                <li class="flex items-center text-caldy-600 dark:text-caldy-500">
+                    <span
+                        class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-caldy-600 rounded-full shrink-0 dark:border-caldy-500">1</span>{{ __('Unggah') }}<i
+                        class="fa fa-chevron-right ms-2 sm:ms-4"></i>
+                </li>
+                <li class="flex items-center">
+                    <span
+                        class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">2</span>{{ __('Tinjau') }}
+                </li>
+            </ol>
+            <div class="bg-white dark:bg-neutral-800 shadow p-6 sm:rounded-lg mb-6 ">
+                <div class="flex">
+                    <div class="px-3 sm:px-0 mx-auto">
+                        <div class="flex flex-col gap-4 text-sm mx-auto text-center text-neutral-600 dark:text-neutral-400">
+                            <div class="text-center text-neutral-400 dark:text-neutral-600 pb-4 text-4xl"><i class="fa fa-upload"></i></div>
+                            <x-secondary-button x-on:click="$refs.file.click()"
+                                class="w-full mb-3">{{ __('Pilih file') }}</x-secondary-button>
+                            <input x-ref="file" wire:model="file" type="file" accept=".csv" class="hidden" />
+                            <div>
+                                <div>{{ __('Format CSV, maksimum 100 baris') }}</div>
+                                <div class="mt-2"><x-text-button wire:click="download"><i
+                                            class="fa fa-download mr-2"></i>{{ __('Unduh templat') }}</x-text-button></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     @else
         <div x-data="{
             circs: @entangle('circs'),
@@ -91,19 +107,23 @@
             },
         }" x-init="updateTotal()">
             <div class="flex flex-col md:flex-row gap-3 justify-between p-3">
-                <div class="w-64">
-                    <x-select x-model="area_id" x-ref="area">
-                        <option value=""></option>
-                        @foreach($areas as $area)
-                        <option value="{{ $area->id }}">{{ $area->name }}</option>
-                        @endforeach
-                    </x-select>  
-                </div>
+                <ol class="flex items-center w-full p-3 space-x-2 text-sm font-medium text-center text-neutral-500  sm:text-base sm:p-0 sm:space-x-4 rtl:space-x-reverse">
+                    <li class="flex items-center cursor-pointer" wire:click="reupload">
+                        <span
+                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">1</span>{{ __('Unggah') }}<i
+                            class="fa fa-chevron-right ms-2 sm:ms-4"></i>
+                    </li>
+                    <li class="flex items-center text-caldy-600 dark:text-caldy-500">
+                        <span
+                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-caldy-600 rounded-full shrink-0 dark:border-caldy-500">2</span>{{ __('Tinjau') }}
+                    </li>
+                </ol>
                 <div class="flex items-center truncate p-1 gap-x-2">
                     <span x-text="circDone"></span>
                     <span class="mx-1">/</span>
                     <span x-text="circTotal"></span>
                 </div>
+
                 <div x-show="isStarted">
                     <span x-text="status" class="text-xs uppercase"></span>
                     <div class="h-1 mt-1 relative w-40 rounded-full overflow-hidden">
@@ -112,9 +132,14 @@
                     </div>
                 </div>
                 <div class="flex gap-2" x-show="!isStarted">
-                    <x-secondary-button  wire:click="reupload"
-                        type="button"><i
-                        class="fa fa-undo mr-2"></i>{{ __('Ulangi dari awal') }}</x-secondary-button>
+                    <div class="w-64">
+                        <x-select x-model="area_id" x-ref="area">
+                            <option value=""></option>
+                            @foreach($areas as $area)
+                            <option value="{{ $area->id }}">{{ $area->name }}</option>
+                            @endforeach
+                        </x-select>  
+                    </div>
                     <x-primary-button x-on:click="massCreate" type="button"><i
                             class="fa fa-play mr-2"></i>{{ __('Mulai') }}</x-primary-button>
                 </div>

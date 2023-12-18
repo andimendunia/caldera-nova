@@ -90,6 +90,6 @@ class InvMassCirc extends Component
     public function download()
     {
         $this->js('notyf.success("'. __('Pengunduhan dimulai...').'")'); 
-        return Storage::download('/public/mass-circ.csv');
+        return Storage::download('/public/mass_circ.csv');
     }
 }
