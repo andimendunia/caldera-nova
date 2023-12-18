@@ -84,7 +84,7 @@ class InvMassCirc extends Component
 
     public function reupload()
     {
-        $this->reset(['file', 'isValid']);
+        $this->reset(['file', 'isValid', 'area_id']);
     }
 
     public function download()
