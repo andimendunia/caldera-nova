@@ -11,7 +11,7 @@ Aplikasi web berbasis Laravel untuk mengelola inventaris dan perangkat monitorin
 
 ## Pengantar
 
-Caldera Nova adalah web aplikasi yang bertujuan sebagai pusat informasi yang relevan dengan proyek dept. Automation, PT. TKG Taekwang Indonesia.
+Caldera Nova adalah aplikasi web yang bertujuan sebagai pusat informasi yang relevan dengan proyek dept. Automation, PT. TKG Taekwang Indonesia.
 
 
 ## Persyaratan
