@@ -20,7 +20,6 @@ class InvMassCirc extends Component
     public $isValid     = false;
     public $circs        = [];
 
-    #[Url] 
     public $area_id = '';
     public $areas;
 

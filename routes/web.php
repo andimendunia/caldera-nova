@@ -34,6 +34,7 @@ Route::controller(InvItemController::class)->group(function () {
     Route::get('/inventory/items/create', 'create')->middleware('auth')->name('inventory.items.create');
     Route::get('/inventory/items/{id}', 'show')->middleware('auth')->name('inventory.items.show');
     Route::get('/inventory/items/{id}/edit', 'edit')->middleware('auth')->name('inventory.items.edit');
+    Route::patch('/inventory/items/', 'update')->middleware('auth')->name('inventory.items.update');
 });
 
 Route::controller(InvCircController::class)->group(function () {

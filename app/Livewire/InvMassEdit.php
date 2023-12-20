@@ -2,9 +2,12 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use League\Csv\Reader;
+use App\Models\InvArea;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,11 +24,19 @@ class InvMassEdit extends Component
     public $propName;
     public $refCode;
     public $refName;
+    public $a;
+    public $b;
 
     public $file;
+    public $rows = [];
+
+    public $area_id = '';
+    public $areas;
 
     public function render()
     {
+        $user = User::find(Auth::user()->id);
+        $this->areas = InvArea::whereIn('id', $user->invAreaIdsItemCreate())->get();
         return view('livewire.inv-mass-edit');
     }
 
@@ -36,7 +47,7 @@ class InvMassEdit extends Component
                 $this->reset(['step']);
                 break;
             case 1:
-                $validated = $this->validate([ 
+                $this->validate([ 
                     'prop' => 'required|min:1|max:6',
                     'ref' => 'required|min:1|max:2',
                 ]);
@@ -44,26 +55,38 @@ class InvMassEdit extends Component
                     case 1:
                         $this->propName = __('Nama dan Deskripsi');
                         $this->propCode = 'name_desc';
+                        $this->a = __('Nama');
+                        $this->b = __('Deskripsi');
                         break;
                     case 2:
                         $this->propName = __('Status');
                         $this->propCode = 'status';
+                        $this->a = __('Status');
+                        $this->b = '';
                         break;
                     case 3:
                         $this->propName = __('Harga dan Mata uang');
                         $this->propCode = 'price_currency';
+                        $this->a = __('Nama');
+                        $this->b = __('Mata uang');
                         break;
                     case 4:
                         $this->propName = __('Lokasi ');
                         $this->propCode = 'location';
+                        $this->a = __('Lokasi');
+                        $this->b = '';
                         break;
                     case 5:
                         $this->propName = __('Tag');
                         $this->propCode = 'tag';
+                        $this->a = __('Tag');
+                        $this->b = '';
                         break;
                     case 6:
                         $this->propName = __('Batas qty utama');
                         $this->propCode = 'main_qty_limit';
+                        $this->a = __('Qty min');
+                        $this->b = __('Qty maks');
                         break;
 
                 }
@@ -116,8 +139,8 @@ class InvMassEdit extends Component
             $keys = ['code', 'name', 'desc', 'uom', 'qty', 'qtype', 'remarks']; // Add more keys as needed
 
             // Get the CSV data as an associative array
-            $circs = $csv->getrecords($keys);
-            $rowCount = iterator_count($circs);
+            $rows = $csv->getrecords($keys);
+            $rowCount = iterator_count($rows);
 
             if($rowCount > 100) {
 
@@ -125,13 +148,15 @@ class InvMassEdit extends Component
 
             } else {
 
-                $circs = iterator_to_array($circs, false);
+                $rows = iterator_to_array($rows, false);
 
-                foreach ($circs as &$circ) {
-                    $circ['status'] = '';
+                foreach ($rows as &$row) {
+                    $row['status'] = '';
                 }
+
+                $this->step = 2;
     
-                // $this->circs = $circs;
+                $this->rows = $rows;
                 // $this->isValid = true;
 
             }

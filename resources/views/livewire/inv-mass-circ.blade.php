@@ -72,7 +72,7 @@
                             circ.status = {
                                 success: false,
                                 code: 'ERR-P',
-                                msg: '{{ __('Muatan data tidak sah') }}'
+                                msg: ['{{ __('Muatan data tidak sah') }}']
                             };
                         }
         
@@ -80,7 +80,7 @@
                         circ.status = {
                             success: false,
                             code: 'ERR-S',
-                            msg: '{{ __('Tidak dapat meraih data') }}'
+                            msg: ['{{ __('Tidak dapat meraih data') }}']
                         };
                     }
                 } catch (error) {
@@ -108,7 +108,7 @@
                     $refs.area.focus();
                 }
             },
-        }" x-init="updateTotal()">
+            }" x-init="updateTotal()">
             <div class="flex flex-col md:flex-row gap-3 justify-between p-3">
                 <ol
                     class="flex items-center w-full p-3 space-x-2 text-sm font-medium text-center text-neutral-500  sm:text-base sm:p-0 sm:space-x-4 rtl:space-x-reverse">

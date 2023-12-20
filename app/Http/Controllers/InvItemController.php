@@ -38,4 +38,8 @@ class InvItemController extends Controller
 
         return view('inventory.items.create', compact('title', 'prev', 'header'));
     }
+
+    public function update(Request $request) {
+        
+    }
 }
