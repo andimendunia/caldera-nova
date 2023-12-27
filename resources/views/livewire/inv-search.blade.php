@@ -104,7 +104,7 @@
                 @endif
                 </div>
                 <div class="m-3">
-                    <x-text-button type="button" class="text-sm"><i
+                    <x-text-button type="button" wire:click="download" class="text-sm"><i
                             class="fa fa-fw mr-2 fa-download"></i>{{ __('Unduh CSV barang') }}</x-text-button>
                 </div>
             </div>

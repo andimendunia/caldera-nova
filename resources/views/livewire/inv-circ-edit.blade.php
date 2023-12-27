@@ -1,7 +1,7 @@
 <div class="p-6">
     <div class="flex justify-between items-center text-lg mb-6 font-medium text-neutral-900 dark:text-neutral-100">
         <h2>
-            {{ __('Sirkulasi') }}
+            {{ __('Sirkulasi ') }}
         </h2>
         <x-text-button type="button" x-on:click="$dispatch('close')"><i class="fa fa-times"></i></x-text-button>
     </div>

@@ -2,10 +2,12 @@
 
 namespace App\Livewire;
 
+use App\Inventory;
 use App\Models\Pref;
 use App\Models\User;
 use App\Models\InvLoc;
 use App\Models\InvTag;
+use League\Csv\Writer;
 use App\Models\InvArea;
 use App\Models\InvCurr;
 use App\Models\InvItem;
@@ -14,6 +16,7 @@ use Illuminate\Support\Arr;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Database\Eloquent\Builder;
 
 class InvSearch extends Component
@@ -22,6 +25,7 @@ class InvSearch extends Component
 
     #[Url]
     public $q = '';
+    public $q_clean = '';
     public $qwords = [];
     #[Url]
     public $status = 'active';
@@ -40,6 +44,7 @@ class InvSearch extends Component
     public $areas;
     #[Url]
     public $area_ids = [];
+    public $area_ids_clean = [];
     #[Url]
     public $sort = 'updated';
     #[Url]
@@ -71,119 +76,27 @@ class InvSearch extends Component
 
     public function render()
     {
-        $q = trim($this->q);
+        $this->q_clean = trim($this->q);
+
         // cleanup areas
-        $area_ids_set       = $this->area_ids;
-        $area_ids_allowed   = $this->areas->pluck('id')->toArray();
+        $area_ids_set    = $this->area_ids;
+        $area_ids_auth   = $this->areas->pluck('id')->toArray();
         
-        $area_ids_clean = array_intersect($area_ids_set, $area_ids_allowed);
-        $area_ids_clean = array_values($area_ids_clean);
+        // chosen area and authorized area
+        $area_ids = array_intersect($area_ids_set, $area_ids_auth);
+        $this->area_ids_clean = array_values($area_ids);
 
-        $inv_items = InvItem::whereIn('inv_items.inv_area_id', $area_ids_clean)
-            ->where(function (Builder $query) use ($q) {
-                $query->orWhere('inv_items.name', 'LIKE', '%' . $q . '%')
-                    ->orWhere('inv_items.desc', 'LIKE', '%' . $q . '%')
-                    ->orWhere('inv_items.code', 'LIKE', '%' . $q . '%');
-            });
-        switch ($this->status) {
-            case 'active':
-                $inv_items->where('inv_items.is_active', true);
-                break;
-            case 'inactive':
-                $inv_items->where('inv_items.is_active', false);
-                break;
-        }
-        if ($this->filter) {
-            if ($this->loc) {
-                $loc = trim($this->loc);
-                $inv_items->join('inv_locs', 'inv_items.inv_loc_id', '=', 'inv_locs.id')
-                    ->where('inv_locs.name', 'like', '%' . $loc . '%')
-                    ->select('inv_items.*', 'inv_locs.name as loc_names');
-            }
-            if ($this->tag) {
-                $tag = trim($this->tag);
-                $inv_items->join('inv_item_tags', 'inv_items.id', '=', 'inv_item_tags.inv_item_id')
-                    ->join('inv_tags', 'inv_item_tags.inv_tag_id', '=', 'inv_tags.id')
-                    ->where('inv_tags.name', 'like', '%' . $tag . '%')
-                    ->select('inv_items.*', 'inv_tags.name as tag_names');
-            }
-            switch ($this->without) {
-                case 'loc':
-                    $inv_items->whereNull('inv_items.inv_loc_id');
-                    break;
-                case 'tags':
-                    $inv_items->whereNotIn('id', function ($query) {
-                        $query->select('inv_item_id')->from('inv_item_tags');
-                    });
-                    break;
-                case 'photo':
-                    $inv_items->whereNull('inv_items.photo');
-                    break;
-                case 'code':
-                    $inv_items->whereNull('inv_items.code');
-                    break;
-                case 'qty_main_min':
-                    $inv_items->where('inv_items.qty_main_min', 0);
-                    break;
-                case 'qty_main_max':
-                    $inv_items->where('inv_items.qty_main_max', 0);
-                    break;
-            }
-        }
-
-        switch ($this->sort) {
-            case 'updated':
-                $inv_items->orderByDesc('inv_items.updated_at');
-                break;
-            case 'created':
-                $inv_items->orderByDesc('inv_items.created_at');
-                break;
-            case 'price_low':
-                $inv_items->orderBy('inv_items.price');
-                break;
-            case 'price_high':
-                $inv_items->orderByDesc('inv_items.price');
-                break;
-            case 'qty_low':
-                switch ($this->qty) {
-                    case 'total':
-                        $inv_items->selectRaw('*, (inv_items.qty_main + inv_items.qty_used + inv_items.qty_rep) as qty_total')
-                            ->orderBy('qty_total');
-                        break;
-                    case 'main':
-                        $inv_items->orderBy('inv_items.qty_main');
-                        break;
-                    case 'used':
-                        $inv_items->orderBy('inv_items.qty_used');
-                        break;
-                    case 'rep':
-                        $inv_items->orderBy('inv_items.qty_rep');
-                        break;
-                }
-                break;
-            case 'qty_high':
-                switch ($this->qty) {
-                    case 'total':
-                        $inv_items->selectRaw('*, (inv_items.qty_main + inv_items.qty_used + inv_items.qty_rep) as qty_total')
-                            ->orderByDesc('qty_total');
-                        break;
-                    case 'main':
-                        $inv_items->orderByDesc('inv_items.qty_main');
-                        break;
-                    case 'used':
-                        $inv_items->orderByDesc('inv_items.qty_used');
-                        break;
-                    case 'rep':
-                        $inv_items->orderByDesc('inv_items.qty_rep');
-                        break;
-                }
-                break;
-                break;
-
-            case 'alpha':
-                $inv_items->orderBy('inv_items.name');
-                break;
-        }
+        $inv_items = Inventory::itemsBuild(
+            $this->area_ids_clean,
+            $this->q_clean,
+            $this->status,
+            $this->filter,
+            $this->loc,
+            $this->tag,
+            $this->without,
+            $this->sort,
+            $this->qty
+        );
 
         $inv_items = $inv_items->paginate($this->perPage);
 
@@ -215,6 +128,92 @@ class InvSearch extends Component
         // reset according user access rights
         $this->area_ids = ['1'];
         $this->reset('q', 'status', 'qty', 'filter', 'loc', 'tag', 'without');
+    }
+
+    public function download()
+    {
+        $inv_items = Inventory::itemsBuild(
+            $this->area_ids_clean,
+            $this->q_clean,
+            $this->status,
+            $this->filter,
+            $this->loc,
+            $this->tag,
+            $this->without,
+            $this->sort,
+            $this->qty
+        );
+
+        $items = $inv_items->get();
+
+        $curr = InvCurr::find(1)->name;
+
+        // Nama
+        // Deskripsi
+        // Kode
+        // Harga utama
+        // MU utama
+        // Harga sekunder
+        // MU sekunder
+        // Lokasi
+        // Tag
+        // UOM
+        // Qty utama
+        // Qty bekas
+        // Qty diperbaiki
+        // Qty utama min
+        // Qty utama maks
+        // Denom
+        // Status (aktif/Nonaktif)
+        // Dibuat pada
+        // Diperbarui pada
+        
+        // Create CSV file using league/csv
+        $csv = Writer::createFromString('');
+        $csv->insertOne([
+            __('Status'), __('Diperbarui'), __('Qty'), 
+            __('Jenis qty'), __('Qty sebelum'), __('Qty sesudah'),
+            __('Jumlah'), __('Mata uang'), __('Pengguna') . 'ID', __('Pengguna') . __('Nama'), __('Keterangan'),
+            __('Pendelegasi') . 'ID', __('Pendelegasi') . __('Nama'), __('Pengevaluasi') . 'ID', __('Pengevaluasi') . __('Nama')]); // Add headers
+
+        foreach ($items as $item) {
+            $csv->insertOne(
+                [
+                    $item->getStatus(),
+                    $item->updated_at,
+                    $item->qty,
+                    $item->getQtype(),
+                    $item->qty_before,
+                    $item->qty_after,
+                    $item->amount,
+                    $curr,
+                    $item->user->emp_id,
+                    $item->user->name,
+                    $item->remarks,
+                    $item->assigner->emp_id ?? '',
+                    $item->assigner->name ?? '',
+                    $item->evaluator->emp_id ?? '',
+                    $item->evaluator->name ?? '',
+                ]
+            ); // Add data rows
+        }
+
+        // Generate CSV file and return as a download
+        $fileName = $item->inv_item_id . '_' . $item->inv_item->name . '_' . date('Y-m-d_Hs') . '.csv';
+        $this->js('window.dispatchEvent(escKey)'); 
+        $this->js('notyf.success("'.__('Pengunduhan dimulai...').'")'); 
+
+        return Response::stream(
+            function () use ($csv) {
+                echo $csv->toString();
+            },
+            200,
+            [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+            ]
+        );
+
     }
 
     public function updatedLoc()
