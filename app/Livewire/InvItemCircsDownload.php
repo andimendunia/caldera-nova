@@ -50,8 +50,8 @@ class InvItemCircsDownload extends Component
         $csv->insertOne([
             __('Status'), __('Diperbarui'), __('Qty'), 
             __('Jenis qty'), __('Qty sebelum'), __('Qty sesudah'),
-            __('Jumlah'), __('Mata uang'), __('Pengguna'), '', __('Keterangan'),
-            __('Pendelegasi'), '', __('Pengevaluasi'), '']); // Add headers
+            __('Jumlah'), __('Mata uang'), __('Pengguna') . 'ID', __('Pengguna') . __('Nama'), __('Keterangan'),
+            __('Pendelegasi') . 'ID', __('Pendelegasi') . __('Nama'), __('Pengevaluasi') . 'ID', __('Pengevaluasi') . __('Nama')]); // Add headers
 
         foreach ($circs as $circ) {
             $csv->insertOne(
