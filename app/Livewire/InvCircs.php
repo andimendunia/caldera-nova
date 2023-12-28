@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Inventory;
 use Carbon\Carbon;
 use App\Models\Pref;
 use App\Models\User;
+use League\Csv\Writer;
 use App\Models\InvArea;
 use App\Models\InvCirc;
 use App\Models\InvCurr;
@@ -12,7 +14,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Response;
 
 class InvCircs extends Component
 {
@@ -31,6 +33,7 @@ class InvCircs extends Component
     public $end_at = '';
     #[Url]
     public $area_ids = [];
+    public $area_ids_clean = [];
     #[Url]
     public $sort = 'updated';
     public $areas;
@@ -60,106 +63,23 @@ class InvCircs extends Component
     #[On('circ-updated')]
     public function render()
     {
-        $q = trim($this->q);
         // cleanup areas
         $area_ids_set       = $this->area_ids;
         $area_ids_allowed   = $this->areas->pluck('id')->toArray();
         
         $area_ids_clean = array_intersect($area_ids_set, $area_ids_allowed);
-        $area_ids_clean = array_values($area_ids_clean);
+        $this->area_ids_clean = array_values($area_ids_clean);
 
-
-        $circs = InvCirc::join('inv_items', 'inv_circs.inv_item_id', '=', 'inv_items.id')
-        ->whereIn('inv_items.inv_area_id', $area_ids_clean)
-        ->select('inv_circs.*', 'inv_items.name', 'inv_items.desc', 'inv_items.code');
-
-        if ($q) {
-            $circs->where(function (Builder $query) use ($q) {
-                $query->orWhere('inv_items.name', 'LIKE', '%'.$q.'%')
-                      ->orWhere('inv_items.desc', 'LIKE', '%'.$q.'%')
-                      ->orWhere('inv_items.code', 'LIKE', '%'.$q.'%')
-                      ->orWhere('inv_circs.remarks', 'LIKE', '%'.$q.'%');
-            });
-        }
-
-        $statusMap = [
-            'pending'   => 0,
-            'approved'  => 1,
-            'rejected'  => 2,
-        ];
-        $status = [];
-        foreach ($this->status as $i) {
-            // Check if the status exists in the mapping
-            if (array_key_exists($i, $statusMap)) {
-                // Map the status to its corresponding numeric value and add to the new array
-                $status[] = $statusMap[$i];
-            }
-        }
-        if (count($status)) {
-            $circs->whereIn('inv_circs.status', $status);
-        } else {
-            $circs->where('inv_circs.status', 9);
-        }
-
-        $user = trim($this->user);
-        if($user) {
-            $circs->join('users', 'inv_circs.user_id', '=', 'users.id')
-            ->select('inv_circs.*', 'users.name as user_names', 'users.emp_id');
-            $circs->where(function (Builder $query) use ($user) {
-                $query->orWhere('users.name', 'LIKE', '%'.$user.'%')
-                ->orWhere('users.emp_id', 'LIKE', '%'.$user.'%');
-            });
-        }
-
-        $qdirs = $this->qdirs;
-        if(count($qdirs)) {
-            $circs->where(function (Builder $query) use ($qdirs) {
-                $query;
-                if(in_array('deposit', $qdirs)) {
-                    $query->orWhere('inv_circs.qty', '>', 0);
-                }
-                if(in_array('withdrawal', $qdirs)) {
-                    $query->orWhere('inv_circs.qty', '<', 0);
-                }
-                if(in_array('capture', $qdirs)) {
-                    $query->orWhere('inv_circs.qty', 0);
-                }
-            });
-        } else {
-            $circs->whereNull('qty');
-        }
-
-        if($this->start_at && $this->end_at) {
-
-            $start  = Carbon::parse($this->start_at);
-            $end    = Carbon::parse($this->end_at)->addDay();
-
-            $circs->whereBetween('inv_circs.updated_at', [$start, $end]);
-
-        } else {
-            $circs->whereNull('inv_circs.updated_at');
-        }        
-
-        switch ($this->sort) {
-            case 'updated':
-                $circs->orderByDesc('inv_circs.updated_at');
-                break;
-            case 'created':
-                $circs->orderByDesc('inv_circs.created_at');
-                break;            
-            case 'amount_low':
-                $circs->orderBy('inv_circs.amount');
-                break;
-            case 'amount_high':
-                $circs->orderByDesc('inv_circs.amount');
-                break;
-            case 'qty_low':
-                $circs->orderByRaw('ABS(qty)');
-                break;
-            case 'qty_high':
-                $circs->orderByRaw('ABS(qty) DESC');
-                break;        
-        }
+        $circs = Inventory::circsBuild(
+            $this->area_ids_clean, 
+            $this->q, 
+            $this->status, 
+            $this->user, 
+            $this->qdirs, 
+            $this->start_at, 
+            $this->end_at, 
+            $this->sort
+        );
 
         $circs = $circs->paginate($this->perPage);
 
@@ -224,5 +144,77 @@ class InvCircs extends Component
     public function clearIds()
     {
         $this->reset('ids');
+    }
+
+    public function download()
+    {
+        $circs = Inventory::circsBuild(
+            $this->area_ids_clean, 
+            $this->q, 
+            $this->status, 
+            $this->user, 
+            $this->qdirs, 
+            $this->start_at, 
+            $this->end_at, 
+            $this->sort
+        );
+
+        $circs = $circs->get();
+
+        $curr = InvCurr::find(1)->name;
+        
+        // Create CSV file using league/csv
+        $csv = Writer::createFromString('');
+        $csv->insertOne([
+            __('Area'),
+            __('Status'), __('Diperbarui'), __('Qty'), 
+            __('Jenis qty'), __('Qty sebelum'), __('Qty sesudah'),
+            __('Jumlah'), __('Mata uang'), 
+            __('ID Caldera'), __('Kode'), __('Nama'), __('Desc'),
+            __('Pengguna') . 'ID', __('Pengguna') . __('Nama'), __('Keterangan'),
+            __('Pendelegasi') . 'ID', __('Pendelegasi') . __('Nama'), __('Pengevaluasi') . 'ID', __('Pengevaluasi') . __('Nama')]); // Add headers
+
+        foreach ($circs as $circ) {
+            $csv->insertOne(
+                [
+                    $circ->inv_item->inv_area->name,
+                    $circ->getStatus(),
+                    $circ->updated_at,
+                    $circ->qty,
+                    $circ->getQtype(),
+                    $circ->qty_before,
+                    $circ->qty_after,
+                    $circ->amount,
+                    $curr,
+                    $circ->inv_item->id,
+                    $circ->inv_item->code,
+                    $circ->inv_item->name,
+                    $circ->inv_item->desc,
+                    $circ->user->emp_id,
+                    $circ->user->name,
+                    $circ->remarks,
+                    $circ->assigner->emp_id ?? '',
+                    $circ->assigner->name ?? '',
+                    $circ->evaluator->emp_id ?? '',
+                    $circ->evaluator->name ?? '',
+                ]
+            ); // Add data rows
+        }
+
+        // Generate CSV file and return as a download
+        $fileName = __('Sirkulasi') . '_' . date('Y-m-d_Hs') . '.csv';
+        $this->js('window.dispatchEvent(escKey)'); 
+        $this->js('notyf.success("'.__('Pengunduhan dimulai...').'")'); 
+
+        return Response::stream(
+            function () use ($csv) {
+                echo $csv->toString();
+            },
+            200,
+            [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+            ]
+        );
     }
 }

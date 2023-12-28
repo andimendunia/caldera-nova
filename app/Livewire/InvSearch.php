@@ -25,7 +25,6 @@ class InvSearch extends Component
 
     #[Url]
     public $q = '';
-    public $q_clean = '';
     public $qwords = [];
     #[Url]
     public $status = 'active';
@@ -76,8 +75,6 @@ class InvSearch extends Component
 
     public function render()
     {
-        $this->q_clean = trim($this->q);
-
         // cleanup areas
         $area_ids_set    = $this->area_ids;
         $area_ids_auth   = $this->areas->pluck('id')->toArray();
@@ -88,7 +85,7 @@ class InvSearch extends Component
 
         $inv_items = Inventory::itemsBuild(
             $this->area_ids_clean,
-            $this->q_clean,
+            $this->q,
             $this->status,
             $this->filter,
             $this->loc,
@@ -134,7 +131,7 @@ class InvSearch extends Component
     {
         $inv_items = Inventory::itemsBuild(
             $this->area_ids_clean,
-            $this->q_clean,
+            $this->q,
             $this->status,
             $this->filter,
             $this->loc,
@@ -151,23 +148,24 @@ class InvSearch extends Component
         // Create CSV file using league/csv
         $csv = Writer::createFromString('');
         $csv->insertOne([
-            __('ID Caldera'),
+            __('Area'), __('ID Caldera'),
             __('Kode'), __('Nama'), __('Deskripsi'), 
             __('Harga master'), __('Denom'), __('Harga satuan utama'), __('MU utama'), __('Harga satuan sekunder'), __('MU sekunder'),
             __('Lokasi '), __('Tag 1'), __('Tag 2'), __('Tag 3'), __('Tag 4'), __('Tag 5'),
             __('UOM'), __('Qty utama'), __('Qty bekas'), __('Qty diperbaiki'),
-            __('Qty utama min'), __('Qty utama maks'), __('Status'), __('Dibuat pada'), __('Diperbarui pada')
+            __('Qty utama min'), __('Qty utama maks'), __('Aktif'), __('Dibuat pada'), __('Diperbarui pada')
         ]); // Add headers
 
         foreach ($items as $item) {
             $tags = $item->tags_array();
             $csv->insertOne(
                 [
+                    $item->inv_area->name,
                     $item->id,
                     $item->code,
                     $item->name,
                     $item->desc,
-                    $item->price,
+                    $item->price ?? 0,
                     $item->denom(),
                     $item->price(),
                     $curr,
@@ -185,7 +183,7 @@ class InvSearch extends Component
                     $item->qty_rep,
                     $item->qty_main_min,
                     $item->qty_main_max,
-                    $item->status(),
+                    $item->is_active ? 'Y' : 'N',
                     $item->created_at,
                     $item->updated_at
                 ]
