@@ -88,12 +88,13 @@ class InvForm extends Component
             $this->fill(
                 $inv_item->only('name', 'desc', 'code', 'price', 'inv_area_id', 'inv_curr_id', 'price_sec', 'denom', 'qty_main_min', 'qty_main_max', 'photo', 'is_active')
             );
-            //fill uom, loc, tags
+            //fill uom, loc, tags and up
             $this->uom = $inv_item->inv_uom->name ?? '';
             $this->loc = $inv_item->inv_loc->name ?? '';
             $this->tags = $inv_item->tags_array();
             $this->url = '/storage/inv-items/'.$inv_item->photo;
             $this->curr_sec = InvCurr::find($this->inv_curr_id);
+            $this->up = $inv_item->denom() > 1 ? $inv_item->price() : 0;
 
         } elseif ($area) {
             // create mode needs area_id (required) and inv_code (optional)

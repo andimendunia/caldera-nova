@@ -147,59 +147,53 @@ class InvSearch extends Component
         $items = $inv_items->get();
 
         $curr = InvCurr::find(1)->name;
-
-        // Nama
-        // Deskripsi
-        // Kode
-        // Harga utama
-        // MU utama
-        // Harga sekunder
-        // MU sekunder
-        // Lokasi
-        // Tag
-        // UOM
-        // Qty utama
-        // Qty bekas
-        // Qty diperbaiki
-        // Qty utama min
-        // Qty utama maks
-        // Denom
-        // Status (aktif/Nonaktif)
-        // Dibuat pada
-        // Diperbarui pada
         
         // Create CSV file using league/csv
         $csv = Writer::createFromString('');
         $csv->insertOne([
-            __('Status'), __('Diperbarui'), __('Qty'), 
-            __('Jenis qty'), __('Qty sebelum'), __('Qty sesudah'),
-            __('Jumlah'), __('Mata uang'), __('Pengguna') . 'ID', __('Pengguna') . __('Nama'), __('Keterangan'),
-            __('Pendelegasi') . 'ID', __('Pendelegasi') . __('Nama'), __('Pengevaluasi') . 'ID', __('Pengevaluasi') . __('Nama')]); // Add headers
+            __('ID Caldera'),
+            __('Kode'), __('Nama'), __('Deskripsi'), 
+            __('Harga master'), __('Denom'), __('Harga satuan utama'), __('MU utama'), __('Harga satuan sekunder'), __('MU sekunder'),
+            __('Lokasi '), __('Tag 1'), __('Tag 2'), __('Tag 3'), __('Tag 4'), __('Tag 5'),
+            __('UOM'), __('Qty utama'), __('Qty bekas'), __('Qty diperbaiki'),
+            __('Qty utama min'), __('Qty utama maks'), __('Status'), __('Dibuat pada'), __('Diperbarui pada')
+        ]); // Add headers
 
         foreach ($items as $item) {
+            $tags = $item->tags_array();
             $csv->insertOne(
                 [
-                    $item->getStatus(),
-                    $item->updated_at,
-                    $item->qty,
-                    $item->getQtype(),
-                    $item->qty_before,
-                    $item->qty_after,
-                    $item->amount,
+                    $item->id,
+                    $item->code,
+                    $item->name,
+                    $item->desc,
+                    $item->price,
+                    $item->denom(),
+                    $item->price(),
                     $curr,
-                    $item->user->emp_id,
-                    $item->user->name,
-                    $item->remarks,
-                    $item->assigner->emp_id ?? '',
-                    $item->assigner->name ?? '',
-                    $item->evaluator->emp_id ?? '',
-                    $item->evaluator->name ?? '',
+                    $item->price_sec(),
+                    $item->inv_curr->name ?? '',
+                    $item->inv_loc->name ?? '',
+                    $tags[0] ?? '',
+                    $tags[1] ?? '',
+                    $tags[2] ?? '',
+                    $tags[3] ?? '',
+                    $tags[4] ?? '',
+                    $item->inv_uom->name,
+                    $item->qty_main,
+                    $item->qty_used,
+                    $item->qty_rep,
+                    $item->qty_main_min,
+                    $item->qty_main_max,
+                    $item->status(),
+                    $item->created_at,
+                    $item->updated_at
                 ]
             ); // Add data rows
         }
 
         // Generate CSV file and return as a download
-        $fileName = $item->inv_item_id . '_' . $item->inv_item->name . '_' . date('Y-m-d_Hs') . '.csv';
+        $fileName = __('Inventaris') . '_' . date('Y-m-d_Hs') . '.csv';
         $this->js('window.dispatchEvent(escKey)'); 
         $this->js('notyf.success("'.__('Pengunduhan dimulai...').'")'); 
 

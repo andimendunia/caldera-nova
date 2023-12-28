@@ -53,9 +53,29 @@ class InvItem extends Model
         return $this->belongsTo(InvLoc::class);
     }
 
+    public function inv_curr(): BelongsTo
+    {
+        return $this->belongsTo(InvCurr::class);
+    }
+
     public function loc()
     {
         return $this->inv_loc->name ?? '';
+    }
+
+    public function denom(): Int
+    {
+        return (int) ($this->denom ?? 1) > 0 ? $this->denom : 1;
+    }
+
+    public function price()
+    {
+        return number_format($this->price / $this->denom, 2);
+    }
+
+    public function price_sec()
+    {
+        return number_format($this->price_sec / $this->denom, 2);
     }
 
     public function inv_item_tags(): HasMany
@@ -68,7 +88,7 @@ class InvItem extends Model
         return $this->belongsToMany(InvTag::class, 'inv_item_tags', 'inv_item_id', 'inv_tag_id');
     }
 
-    public function tags_array()
+    public function tags_array(): Array
     {
         $inv_tags = $this->inv_tags;
         return $inv_tags->pluck('name')->all();
@@ -133,7 +153,7 @@ class InvItem extends Model
         }
     }
 
-    public function updateTags($tags)
+    public function updateTags($tags): Void
     {
         $tags = array_map('strtolower', $tags);
         $tags = array_map('trim', $tags);
@@ -157,7 +177,7 @@ class InvItem extends Model
         }
     }
 
-    public function updateFreq()
+    public function updateFreq(): Void
     {
         // Fetch the required inv_circs from the table
         $inv_circs = InvCirc::where('inv_item_id', $this->id)
@@ -193,6 +213,11 @@ class InvItem extends Model
                 ]);
             }
         }
+    }
+
+    public function status(): String
+    {
+        return $this->is_active == 1 ? __('Aktif') : __('Nonaktif');
     }
     // protected function price(): Attribute
     // {

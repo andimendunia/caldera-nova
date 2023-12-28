@@ -21,7 +21,7 @@
                     <div>{{ $inv_item->code ? $inv_item->code : __('Tak ada kode') }}</div>
                     <div class="mx-3">•</div>
                     <div>
-                        {{ $inv_item->price ? $inv_curr->name . ' ' . number_format($inv_item->price, 2) . ' / ' . $inv_item->inv_uom->name : __('Tak ada harga') }}
+                        {{ $inv_item->price ? $inv_curr->name . ' ' . $inv_item->price() . ' / ' . $inv_item->inv_uom->name : __('Tak ada harga') }}
                     </div>
                 </div>
                 <div>
