@@ -38,12 +38,14 @@ class AuthenticatedSessionController extends Controller
         $lang   = isset($data['lang']) ? $data['lang'] : 'id';
         $bg     = isset($data['bg']) ? $data['bg'] : 'auto';
         $accent = isset($data['accent']) ? $data['accent'] : 'purple';
+        $mblur  = $data['mblur'] ?? false;
 
         if ($bg == 'auto' && $request['bgm'] == 'dark') {
             session(['bg' => 'dark']);
         } else {
             session(['bg' => $bg]);
         }
+        session(['mblur' => $mblur]);
         session(['lang' => $lang]);
         session(['accent' => $accent]);
 

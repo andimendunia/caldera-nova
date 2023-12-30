@@ -15,6 +15,8 @@
   "Sirkulasi ": "Circulation",
   "Area inventaris" : "Inventory area",
   "Atur ulang": "Reset",
+  "Latar pada dialog melayang seperti ini akan diberi efek blur jika dinyalakan. Pastikan perangkatmu memiliki grafis yang mendukung." : "  Background on floating dialog like this will be blurred if this setting turned on. Make sure your device has adequate graphics.",
+  "Matikan pengaturan ini jika performa menurun." : "Turn off this setting if you experience slow performance.",
   "Preferensi bahasa diperbarui": "Language preference updated",
   "Bahasa": "Language",
   "Harga master": "Master price",

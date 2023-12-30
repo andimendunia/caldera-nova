@@ -259,7 +259,29 @@
                     {{ __('Lainnya') }}
                 </h2>
                 <fieldset>
-                    <x-toggle name="mblur" :checked="$mblur">{{ __('Efek blur pada latar dialog') }}</x-toggle>
+                    <x-toggle name="mblur" :checked="$mblur">{{ __('Efek blur pada latar dialog') }}<x-text-button type="button" class="ml-2" x-data=""
+                        x-on:click.prevent="$dispatch('open-modal', 'mblur-help')"><i class="far fa-question-circle"></i></x-text-button>
+                    </x-toggle>
+                    <x-modal name="mblur-help">
+                        <div class="p-6">
+                            <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                                {{ __('Efek blur pada latar dialog') }}
+                            </h2>
+                            <div class="text-sm text-neutral-600 dark:text-neutral-400">
+                                <p class="mt-3">
+                                    {{__('Latar pada dialog melayang seperti ini akan diberi efek blur jika dinyalakan. Pastikan perangkatmu memiliki grafis yang mendukung.')}}
+                                </p>
+                                <p class="mt-3">
+                                    {{ __('Matikan pengaturan ini jika performa menurun.') }}
+                                </p>
+                            </div>
+                            <div class="mt-6 flex justify-end">
+                                <x-secondary-button type="button" x-on:click="$dispatch('close')">
+                                    {{ __('Paham') }}
+                                </x-secondary-button>
+                            </div>
+                        </div>
+                    </x-modal>
                 </fieldset>
             </div>
             <div class="flex justify-between mx-3 sm:mx-0">

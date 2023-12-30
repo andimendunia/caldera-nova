@@ -23,7 +23,7 @@ class PrefController extends Controller
             case 'theme':
                 $bg = isset($data['bg']) ? $data['bg'] : 'auto';
                 $accent = isset($data['accent']) ? $data['accent'] : 'purple';
-                $mblur = 1;
+                $mblur = $data['mblur'] ?? false;
                 return view('prefs.theme', compact('bg', 'accent', 'mblur'));
                 break;
             
@@ -65,10 +65,13 @@ class PrefController extends Controller
 
     public function updateTheme(Request $request): RedirectResponse
     {
+        $request['mblur'] = $request['mblur'] ?? false ? true : false;
+        // dd($request);
         $validated = $request->validate([
-            'bgm'   => ['nullable', 'string'],
-            'bg'    => ['required', Rule::in(['auto', 'dark', 'light'])],
-            'accent' => ['required', Rule::in(['purple', 'green', 'pink', 'blue', 'teal', 'orange', 'grey', 'brown', 'yellow'])],
+            'bgm'       => ['nullable', 'string'],
+            'bg'        => ['required', Rule::in(['auto', 'dark', 'light'])],
+            'accent'    => ['required', Rule::in(['purple', 'green', 'pink', 'blue', 'teal', 'orange', 'grey', 'brown', 'yellow'])],
+            'mblur'     => ['required', 'bool']
         ]);
 
 
@@ -83,13 +86,16 @@ class PrefController extends Controller
         
         // update: change to collection
         // Update the specific keys or add new keys if they don't exist
-        $existingData['bg'] = $validated['bg']; // Update 'lang' key
+        $existingData['bg']     = $validated['bg']; // Update 'lang' key
         $existingData['accent'] = $validated['accent']; // Update 'lang' key
+        $existingData['mblur']  = $validated['mblur'];
+
         if($validated['bg'] == 'auto' && $validated['bgm'] == 'dark') {
             session(['bg' => 'dark']);
         } else {
             session(['bg' => $validated['bg']]);
         }
+        session(['mblur' => $validated['mblur']]);
         session(['accent' => $validated['accent']]);
         // Update the 'data' field with the modified JSON
         $pref->update(['data' => json_encode($existingData)]);
