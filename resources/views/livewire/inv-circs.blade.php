@@ -76,7 +76,7 @@
                     <x-text-button wire:click="resetCircs" type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-undo"></i>{{__('Atur ulang')}}</x-text-button>
                 </div>
                 <div class="m-3">
-                    <x-text-button type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-print"></i>{{__('Cetak semua')}}</x-text-button>
+                    <x-text-button x-on:click="$dispatch('open-modal', 'inv-circs-print')" type="button" class="text-sm"><i class="fa fa-fw mr-2 fa-print"></i>{{__('Cetak semua')}}</x-text-button>
                 </div>
                 <div class="m-3">
                     <x-text-button type="button" wire:click="download" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{__('Unduh CSV sirkulasi')}}</x-text-button>
@@ -87,6 +87,24 @@
         </div>
     </div>
     <div x-data="{ ids: @entangle('ids') }" class="w-full" x-on:click.away="ids = []">
+        <x-modal name="inv-circs-print">
+            <div  class="p-6">
+                <h2 class="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                    {{ __('Cetak sirkulasi') }}
+                </h2>
+                <div class="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p class="mt-3">
+                        {{ __('Mengarahkanmu ke halaman cetak...') }}
+                    </p>
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button type="button" x-on:click="$dispatch('close')">
+                        {{ __('Tutup') }}
+                    </x-secondary-button>
+                </div>
+            </div>
+            
+        </x-modal>
         <div x-show="!ids.length" class="flex justify-between w-full p-3">
             <div class="my-auto">{{$circs->total().' '.__('sirkulasi')}}</div>
             <div class="flex">
@@ -106,10 +124,10 @@
                 <x-secondary-button x-show="ids.length === 1"
                 class="flex items-center h-full" x-data=""
                 x-on:click.prevent="$dispatch('open-modal', 'circ-show-'+ids[0])"><i class="fa fa-fw fa-eye"></i></x-secondary-button> 
-                <x-secondary-button class="flex items-center h-full"><i class="fa fa-fw fa-print"></i><span class="ml-2 hidden lg:inline">{{__('Cetak')}}</span></x-secondary-button> 
+                <x-secondary-button wire:click="print" x-on:click="$dispatch('open-modal', 'inv-circs-print');" class="flex items-center h-full"><i class="fa fa-fw fa-print"></i><span class="ml-2 hidden lg:inline">{{__('Cetak')}}</span></x-secondary-button> 
                 <div class="btn-group">
-                    <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-up"></i><span class="ml-2">{{__('Setujui')}}</span></x-secondary-button>
-                    <x-secondary-button class="flex items-center"><i class="fa fa-fw fa-thumbs-down"></i></x-secondary-button>                  
+                    <x-secondary-button x-on:click="$dispatch('open-modal', 'inv-circs-approve')" class="flex items-center"><i class="fa fa-fw fa-thumbs-up"></i><span class="ml-2">{{__('Setujui')}}</span></x-secondary-button>
+                    <x-secondary-button x-on:click="$dispatch('open-modal', 'inv-circs-reject')" class="flex items-center"><i class="fa fa-fw fa-thumbs-down"></i></x-secondary-button>                  
                 </div>
                 <x-text-button type="button" @click="ids = []" class="ml-2"><i class="fa fa-fw fa-times"></i></x-text-button>
             </div>

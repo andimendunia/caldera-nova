@@ -146,6 +146,11 @@ class InvCircs extends Component
         $this->reset('ids');
     }
 
+    public function print()
+    {
+        dd($this->ids);
+    }
+
     public function download()
     {
         $circs = Inventory::circsBuild(

@@ -260,7 +260,7 @@
                 </h2>
                 <fieldset>
                     <x-toggle name="mblur" :checked="$mblur">{{ __('Efek blur pada latar dialog') }}<x-text-button type="button" class="ml-2" x-data=""
-                        x-on:click.prevent="$dispatch('open-modal', 'mblur-help')"><i class="far fa-question-circle"></i></x-text-button>
+                        x-on:click="$dispatch('open-modal', 'mblur-help')"><i class="far fa-question-circle"></i></x-text-button>
                     </x-toggle>
                     <x-modal name="mblur-help">
                         <div class="p-6">

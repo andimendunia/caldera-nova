@@ -38,7 +38,10 @@ Route::controller(InvItemController::class)->group(function () {
 });
 
 Route::controller(InvCircController::class)->group(function () {
-    Route::post('/inventory/circs/create', 'create')->middleware('auth')->name('inventory.circs.create');});
+    Route::post('/inventory/circs/create', 'create')->middleware('auth')->name('inventory.circs.create');
+    Route::get('/inventory/circs/print', 'print')->middleware('auth')->name('inventory.circs.print');
+    Route::post('/inventory/circs/', 'update')->middleware('auth')->name('inventory.circs.update');
+});
 
 Route::controller(PrefController::class)->group(function () {
     Route::patch('/prefs/lang', 'updateLang')->middleware('auth')->name('prefs.update.lang');

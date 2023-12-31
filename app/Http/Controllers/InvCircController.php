@@ -150,4 +150,8 @@ class InvCircController extends Controller
         // Return a response, e.g., with the created cat fact
         return response()->json($response, 201);
     }
+    public function print()
+    {
+        return view('inventory.circs.print');
+    }
 }
