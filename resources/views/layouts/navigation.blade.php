@@ -17,7 +17,7 @@
                         {{ __('Inventaris') }}
                     </x-nav-link>
                     @endcan
-                    <x-nav-link href="/insights">
+                    <x-nav-link href="/insight">
                         {{ __('Wawasan') }}
                     </x-nav-link>
                     {{-- <x-nav-link href="/projects">

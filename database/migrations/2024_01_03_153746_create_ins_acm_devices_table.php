@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inv_uoms', function (Blueprint $table) {
+        Schema::create('ins_acm_devices', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inv_uoms');
+        Schema::dropIfExists('ins_acm_devices');
     }
 };

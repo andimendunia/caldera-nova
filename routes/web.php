@@ -7,6 +7,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\InvCircController;
 use App\Http\Controllers\InvItemController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\InsAcmMetricController;
 
 
 /*
@@ -25,10 +26,6 @@ Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('hom
 Route::controller(InventoryController::class)->group(function () {
     Route::get('/inventory', 'index')->middleware('auth')->name('inventory');
 });
-
-// Route::resource('inv_items', InvItemController::class)->only([
-//     'create', 'show', 'edit'
-// ]);
 
 Route::controller(InvItemController::class)->group(function () {
     Route::get('/inventory/items/create', 'create')->middleware('auth')->name('inventory.items.create');
