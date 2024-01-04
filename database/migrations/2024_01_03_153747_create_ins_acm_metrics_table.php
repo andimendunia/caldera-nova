@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedInteger('rate_act');
             $table->datetime('dt_client');
             $table->foreignId('ins_acm_device_id')->constrained()->cascadeOnDelete();
-            $table->datetime('dt_server');
             $table->timestamps();
         });
     }
