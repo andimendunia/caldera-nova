@@ -39,11 +39,31 @@
                         class="mt-3 mb-1"></x-text-input>
                 </div>
             </div>
+            <div class="mt-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4">
+                <div class="flex items-start justify-between">
+                    <div><i class="fa fa-filter mr-3"></i>{{ __('Filter') }}</div>
+                    <div class="flex items-center">
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                                <x-text-button><i class="fa fa-fw fa-ellipsis-v"></i></x-text-button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link href="#" wire:click.prevent="resetFilter">
+                                    {{ __('Kosongkan filter') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
+                </div>
+                <div>
+                    <x-text-input wire:model.live="f_line" class="mt-4" type="search" placeholder="{{ __('Line') }}" name="f_line" />
+                </div>
+            </div>
         </div>
     </div>
     @switch($view)
         @case('raw')
-            <livewire:ins-acm-metrics-raw :$start_at :$end_at />
+            <livewire:ins-acm-metrics-raw :$start_at :$end_at :$f_line />
         @break
         @default
         <div wire:key="no-view" class="w-full py-20">

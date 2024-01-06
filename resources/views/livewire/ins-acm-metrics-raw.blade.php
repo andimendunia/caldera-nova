@@ -1,4 +1,4 @@
-<div class="w-full">
+<div wire:poll class="w-full">
 
     @if (!$metrics->count())
         @if (!$start_at || !$end_at)

@@ -17,10 +17,13 @@ class InsAcmMetrics extends Component
 
     #[Url]
     public $end_at;
+
+    #[Url]
+    public $f_line;
     
     public function render()
     {
-        return view('livewire.ins-acm-metrics', ['start_at' => $this->start_at, 'end_at' => $this->end_at ]);
+        return view('livewire.ins-acm-metrics', ['start_at' => $this->start_at, 'end_at' => $this->end_at, 'f_line' => $this->f_line ]);
     }
 
     public function setToday()
@@ -45,5 +48,10 @@ class InsAcmMetrics extends Component
     {
         $this->start_at = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
         $this->end_at = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
+    }
+
+    public function resetFilter()
+    {
+        $this->reset('f_line');
     }
 }
