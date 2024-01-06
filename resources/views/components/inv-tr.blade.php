@@ -18,8 +18,7 @@
         {{ $uom }}
     </td>
    <td>
-       <span>{{ $name }}</span><br/>
-       <span class="text-sm">{{ $desc }}</span>
+       <span>{{ $name }}</span><span class="mx-2">•</span><span>{{ $desc }}</span>
    </td> 
    <td>{{ $code }}</td>
    <td>{{ $price ? ( $curr  . ' ' . $price . ' / ' . $uom) : null }}</td>

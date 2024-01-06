@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class InsAcmMetricController extends Controller
-{
+{    
     public function store(Request $request): int
     {
         $count      = (int) 0;

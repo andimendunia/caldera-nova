@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PrefController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\InsightController;
 use App\Http\Controllers\InvCircController;
 use App\Http\Controllers\InvItemController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\InsAcmDeviceController;
 use App\Http\Controllers\InsAcmMetricController;
 
 
@@ -21,7 +23,7 @@ use App\Http\Controllers\InsAcmMetricController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::controller(InventoryController::class)->group(function () {
     Route::get('/inventory', 'index')->middleware('auth')->name('inventory');
@@ -44,6 +46,10 @@ Route::controller(PrefController::class)->group(function () {
     Route::patch('/prefs/lang', 'updateLang')->middleware('auth')->name('prefs.update.lang');
     Route::patch('/prefs/theme', 'updateTheme')->middleware('auth')->name('prefs.update.theme');
     Route::get('/prefs','index')->middleware('auth')->name('prefs');
+});
+
+Route::controller(InsightController::class)->group(function () {
+    Route::get('/insight', 'index')->name('insight');
 });
 
 Route::middleware('auth')->group(function () {

@@ -18,7 +18,7 @@ class HomeController extends Controller
             __('Selamat datang!'),
             __('Eh ketemu lagi!'),
             __('Ada yang bisa dibantu?'),
-            __('Hai,'). ' ' . Auth::user()->name.'!',
+            __('Hai,'). ' ' . (Auth::user()->name ?? __('Tamu')).'!',
             __('Gimana gimana?'),
         );
 

@@ -42,7 +42,7 @@ class PrefController extends Controller
             'lang' => ['required', Rule::in(['id', 'en'])],
         ]);
 
-         $pref = Pref::firstOrCreate(
+        $pref = Pref::firstOrCreate(
             ['user_id' => $request->user()->id, 'name' => 'account'],
             ['data' => json_encode([])] // Create a new empty JSON object if the record doesn't exist
         );
