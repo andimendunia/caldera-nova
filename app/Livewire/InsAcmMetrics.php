@@ -20,9 +20,12 @@ class InsAcmMetrics extends Component
 
     #[Url]
     public $f_line;
+
+    public $is_range;
     
     public function render()
     {
+        $this->is_range = $this->view == 'raw' ? true : false;
         return view('livewire.ins-acm-metrics', ['start_at' => $this->start_at, 'end_at' => $this->end_at, 'f_line' => $this->f_line ]);
     }
 

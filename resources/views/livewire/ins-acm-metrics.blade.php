@@ -9,7 +9,7 @@
             </x-select>
             <div class="mt-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4">
                 <div class="flex items-start justify-between">
-                    <div><i class="fa fa-calendar mr-3"></i>{{ __('Rentang') }}</div>
+                    <div><i class="fa fa-calendar mr-3"></i>{{ $is_range ? __('Rentang') : __('Tanggal') }}</div>
                     <div class="flex items-center">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -22,11 +22,11 @@
                                 <x-dropdown-link href="#" wire:click.prevent="setYesterday">
                                     {{ __('Kemarin') }}
                                 </x-dropdown-link>
-                                <hr class="border-neutral-300 dark:border-neutral-600" />
-                                <x-dropdown-link href="#" wire:click.prevent="setThisMonth">
+                                <hr class="border-neutral-300 dark:border-neutral-600 {{ $is_range ? '' : 'hidden' }}" />
+                                <x-dropdown-link href="#" wire:click.prevent="setThisMonth" class="{{ $is_range ? '' : 'hidden' }}">
                                     {{ __('Bulan ini') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="#" wire:click.prevent="setLastMonth">
+                                <x-dropdown-link href="#" wire:click.prevent="setLastMonth" class="{{ $is_range ? '' : 'hidden' }}">
                                     {{ __('Bulan kemarin') }}
                                 </x-dropdown-link>
                             </x-slot>
@@ -36,7 +36,7 @@
                 <div class="mt-5">
                     <x-text-input wire:model.live="start_at" id="inv-date-start" type="date"></x-text-input>
                     <x-text-input wire:model.live="end_at" id="inv-date-end" type="date"
-                        class="mt-3 mb-1"></x-text-input>
+                        class="mt-3 mb-1 {{ $is_range ? '' : 'hidden'}}"></x-text-input>
                 </div>
             </div>
             <div class="mt-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4">
@@ -64,6 +64,12 @@
     @switch($view)
         @case('raw')
             <livewire:ins-acm-metrics-raw :$start_at :$end_at :$f_line />
+        @break
+        @case('line-all')
+            <livewire:ins-acm-metrics-line-all :$start_at :$end_at :$f_line />
+        @break
+        @case('line-single')
+            <livewire:ins-acm-metrics-line-single :$start_at :$end_at :$f_line />
         @break
         @default
         <div wire:key="no-view" class="w-full py-20">
