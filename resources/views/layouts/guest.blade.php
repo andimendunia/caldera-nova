@@ -28,6 +28,9 @@
             <div class="w-full sm:max-w-md mt-10 px-6 py-4 bg-white dark:bg-neutral-800 shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
+            <div class="mt-10">
+                <x-link href="/">{{ __('Halaman depan') }}</x-link>
+            </div>
         </div>
     </body>
 </html>

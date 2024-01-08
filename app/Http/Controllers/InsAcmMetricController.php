@@ -18,11 +18,11 @@ class InsAcmMetricController extends Controller
 
             $validator = Validator::make( $metric,
                 [
-                    'rate_min' => 'required|integer|min:0|max:100',
-                    'rate_max' => 'required|integer|min:0|max:100',
-                    'rate_act' => 'required|integer|min:0|max:100',
+                    'rate_min'  => 'required|integer|min:0|max:100',
+                    'rate_max'  => 'required|integer|min:0|max:100',
+                    'rate_act'  => 'required|integer|min:0|max:100',
                     'dt_client' => 'required|date',
-                    'device_id' => 'exists:App\Models\InsAcmDevice,id',
+                    'line'      => 'required|string|min:1|max:4',
                 ]
             );
     
@@ -33,7 +33,7 @@ class InsAcmMetricController extends Controller
                 $x->rate_max            = $metric['rate_max'];
                 $x->rate_act            = $metric['rate_act'];
                 $x->dt_client           = $metric['dt_client'];
-                $x->ins_acm_device_id   = $metric['device_id'];
+                $x->line                = $metric['line'];
                 $x->save();
             }
 

@@ -18,7 +18,6 @@
                         <p class="text-sm">{{ __('Sistem monitoring konveyor untuk mencatat kecepatan konveyor yang terletak di proses assembly.') }}</p>
                     </div>
                     <x-link href="{{ route('insight', ['nav' => 'acm-metrics']) }}" class="block px-6 py-4"><i class="fa fa-fw fa-arrow-right mr-3"></i>{{ __('Lihat metrik') }}</x-link>
-                    <x-link href="{{ route('insight') }}" class="block px-6 py-4"><i class="fa fa-fw fa-arrow-right mr-3"></i>{{ __('Pendaftaran perangkat') }}</x-link>
                 </div>
             </div>
     @endswitch
