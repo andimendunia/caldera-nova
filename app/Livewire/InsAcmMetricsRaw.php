@@ -17,7 +17,7 @@ class InsAcmMetricsRaw extends Component
     public $end_at;
 
     #[Reactive]
-    public $f_line;
+    public $fline;
 
     public $perPage = 20;
 
@@ -28,9 +28,9 @@ class InsAcmMetricsRaw extends Component
 
         $metrics = InsAcmMetric::whereBetween('dt_client', [$start, $end])->orderBy('dt_client', 'DESC');
 
-        $f_line = trim($this->f_line);
-        if($f_line) {
-            $metrics->where('line', 'LIKE', '%' . $f_line . '%');
+        $fline = trim($this->fline);
+        if($fline) {
+            $metrics->where('line', 'LIKE', '%' . $fline . '%');
         }
 
         $metrics = $metrics->paginate($this->perPage);

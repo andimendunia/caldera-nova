@@ -4,13 +4,14 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use Livewire\Component;
+use App\Models\InsAcmMetric;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Reactive;
 
 class InsAcmMetrics extends Component
 {
     #[Url]
-    public $view;
+    public $view = 'line-all';
 
     #[Url]
     public $start_at;
@@ -19,14 +20,41 @@ class InsAcmMetrics extends Component
     public $end_at;
 
     #[Url]
-    public $f_line;
+    public $fline;
 
+    #[Url]
+    public $sline;
+    public $olines = [];
+
+    public $lineViews   = ['line-single'];
+    public $dateViews   = ['raw', 'line-single'];
+    public $rangeViews  = ['raw'];
+    public $filterViews = ['raw', 'line-all'];
+
+    public $is_line;
+    public $is_date;
     public $is_range;
-    
+    public $is_filter;
+
+    public function mount()
+    {
+        $this->setToday();
+        $this->olines = InsAcmMetric::select('line')
+        ->distinct()
+        ->orderBy('line')
+        ->get()
+        ->pluck('line')
+        ->toArray();
+    }
+
     public function render()
     {
-        $this->is_range = $this->view == 'raw' ? true : false;
-        return view('livewire.ins-acm-metrics', ['start_at' => $this->start_at, 'end_at' => $this->end_at, 'f_line' => $this->f_line ]);
+        $this->is_date      = in_array($this->view, $this->dateViews);
+        $this->is_range     = in_array($this->view, $this->rangeViews);
+        $this->is_line      = in_array($this->view, $this->lineViews);
+        $this->is_filter    = in_array($this->view, $this->filterViews);
+
+        return view('livewire.ins-acm-metrics', ['start_at' => $this->start_at, 'end_at' => $this->end_at, 'fline' => $this->fline ]);
     }
 
     public function setToday()
@@ -55,6 +83,6 @@ class InsAcmMetrics extends Component
 
     public function resetFilter()
     {
-        $this->reset('f_line');
+        $this->reset('fline');
     }
 }

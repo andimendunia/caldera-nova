@@ -72,7 +72,7 @@ class InvCirc extends Model
 
         if ($qty_after < 0) {
             return [
-                'success' => 'error',
+                'status' => 'error',
                 'message' => __('Sirkulasi tak bisa disetujui karena qty barang akan menjadi negatif.'),
             ];
 

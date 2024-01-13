@@ -16,4 +16,8 @@ class InsAcmMetric extends Model
         'dt_client',
         'ins_acm_device_id',
     ];
+
+    protected $casts = [
+        'dt_client' => 'datetime',
+    ];
 }
