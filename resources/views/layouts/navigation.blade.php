@@ -91,8 +91,7 @@
                     </form> --}}
                     <div>
 
-                        <x-link :href="route('login')">
-                            <i class="fa fa-right-to-bracket mr-2"></i>{{ __('Masuk') }}
+                        <x-link :href="route('login')">{{ __('Masuk') }}
                         </x-link>
                     </div>
                 @endif
