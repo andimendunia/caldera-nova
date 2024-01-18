@@ -19,7 +19,7 @@
             </div>
         </div>
     @else
-        <div wire:key="line-single-container" class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg">
+        <div wire:key="line-single-container" class="bg-white shadow sm:rounded-lg">
             <div class="p-6" style="width:100%;height:480px">
                 <livewire:livewire-line-chart wire:key="line-single-chart" key="{{ $lineChartModel->reactiveKey() }}"
                     :line-chart-model="$lineChartModel" />

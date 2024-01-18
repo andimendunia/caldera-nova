@@ -1,7 +1,6 @@
 import './bootstrap';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
-import Chart from 'chart.js/auto';
 
 const notyf = new Notyf({
    duration: 5000,
@@ -18,7 +17,6 @@ const escKey = new KeyboardEvent('keydown', {
    code: 'Escape',
 });
 
-window.Chart = Chart;
 window.notyf = notyf;
 window.escKey = escKey;
 

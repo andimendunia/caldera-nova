@@ -20,22 +20,6 @@ class InsAcmMetricsLineSingle extends Component
 
     public function render()
     {
-        // $data = [
-        //     'Laju' => [
-        //         '08:00' => 8,
-        //         '08:10' => 8,
-        //         '08:20' => 8,
-        //     ],
-        //     'Min' => [
-        //         '08:00' => 7,
-        //         '08:10' => 7,
-        //         '08:20' => 7,
-        //     ],
-        // ];
-
-        // Assuming $startDateTime and $endDateTime are your desired date range
-        // You need to replace these with your actual date range
-
         $start_at  = Carbon::parse($this->start_at);
         $end_at    = Carbon::parse($this->start_at)->addDay();
 
@@ -44,6 +28,7 @@ class InsAcmMetricsLineSingle extends Component
             ->where('line', $this->sline)
             ->where('dt_client', '>=', $start_at)
             ->where('dt_client', '<=', $end_at)
+            ->orderBy('interval_start')
             ->groupBy('interval_start') // Group by every 10 minutes
             ->get();
         
@@ -51,7 +36,7 @@ class InsAcmMetricsLineSingle extends Component
         $data = [];
         
         foreach ($metricsData as $metric) {
-            $time = Carbon::createFromTimestampUTC($metric->interval_start)->format('H:i');
+            $time = Carbon::createFromTimestamp($metric->interval_start)->format('Y-m-d H:i');
             
             $data['avg_rate_act'][$time] = $metric->avg_rate_act;
             $data['avg_rate_min'][$time] = $metric->avg_rate_min;
@@ -60,11 +45,24 @@ class InsAcmMetricsLineSingle extends Component
         $lineChartModel = (new LineChartModel())
             ->multiLine()
             ->withLegend()
-            ->setTitle($this->sline);
+            ->setTitle($this->sline)
+            ->setJsonConfig([
+                'xaxis.type' => "'datetime'",
+                'yaxis.decimalsInFloat' => 1,
+                'colors' => "['#737373', '#D4D4D4']"
+            ]);
+
+            $dict = [
+                'avg_rate_act' => __('Laju rata-rata'),
+                'avg_rate_min' => __('Minimum'),
+                'avg_rate_max' => __('Maksimum')
+            ];
 
             foreach ($data as $seriesName => $seriesData) {
+                $displayName = isset($dict[$seriesName]) ? $dict[$seriesName] : $seriesName;
+
                 foreach ($seriesData as $time => $value) {
-                    $lineChartModel->addSeriesPoint(__($seriesName), $time, $value);
+                    $lineChartModel->addSeriesPoint($displayName, $time, $value);
                 }
             }
 
