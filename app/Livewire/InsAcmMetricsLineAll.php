@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\InsAcmMetric;
 use Livewire\Attributes\Reactive;
+use Illuminate\Support\Facades\DB;
 
 class InsAcmMetricsLineAll extends Component
 {
@@ -14,22 +16,12 @@ class InsAcmMetricsLineAll extends Component
 
     public function render()
     {
-        $rows = InsAcmMetric::where('dt_client', '>=', now()->subDays(90))
-        ->select([
-            'line',
-            'rate_act',  // Select the rate_act directly
-            'dt_client'
-        ]);
-
-        $fline = trim($this->fline);
-        if($fline) {
-            $rows->where('line', 'LIKE', '%' . $fline . '%');
-        }
-
-        $rows = $rows
-        ->groupBy('line')
-        ->orderBy('line', 'asc')  // Sort by dt_client descending
-        ->take(1);
+        $rows = DB::table('ins_acm_metrics')
+        ->select('line')
+        ->selectRaw('MAX(dt_client) as dt_client')
+        ->selectRaw('SUBSTRING_INDEX(GROUP_CONCAT(rate_act ORDER BY dt_client DESC), ",", 1) as rate_act')
+        ->where('dt_client', '>=', Carbon::now()->subDays(90))
+        ->groupBy('line');
 
         $rows = $rows->paginate($this->perPage);
         

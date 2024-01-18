@@ -23,7 +23,7 @@
                     <tr>
                         <td>{{ $row->line }}</td>
                         <td>{{ $row->rate_act }}</td>
-                        <td>{{ $row->dt_client->diffForHumans() }}</td>
+                        <td>{{ $row->dt_client }}</td>
                         <td><i class="fa fa-2xs fa-circle {{ Carbon\Carbon::now()->diffInMinutes($row->dt_client) > 30 ? 'text-red-500' : 'text-green-500' }}"></i></td>
                     </tr>
                 @endforeach
