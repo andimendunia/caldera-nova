@@ -18,6 +18,14 @@
             <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Tentukan tanggal') }}
             </div>
         </div>
+    @elseif(!$lineChartModel->data->count())
+    <div wire:key="no-data" class="py-20">
+        <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
+            <i class="fa fa-ghost"></i>
+        </div>
+        <div class="text-center text-neutral-500 dark:text-neutral-600">{{ __('Tidak ada data') }}
+        </div>
+    </div>
     @else
         <div wire:key="line-single-container" class="bg-white shadow sm:rounded-lg">
             <div class="p-6" style="width:100%;height:480px">

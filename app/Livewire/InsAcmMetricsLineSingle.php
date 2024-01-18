@@ -26,10 +26,9 @@ class InsAcmMetricsLineSingle extends Component
         // Fetch data from the database
         $metricsData = InsAcmMetric::selectRaw('ROUND(TO_SECONDS(dt_client) / (15 * 60)) * (15 * 60) AS interval_start, AVG(rate_act) AS avg_rate_act, AVG(rate_min) AS avg_rate_min')
             ->where('line', $this->sline)
-            ->where('dt_client', '>=', $start_at)
-            ->where('dt_client', '<=', $end_at)
+            ->whereBetween('dt_client', [$start_at, $end_at])
             ->orderBy('interval_start')
-            ->groupBy('interval_start') // Group by every 10 minutes
+            ->groupBy('interval_start') 
             ->get();
         
         // Transform the data into the required format
