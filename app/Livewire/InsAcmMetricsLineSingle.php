@@ -8,6 +8,7 @@ use Livewire\Attributes\On;
 use App\Models\InsAcmMetric;
 use Livewire\Attributes\Reactive;
 use Illuminate\Support\Facades\DB;
+use Asantibanez\LivewireCharts\Models\LineChartModel;
 
 class InsAcmMetricsLineSingle extends Component
 {
@@ -17,112 +18,56 @@ class InsAcmMetricsLineSingle extends Component
     #[Reactive]
     public $start_at;
 
-    public $dataset = [];
-    
-    public $data = [];
-    public $labels = [];
-
     public function render()
     {
-        $this->data = $this->getData();
-        dd($this->data);
-        $this->labels = $this->getLabels();
+        // $data = [
+        //     'Laju' => [
+        //         '08:00' => 8,
+        //         '08:10' => 8,
+        //         '08:20' => 8,
+        //     ],
+        //     'Min' => [
+        //         '08:00' => 7,
+        //         '08:10' => 7,
+        //         '08:20' => 7,
+        //     ],
+        // ];
 
-        $this->dataset = [
-            [
-                'label' => __('Laju (det/psg)'),
-                'backgroundColor' => 'rgba(15,64,97,255)',
-                'borderColor' => 'rgba(15,64,97,255)',
-                'data' => $this->data['rate_act'],
-            ],
-            [
-                'label' => __('Min'),
-                'backgroundColor' => 'rgba(212,212,212,255)',
-                'borderColor' => 'rgba(212,212,212,255)',
-                'data' => $this->data['rate_min'],
-            ],
-        ];
+        // Assuming $startDateTime and $endDateTime are your desired date range
+        // You need to replace these with your actual date range
 
-        return view('livewire.ins-acm-metrics-line-single');
-    }
+        $start_at  = Carbon::parse($this->start_at);
+        $end_at    = Carbon::parse($this->start_at)->addDay();
 
-    public function getData()
-    {
-        $start  = Carbon::parse($this->start_at);
-        $end    = Carbon::parse($this->start_at)->addDay();
-
-        $rawData = DB::table('ins_acm_metrics')
-        ->whereBetween('dt_client', [$start, $end])
-        ->where('line', $this->sline)
-        ->select(
-            // MYSQL
-            // DB::raw('DATE_FORMAT(dt_client, "%H:") as time_interval'),
-            // DB::raw('(MINUTE(dt_client) DIV 15 * 15) as rounded_minutes'),
-            // DB::raw('CONCAT((MINUTE(dt_client) DIV 15 * 15), ":00") as formatted_minutes'),
-            // DB::raw('AVG(rate_act)'),
-            // DB::raw('MIN(rate_min)'),
-            // DB::raw('MAX(rate_max)')
-            // SQLITE
-            DB::raw('strftime("%H:", dt_client) || printf("%02d", (strftime("%M", dt_client) / 15 * 15)) as time_interval'),
-            DB::raw('AVG(rate_act)'),
-            DB::raw('AVG(rate_min)'),
-            DB::raw('AVG(rate_max)')
-        )
-        ->groupBy('time_interval')
-        ->orderBy('time_interval')
-        ->get();
-
-        return $rawData;
-
-        return [
-            'rate_min' => $rawData->pluck('rate_min')->toArray(),
-            'rate_max' => $rawData->pluck('rate_max')->toArray(),
-            'rate_act' => $rawData->pluck('rate_act')->toArray(),
-            'time_interval' => $rawData->pluck('time_interval')->toArray(),
-        ];
-
-        return [
-            'rate_min' => [7,7,7],
-            'rate_max' => [100,100,100],
-            'rate_act' => [8,9,8],
-            'time_interval' => ['00:00', '00:15', '00:30'],
-        ];
-    }
-
-    public function getLabels()
-    {
-        $labels = [];
-        foreach($this->data['time_interval'] as $time)
-        {
-            $labels[] = $time;
+        // Fetch data from the database
+        $metricsData = InsAcmMetric::selectRaw('ROUND(TO_SECONDS(dt_client) / (15 * 60)) * (15 * 60) AS interval_start, AVG(rate_act) AS avg_rate_act, AVG(rate_min) AS avg_rate_min')
+            ->where('line', $this->sline)
+            ->where('dt_client', '>=', $start_at)
+            ->where('dt_client', '<=', $end_at)
+            ->groupBy('interval_start') // Group by every 10 minutes
+            ->get();
+        
+        // Transform the data into the required format
+        $data = [];
+        
+        foreach ($metricsData as $metric) {
+            $time = Carbon::createFromTimestampUTC($metric->interval_start)->format('H:i');
+            
+            $data['avg_rate_act'][$time] = $metric->avg_rate_act;
+            $data['avg_rate_min'][$time] = $metric->avg_rate_min;
         }
-        return $labels;
+        
+        $lineChartModel = (new LineChartModel())
+            ->multiLine()
+            ->withLegend()
+            ->setTitle($this->sline);
+
+            foreach ($data as $seriesName => $seriesData) {
+                foreach ($seriesData as $time => $value) {
+                    $lineChartModel->addSeriesPoint(__($seriesName), $time, $value);
+                }
+            }
+
+        return view('livewire.ins-acm-metrics-line-single', compact('lineChartModel'));
     }
-
-    // public function updated($property, $value)
-    // {
-    //     if ($property === 'sline') {
-    //         $labels = $this->getLabels();
-
-    //         $dataset = [
-    //             [
-    //                 'label' => 'Logged In',
-    //                 'backgroundColor' => 'rgba(15,64,97,255)',
-    //                 'borderColor' => 'rgba(15,64,97,255)',
-    //                 'data' => $this->getData(),
-    //             ],
-    //         ];
-
-    //         $this->dispatch('updateChart', [
-    //             'datasets' => $dataset,
-    //             'labels' => $labels,
-    //         ]); 
-    //     }
-    // }
-
-
-
-
-
-
 }
