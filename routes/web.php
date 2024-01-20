@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KpiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PrefController;
 use App\Http\Controllers\AccountController;
@@ -50,6 +51,10 @@ Route::controller(PrefController::class)->group(function () {
 
 Route::controller(InsightController::class)->group(function () {
     Route::get('/insight', 'index')->name('insight');
+});
+
+Route::controller(KpiController::class)->group(function () {
+    Route::get('/kpi', 'index')->name('kpi');
 });
 
 Route::middleware('auth')->group(function () {

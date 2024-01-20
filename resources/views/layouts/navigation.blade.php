@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('insight')" :active="request()->is('insight*')">
                         {{ __('Wawasan') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('kpi')" :active="request()->is('kpi*')">
+                        {{ __('Laporan KPI') }}
+                    </x-nav-link>
                     {{-- <x-nav-link href="/projects">
                         {{ __('Proyek') }}
                     </x-nav-link> --}}
@@ -124,6 +127,9 @@
             @endcan
             <x-responsive-nav-link :href="route('insight')" :active="request()->is('insight*')">
                 {{ __('Wawasan') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('kpi')" :active="request()->is('kpi*')">
+                {{ __('Laporan KPI') }}
             </x-responsive-nav-link>
             {{-- <x-responsive-nav-link href="#">
                 {{ __('Proyek') }}

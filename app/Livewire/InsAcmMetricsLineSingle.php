@@ -24,37 +24,45 @@ class InsAcmMetricsLineSingle extends Component
         $end_at    = Carbon::parse($this->start_at)->addDay();
 
         // Fetch data from the database
-        $metricsData = InsAcmMetric::selectRaw('ROUND(TO_SECONDS(dt_client) / (15 * 60)) * (15 * 60) AS interval_start, AVG(rate_act) AS avg_rate_act, AVG(rate_min) AS avg_rate_min')
-            ->where('line', $this->sline)
+        $metrics = InsAcmMetric::where('line', $this->sline)
             ->whereBetween('dt_client', [$start_at, $end_at])
-            ->orderBy('interval_start')
-            ->groupBy('interval_start') 
             ->get();
+
+        // dd($metrics);
         
         // Transform the data into the required format
         $data = [];
         
-        foreach ($metricsData as $metric) {
-            $time = Carbon::createFromTimestamp($metric->interval_start)->format('Y-m-d H:i');
-            
-            $data['avg_rate_act'][$time] = $metric->avg_rate_act;
-            $data['avg_rate_min'][$time] = $metric->avg_rate_min;
+        foreach ($metrics as $metric) {      
+            $dt = $metric->dt_client;
+            $data['rate_act'][$dt->toIso8601String()] = $metric->rate_act;
         }
+        
+
+        $max = (int) max($data['rate_act'] ?? [0]);
+        $min = (int) min($data['rate_act'] ?? [0]);
         
         $lineChartModel = (new LineChartModel())
             ->multiLine()
             ->withLegend()
             ->setTitle($this->sline)
             ->setJsonConfig([
+                'markers.size' => "[2]",
+                'markers.colors' => "'#525252'",
+                'markers.strokeWidth' => 0,
                 'xaxis.type' => "'datetime'",
-                'yaxis.decimalsInFloat' => 1,
-                'colors' => "['#737373', '#D4D4D4']"
+                'xaxis.labels.datetimeUTC' => false,
+                'yaxis.decimalsInFloat' => "1",
+                'yaxis.max' => $max + 1,
+                'yaxis.min' => $min - 1,
+                'colors' => "['#A3A3A3']",
+                'tooltip.x.format' => "'HH:mm'"
             ]);
 
             $dict = [
-                'avg_rate_act' => __('Laju rata-rata'),
-                'avg_rate_min' => __('Minimum'),
-                'avg_rate_max' => __('Maksimum')
+                'rate_act' => __('Laju'),
+                'rate_min' => __('Minimum'),
+                'rate_max' => __('Maksimum')
             ];
 
             foreach ($data as $seriesName => $seriesData) {

@@ -2,14 +2,13 @@
 
     @if (!$rows->count())
 
-            <div wire:key="no-match" class="py-20">
-                <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
-                    <i class="fa fa-ghost"></i>
-                </div>
-                <div class="text-center text-neutral-500 dark:text-neutral-600">{{ __('Tidak ada yang cocok') }}
-                </div>
+        <div wire:key="no-match" class="py-20">
+            <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
+                <i class="fa fa-ghost"></i>
             </div>
-
+            <div class="text-center text-neutral-500 dark:text-neutral-600">{{ __('Tidak ada yang cocok') }}
+            </div>
+        </div>
     @else
         <div wire:key="line-all-rows" class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-auto">
             <table class="table table-sm table-truncate text-neutral-600 dark:text-neutral-400">
@@ -24,7 +23,21 @@
                         <td>{{ $row->line }}</td>
                         <td>{{ $row->rate_act }}</td>
                         <td>{{ $row->dt_client }}</td>
-                        <td><i class="fa fa-2xs fa-circle {{ Carbon\Carbon::now()->diffInMinutes($row->dt_client) > 30 ? 'text-red-500' : 'text-green-500' }}"></i></td>
+                        <td>
+                            @if (Carbon\Carbon::now()->diffInMinutes($row->dt_client) > 30)
+                            <div class="flex text-xs gap-x-2 items-center text-red-500">
+                                <i class="fa fa-2xs fa-circle"></i>
+                                <span>{{ __('OFFLINE') }}</span>
+                            </div>
+                            @else
+                            <div class="flex text-xs gap-x-2 items-center text-green-500">
+                                <i class="fa fa-2xs fa-circle"></i>
+                                <span>{{ __('ONLINE') }}</span>
+                            </div>
+                            @endif
+                        </td>
+
+
                     </tr>
                 @endforeach
             </table>
