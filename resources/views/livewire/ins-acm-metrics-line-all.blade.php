@@ -25,15 +25,15 @@
                         <td>{{ $row->dt_client }}</td>
                         <td>
                             @if (Carbon\Carbon::now()->diffInMinutes($row->dt_client) > 30)
-                            <div class="flex text-xs gap-x-2 items-center text-red-500">
-                                <i class="fa fa-2xs fa-circle"></i>
-                                <span>{{ __('OFFLINE') }}</span>
-                            </div>
+                                <div class="flex text-xs gap-x-2 items-center text-red-500">
+                                    <i class="fa fa-2xs fa-circle"></i>
+                                    <span>{{ __('OFFLINE') }}</span>
+                                </div>
                             @else
-                            <div class="flex text-xs gap-x-2 items-center text-green-500">
-                                <i class="fa fa-2xs fa-circle"></i>
-                                <span>{{ __('ONLINE') }}</span>
-                            </div>
+                                <div class="flex text-xs gap-x-2 items-center text-green-500">
+                                    <i class="fa fa-2xs fa-circle"></i>
+                                    <span>{{ __('ONLINE') }}</span>
+                                </div>
                             @endif
                         </td>
 
