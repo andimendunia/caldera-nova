@@ -349,9 +349,15 @@ input[type="checkbox"]:checked + label.custom-checkbox {
     @apply pr-4;
   }
 
-  .table.table-truncate th, .table.table-sm td {
+  .table.table-truncate th, .table.table-truncate td {
     @apply truncate max-w-xs;
   }
+
+  .table.table-kpi tr td:nth-child(2) {
+    @apply min-w-80;
+  }
+
+  
 
   .spinner {
     position: absolute;

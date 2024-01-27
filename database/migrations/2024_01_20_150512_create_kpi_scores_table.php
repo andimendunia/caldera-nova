@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('kpi_scores', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->foreignId('kpi_item_id')->constrained()->cascadeOnDelete();
-            $table->tinyInteger('month');
-            $table->decimal('value');
+            $table->tinyInteger('month'); // max 255
+            $table->decimal('target');
+            $table->decimal('actual');
+            $table->boolean('is_published');
             $table->timestamps();
         });
     }

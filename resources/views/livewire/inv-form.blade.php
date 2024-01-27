@@ -86,7 +86,7 @@
                                 x-on:click.prevent="$dispatch('open-modal', 'inv-denom')"><i
                                     class="far fa-question-circle"></i></x-text-button>
                         </label>
-                        <x-text-input wire:model.live="denom" type="number" placeholder="1"
+                        <x-text-input wire:model.live="denom" type="number" placeholder="1" id="denom"
                             min="1"></x-text-input>
                         <x-modal name="inv-denom">
                             <div class="p-6">

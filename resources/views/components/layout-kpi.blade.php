@@ -18,9 +18,9 @@
         <x-nav-link href="{{ route('kpi', [ 'nav' => 'overview' ])}}" :active="$nav == 'overview'">
             <i class="fa mx-2 fa-fw fa-table text-sm"></i>
         </x-nav-link>
-        <x-nav-link href="{{ route('kpi', [ 'nav' => 'submission' ])}}" :active="$nav == 'submission'">
+        {{-- <x-nav-link href="{{ route('kpi', [ 'nav' => 'submission' ])}}" :active="$nav == 'submission'">
             <i class="fa mx-2 fa-fw fa-pen-to-square text-sm"></i>
-        </x-nav-link>
+        </x-nav-link> --}}
         <x-nav-link href="{{ route('kpi', [ 'nav' => 'admin' ])}}" :active="$nav == 'admin'">
             <i class="fa mx-2 fa-fw fa-ellipsis-h text-sm"></i>
         </x-nav-link>

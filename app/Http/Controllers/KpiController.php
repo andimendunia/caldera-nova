@@ -32,7 +32,7 @@ class KpiController extends Controller
             case 'admin':
                 $title = __('Administrasi');
                 $navs = true;
-                $user = User::find(Auth::user()->id);
+                // $user = User::find(Auth::user()->id);
                 break;
 
             case 'manage-auth':
