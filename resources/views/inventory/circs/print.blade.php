@@ -10,7 +10,10 @@
     </head>
     <body class="font-sans antialiased">
       <div class="max-w-lg mx-auto border-neutral-500 pt-10">
-         hai
+        Hai ini nih ID nya
+        @foreach($ids as $id)
+         {{ $id }}
+         @endforeach
       </div>
 
     </body>

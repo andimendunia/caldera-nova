@@ -148,7 +148,7 @@ class InvCircs extends Component
 
     public function print()
     {
-        dd($this->ids);
+        return redirect(route('inventory.circs.print'))->with('ids', $this->ids);
     }
 
     public function download()

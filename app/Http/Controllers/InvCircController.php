@@ -152,6 +152,8 @@ class InvCircController extends Controller
     }
     public function print()
     {
-        return view('inventory.circs.print');
+        $ids = session('ids') ?? [];
+        // update: maybe sanitize auth and inventory auth?
+        return view('inventory.circs.print', compact('ids'));
     }
 }
