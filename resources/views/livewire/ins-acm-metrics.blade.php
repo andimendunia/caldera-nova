@@ -76,6 +76,14 @@
                         placeholder="{{ __('Line') }}" name="fline" />
                 </div>
             </div>
+            <div class="m-3">
+                <div class="py-4">
+                    @if ($view == 'raw')
+                        <x-text-button type="button" wire:click="download" class="text-sm"><i
+                                class="fa fa-fw mr-2 fa-download"></i>{{ __('Unduh CSV') }}</x-text-button>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
     @switch($view)

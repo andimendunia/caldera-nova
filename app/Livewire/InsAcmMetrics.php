@@ -3,10 +3,12 @@
 namespace App\Livewire;
 
 use Carbon\Carbon;
+use League\Csv\Writer;
 use Livewire\Component;
 use App\Models\InsAcmMetric;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Reactive;
+use Illuminate\Support\Facades\Response;
 
 class InsAcmMetrics extends Component
 {
@@ -84,5 +86,54 @@ class InsAcmMetrics extends Component
     public function resetFilter()
     {
         $this->reset('fline');
+    }
+
+    public function download()
+    {
+        if ($this->view == 'raw')
+        {
+            $start  = Carbon::parse($this->start_at);
+            $end    = Carbon::parse($this->end_at)->addDay();
+    
+            $metrics = InsAcmMetric::whereBetween('dt_client', [$start, $end])->orderBy('dt_client', 'DESC');
+    
+            $items = $metrics->get();
+            
+            // Create CSV file using league/csv
+            $csv = Writer::createFromString('');
+            $csv->insertOne([
+                __('Waktu alat'), __('Waktu server'),
+                __('Line'), __('Laju'), __('Min'), __('Max')
+            ]); // Add headers
+
+            foreach ($items as $item) {
+                $csv->insertOne(
+                    [
+                        $item->dt_client,
+                        $item->created_at,
+                        $item->line,
+                        $item->rate_act,
+                        $item->rate_min,
+                        $item->rate_max,
+                    ]
+                ); // Add data rows
+            }
+    
+            // Generate CSV file and return as a download
+            $fileName = __('Wawasan_ACM') . '_' . date('Y-m-d_Hs') . '.csv';
+            $this->js('window.dispatchEvent(escKey)'); 
+            $this->js('notyf.success("'.__('Pengunduhan dimulai...').'")'); 
+    
+            return Response::stream(
+                function () use ($csv) {
+                    echo $csv->toString();
+                },
+                200,
+                [
+                    'Content-Type' => 'text/csv',
+                    'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+                ]
+            );
+        }
     }
 }

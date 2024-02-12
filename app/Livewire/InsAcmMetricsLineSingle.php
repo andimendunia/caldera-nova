@@ -56,10 +56,8 @@ class InsAcmMetricsLineSingle extends Component
                 'xaxis.min' => $x_min,
                 'xaxis.max' => $x_max,
                 'xaxis.labels.datetimeUTC' => false,
-                'yaxis.decimalsInFloat' => "1",
-                'yaxis.max' => $max + 1,
-                'yaxis.min' => $min - 1,
-                'yaxis.stepSize' => 1,
+                'yaxis.max' => 10,
+                'yaxis.min' => 0,
                 'colors' => "['#A3A3A3']",
                 'tooltip.x.format' => "'HH:mm'"
             ]);
