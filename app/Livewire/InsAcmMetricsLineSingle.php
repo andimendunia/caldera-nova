@@ -41,8 +41,8 @@ class InsAcmMetricsLineSingle extends Component
         $max = (int) max($data['rate_act'] ?? [0]);
         $min = (int) min($data['rate_act'] ?? [0]);
 
-        $x_min = Carbon::now()->startOfDay()->setTime(6, 0, 0)->timestamp * 1000; // Convert to milliseconds
-        $x_max = Carbon::now()->startOfDay()->setTime(17, 0, 0)->timestamp * 1000; // Convert to milliseconds
+        $x_min = $start_at->startOfDay()->setTime(6, 0, 0)->timestamp * 1000; // Convert to milliseconds
+        $x_max = $start_at->startOfDay()->setTime(17, 0, 0)->timestamp * 1000; // Convert to milliseconds
 
         $lineChartModel = (new LineChartModel())
             ->multiLine()
