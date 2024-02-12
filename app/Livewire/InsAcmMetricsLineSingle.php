@@ -37,11 +37,13 @@ class InsAcmMetricsLineSingle extends Component
             $dt = $metric->dt_client;
             $data['rate_act'][$dt->toIso8601String()] = $metric->rate_act;
         }
-        
 
         $max = (int) max($data['rate_act'] ?? [0]);
         $min = (int) min($data['rate_act'] ?? [0]);
-        
+
+        $x_min = Carbon::now()->startOfDay()->setTime(6, 0, 0)->timestamp * 1000; // Convert to milliseconds
+        $x_max = Carbon::now()->startOfDay()->setTime(17, 0, 0)->timestamp * 1000; // Convert to milliseconds
+
         $lineChartModel = (new LineChartModel())
             ->multiLine()
             ->withLegend()
@@ -51,10 +53,13 @@ class InsAcmMetricsLineSingle extends Component
                 'markers.colors' => "'#525252'",
                 'markers.strokeWidth' => 0,
                 'xaxis.type' => "'datetime'",
+                'xaxis.min' => $x_min,
+                'xaxis.max' => $x_max,
                 'xaxis.labels.datetimeUTC' => false,
                 'yaxis.decimalsInFloat' => "1",
                 'yaxis.max' => $max + 1,
                 'yaxis.min' => $min - 1,
+                'yaxis.stepSize' => 1,
                 'colors' => "['#A3A3A3']",
                 'tooltip.x.format' => "'HH:mm'"
             ]);
