@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('kpi_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('kpi_sec_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->smallInteger('year'); // max 32767
             $table->string('unit');

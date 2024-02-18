@@ -36,6 +36,23 @@
                     </div>
                 </div>
             </x-card-link>
+            <x-card-link href="{{ route('kpi', ['nav' => 'manage-secs']) }}">
+                <div class="flex">
+                    <div>
+                        <div class="flex w-16 h-full text-neutral-600 dark:text-neutral-400">
+                            <div class="m-auto"><i class="fa fa-building"></i></div>
+                        </div>
+                    </div>
+                    <div class="grow truncate py-4">
+                        <div class="truncate text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                            {{__('Kelola bagian')}}
+                        </div>                        
+                        <div class="truncate text-sm text-neutral-600 dark:text-neutral-400">
+                            {{__('Kelola bagian sebagai pemisah laporan KPI')}}
+                        </div>
+                    </div>
+                </div>
+            </x-card-link>
         </div>
         
     </div>

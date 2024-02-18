@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kpi_scores', function (Blueprint $table) {
+        Schema::create('kpi_secs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('kpi_item_id')->constrained()->cascadeOnDelete();
-            $table->tinyInteger('month'); // max 255
-            $table->decimal('target');
-            $table->decimal('actual');
-            $table->boolean('is_published');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kpi_scores');
+        Schema::dropIfExists('kpi_secs');
     }
 };

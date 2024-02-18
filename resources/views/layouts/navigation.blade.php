@@ -27,9 +27,9 @@
                     {{-- <x-nav-link href="/projects">
                         {{ __('Proyek') }}
                     </x-nav-link> --}}
-                    {{-- <x-nav-link href="/help">
+                    <x-nav-link :href="route('help')" :active="request()->is('help*')">
                         {{ __('Bantuan') }}
-                    </x-nav-link> --}}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -134,9 +134,9 @@
             {{-- <x-responsive-nav-link href="#">
                 {{ __('Proyek') }}
             </x-responsive-nav-link> --}}
-            {{-- <x-responsive-nav-link href="#">
+            <x-responsive-nav-link :href="route('help')" :active="request()->is('help*')">
                 {{ __('Bantuan') }}
-            </x-responsive-nav-link> --}}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

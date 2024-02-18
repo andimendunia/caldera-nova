@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KpiController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PrefController;
 use App\Http\Controllers\AccountController;
@@ -55,6 +56,10 @@ Route::controller(InsightController::class)->group(function () {
 
 Route::controller(KpiController::class)->group(function () {
     Route::get('/kpi', 'index')->name('kpi');
+});
+
+Route::controller(HelpController::class)->group(function () {
+    Route::get('/help', 'index')->name('help');
 });
 
 Route::middleware('auth')->group(function () {
