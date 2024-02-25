@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\KpiItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class KpiController extends Controller
 {
     public function index(Request $request) {
 
-        // Gate::authorize('viewAny', KpiItem::class);
+        Gate::authorize('viewAny', KpiItem::class);
 
         $prev = '';
         $navs = false;

@@ -147,4 +147,14 @@ class User extends Authenticatable
         return $this->id === 1 ? InvArea::all()->pluck('id')->toArray() : $this->inv_areas->pluck('id')->toArray();
     }
 
+    public function kpi_areas() : BelongsToMany
+    {
+        return $this->belongsToMany(KpiArea::class, 'kpi_auths', 'user_id', 'kpi_area_id');
+    }
+
+    public function kpiAreaIds(): array
+    {
+        return $this->id === 1 ? InvArea::all()->pluck('id')->toArray() : $this->kpi_areas->pluck('id')->toArray();
+    }
+
 }

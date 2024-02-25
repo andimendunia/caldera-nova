@@ -10,9 +10,6 @@ use App\Http\Controllers\InsightController;
 use App\Http\Controllers\InvCircController;
 use App\Http\Controllers\InvItemController;
 use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\InsAcmDeviceController;
-use App\Http\Controllers\InsAcmMetricController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -55,7 +52,7 @@ Route::controller(InsightController::class)->group(function () {
 });
 
 Route::controller(KpiController::class)->group(function () {
-    Route::get('/kpi', 'index')->name('kpi');
+    Route::get('/kpi', 'index')->middleware('auth')->name('kpi');
 });
 
 Route::controller(HelpController::class)->group(function () {
