@@ -32,6 +32,10 @@ class InsAcmMetrics extends Component
     public $dateViews   = ['raw', 'line-single'];
     public $rangeViews  = ['raw'];
     public $filterViews = ['raw', 'line-all'];
+    
+    public $dataIntegrity = 0;
+    public $dataAccuracy = 0;
+    public $dayCount = 0;
 
     public $is_line;
     public $is_date;

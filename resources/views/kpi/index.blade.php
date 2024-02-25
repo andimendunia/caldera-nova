@@ -12,6 +12,9 @@
     @case('manage-auth')
         @include('kpi.admin.manage-auth')
         @break
+    @case('manage-areas')
+        @include('kpi.admin.manage-areas')
+        @break
     @default
     <div class="max-w-xl lg:max-w-6xl mx-auto px-4">
         <div class="text-center">Selamat datang</div>

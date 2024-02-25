@@ -40,6 +40,11 @@ class KpiController extends Controller
                 $prev = route('kpi', ['nav' => 'admin']);
                 break;
 
+            case 'manage-areas':
+                $title = __('Kelola area');
+                $prev = route('kpi', ['nav' => 'admin']);
+                break;
+
             default:
                 $title = __('Beranda');
                 $navs = true;
