@@ -9,6 +9,9 @@
     @case('admin')
         @include('kpi.admin.index')
         @break
+    @case('manage-items')
+        @include('kpi.admin.manage-items')
+        @break
     @case('manage-auth')
         @include('kpi.admin.manage-auth')
         @break

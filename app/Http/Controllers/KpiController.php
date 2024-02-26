@@ -37,6 +37,11 @@ class KpiController extends Controller
                 // $user = User::find(Auth::user()->id);
                 break;
 
+            case 'manage-items':
+                $title = __('Kelola KPI');
+                $prev = route('kpi', ['nav' => 'admin']);
+                break;
+
             case 'manage-auth':
                 $title = __('Kelola wewenang');
                 $prev = route('kpi', ['nav' => 'admin']);

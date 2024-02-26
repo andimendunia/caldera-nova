@@ -40,17 +40,23 @@ class InsAcmMetricsRaw extends Component
 
         $metrics = $metrics->paginate($this->perPage);
 
-        // data accuracy,
+        // Statistics
+
+        $dayCount = DB::table('ins_acm_metrics')
+        ->whereBetween('dt_client', [$start, $end])
+        ->selectRaw('COUNT(DISTINCT DATE_FORMAT(dt_client, "%Y-%m-%d")) as day_count')
+        ->value('day_count');
+
+        $this->days = (int) $dayCount;
+
         $hourCount = DB::table('ins_acm_metrics')
             ->whereBetween('dt_client', [$start, $end])
             ->selectRaw('COUNT(DISTINCT DATE_FORMAT(dt_client, "%Y-%m-%d %H")) as hour_count')
             ->value('hour_count');
 
-        $this->days = (int) $start->diffInDays($end);
-
         $hours = 8; // standard data count in one work day
 
-        $this->integrity = (int) (($hourCount / ($this->days * $hours)) * 100);
+        $this->integrity = (int) ($this->days > 0 ? (($hourCount / ($dayCount * $hours)) * 100) : 0);
 
         $this->accuracy = 0;
 
