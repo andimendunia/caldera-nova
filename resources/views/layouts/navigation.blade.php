@@ -97,7 +97,7 @@
                     </form> --}}
                     <div>
 
-                        <x-link :href="route('login')">{{ __('Masuk') }}
+                        <x-link :href="route('login')" class="text-xs uppercase font-medium leading-5 text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300">{{ __('Masuk') }}
                         </x-link>
                     </div>
                 @endif

@@ -29,7 +29,7 @@
                 {{ $slot }}
             </div>
             <div class="mt-10">
-                <x-link href="/">{{ __('Halaman depan') }}</x-link>
+                <x-link class="text-sm uppercase font-medium leading-5 text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300" href="/">{{ __('Beranda') }}</x-link>
             </div>
         </div>
     </body>
