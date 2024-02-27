@@ -30,13 +30,11 @@ class InsAcmMetricsRaw extends Component
     {
         $start = Carbon::parse($this->start_at);
         $end = Carbon::parse($this->end_at)->addDay();
-
-        $metrics = InsAcmMetric::whereBetween('dt_client', [$start, $end])->orderBy('dt_client', 'DESC');
-
         $fline = trim($this->fline);
-        if ($fline) {
-            $metrics->where('line', 'LIKE', '%' . $fline . '%');
-        }
+
+        $metrics = InsAcmMetric::whereBetween('dt_client', [$start, $end])
+            ->where('line', 'LIKE', '%' . $fline . '%')
+            ->orderBy('dt_client', 'DESC');
 
         $metrics = $metrics->paginate($this->perPage);
 
@@ -46,6 +44,7 @@ class InsAcmMetricsRaw extends Component
         $numeratorIntegrity = DB::table('ins_acm_metrics')
             ->select(DB::raw('CONCAT(DATE(dt_client), LPAD(HOUR(dt_client), 2, "0"), line) as date_hour_line'))
             ->whereBetween('dt_client', [$start, $end])
+            ->where('line', 'LIKE', '%' . $fline . '%')
             ->groupBy('date_hour_line')
             ->get()
             ->count();
@@ -55,23 +54,32 @@ class InsAcmMetricsRaw extends Component
             DB::table('ins_acm_metrics')
                 ->select(DB::raw('CONCAT(DATE(dt_client), line) as date_line'))
                 ->whereBetween('dt_client', [$start, $end])
+                ->where('line', 'LIKE', '%' . $fline . '%')
                 ->groupBy('date_line')
                 ->get()
                 ->count() * 8;
 
         // hitung tanggal
-        $this->days = DB::table('ins_acm_metrics')->select(DB::raw('DATE(dt_client) as date'))->groupBy('date')->get()->count();
+        $this->days = DB::table('ins_acm_metrics')
+            ->select(DB::raw('DATE(dt_client) as date'))
+            ->whereBetween('dt_client', [$start, $end])
+            ->where('line', 'LIKE', '%' . $fline . '%')
+            ->groupBy('date')
+            ->get()
+            ->count();
 
         if ($denominatorIntegrity > 0) {
             $this->integrity = (int) (($numeratorIntegrity / $denominatorIntegrity) * 100);
         }
 
         $numeratorAccuracy = InsAcmMetric::whereBetween('dt_client', [$start, $end])
+            ->where('line', 'LIKE', '%' . $fline . '%') 
             ->whereBetween('rate_act', [0, 10])
             ->get()
             ->count();
 
         $denominatorAccuracy = InsAcmMetric::whereBetween('dt_client', [$start, $end])
+            ->where('line', 'LIKE', '%' . $fline . '%')
             ->get()
             ->count();
 
