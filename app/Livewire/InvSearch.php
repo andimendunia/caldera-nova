@@ -98,7 +98,6 @@ class InvSearch extends Component
         $inv_items = $inv_items->paginate($this->perPage);
 
         // remember preferences
-
         $pref = Pref::updateOrCreate(
             ['user_id' => Auth::user()->id, 'name' => 'inv-search'],
             ['data' => json_encode([

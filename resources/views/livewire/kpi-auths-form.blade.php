@@ -67,7 +67,7 @@
             @endif
         </div>
         <div class="grid grid-cols-1 gap-y-3 mt-6">
-            <x-checkbox id="{{ $auth->id ?? 'new'}}-item-manage" :disabled="!$is_superuser" wire:model="actions" value="item-manage">{{ __('Mengelola KPI') }}</x-checkbox>
+            <x-checkbox id="{{ $auth->id ?? 'new'}}-item-manage" :disabled="!$is_superuser" wire:model="actions" value="item-manage">{{ __('Kelola KPI') }}</x-checkbox>
         </div>
         @can('superuser')
         <div class="mt-6 flex justify-between items-end">
