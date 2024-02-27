@@ -54,7 +54,7 @@
                         </x-modal>
                     </div>
                 </div>
-                <div x-show="filter" x-cloak>
+                <div x-show="filter === true ? true : false" x-cloak x-init="console.log(filter)">
                     <x-text-input-icon wire:model.live="loc" icon="fa fa-fw fa-map-marker-alt" id="inv-loc"
                         class="mt-4" type="search" placeholder="{{ __('Lokasi') }}" list="qlocs" />
                         <datalist id="qlocs">

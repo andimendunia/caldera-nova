@@ -42,30 +42,41 @@ class InsAcmMetricsRaw extends Component
 
         // Statistics
 
-        $dayCount = DB::table('ins_acm_metrics')
-        ->whereBetween('dt_client', [$start, $end])
-        ->selectRaw('COUNT(DISTINCT DATE_FORMAT(dt_client, "%Y-%m-%d")) as day_count')
-        ->value('day_count');
-
-        $this->days = (int) $dayCount;
-
-        $hourCount = DB::table('ins_acm_metrics')
+        // hitung tanggal, jam, line
+        $numeratorIntegrity = DB::table('ins_acm_metrics')
+            ->select(DB::raw('CONCAT(DATE(dt_client), LPAD(HOUR(dt_client), 2, "0"), line) as date_hour_line'))
             ->whereBetween('dt_client', [$start, $end])
-            ->selectRaw('COUNT(DISTINCT DATE_FORMAT(dt_client, "%Y-%m-%d %H")) as hour_count')
-            ->value('hour_count');
+            ->groupBy('date_hour_line')
+            ->get()
+            ->count();
 
-        $hours = 8; // standard data count in one work day
-
-        $this->integrity = (int) ($this->days > 0 ? (($hourCount / ($dayCount * $hours)) * 100) : 0);
-
-        $this->accuracy = 0;
-
-        if ($metrics->total() > 0) {
-            $countAccurate = DB::table('ins_acm_metrics')
-                ->whereBetween('rate_act', [0, 10])
+        // hitung tanggal, line
+        $denominatorIntegrity =
+            DB::table('ins_acm_metrics')
+                ->select(DB::raw('CONCAT(DATE(dt_client), line) as date_line'))
                 ->whereBetween('dt_client', [$start, $end])
-                ->count();
-            $this->accuracy = (int) (( $countAccurate / $metrics->total() ) * 100);
+                ->groupBy('date_line')
+                ->get()
+                ->count() * 8;
+
+        // hitung tanggal
+        $this->days = DB::table('ins_acm_metrics')->select(DB::raw('DATE(dt_client) as date'))->groupBy('date')->get()->count();
+
+        if ($denominatorIntegrity > 0) {
+            $this->integrity = (int) (($numeratorIntegrity / $denominatorIntegrity) * 100);
+        }
+
+        $numeratorAccuracy = InsAcmMetric::whereBetween('dt_client', [$start, $end])
+            ->whereBetween('rate_act', [0, 10])
+            ->get()
+            ->count();
+
+        $denominatorAccuracy = InsAcmMetric::whereBetween('dt_client', [$start, $end])
+            ->get()
+            ->count();
+
+        if ($denominatorAccuracy > 0) {
+            $this->accuracy = (int) (($numeratorAccuracy / $denominatorAccuracy) * 100);
         }
 
         return view('livewire.ins-acm-metrics-raw', compact('metrics'));
