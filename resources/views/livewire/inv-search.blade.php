@@ -150,7 +150,7 @@
                         <i class="fa fa-building relative"><i
                                 class="fa fa-question-circle absolute bottom-0 -right-1 text-lg text-neutral-500 dark:text-neutral-400"></i></i>
                     </div>
-                    <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Pilih area inventaris') }}
+                    <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Pilih area') }}
                     </div>
                 </div>
             @endif

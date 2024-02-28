@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\KpiItem;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Reactive;
 
@@ -11,14 +12,13 @@ class KpiItemsCreate extends Component
 {
     #[Reactive]
     #[Rule('required|exists:App\Models\KpiArea,id')]
-    public $area_id = '';
+    public $area_id;
 
     #[Reactive]
-    public $area_name = '';
+    public $area_name;
 
-    #[Reactive]
     #[Rule('required|integer|min:1970|max:9999')]
-    public $item_year = '';
+    public $item_year;
 
     #[Rule('required|min:1|max:256')]
     public $item_name = '';
@@ -36,6 +36,12 @@ class KpiItemsCreate extends Component
         return view('livewire.kpi-items-create');
     }
 
+    #[On('year-updated')] 
+    public function updateItemYear($year)
+    {
+        $this->item_year = $year;
+    }
+
     public function save()
     {
         $validated = $this->validate();
@@ -43,11 +49,11 @@ class KpiItemsCreate extends Component
         KpiItem::create([
             'kpi_area_id' => $this->area_id,
             'year'        => $this->item_year,
-            'name'        => $this->item_name,
-            'unit'        => $this->item_unit,
+            'name'        => trim($this->item_name),
+            'unit'        => strtoupper(trim($this->item_unit)),
         ]);
         
-        $this->reset(['name']);
+        $this->reset(['item_name', 'item_unit']);
         $this->js('window.dispatchEvent(escKey)'); 
         $this->js('notyf.success("'.__('Item KPI dibuat').'")'); 
         $this->dispatch('updated');

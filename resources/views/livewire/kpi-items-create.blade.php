@@ -8,7 +8,7 @@
         </div>
         <div class="mt-6">
             <label class="block px-3 mb-2 uppercase text-xs">{{ __('Area') }}</label>
-            <div class="px-3">{{ $area_name }}</div>
+            <div class="px-3">{{ $area_name ?? __('Tak ada area yang dipilih') }}</div>
             @error('area_id')
                 <x-input-error messages="{{ $message }}" class="px-3 mt-2" />
             @enderror

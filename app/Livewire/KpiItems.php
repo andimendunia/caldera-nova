@@ -13,9 +13,9 @@ class KpiItems extends Component
     public $area_name;
 
     public $years;
-    public $item_year;
+    public $f_year;
 
-    public $items = [];
+    public $perPage = 24;
 
     public function mount()
     {
@@ -25,21 +25,26 @@ class KpiItems extends Component
     
     public function render()
     {
-        return view('livewire.kpi-items');
+        $kpi_items = KpiItem::where('kpi_area_id', $this->area_id)->where('year', $this->f_year)->paginate($this->perPage);
+
+        return view('livewire.kpi-items', compact('kpi_items'));
     }
 
     public function updated($property)
     {
-        // $property: The name of the current property that was updated
- 
         if ($property === 'area_id') {
             $area = KpiArea::find($this->area_id);
             $area ? $this->area_name = $area->name : $this->reset(['area_name']);
+            $this->getYears();
+        }
+
+        if ($property === 'f_year') {
+            $this->dispatch('year-updated', year: $this->f_year);
         }
     }
 
     public function getYears()
     {
-        $this->years = KpiItem::select('year')->distinct()->pluck('year');
+        $this->years = KpiItem::select('year')->where('kpi_area_id', $this->area_id)->distinct()->pluck('year');
     }
 }
