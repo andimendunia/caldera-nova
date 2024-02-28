@@ -84,6 +84,10 @@
         </div>
         @can('superuser')
         <div class="mt-6 flex justify-between items-end">
+            <x-secondary-button type="submit">
+                <i class="fa fa-save me-2"></i>
+                {{ __('Simpan') }}
+            </x-secondary-button>
             <div>
                 @if($auth_id)
                 <x-text-button type="button" class="uppercase text-xs text-red-500" wire:click="delete">
@@ -91,9 +95,6 @@
                 </x-text-button>
                 @endif
             </div>
-            <x-primary-button type="submit" class="ml-1">
-                {{ __('Simpan') }}
-            </x-primary-button>
         </div>
         @endcan
     </form>

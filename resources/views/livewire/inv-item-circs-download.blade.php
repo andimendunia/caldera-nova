@@ -14,7 +14,7 @@
             <x-input-label for="inv-date-end" :value="__('Sampai')" />
             <x-text-input wire:model.live="end_date" id="inv-date-end" type="date"></x-text-input>
         </div>
-        <x-primary-button type="submit"><i class="fa fa-download mr-2"></i>{{ __('Unduh') }}</x-primary-button>
+        <x-secondary-button type="submit"><i class="fa fa-download mr-2"></i>{{ __('Unduh') }}</x-secondary-button>
     </form>
     <x-spinner-bg wire:loading.class.remove="hidden" wire:target="download"></x-spinner-bg>
     <x-spinner wire:loading.class.remove="hidden"  wire:target="download" class="hidden"></x-spinner>

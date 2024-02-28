@@ -2,7 +2,7 @@
 
 <x-app-layout>
     <x-slot name="title">
-        <title>{{$title.' — '.__('Inventaris')}}</title>
+        <title>{{ $title == __('Inventaris') ? $title : ($title.' — '.__('Inventaris')) }}</title>
     </x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-neutral-800 dark:text-neutral-200 leading-tight">

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->smallInteger('year'); // max 32767
             $table->string('unit');
-            $table->tinyInteger('order'); // max 255
+            $table->tinyInteger('order')->default(0); // max 255
             $table->timestamps();
         });
     }

@@ -53,7 +53,7 @@ class KpiController extends Controller
                 break;
 
             default:
-                $title = __('Beranda');
+                $title = __('Laporan KPI');
                 $navs = true;
         }
 

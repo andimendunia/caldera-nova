@@ -1,4 +1,4 @@
-<div id="content" class="py-12 max-w-2xl mx-auto sm:px-3 text-neutral-800 dark:text-neutral-200">
+<div id="content" class="py-12 max-w-5xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200">
    <livewire:kpi-items />
    <script>
        document.addEventListener("DOMContentLoaded", () => {

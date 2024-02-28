@@ -31,7 +31,7 @@ class InsightController extends Controller
                 break;
 
             default:
-                $title = __('Beranda');
+                $title = __('Wawasan');
                 $navs = true;
         }
 

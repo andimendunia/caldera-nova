@@ -78,7 +78,7 @@ class InventoryController extends Controller
                 break;
 
             default:
-                $title = __('Beranda');
+                $title = __('Inventaris');
                 $navs = true;
         }
 
