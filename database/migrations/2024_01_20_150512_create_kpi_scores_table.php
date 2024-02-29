@@ -18,7 +18,7 @@ return new class extends Migration
             $table->tinyInteger('month'); // max 255
             $table->decimal('target')->nullable();
             $table->decimal('actual')->nullable();
-            $table->boolean('is_published')->default(0);
+            $table->boolean('is_submitted')->default(0);
             $table->timestamps();
 
             $table->unique(['kpi_item_id','month']);

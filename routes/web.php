@@ -9,6 +9,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\InsightController;
 use App\Http\Controllers\InvCircController;
 use App\Http\Controllers\InvItemController;
+use App\Http\Controllers\KpiScoreController;
 use App\Http\Controllers\InventoryController;
 
 /*
@@ -53,6 +54,13 @@ Route::controller(InsightController::class)->group(function () {
 
 Route::controller(KpiController::class)->group(function () {
     Route::get('/kpi', 'index')->middleware('auth')->name('kpi');
+});
+
+Route::controller(KpiScoreController::class)->group(function () {
+    Route::get('/kpi/scores/create', 'create')->middleware('auth')->name('kpi.scores.create');
+    Route::get('/kpi/scores/{id}', 'show')->middleware('auth')->name('kpi.scores.show');
+    Route::get('/kpi/scores/{id}/edit', 'edit')->middleware('auth')->name('kpi.scores.edit');
+    Route::patch('/kpi/scores/', 'update')->middleware('auth')->name('kpi.items.update');
 });
 
 Route::controller(HelpController::class)->group(function () {

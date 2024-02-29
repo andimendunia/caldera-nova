@@ -41,15 +41,22 @@ class KpiItems extends Component
             $area = KpiArea::find($this->area_id);
             $area ? $this->area_name = $area->name : $this->reset(['area_name']);
             $this->getYears();
+            $this->reset(['f_year']);
         }
 
         if ($property === 'f_year') {
             $this->dispatch('year-updated', year: $this->f_year);
         }
     }
-
     public function getYears()
     {
         $this->years = KpiItem::select('year')->where('kpi_area_id', $this->area_id)->distinct()->pluck('year');
+    }
+
+    #[On('set-year')]
+    public function setYear($year)
+    {
+        $this->getYears();
+        $this->f_year = $year;
     }
 }

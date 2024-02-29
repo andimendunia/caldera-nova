@@ -15,7 +15,7 @@
                 <x-select id="year" wire:model.live="f_year">
                     <option value=""></option>
                     @foreach ($years as $year)
-                        <option value="{{ $year }}">{{ $year }}</option>
+                        <option value="{{ $year }}" @if($f_year == $year) selected @endif>{{ $year }}</option>
                     @endforeach
                 </x-select>
             </div>

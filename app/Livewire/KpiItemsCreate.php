@@ -57,6 +57,6 @@ class KpiItemsCreate extends Component
         $this->js('window.dispatchEvent(escKey)'); 
         $this->js('notyf.success("'.__('Item KPI dibuat').'")'); 
         $this->dispatch('updated');
-
+        $this->dispatch('set-year', year:$this->item_year);
     }
 }

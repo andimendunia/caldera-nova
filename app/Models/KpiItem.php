@@ -21,4 +21,18 @@ class KpiItem extends Model
     {
         return $this->belongsTo(KpiArea::class);
     }
+
+    public function kpi_score($month): KpiScore
+    {
+        return KpiScore::firstorCreate([
+            'kpi_item_id'   => $this->id,
+            'month'         => $month
+        ],
+        [
+            'user_id'       => 1
+        ]);
+
+    }
+
+
 }
