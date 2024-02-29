@@ -36,15 +36,15 @@
                 </x-select>
             </div>
             <div class="mb-4">
-                <label class="block px-3 mb-2 uppercase text-sm">{{ __('Filter') }}</label>
-                <div class="bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4">
-                    <x-radio id="f-none" wire:model="filter" name="filter"
-                    value="">{{ __('Semua') }}</x-radio>
-                    <x-radio id="f-no-submission" wire:model="filter" name="filter"
-                    value="empty">{{ __('Belum diserahkan') }}</x-radio>
-                    <x-radio id="f-draft" wire:model="filter" name="filter"
+                <label class="block px-3 mb-2 uppercase text-sm">{{ __('Status') }}</label>
+                <div class="bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4 uppercase text-sm">
+                    <x-radio id="f-none" wire:model="status" name="status"
+                    value="all">{{ __('Semua') }}</x-radio>
+                    <x-radio id="f-no-submission" wire:model="status" name="status"
+                    value="empty">{{ __('Kosong') }}</x-radio>
+                    <x-radio id="f-draft" wire:model="status" name="status"
                     value="draft">{{ __('Draf') }}</x-radio>
-                    <x-radio id="f-submitted" wire:model="filter" name="filter"
+                    <x-radio id="f-submitted" wire:model="status" name="status"
                     value="submitted">{{ __('Diserahkan') }}</x-radio>
                 </div>
             </div>
@@ -56,7 +56,7 @@
             <x-card-link href="#" class="px-6 py-4">
                 <div>Year-over-Year Sales Growth and Market Expansion Rate</div>
                 <div class="truncate mt-2 text-xs text-neutral-600 dark:text-neutral-400 uppercase">
-                    <span>{{ __('Belum diserahkan') }}</span><span class="mx-2">•</span><span class="mr-3"><i
+                    <span>{{ __('Kosong') }}</span><span class="mx-2">•</span><span class="mr-3"><i
                             class="fa fa-paperclip mr-2"></i>0</span><span class="mr-3"><i
                             class="far fa-comment mr-2"></i>0</span>
                 </div>
@@ -80,7 +80,7 @@
             <x-card-link href="#" class="px-6 py-4">
                 <div>Monthly New Leads Acquisition and Conversion Effectiveness Ratio</div>
                 <div class="truncate mt-2 text-xs text-neutral-600 dark:text-neutral-400 uppercase">
-                    <span>{{ __('Belum diserahkan') }}</span><span class="mx-2">•</span><span class="mr-3"><i
+                    <span>{{ __('Kosong') }}</span><span class="mx-2">•</span><span class="mr-3"><i
                             class="fa fa-paperclip mr-2"></i>0</span><span class="mr-3"><i
                             class="far fa-comment mr-2"></i>0</span>
                 </div>
@@ -88,7 +88,7 @@
             <x-card-link href="#" class="px-6 py-4">
                 <div>Monthly New Leads Acquisition and Conversion Effectiveness Ratio</div>
                 <div class="truncate mt-2 text-xs text-neutral-600 dark:text-neutral-400 uppercase">
-                    <span>{{ __('Belum diserahkan') }}</span><span class="mx-2">•</span><span class="mr-3"><i
+                    <span>{{ __('Kosong') }}</span><span class="mx-2">•</span><span class="mr-3"><i
                             class="fa fa-paperclip mr-2"></i>0</span><span class="mr-3"><i
                             class="far fa-comment mr-2"></i>0</span>
                 </div>

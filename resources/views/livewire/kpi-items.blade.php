@@ -78,7 +78,7 @@
                                     <td>
                                         {{ $item->name }}
                                     </td>
-                                    <td>
+                                    <td class="text-sm">
                                         {{ $item->unit }}
                                     </td>
                                 </tr>

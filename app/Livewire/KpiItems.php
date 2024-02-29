@@ -5,15 +5,19 @@ namespace App\Livewire;
 use App\Models\KpiArea;
 use App\Models\KpiItem;
 use Livewire\Component;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 
 class KpiItems extends Component
 {
-    public $areas;
+    #[Url] 
     public $area_id;
     public $area_name;
+    public $areas;
 
-    public $years;
+    #[Url] 
     public $f_year;
+    public $years;
 
     public $perPage = 24;
 
@@ -23,6 +27,7 @@ class KpiItems extends Component
         $this->areas = KpiArea::all();
     }
     
+    #[On('updated')]
     public function render()
     {
         $kpi_items = KpiItem::where('kpi_area_id', $this->area_id)->where('year', $this->f_year)->paginate($this->perPage);

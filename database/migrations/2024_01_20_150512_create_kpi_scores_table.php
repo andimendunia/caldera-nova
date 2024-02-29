@@ -16,10 +16,12 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('kpi_item_id')->constrained()->cascadeOnDelete();
             $table->tinyInteger('month'); // max 255
-            $table->decimal('target');
-            $table->decimal('actual');
-            $table->boolean('is_published');
+            $table->decimal('target')->nullable();
+            $table->decimal('actual')->nullable();
+            $table->boolean('is_published')->default(0);
             $table->timestamps();
+
+            $table->unique(['kpi_item_id','month']);
         });
     }
 

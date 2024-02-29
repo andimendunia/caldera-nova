@@ -19,14 +19,13 @@
                         </x-nav-link>
                     @endcan
                     @can('viewAny', App\Models\KpiItem::class)
-                    <x-nav-link :href="route('kpi')" :active="request()->is('kpi*')">
-                        {{ __('Laporan KPI') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('kpi')" :active="request()->is('kpi*')">
+                            {{ __('Laporan KPI') }}
+                        </x-nav-link>
                     @endcan
                     <x-nav-link :href="route('insight')" :active="request()->is('insight*')">
                         {{ __('Wawasan') }}
                     </x-nav-link>
-
                     {{-- <x-nav-link href="/projects">
                         {{ __('Proyek') }}
                     </x-nav-link> --}}
@@ -97,7 +96,8 @@
                     </form> --}}
                     <div>
 
-                        <x-link :href="route('login')" class="text-xs uppercase font-medium leading-5 text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300">{{ __('Masuk') }}
+                        <x-link :href="route('login')"
+                            class="text-xs uppercase font-medium leading-5 text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300">{{ __('Masuk') }}
                         </x-link>
                     </div>
                 @endif
@@ -129,9 +129,9 @@
                 </x-responsive-nav-link>
             @endcan
             @can('viewAny', App\Models\KpiItem::class)
-            <x-responsive-nav-link :href="route('kpi')" :active="request()->is('kpi*')">
-                {{ __('Laporan KPI') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('kpi')" :active="request()->is('kpi*')">
+                    {{ __('Laporan KPI') }}
+                </x-responsive-nav-link>
             @endcan
             <x-responsive-nav-link :href="route('insight')" :active="request()->is('insight*')">
                 {{ __('Wawasan') }}
@@ -163,7 +163,8 @@
                         @endif
                     </div>
                     <div>
-                        <div class="font-medium text-base text-neutral-800 dark:text-neutral-200">{{ Auth::user()->name }}
+                        <div class="font-medium text-base text-neutral-800 dark:text-neutral-200">
+                            {{ Auth::user()->name }}
                         </div>
                         <div class="font-medium text-sm text-neutral-500">{{ Auth::user()->emp_id }}</div>
                     </div>
