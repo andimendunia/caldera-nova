@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\KpiItem;
+use App\Models\KpiScore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class KpiScoreController extends Controller
 {
-    public function show()
+    public function show($id)
     {
         Gate::authorize('viewAny', KpiItem::class);
 
         $prev = route('kpi', [ 'nav' => 'submission' ]);
         $navs = true;
-        $header = '';
-        $title = '';
+        $title = 'Title placeholder';
 
-        return view('kpi.scores.show', compact('title', 'prev', 'header', 'navs'));
+        $score = KpiScore::find($id);
+        $item = $score->kpi_item;
+
+        return view('kpi.scores.show', compact('title', 'prev', 'navs', 'item'));
     }
 }

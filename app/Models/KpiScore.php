@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class KpiScore extends Model
 {
@@ -17,4 +18,10 @@ class KpiScore extends Model
         'actual',
         'is_submitted'
     ];
+
+    public function kpi_item(): BelongsTo
+    {
+        return $this->belongsTo(KpiItem::class);
+    }
+    
 }
