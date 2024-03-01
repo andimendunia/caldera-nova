@@ -1,5 +1,6 @@
 <div class="w-full">
-
+    <h1 class="text-2xl mb-6 text-neutral-900 dark:text-neutral-100 px-5">
+        {{ __('Line spesifik') }}</h1>
     @if (!$sline)
         <div wire:key="no-line" class="py-20">
             <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">

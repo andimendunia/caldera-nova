@@ -1,5 +1,6 @@
 <div wire:poll class="w-full">
-
+    <h1 class="text-2xl mb-6 text-neutral-900 dark:text-neutral-100 px-5">
+        {{ __('Data mentah') }}</h1>
     @if (!$metrics->count())
         @if (!$start_at || !$end_at)
             <div wire:key="no-range" class="py-20">

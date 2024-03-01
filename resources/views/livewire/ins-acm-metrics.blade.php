@@ -1,11 +1,28 @@
 <div class="flex flex-col gap-x-2 md:gap-x-4 sm:flex-row">
     <div>
         <div class="w-full sm:w-44 md:w-64 px-3 sm:px-0 mb-5">
-            <x-select wire:model.live="view">
+            <div class="btn-group h-10 grid grid-cols-3 w-full">
+                <x-radio-button wire:model.live="view" grow value="line-all" name="view" id="view-list">
+                    <div class="text-center my-auto">
+                        <i class="fa fa-fw fa-display text-center m-auto"></i>
+                    </div>
+                </x-radio-button>
+                <x-radio-button wire:model.live="view" grow value="line-single" name="view" id="view-content">
+                    <div class="text-center my-auto">
+                        <i class="fa fa-fw fa-chart-line text-center m-auto"></i>
+                    </div>
+                </x-radio-button>
+                <x-radio-button wire:model.live="view" grow value="raw" name="view" id="view-grid">
+                    <div class="text-center my-auto">
+                        <i class="fa fa-fw fa-table text-center m-auto"></i>
+                    </div>
+                </x-radio-button>
+            </div>
+            {{-- <x-select wire:model.live="view">
                 <option value="line-all">{{ __('Line - Semua') }}</option>
                 <option value="line-single">{{ __('Line - Spesifik') }}</option>
                 <option value="raw">{{ __('Data mentah') }}</option>
-            </x-select>
+            </x-select> --}}
             <div class="mt-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4 {{ $is_line ? '' : 'hidden' }}">
                 <div class="flex items-start justify-between">
                     <div><i class="fa fa-ruler-horizontal mr-3"></i>{{ __('Line') }}</div>
@@ -77,13 +94,14 @@
                 </div>
             </div>
             @if ($view == 'raw')
-            <div wire:key="raw-panel">
-                <div class="m-3">
-                    <div class="py-4">
-                        <x-text-button type="button" wire:click="download" class="text-sm"><i class="fa fa-fw mr-2 fa-download"></i>{{ __('Unduh CSV') }}</x-text-button>
+                <div wire:key="raw-panel">
+                    <div class="m-3">
+                        <div class="py-4">
+                            <x-text-button type="button" wire:click="download" class="text-sm"><i
+                                    class="fa fa-fw mr-2 fa-download"></i>{{ __('Unduh CSV') }}</x-text-button>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endif
         </div>
     </div>

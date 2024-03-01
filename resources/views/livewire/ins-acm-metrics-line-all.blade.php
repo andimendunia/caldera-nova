@@ -1,4 +1,6 @@
 <div wire:poll class="w-full">
+    <h1 class="text-2xl mb-6 text-neutral-900 dark:text-neutral-100 px-5">
+        {{ __('Ringkasan') }}</h1>
 
     @if (!$rows->count())
 
