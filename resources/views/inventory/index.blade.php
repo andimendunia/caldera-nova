@@ -34,7 +34,27 @@
         @include('inventory.admin.manage-auth')
         @break
     @default
-    <div class="max-w-xl lg:max-w-6xl mx-auto px-4">
+    <div class="max-w-xl lg:max-w-2xl mx-auto px-4 py-16">        
+        <h2 class="text-4xl font-extrabold dark:text-white">{{ __('Selamat datang di Inventaris') }}</h2>
+        <p class="mt-4 mb-12 text-lg text-gray-500">{{ __('Inventaris adalah tempat dimana kamu mencari dan membuat sirkulasi barang') }}</p>
+        <p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">{{ __('Mulai dengan mengklik menu navigasi di pojok kanan atas.') }}</p>
+
+        <ul class="space-y-4 text-left text-gray-500 dark:text-gray-400">
+            <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                <i class="fa fa-search fa-fw me-2"></i>
+                <span><span class="font-semibold text-gray-900 dark:text-white">{{ __('Cari') }}</span>{{ ' ' . __('untuk menjelajah barang dan melakukan sirkulasi barang.') }}</span>
+            </li>
+            <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                <i class="fa fa-arrow-right-arrow-left fa-fw me-2"></i>
+                <span><span class="font-semibold text-gray-900 dark:text-white">{{ __('Sirkulasi') }}</span>{{ ' ' . __('untuk melihat sirkulasi barang yang telah dibuat beserta statusnya.') }}</span>
+            </li>
+            <li class="flex items-center space-x-3 rtl:space-x-reverse">
+                <i class="fa fa-ellipsis-h fa-fw me-2"></i>
+                <span><span class="font-semibold text-gray-900 dark:text-white">{{ __('Administrasi') }}</span> {{ ' ' . __('untuk mengelola barang beserta propertinya dan lainnya.') }}</span>
+            </li>
+        </ul>
+    </div>
+    {{-- <div class="max-w-xl lg:max-w-6xl mx-auto px-4">
         <livewire:inv-home-search />
         <div class="text-neutral-500 dark:text-neutral-200 pb-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4">
@@ -75,7 +95,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
         {{-- 
 
             Wizards

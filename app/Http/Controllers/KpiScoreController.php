@@ -20,6 +20,6 @@ class KpiScoreController extends Controller
         $score = KpiScore::find($id);
         $item = $score->kpi_item;
 
-        return view('kpi.scores.show', compact('title', 'prev', 'navs', 'item'));
+        return view('kpi.scores.show', compact('title', 'prev', 'navs', 'score', 'item'));
     }
 }

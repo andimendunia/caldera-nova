@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="mt-6 flex justify-end">
-            <x-secondary-button class="ml-3">
+            <x-secondary-button type="submit" class="ml-3">
                 {{ __('Lanjut') }}
             </x-secondary-button>
         </div>
