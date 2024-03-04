@@ -2,7 +2,7 @@
     <div>
         <div class="w-full sm:w-44 md:w-64 px-3 sm:px-0 mb-5">
             <div class="mb-4">
-                <label for="area_id" class="block px-3 mb-2 uppercase text-sm">{{ __('Area') }}</label>
+                <label for="area_id" class="block px-3 mb-2 uppercase text-xs text-neutral-500">{{ __('Area') }}</label>
                 <x-select id="area_id" wire:model.live="area_id">
                     <option value=""></option>
                     @foreach ($areas as $area)
@@ -11,7 +11,7 @@
                 </x-select>
             </div>
             <div class="mb-4">
-                <label for="year" class="block px-3 mb-2 uppercase text-sm">{{ __('Tahun') }}</label>
+                <label for="year" class="block px-3 mb-2 uppercase text-xs text-neutral-500">{{ __('Tahun') }}</label>
                 <x-select id="year" wire:model.live="f_year">
                     <option value=""></option>
                     @foreach ($years as $year)
@@ -20,7 +20,7 @@
                 </x-select>                
             </div>
             <div class="mb-4">
-                <label for="month" class="block px-3 mb-2 uppercase text-sm">{{ __('Bulan') }}</label>
+                <label for="month" class="block px-3 mb-2 uppercase text-xs text-neutral-500">{{ __('Bulan') }}</label>
                 <x-select id="month" wire:model.live="month">
                     <option value=""></option>
                     <option value="1">{{ $months[1] }}</option>
@@ -38,7 +38,7 @@
                 </x-select>
             </div>
             <div class="mb-4">
-                <label class="block px-3 mb-2 uppercase text-sm">{{ __('Status') }}</label>
+                <label class="block px-3 mb-2 uppercase text-xs text-neutral-500">{{ __('Status') }}</label>
                 <div class="bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4 uppercase text-sm">
                     <x-radio id="f-none" wire:model.live="status" name="status"
                         :checked="!$status">{{ __('Semua') }}</x-radio>
@@ -62,7 +62,7 @@
                         {{ __('Pilih area') }}
                     </div>
                 </div>
-            @elseif (!$year)
+            @elseif (!$f_year)
                 <div wire:key="no-year" class="py-20">
                     <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
                         <i class="fa fa-calendar relative"><i

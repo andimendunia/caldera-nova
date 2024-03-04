@@ -354,7 +354,11 @@ input[type="checkbox"]:checked + label.custom-checkbox {
   }
 
   .table.table-kpi tr td:nth-child(2) {
-    @apply min-w-80;
+    @apply min-w-72;
+  }
+
+  .table.table-kpi tr td:nth-child(n+4):nth-child(-n+15) {
+    @apply min-w-10 p-1;
   }
 
   

@@ -33,19 +33,6 @@ class KpiSubmission extends Component
 
     public function mount()
     {
-        $user = User::find(Auth::user()->id);
-        // check for superuser
-        $this->areas = $user->id === 1 ? KpiArea::all() : $user->kpi_areas;
-
-        $pref = Pref::where('user_id', $user->id)
-            ->where('name', 'kpi-submission')
-            ->first();
-        $pref = json_decode($pref->data ?? '{}', true);
-        $this->area_id = isset($pref['area_id']) ? $pref['area_id'] : '';
-        $this->f_year = isset($pref['f_year']) ? $pref['f_year'] : '';
-        $this->month = isset($pref['month']) ? $pref['month'] : '';
-        $this->status = isset($pref['status']) ? $pref['status'] : '';
-
         $this->months = [
             1 => __('Januari'),
             2 => __('Februari'),
@@ -60,6 +47,19 @@ class KpiSubmission extends Component
             11 => __('November'),
             12 => __('Desember'),
         ];
+
+        $user = User::find(Auth::user()->id);
+        // check for superuser
+        $this->areas = $user->id === 1 ? KpiArea::all() : $user->kpi_areas;
+
+        $pref = Pref::where('user_id', $user->id)
+            ->where('name', 'kpi-submission')
+            ->first();
+        $pref = json_decode($pref->data ?? '{}', true);
+        $this->area_id = isset($pref['area_id']) ? $pref['area_id'] : '';
+        $this->f_year = isset($pref['f_year']) ? $pref['f_year'] : '';
+        $this->month = isset($pref['month']) ? $pref['month'] : '';
+        $this->status = isset($pref['status']) ? $pref['status'] : '';
     }
 
     public function updated($property)
@@ -76,7 +76,7 @@ class KpiSubmission extends Component
         $this->years = KpiItem::orderBy('year', 'DESC')->select('year')->where('kpi_area_id', $this->area_id)->distinct()->pluck('year');
 
         // remember preferences
-        $pref = Pref::updateOrCreate(
+        Pref::updateOrCreate(
             ['user_id' => Auth::user()->id, 'name' => 'kpi-submission'],
             [
                 'data' => json_encode([
@@ -88,7 +88,7 @@ class KpiSubmission extends Component
             ],
         );
 
-        $items = new Collection([]);
+        $items = [];
 
         $validator = Validator::make(
             [
@@ -104,6 +104,9 @@ class KpiSubmission extends Component
         );
 
         if ($validator->passes()) {
+
+            // Create empty kpi scores for selected month if doesn't exists
+
             $kpi_items = KpiItem::where('kpi_area_id', $this->area_id)
                 ->where('year', $this->f_year)
                 ->get();
@@ -147,14 +150,14 @@ class KpiSubmission extends Component
 
             $items = $items->get()->toArray();
 
-            // add comments and files count
+            // Add comments and files count
 
             foreach ($items as $key => $item) {
                 $kpi_score = KpiScore::find($item['kpi_score_id']);
                 $items[$key]['comments_count'] = $kpi_score ? $kpi_score->com_items_count() : 0;
-                $items[$key]['files_count']    = $kpi_score ? $kpi_score->com_files_count(): 0;
+                $items[$key]['files_count']    = $kpi_score ? $kpi_score->com_files_count() : 0;
             }
-            // dd($items);
+
         }
 
         return view('livewire.kpi-submission', compact('items'));

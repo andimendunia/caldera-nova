@@ -16,14 +16,14 @@
     <div class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg ">
         <form wire:submit="update" class="grid grid-cols-1 gap-8 px-4 py-5">
             <div>
-                <label for="kpi-score-target" class="block px-3 mb-2 uppercase text-xs">{{ __('Target') }}</label>
+                <label for="kpi-score-target" class="block px-3 mb-2 uppercase text-xs text-neutral-500">{{ __('Target') }}</label>
                 <x-text-input-suffix wire:model="target" id="kpi-score-target" suffix="{{ $item->unit }}" type="number" />
                 @error('target')
                     <x-input-error messages="{{ $message }}" class="px-3 mt-2" />
                 @enderror
             </div>
             <div>
-                <label for="kpi-score-actual" class="block px-3 mb-2 uppercase text-xs">{{ __('Aktual') }}</label>
+                <label for="kpi-score-actual" class="block px-3 mb-2 uppercase text-xs text-neutral-500">{{ __('Aktual') }}</label>
                 <x-text-input-suffix wire:model="actual" id="kpi-score-actual" suffix="{{ $item->unit }}" type="number" />
                 @error('actual')
                     <x-input-error messages="{{ $message }}" class="px-3 mt-2" />

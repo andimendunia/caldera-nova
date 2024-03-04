@@ -2,7 +2,7 @@
     <div>
         <div class="w-full sm:w-44 md:w-64 px-3 sm:px-0 mb-5">
             <div class="mb-4">
-                <label for="area_id" class="block px-3 mb-2 uppercase text-sm">{{ __('Area') }}</label>
+                <label for="area_id" class="block px-3 mb-2 uppercase text-xs text-neutral-500">{{ __('Area') }}</label>
                 <x-select id="area_id" wire:model.live="area_id">
                     <option value=""></option>
                     @foreach ($areas as $area)
@@ -11,7 +11,7 @@
                 </x-select>
             </div>
             <div class="mb-4">
-                <label for="year" class="block px-3 mb-2 uppercase text-sm">{{ __('Tahun') }}</label>
+                <label for="year" class="block px-3 mb-2 uppercase text-xs text-neutral-500">{{ __('Tahun') }}</label>
                 <x-select id="year" wire:model.live="f_year">
                     <option value=""></option>
                     @foreach ($years as $year)

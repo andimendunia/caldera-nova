@@ -27,7 +27,7 @@
         <ul class="space-y-4 text-left text-neutral-500 dark:text-neutral-400">
             <li class="flex items-center space-x-3 rtl:space-x-reverse">
                 <i class="fa fa-table fa-fw me-2"></i>
-                <span><span class="font-semibold text-neutral-900 dark:text-white">{{ __('Ringkasan') }}</span>{{ ' ' . __('untuk melihat ringkasan KPI dalam satu tahun.') }}</span>
+                <span><span class="font-semibold text-neutral-900 dark:text-white">{{ __('Ikhtisar') }}</span>{{ ' ' . __('untuk melihat ringkasan KPI dalam satu tahun.') }}</span>
             </li>
             <li class="flex items-center space-x-3 rtl:space-x-reverse">
                 <i class="fa fa-pen-to-square fa-fw me-2"></i>
