@@ -51,7 +51,10 @@ class KpiItemsEdit extends Component
 
         $item = KpiItem::find($this->item->id);
         if ($item) {
-            $item->update($validated); 
+            $item->update([
+                'name' => trim($this->name),
+                'unit' => strtoupper(trim($this->unit)),
+            ]); 
             $this->js('window.dispatchEvent(escKey)'); 
             $this->js('notyf.success("'.__('Item KPI diperbarui').'")'); 
             $this->dispatch('updated');

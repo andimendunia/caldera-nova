@@ -211,7 +211,7 @@ input[type="checkbox"]:checked + label.custom-checkbox {
 }
 
 .cal-radio label i {
-  margin-right: -1px;
+  @apply -mr-px
 }
 
 .btn-group, .spinner-group {
@@ -231,7 +231,7 @@ input[type="checkbox"]:checked + label.custom-checkbox {
 }
 
 .btn-group button, .btn-group .cal-radio label {
-  margin-left:-1px;
+  @apply -ml-px
 }
 
 .btn-group button:first-child, .spinner-group button:first-child {

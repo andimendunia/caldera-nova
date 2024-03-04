@@ -2,35 +2,44 @@
 
 namespace App\Livewire;
 
+use App\Models\KpiItem;
 use Livewire\Component;
+use App\Models\KpiScore;
 
 class KpiScoreShow extends Component
 {
-    public $item;
-    public $score;
-    
-    public $months;
+    public KpiItem $item;
+    public KpiScore $score;
 
-    public function mount()
+    public $target;
+    public $actual;
+    public $is_submitted;
+    
+    public $month_name;
+
+    public function mount(KpiScore $score)
     {
-        $this->months = [
-            1 => __('Januari'),
-            2 => __('Februari'),
-            3 => __('Maret'),
-            4 => __('April'),
-            5 => __('Mei'),
-            6 => __('Juni'),
-            7 => __('Juli'),
-            8 => __('Agustus'),
-            9 => __('September'),
-            10 => __('Oktober'),
-            11 => __('November'),
-            12 => __('Desember'),
-        ];
+        $this->score = $score;
+
+        $this->target       = (int) $score->target;
+        $this->actual       = (int) $score->actual;
+        $this->is_submitted = (bool) $score->is_submitted;
     }
 
     public function render()
     {
         return view('livewire.kpi-score-show');
+    }
+
+    public function update()
+    {
+        // update: add validation
+
+        $this->score->update([
+            'target'        => $this->target,
+            'actual'        => $this->actual,
+            'is_submitted'  => $this->is_submitted
+        ]);
+        $this->js('notyf.success("'.__('Skor KPI diperbarui').'")'); 
     }
 }

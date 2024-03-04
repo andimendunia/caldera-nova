@@ -12,10 +12,12 @@
             </div>
             <div class="mb-4">
                 <label for="year" class="block px-3 mb-2 uppercase text-sm">{{ __('Tahun') }}</label>
-                <x-select id="year" wire:model.live="year">
+                <x-select id="year" wire:model.live="f_year">
                     <option value=""></option>
-                    <option value="2024">2024</option>
-                </x-select>
+                    @foreach ($years as $year)
+                        <option value="{{ $year }}" @if($f_year == $year) selected @endif>{{ $year }}</option>
+                    @endforeach
+                </x-select>                
             </div>
             <div class="mb-4">
                 <label for="month" class="block px-3 mb-2 uppercase text-sm">{{ __('Bulan') }}</label>
@@ -38,20 +40,18 @@
             <div class="mb-4">
                 <label class="block px-3 mb-2 uppercase text-sm">{{ __('Status') }}</label>
                 <div class="bg-white dark:bg-neutral-800 shadow rounded-lg py-3 px-4 uppercase text-sm">
-                    <x-radio id="f-none" wire:model="status" name="status"
-                        value="all">{{ __('Semua') }}</x-radio>
-                    <x-radio id="f-no-submission" wire:model="status" name="status"
-                        value="empty">{{ __('Kosong') }}</x-radio>
-                    <x-radio id="f-draft" wire:model="status" name="status"
+                    <x-radio id="f-none" wire:model.live="status" name="status"
+                        :checked="!$status">{{ __('Semua') }}</x-radio>
+                    <x-radio id="f-draft" wire:model.live="status" name="status" :checked="$status == 'draft'"
                         value="draft">{{ __('Draf') }}</x-radio>
-                    <x-radio id="f-submitted" wire:model="status" name="status"
+                    <x-radio id="f-submitted" wire:model.live="status" name="status" :checked="$status == 'submitted'"
                         value="submitted">{{ __('Diserahkan') }}</x-radio>
                 </div>
             </div>
         </div>
     </div>
-    <div class="w-full">        
-        @if (!$items->count())
+    <div class="w-full">
+        @if (!count($items))
             @if (!$area_id)
                 <div wire:key="no-area" class="py-20">
                     <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
@@ -81,24 +81,37 @@
                     </div>
                 </div>
             @else
-                <div wire:key="no-items">
-                    <div class="text-center py-12">
-                        {{ __('Tak ada KPI dalam masa ini') }}
+                <div wire:key="no-match" class="py-20">
+                    <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
+                        <i class="fa fa-ghost"></i>
+                    </div>
+                    <div class="text-center text-neutral-400 dark:text-neutral-600">{{ __('Tidak ada yang cocok') }}
                     </div>
                 </div>
             @endif
         @else
-            <h1 class="text-2xl mb-6 text-neutral-900 dark:text-neutral-100 px-5 text-right">
-                {{ $months[$month] . ' ' . $year }}</h1>
+            <h1 class="text-2xl mb-6 text-neutral-900 dark:text-neutral-100 px-5">
+                {{ $months[$month] . ' ' . $f_year }}</h1>
             <div class="grid grid-cols-1 gap-3">
                 @foreach ($items as $item)
-                    <x-card-link href="{{ route('kpi.scores.show', ['id' => $item->kpi_score($month)->id ]) }}"
+                    <x-card-link href="{{ route('kpi.scores.show', ['id' => $item['kpi_score_id']]) }}"
                         class="px-6 py-4">
-                        <div>{{ $item->name }}</div>
-                        <div class="truncate mt-2 text-xs text-neutral-600 dark:text-neutral-400 uppercase">
-                            <span>{{ __('Kosong') }}</span><span class="mx-2">•</span><span class="mr-3"><i
-                                    class="fa fa-paperclip mr-2"></i>0</span><span class="mr-3"><i
-                                    class="far fa-comment mr-2"></i>0</span>
+                        <div>{{ $item['kpi_item_name'] }}</div>
+                        <div class="flex truncate mt-2 text-xs text-neutral-600 dark:text-neutral-400 uppercase">
+                            @if ($item['kpi_score_is_submitted'])
+                                <div class="text-green-500">{{ __('Diserahkan') }}</div>
+                            @else
+                                <div>{{ __('Draf') }}</div>
+                            @endif
+                            @if ($item['comments_count'])
+                                <div class="mx-2">•</div>
+                                <div class="mr-3"><i class="far fa-comment mr-2"></i>{{ $item['comments_count'] }}
+                                </div>
+                                @if ($item['files_count'])
+                                    <div class="mr-3"><i class="fa fa-paperclip mr-2"></i>{{ $item['files_count'] }}
+                                    </div>
+                                @endif
+                            @endif
                         </div>
                     </x-card-link>
                 @endforeach

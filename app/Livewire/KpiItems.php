@@ -50,7 +50,7 @@ class KpiItems extends Component
     }
     public function getYears()
     {
-        $this->years = KpiItem::select('year')->where('kpi_area_id', $this->area_id)->distinct()->pluck('year');
+        $this->years = KpiItem::orderBy('year', 'DESC')->select('year')->where('kpi_area_id', $this->area_id)->distinct()->pluck('year');
     }
 
     #[On('set-year')]
