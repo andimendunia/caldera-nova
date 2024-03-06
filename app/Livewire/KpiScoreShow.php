@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\KpiItem;
 use Livewire\Component;
 use App\Models\KpiScore;
+use Livewire\Attributes\Url;
 
 class KpiScoreShow extends Component
 {

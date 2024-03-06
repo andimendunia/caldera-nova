@@ -52,7 +52,7 @@
                     @foreach (range(1, 12) as $m)
                         <td>
                             @if($item[$m]['kpi_score_id'])
-                            <x-link class="block p-1" :href="route('kpi.scores.show', ['id' => $item[$m]['kpi_score_id'] ])">
+                            <x-link class="block p-1" :href="route('kpi.scores.show', ['id' => $item[$m]['kpi_score_id'], 'from' => 'overview' ] )">
                                     <div><span class="{{ $item[$m]['target'] !== '' ? '' : 'opacity-0' }}">{{ $item[$m]['target'] }}</span></div>
                                     <div><span class="{{ $item[$m]['actual'] !== '' ? '' : 'opacity-0' }}">{{ $item[$m]['actual'] }}</span></div>
                             </x-link>

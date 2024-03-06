@@ -94,7 +94,7 @@
                 {{ $months[$month] . ' ' . $f_year }}</h1>
             <div class="grid grid-cols-1 gap-3">
                 @foreach ($items as $item)
-                    <x-card-link href="{{ route('kpi.scores.show', ['id' => $item['kpi_score_id']]) }}"
+                    <x-card-link href="{{ route('kpi.scores.show', ['id' => $item['kpi_score_id'], 'from' => 'submission']) }}"
                         class="px-6 py-4">
                         <div>{{ $item['kpi_item_name'] }}</div>
                         <div class="flex truncate mt-2 text-xs text-neutral-600 dark:text-neutral-400 uppercase">

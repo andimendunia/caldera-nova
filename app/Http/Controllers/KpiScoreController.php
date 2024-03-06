@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Gate;
 
 class KpiScoreController extends Controller
 {
-    public function show($id)
+    public function show($id, Request $request)
     {
         Gate::authorize('viewAny', KpiItem::class);
 
-        $prev = route('kpi', [ 'nav' => 'submission' ]);
+        $prev = $request['from'] == 'overview' ? route('kpi', [ 'nav' => 'overview' ]) : route('kpi', [ 'nav' => 'submission' ]);
+
         $navs = true;
 
         $months = [

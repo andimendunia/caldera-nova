@@ -35,8 +35,8 @@ class InvMassCirc extends Component
         
         $validator = Validator::make(
             ['file' => $this->file ],
-            ['file' => 'required|mimetypes:text/csv|max:1024'],
-            ['mimetypes' => __('Berkas harus berupa CSV'), 'max' => __('Berkas maksimal 1 MB')]
+            ['file' => 'required|max:1024'],
+            ['max' => __('Berkas maksimal 1 MB')]
         );
 
         if ($validator->fails()) {

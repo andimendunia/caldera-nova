@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\InvArea;
+use App\Models\InvItem;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 
@@ -51,14 +52,22 @@ class InvAreasEdit extends Component
 
     public function delete()
     {
-        // update: potential bug. Delete only when there is no inv_items using it
-
+        $count = InvItem::where('inv_area_id', $this->area->id)->count();
         $area = InvArea::find($this->area->id);
+
         if ($area) {
-            $area->delete();
-            $this->js('window.dispatchEvent(escKey)'); 
-            $this->js('notyf.success("'.__('Area dihapus').'")'); 
-            $this->dispatch('updated');
+            if ($count > 0)
+            {
+                $this->js('window.dispatchEvent(escKey)'); 
+                $this->js('notyf.error("' . '\"' . $area->name . '\" ' . __('berisi barang') . '")'); 
+
+            } else {
+                        $area->delete();
+                $this->js('window.dispatchEvent(escKey)'); 
+                $this->js('notyf.success("'.__('Area dihapus').'")'); 
+                $this->dispatch('updated');
+            }
+
         }
 
     }

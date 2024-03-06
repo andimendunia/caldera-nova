@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\InvUom;
+use App\Models\InvItem;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 
@@ -52,15 +53,26 @@ class InvUomsEdit extends Component
 
     public function delete()
     {
-        // update: potential bug. Delete only when there is no inv_items using it
-
+        $count = InvItem::where('inv_uom_id', $this->uom->id)->count();
         $uom = InvUom::find($this->uom->id);
+
         if ($uom) {
-            $uom->delete();
-            $this->js('window.dispatchEvent(escKey)'); 
-            $this->js('notyf.success("'.__('UOM dihapus').'")'); 
-            $this->dispatch('updated');
+            if ($count > 0)
+            {
+                $this->js('window.dispatchEvent(escKey)'); 
+                $this->js('notyf.error("' . '\"' . $uom->name . '\" ' . __('sedang digunakan') . '")'); 
+                
+            } else {
+                $uom->delete();
+                $this->js('window.dispatchEvent(escKey)'); 
+                $this->js('notyf.success("'.__('UOM dihapus').'")'); 
+                $this->dispatch('updated');
+            }
         }
+
+
+
+
 
     }
 }
