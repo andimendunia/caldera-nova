@@ -26,6 +26,12 @@ class KpiItemsCreate extends Component
     #[Rule('required|min:1|max:20')]
     public $item_unit = '';
 
+    #[Rule('nullable|min:1|max:20')]
+    public $item_group = '';
+
+    #[Rule('nullable|min:1|max:100')]
+    public $item_order = '';
+
     public function placeholder()
     {
         return view('livewire.modal-placeholder');
@@ -46,11 +52,16 @@ class KpiItemsCreate extends Component
     {
         $validated = $this->validate();
 
+        $unit = strtoupper(trim($this->item_unit));
+        $group = strtoupper(trim($this->item_group));
+
         KpiItem::create([
             'kpi_area_id' => $this->area_id,
             'year'        => $this->item_year,
             'name'        => trim($this->item_name),
-            'unit'        => strtoupper(trim($this->item_unit)),
+            'unit'        => $unit,
+            'group'       => $group ? $group : null,
+            'order'       => (int) $this->item_order
         ]);
         
         $this->reset(['item_name', 'item_unit']);

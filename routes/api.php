@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\InsAcmMetricController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvCircController;
+use App\Http\Controllers\InsAcmMetricController;
+use App\Http\Controllers\InsRtmMetricController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/ins-acm-metrics', [InsAcmMetricController::class, 'store']);
+Route::post('/ins-rtm-metrics', [InsRtmMetricController::class, 'store']);

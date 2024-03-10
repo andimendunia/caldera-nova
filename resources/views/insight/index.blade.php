@@ -2,7 +2,10 @@
     nav="{{ $nav }}" navs="{{ $navs }}">
     @switch($nav)
         @case('acm-metrics')
-            @include('insight.acm.metrics')
+            @include('insight.acm-metrics')
+        @break
+        @case('rtm-metrics')
+            @include('insight.rtm-metrics')
         @break
 
         @default

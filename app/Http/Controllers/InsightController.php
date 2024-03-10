@@ -24,8 +24,8 @@ class InsightController extends Controller
                 $navs = true;
                 break;
 
-            case 'acm-devices':
-                $title = __('Perangkat ACM');
+            case 'rtm-metrics':
+                $title = __('Rubber Thickness Monitoring');
                 $prev = route('insight');
                 $navs = true;
                 break;

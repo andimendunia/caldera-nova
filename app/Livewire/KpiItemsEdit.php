@@ -8,20 +8,25 @@ use Illuminate\Validation\Rule;
 
 class KpiItemsEdit extends Component
 {
-    public KpiItem $item;
+    public $item_id;
+    public $item;
 
     public $area_name;
     public $year;
 
-    public $name = '';
-    public $unit = '';
+    public $name    = '';
+    public $unit    = '';
+    public $group   = '';
+    public $order   = 0;
 
 
     public function rules()
     {
         return [
             'name' => ['required', 'min:1', 'max:256'],
-            'unit' => ['required', 'min:1', 'max:20']
+            'unit' => ['required', 'min:1', 'max:20'],
+            'group' => ['nullable', 'min:1', 'max:20'],
+            'order' => ['nullable', 'min:1', 'max:100']
         ];
     }
 
@@ -30,13 +35,14 @@ class KpiItemsEdit extends Component
         return view('livewire.modal-placeholder');
     }
 
-    public function mount(KpiItem $item)
+    public function mount()
     {
+        $this->item = KpiItem::find($this->item_id);
         $this->fill(
-            $item->only(['year', 'name', 'unit'])
+            $this->item->only(['year', 'name', 'unit', 'group', 'order'])
         );
 
-        $this->area_name = $item->kpi_area->name;
+        $this->area_name = $this->item->kpi_area->name;
     }
         
 
@@ -49,11 +55,16 @@ class KpiItemsEdit extends Component
     {
         $validated = $this->validate();
 
+        $unit = strtoupper(trim($this->unit));
+        $group = strtoupper(trim($this->group));
+
         $item = KpiItem::find($this->item->id);
         if ($item) {
             $item->update([
-                'name' => trim($this->name),
-                'unit' => strtoupper(trim($this->unit)),
+                'name'  => trim($this->name),
+                'unit'  => $unit,
+                'group' => $group ? $group : null,
+                'order' => (int) $this->order                
             ]); 
             $this->js('window.dispatchEvent(escKey)'); 
             $this->js('notyf.success("'.__('Item KPI diperbarui').'")'); 

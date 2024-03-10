@@ -34,6 +34,20 @@
                 <x-input-error messages="{{ $message }}" class="px-3 mt-2" />
             @enderror
         </div>
+        <div class="mt-6">
+            <label for="kpi-item-group" class="block px-3 mb-2 uppercase text-xs text-neutral-500">{{ __('Grup') }}</label>
+            <x-text-input id="kpi-item-group" wire:model="item_group" type="text" />
+            @error('item_group')
+                <x-input-error messages="{{ $message }}" class="px-3 mt-2" />
+            @enderror
+        </div>
+        <div class="mt-6">
+            <label for="kpi-item-order" class="block px-3 mb-2 uppercase text-xs text-neutral-500">{{ __('Urutan') }}</label>
+            <x-text-input id="kpi-item-order" wire:model="item_order" type="number" />
+            @error('item_order')
+                <x-input-error messages="{{ $message }}" class="px-3 mt-2" />
+            @enderror
+        </div>
         <div class="mt-6 flex">
             <x-secondary-button type="submit">
                 <i class="fa fa-save mr-2"></i>

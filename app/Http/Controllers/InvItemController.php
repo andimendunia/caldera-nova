@@ -40,6 +40,18 @@ class InvItemController extends Controller
     }
 
     public function update(Request $request) {
+
+        // for mass-update
+
+        // trim all strings
+        $requestData = $request->all();
+        array_walk_recursive($requestData, function (&$value) {
+            if (is_string($value)) {
+                $value = trim($value);
+            }
+        });
+
+        $request->merge($requestData);
         
     }
 }

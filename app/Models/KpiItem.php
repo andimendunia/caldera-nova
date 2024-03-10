@@ -15,7 +15,9 @@ class KpiItem extends Model
         'kpi_area_id',
         'name',
         'year',
-        'unit'
+        'unit',
+        'group',
+        'order'
     ];
 
     public function kpi_area(): BelongsTo

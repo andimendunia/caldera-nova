@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('kpi_item_id')->constrained()->cascadeOnDelete();
-            $table->tinyInteger('month'); // max 255
+            $table->tinyInteger('month')->unsigned(); // max 255
             $table->decimal('target')->nullable();
             $table->decimal('actual')->nullable();
             $table->boolean('is_submitted')->default(0);

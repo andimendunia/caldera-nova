@@ -10,36 +10,43 @@ use Livewire\Attributes\Url;
 
 class KpiItems extends Component
 {
-    #[Url] 
+    #[Url]
     public $area_id;
     public $area_name;
     public $areas;
 
-    #[Url] 
+    #[Url]
     public $f_year;
     public $years;
-
-    public $perPage = 24;
 
     public function mount()
     {
         $this->getYears();
         $this->areas = KpiArea::all();
     }
-    
+
     #[On('updated')]
     public function render()
     {
-        $kpi_items = KpiItem::where('kpi_area_id', $this->area_id)->where('year', $this->f_year)->paginate($this->perPage);
+        $builder = KpiItem::where('kpi_area_id', $this->area_id)
+            ->where('year', $this->f_year)
+            ->orderBy('group', 'ASC')
+            ->orderBy('order', 'ASC');
+        $grouped_items = $builder->get()->groupBy('group');
+        $item_ids = $grouped_items
+            ->flatMap(function ($item) {
+                return $item->pluck('id');
+            })
+            ->sort();
 
-        return view('livewire.kpi-items', compact('kpi_items'));
+        return view('livewire.kpi-items', compact('grouped_items', 'item_ids'));
     }
 
     public function updated($property)
     {
         if ($property === 'area_id') {
             $area = KpiArea::find($this->area_id);
-            $area ? $this->area_name = $area->name : $this->reset(['area_name']);
+            $area ? ($this->area_name = $area->name) : $this->reset(['area_name']);
             $this->getYears();
             $this->reset(['f_year']);
         }
@@ -50,7 +57,11 @@ class KpiItems extends Component
     }
     public function getYears()
     {
-        $this->years = KpiItem::orderBy('year', 'DESC')->select('year')->where('kpi_area_id', $this->area_id)->distinct()->pluck('year');
+        $this->years = KpiItem::orderBy('year', 'DESC')
+            ->select('year')
+            ->where('kpi_area_id', $this->area_id)
+            ->distinct()
+            ->pluck('year');
     }
 
     #[On('set-year')]

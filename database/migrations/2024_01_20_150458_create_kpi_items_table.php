@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kpi_area_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->smallInteger('year'); // max 32767
+            $table->smallInteger('year')->unsigned(); // max 32767
             $table->string('unit');
-            $table->tinyInteger('order')->default(0); // max 255
+            $table->string('group')->nullable();
+            $table->tinyInteger('order')->unsigned()->default(0); // max 100
             $table->timestamps();
         });
     }
