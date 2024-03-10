@@ -1,0 +1,2 @@
+code, name, desc, uom, qty, qtype, remarks
+ABC01-12345, TEST ITEM, A DESCRIPTION OF THE TEST ITEM WHICH SHOULD BE LONG ENOUGH, EA, 1, main, Circulation on main qty
