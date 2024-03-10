@@ -369,7 +369,11 @@ input[type="checkbox"]:checked + label.custom-checkbox {
     @apply min-w-72;
   }
 
-  .table.table-kpi-overview tr td:nth-child(n+4):nth-child(-n+15) {
+  .table.table-kpi-overview tr td:nth-child(3) {
+    @apply min-w-10 p-0;
+  }
+
+  .table.table-kpi-overview tr td:nth-child(n+5):nth-child(-n+16) {
     @apply min-w-10 p-0;
   }
 

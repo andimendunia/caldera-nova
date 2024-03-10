@@ -22,8 +22,8 @@ class KpiScoreShow extends Component
     {
         $this->score = $score;
 
-        $this->target       = (int) $score->target;
-        $this->actual       = (int) $score->actual;
+        $this->target       = (double) $score->target;
+        $this->actual       = (double) $score->actual;
         $this->is_submitted = (bool) $score->is_submitted;
     }
 
@@ -37,8 +37,8 @@ class KpiScoreShow extends Component
         // update: add validation
 
         $this->score->update([
-            'target'        => $this->target,
-            'actual'        => $this->actual,
+            'target'        => (double) $this->target,
+            'actual'        => (double) $this->actual,
             'is_submitted'  => $this->is_submitted
         ]);
         $this->js('notyf.success("'.__('Skor KPI diperbarui').'")'); 

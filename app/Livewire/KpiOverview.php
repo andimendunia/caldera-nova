@@ -99,18 +99,45 @@ class KpiOverview extends Component
 
                 foreach ($items as $key => $item) {
 
+                    $sum_target = 0;
+                    $sum_actual = 0;
                     foreach (range(1, 12) as $i) {
                         $score = KpiScore::where('kpi_item_id', $item['id'])->where('month', $i)->first();
-                        $items[$key][$i] = [
+                        
+                        $target = $score ? (double) $score->target : '';
+                        $actual = $score ? (double) $score->actual : '';
+
+                        $ratio = $target > 0 ? ($actual / $target) : 0;
+
+                        $grade = 'red';
+
+                        if ($ratio >= 0.95) {
+                            $grade = 'green';
+                        } elseif ($ratio >= 0.85 && $ratio < 0.95) {
+                            $grade = 'orange';
+                        }
+                        
+
+                        $grouped_items[$group][$key][$i] = [
                             'kpi_score_id'      => $score ? $score->id : '',
-                            'target'            => $score ? (int) $score->target : '',
-                            'actual'            => $score ? (int) $score->actual : '',
+                            'target'            => $target,
+                            'actual'            => $actual,
                             'comments_count'    => $score ? $score->com_items_count() : 0,
-                            'files_count'       => $score ? $score->com_files_count() : 0,                     
+                            'files_count'       => $score ? $score->com_files_count() : 0,
+                            'grade'             => $grade,                   
                         ];
+                        $sum_target += (double) $grouped_items[$group][$key][$i]['target'];
+                        $sum_actual += (double) $grouped_items[$group][$key][$i]['actual'];
                     }
+
+                    $grouped_items[$group][$key]['sum_target'] = $sum_target;
+                    $grouped_items[$group][$key]['sum_actual'] = $sum_actual;
                 }
             }
+
+            // dd($grouped_items);
+
+
         }
 
         return view('livewire.kpi-overview', compact('grouped_items'));
