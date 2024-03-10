@@ -197,9 +197,9 @@
                 </div>
             @endif
         @else
-            <div wire:key="circs" class="inv-circs mt-1 grid gap-1 px-0 sm:px-3">
+            <div wire:key="circs" class="inv-circs mt-1 grid px-0 sm:px-3">
                 @foreach ($circs as $circ)
-                    <div class="truncate p-1" wire:key="circ-container-{{ $circ->id }}">
+                    <div class="truncate p-1 -mt-1" wire:key="circ-container-{{ $circ->id }}">
                         <x-circ-checkbox wire:key="circ-{{ $circ->id }}" id="{{ $circ->id }}"
                             model="ids" name="{{ $circ->inv_item->name }}" desc="{{ $circ->inv_item->desc }}"
                             code="{{ $circ->inv_item->code ?? __('Tak ada kode') }}"

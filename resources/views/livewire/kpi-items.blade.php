@@ -28,7 +28,7 @@
         <div>
             <div class="flex justify-between px-6 sm:px-0">
                 <div>
-                    {{ count($grouped_items) . ' ' . __('item KPI ditemukan') }}
+                    {{ count($item_ids) . ' ' . __('item KPI ditemukan') }}
                 </div>
                 <x-secondary-button type="button" class="my-auto" x-data=""
                     x-on:click="$dispatch('open-modal', 'create-kpi-item')">{{ __('Buat') }}</x-secondary-button>
@@ -37,7 +37,7 @@
                 <livewire:kpi-items-create wire:key="kpi-items-create" :$area_id :$area_name :$f_year />
             </x-modal>
             <div class="w-full mt-5">
-                @if (!count($grouped_items))
+                @if (!count($item_ids))
                     @if (!$area_id)
                         <div wire:key="no-area" class="py-20">
                             <div class="text-center text-neutral-300 dark:text-neutral-700 text-5xl mb-3">
@@ -78,12 +78,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($grouped_items as $key => $group)
-                                    <tr class="tr-separator" wire:key="item-tr-separator-{{ $key . $loop->index }}">
-                                        <td colspan="2">{{ $key ? $key : __('Tanpa grup') }}</td>
+                                @foreach ($grouped_items as $group => $items)
+                                    <tr class="tr-separator" wire:key="item-tr-separator-{{ $group . $loop->index }}">
+                                        <td colspan="2">{{ $group ? $group : __('Tanpa grup') }}</td>
                                     </tr>
-                                    @foreach ($group as $item)
-                                        <tr wire:key="item-tr-{{ $key . $item['id'] . $loop->index }}" tabindex="0"
+                                    @foreach ($items as $item)
+                                        <tr wire:key="item-tr-{{ $group . $item['id'] . $loop->index }}" tabindex="0"
                                             x-on:click="$dispatch('open-modal', 'edit-kpi-item-{{ $item['id'] }}')">
                                             <td>
                                                 {{ $item['name'] }}

@@ -12,7 +12,7 @@
                 <div class="text-xl">{{ Auth::user()->name }}</div>
                 <div class="text-sm">{{ Auth::user()->emp_id }}</div>
             </div>
-            <div class="grid grid-cols-1 gap-3 my-8">
+            <div class="grid grid-cols-1 gap-1 my-8">
                 <x-card-link href="{{ route('account.edit')}}">
                     <div class="flex">
                         <div>

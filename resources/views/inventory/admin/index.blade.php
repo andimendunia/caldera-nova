@@ -5,7 +5,7 @@
             <x-tab href="{{ route('inventory', [ 'nav' => 'admin', 'view' => 'global' ])}}" :active="$view == 'global'" class="text-center">{{__('Global')}}</x-tab>
         </div>
         @if(!$view)
-        <div class="grid grid-cols-1 gap-3 my-8 ">
+        <div class="grid grid-cols-1 gap-1 my-8 ">
             <x-card-button type="button" x-data=""
             x-on:click.prevent="$dispatch('open-modal', 'inv-first')">
                 <div class="flex">
@@ -128,7 +128,7 @@
             </div>
         </x-modal>
         @endcannot
-        <div class="grid grid-cols-1 gap-3 my-8">
+        <div class="grid grid-cols-1 gap-1 my-8">
             <x-card-link href="{{ route('inventory', ['nav' => 'manage-auth']) }}">
                 <div class="flex">
                     <div>

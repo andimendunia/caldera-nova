@@ -1,6 +1,6 @@
 @props(['href', 'name', 'desc', 'code', 'curr', 'price', 'uom', 'loc', 'tags', 'qty', 'qty_main', 'qty_used', 'qty_rep', 'url'])
 
-<x-card-link href="{{ $href }}">
+<x-card-link href="{{ $href }}" rounded="md">
     <div class="flex">
         <div>
             <div class="relative flex w-32 h-full bg-neutral-200 dark:bg-neutral-700">

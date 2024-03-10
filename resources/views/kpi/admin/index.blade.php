@@ -1,7 +1,6 @@
 <div class="py-12">
     <div class="max-w-xl mx-auto sm:px-6 lg:px-8 text-neutral-600 dark:text-neutral-400">
-
-        <div class="grid grid-cols-1 gap-3 my-8 ">
+        <div class="grid grid-cols-1 gap-1 my-8">
             <x-card-link href="{{ route('kpi', ['nav' => 'manage-items'])}}">
                 <div class="flex">
                     <div>

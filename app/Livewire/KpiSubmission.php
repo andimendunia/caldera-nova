@@ -123,43 +123,69 @@ class KpiSubmission extends Component
                 );
             }
 
-            $items = KpiItem::join('kpi_scores', 'kpi_scores.kpi_item_id', '=', 'kpi_items.id')
+            // $builder = KpiItem::where('kpi_area_id', $this->area_id)
+            //     ->where('year', $this->f_year)
+            //     ->orderBy('group', 'ASC')
+            //     ->orderBy('order', 'ASC');
+            // $grouped_items = $builder->get()->groupBy('group');
+            // $item_ids = $grouped_items
+            //     ->flatMap(function ($item) {
+            //         return $item->pluck('id');
+            //     })
+            //     ->sort();
+
+            $builder = KpiItem::join('kpi_scores', 'kpi_scores.kpi_item_id', '=', 'kpi_items.id')
                 ->where('kpi_items.kpi_area_id', $this->area_id)
                 ->where('kpi_items.year', $this->f_year)
                 ->where('kpi_scores.month', $this->month)
                 ->select(
                     'kpi_items.id as kpi_item_id',
-                    'kpi_items.name as kpi_item_name', 
                     'kpi_items.year as kpi_item_year', 
+                    'kpi_items.name as kpi_item_name', 
+                    'kpi_items.group as kpi_item_group',
+                    'kpi_items.order as kpi_item_order',
                     'kpi_scores.id as kpi_score_id',
                     'kpi_scores.month as kpi_score_month', 
                     'kpi_scores.target as kpi_score_target', 
                     'kpi_scores.actual as kpi_score_actual',
                     'kpi_scores.is_submitted as kpi_score_is_submitted'
-                );
+                )
+                ->orderBy('kpi_item_group', 'ASC')
+                ->orderBy('kpi_item_order', 'ASC');
 
             switch ($this->status) {
                 case 'draft':
-                    $items->where('kpi_scores.is_submitted', false);
+                    $builder->where('kpi_scores.is_submitted', false);
                     break;
 
                 case 'submitted':
-                    $items->where('kpi_scores.is_submitted', true);
+                    $builder->where('kpi_scores.is_submitted', true);
                     break;
             }
 
-            $items = $items->get()->toArray();
+            $grouped_items = $builder->get()->groupBy('kpi_item_group');
 
             // Add comments and files count
 
-            foreach ($items as $key => $item) {
-                $kpi_score = KpiScore::find($item['kpi_score_id']);
-                $items[$key]['comments_count'] = $kpi_score ? $kpi_score->com_items_count() : 0;
-                $items[$key]['files_count']    = $kpi_score ? $kpi_score->com_files_count() : 0;
+            foreach ($grouped_items as $group => $items) {
+
+                foreach($items as $key => $item) {
+
+                    $kpi_score = KpiScore::find($item['kpi_score_id']);
+    
+                    $grouped_items[$group][$key]['comments_count'] = $kpi_score ? $kpi_score->com_items_count() : 0;
+                    $grouped_items[$group][$key]['files_count']    = $kpi_score ? $kpi_score->com_files_count() : 0;
+                }
             }
+
+            $item_ids = $grouped_items
+            ->flatMap(function ($item) {
+                return $item->pluck('id');
+            })
+            ->sort();
 
         }
 
-        return view('livewire.kpi-submission', compact('items'));
+        return view('livewire.kpi-submission', compact('grouped_items', 'item_ids'));
     }
 }

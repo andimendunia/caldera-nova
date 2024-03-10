@@ -88,25 +88,31 @@ class KpiOverview extends Component
 
         if ($validator->passes()) {
 
-            $items = KpiItem::where('kpi_area_id', $this->area_id)
+            $builder = KpiItem::where('kpi_area_id', $this->area_id)
             ->where('year', $this->f_year)
-            ->get()->toArray();
+            ->orderBy('group', 'ASC')
+            ->orderBy('order', 'ASC');
 
-            foreach ($items as $key => $item) {
+            $grouped_items = $builder->get()->groupBy('group');
 
-                foreach (range(1, 12) as $i) {
-                    $score = KpiScore::where('kpi_item_id', $item['id'])->where('month', $i)->first();
-                    $items[$key][$i] = [
-                        'kpi_score_id'      => $score ? $score->id : '',
-                        'target'            => $score ? (int) $score->target : '',
-                        'actual'            => $score ? (int) $score->actual : '',
-                        'comments_count'    => $score ? $score->com_items_count() : 0,
-                        'files_count'       => $score ? $score->com_files_count() : 0,                     
-                    ];
+            foreach($grouped_items as $group => $items) {
+
+                foreach ($items as $key => $item) {
+
+                    foreach (range(1, 12) as $i) {
+                        $score = KpiScore::where('kpi_item_id', $item['id'])->where('month', $i)->first();
+                        $items[$key][$i] = [
+                            'kpi_score_id'      => $score ? $score->id : '',
+                            'target'            => $score ? (int) $score->target : '',
+                            'actual'            => $score ? (int) $score->actual : '',
+                            'comments_count'    => $score ? $score->com_items_count() : 0,
+                            'files_count'       => $score ? $score->com_files_count() : 0,                     
+                        ];
+                    }
                 }
             }
         }
 
-        return view('livewire.kpi-overview', compact('items'));
+        return view('livewire.kpi-overview', compact('grouped_items'));
     }
 }

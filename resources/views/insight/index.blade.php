@@ -9,7 +9,7 @@
         @break
 
         @default
-            <div id="content" class="py-12 max-w-xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200 grid gap-y-4">
+            <div id="content" class="py-12 max-w-xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200 grid gap-1">
                 <x-card-link href="{{ route('insight', ['nav' => 'acm-metrics']) }}">
                     <div class="flex">
                         <div>

@@ -158,7 +158,7 @@
             @switch($view)
                 @case('grid')
                     <div wire:key="grid"
-                        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-4 px-3 sm:px-0">
+                        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 mt-4 px-3 sm:px-0">
                         @foreach ($inv_items as $inv_item)
                             <x-inv-card-grid :href="route('inventory.items.show', ['id' => $inv_item->id])" :name="$inv_item->name" :desc="$inv_item->desc" :uom="$inv_item->inv_uom->name"
                                 :loc="$inv_item->inv_loc->name ?? null" :qty="$qty" :qty_main="$inv_item->qty_main" :qty_used="$inv_item->qty_used" :qty_rep="$inv_item->qty_rep"
@@ -192,7 +192,7 @@
                 @break
 
                 @default
-                    <div wire:key="content" class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4">
+                    <div wire:key="content" class="grid grid-cols-1 lg:grid-cols-2 gap-1 mt-4">
                         @foreach ($inv_items as $inv_item)
                             <x-inv-card-content :href="route('inventory.items.show', ['id' => $inv_item->id])" :name="$inv_item->name" :desc="$inv_item->desc" :code="$inv_item->code"
                                 :curr="$inv_curr->name" :price="$inv_item->price" :uom="$inv_item->inv_uom->name" :loc="$inv_item->inv_loc->name ?? null" :tags="$inv_item->tags() ?? null"
