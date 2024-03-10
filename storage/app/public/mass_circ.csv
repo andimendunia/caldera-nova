@@ -1,2 +1,33 @@
-code, name, desc, uom, qty, qtype, remarks
-ABC01-12345, TEST ITEM, A DESCRIPTION OF THE TEST ITEM WHICH SHOULD BE LONG ENOUGH, EA, 1, main, Circulation on main qty
+code,name,desc,uom,qty,qtype,remarks
+ABC01-12345,TEST ITEM,A DESCRIPTION OF THE TEST ITEM WHICH SHOULD BE LONG ENOUGH,EA,1,main,Circulation on main qty
+ABC01-12346,TEST ITEM 2,A description of test item 2,EA,3,main,Additional quantity
+ABC01-12347,TEST ITEM 3,A description of test item 3,EA,5,used,Previously used items
+ABC01-12348,TEST ITEM 4,A description of test item 4,EA,2,rep,Replacement parts
+ABC01-12349,TEST ITEM 5,A description of test item 5,EA,10,main,Primary items
+ABC01-12350,TEST ITEM 6,A description of test item 6,EA,7,used,Second-hand items
+ABC01-12351,TEST ITEM 7,A description of test item 7,EA,4,rep,Repaired items
+ABC01-12352,TEST ITEM 8,A description of test item 8,EA,15,main,Main inventory
+ABC01-12353,TEST ITEM 9,A description of test item 9,EA,8,used,Previously owned items
+ABC01-12354,TEST ITEM 10,A description of test item 10,EA,6,rep,Refurbished items
+ABC01-12355,TEST ITEM 11,A description of test item 11,EA,9,main,Stock items
+ABC01-12356,TEST ITEM 12,A description of test item 12,EA,1,main,Circulation on main qty
+ABC01-12357,TEST ITEM 13,A description of test item 13,EA,2,used,Previously used items
+ABC01-12358,TEST ITEM 14,A description of test item 14,EA,3,rep,Replacement parts
+ABC01-12359,TEST ITEM 15,A description of test item 15,EA,4,main,Primary items
+ABC01-12360,TEST ITEM 16,A description of test item 16,EA,5,used,Second-hand items
+ABC01-12361,TEST ITEM 17,A description of test item 17,EA,6,rep,Repaired items
+ABC01-12362,TEST ITEM 18,A description of test item 18,EA,7,main,Main inventory
+ABC01-12363,TEST ITEM 19,A description of test item 19,EA,8,used,Previously owned items
+ABC01-12364,TEST ITEM 20,A description of test item 20,EA,9,rep,Refurbished items
+ABC01-12365,TEST ITEM 21,A description of test item 21,EA,10,main,Stock items
+ABC01-12366,TEST ITEM 22,A description of test item 22,EA,11,used,Circulation on used qty
+ABC01-12367,TEST ITEM 23,A description of test item 23,EA,12,rep,Circulation on rep qty
+ABC01-12368,TEST ITEM 24,A description of test item 24,EA,13,main,Circulation on main qty
+ABC01-12369,TEST ITEM 25,A description of test item 25,EA,14,used,Circulation on used qty
+ABC01-12370,TEST ITEM 26,A description of test item 26,EA,15,rep,Circulation on rep qty
+ABC01-12371,TEST ITEM 27,A description of test item 27,EA,16,main,Circulation on main qty
+ABC01-12372,TEST ITEM 28,A description of test item 28,EA,17,used,Circulation on used qty
+ABC01-12373,TEST ITEM 29,A description of test item 29,EA,18,rep,Circulation on rep qty
+ABC01-12374,TEST ITEM 30,A description of test item 30,EA,19,main,Circulation on main qty
+ABC01-12375,TEST ITEM 31,A description of test item 31,EA,20,used,Circulation on used qty
+ABC01-12376,TEST ITEM 32,A description of test item 32,EA,21,rep,Circulation on rep qty
