@@ -115,13 +115,16 @@ class KpiOverview extends Component
                             $grade = 'green';
                         } elseif ($ratio >= 0.85 && $ratio < 0.95) {
                             $grade = 'orange';
+                        } elseif ($target == 0 && $actual == 0) {
+                            $grade = 'green';
                         }
                         
 
                         $grouped_items[$group][$key][$i] = [
-                            'kpi_score_id'      => $score ? $score->id : '',
+                            'kpi_score_id'      => $score ? (int) $score->id : '',
                             'target'            => $target,
                             'actual'            => $actual,
+                            'is_submitted'      => $score ? (bool) $score->is_submitted : false,
                             'comments_count'    => $score ? $score->com_items_count() : 0,
                             'files_count'       => $score ? $score->com_files_count() : 0,
                             'grade'             => $grade,                   

@@ -222,27 +222,27 @@ input[type="checkbox"]:checked + label.custom-checkbox {
     z-index: 1;
 }
 
-.btn-group button:first-child, .btn-group .cal-radio:first-child label {
+.btn-group > :first-child, .btn-group > .cal-radio:first-child > label {
   @apply rounded-l-md
 }
 
-.btn-group button:last-child, .btn-group .cal-radio:last-child label {
+.btn-group > :last-child, .btn-group > .cal-radio:last-child > label {
   @apply rounded-r-md
 }
 
-.btn-group button, .btn-group .cal-radio label {
+.btn-group > button, .btn-group.cal-pill > div, .btn-group > .cal-radio > label {
   @apply -ml-px
 }
 
-.btn-group button:first-child, .spinner-group button:first-child {
+.btn-group > :first-child, .spinner-group button:first-child {
   @apply rounded-r-none
 }
 
-.btn-group button:last-child, .spinner-group button:last-child {
+.btn-group > :last-child, .spinner-group button:last-child {
   @apply rounded-l-none
 }
 
-/* .btn-group button:last-child, .btn-group .cal-radio:last-child label {
+/* .btn-group > :last-child, .btn-group .cal-radio:last-child label {
     margin-left:0px;
 } */
 
