@@ -73,7 +73,7 @@ class KpiOverview extends Component
             ],
         );
 
-        $items = [];
+        $grouped_items = [];
 
         $validator = Validator::make(
             [
