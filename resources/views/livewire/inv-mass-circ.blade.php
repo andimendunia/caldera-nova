@@ -10,7 +10,7 @@
                 </li>
                 <li class="flex items-center">
                     <span
-                        class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">2</span>{{ __('Tinjau') }}
+                        class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">2</span>{{ __('Terapkan') }}
                 </li>
             </ol>
             <div class="bg-white dark:bg-neutral-800 shadow p-6 sm:rounded-lg mb-6 ">
@@ -119,7 +119,7 @@
                     </li>
                     <li class="flex items-center text-caldy-600 dark:text-caldy-500">
                         <span
-                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-caldy-600 rounded-full shrink-0 dark:border-caldy-500">2</span>{{ __('Tinjau') }}
+                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-caldy-600 rounded-full shrink-0 dark:border-caldy-500">2</span>{{ __('Terapkan') }}
                     </li>
                 </ol>
                 <div x-show="isStarted">
@@ -147,7 +147,7 @@
                         </x-select>
                     </div>
                     <x-primary-button x-on:click="massCreate" class="whitespace-nowrap" type="button"><i
-                            class="fa fa-play mr-2"></i>{{ __('Mulai') }}<span class="ms-2" x-text="'('+circTotal+')'"></span></x-primary-button>
+                            class="fa fa-check mr-2"></i>{{ __('Terapkan') }}<span class="ms-2" x-text="'('+circTotal+')'"></span></x-primary-button>
                 </div>
             </div>
             <div class="overflow-x-auto bg-white dark:bg-neutral-800 shadow sm:rounded-lg mt-6">

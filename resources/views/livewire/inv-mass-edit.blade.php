@@ -15,7 +15,12 @@
                     </li>
                     <li class="flex items-center">
                         <span
-                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">3</span>{{ __('Tinjau') }}
+                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">3</span>{{ __('Tinjau') }}<i
+                            class="fa fa-chevron-right ms-2 sm:ms-4"></i>
+                    </li>
+                    <li class="flex items-center">
+                        <span
+                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">4</span>{{ __('Terapkan') }}
                     </li>
                 </ol>
                 <div class="bg-white dark:bg-neutral-800 shadow p-6 sm:rounded-lg mb-8">
@@ -75,7 +80,12 @@
                     </li>
                     <li class="flex items-center">
                         <span
-                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">3</span>{{ __('Tinjau') }}
+                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">3</span>{{ __('Tinjau') }}<i
+                            class="fa fa-chevron-right ms-2 sm:ms-4"></i>
+                    </li>
+                    <li class="flex items-center">
+                        <span
+                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">4</span>{{ __('Terapkan') }}
                     </li>
                 </ol>
                 <div class="bg-white dark:bg-neutral-800 shadow p-6 sm:rounded-lg mb-6 ">
@@ -110,6 +120,7 @@
             rowDone: 0,
             rowTotal: 0,
             progress: 0,
+            isReviewed: false,
             isStarted: false,
             status: '',
             apiRoute: '{{ route('inventory.items.update') }}',
@@ -117,7 +128,13 @@
             updateTotal: function() {
                 this.rowTotal = this.rows.length;
             },
-            create: async function(row) {
+            review: async function (row) {
+
+            },
+            massReview: {
+
+            },
+            update: async function(row) {
                 try {
                     const response = await fetch(this.apiRoute, {
                         method: 'POST',
@@ -159,7 +176,7 @@
                     };
                 }
             },
-            massCreate: async function() {
+            massUpdate: async function() {
                 if (this.area_id) {
                     this.isStarted = true;
                     this.rowTotal = this.rows.length;
@@ -167,7 +184,7 @@
                     for (let i = 0; i < this.rowTotal; i++) {
                         this.rows[i].area_id = this.area_id;
                         const row = this.rows[i];
-                        await this.create(row);
+                        await this.update(row);
                         this.rowDone++;
                     }
                     this.status = '{{ __('Selesai') }}';
@@ -181,7 +198,7 @@
                 <ol class="flex items-center w-full p-3 space-x-2 text-sm font-medium text-center text-neutral-500  sm:text-base sm:p-0 sm:space-x-4 rtl:space-x-reverse">
                     <li class="flex items-center cursor-pointer" wire:click="advance(0)">
                         <span
-                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">2</span>{{ __('Mulai') }}<i
+                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">1</span>{{ __('Mulai') }}<i
                             class="fa fa-chevron-right ms-2 sm:ms-4"></i>
                     </li>
                     <li class="flex items-center cursor-pointer" wire:click="advance(1)">
@@ -191,7 +208,12 @@
                     </li>
                     <li class="flex items-center text-caldy-600 dark:text-caldy-500">
                         <span
-                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-caldy-600 rounded-full shrink-0 dark:border-caldy-500">3</span>{{ __('Tinjau') }}
+                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-caldy-600 rounded-full shrink-0 dark:border-caldy-500">3</span>{{ __('Tinjau') }}<i
+                            class="fa fa-chevron-right ms-2 sm:ms-4"></i>
+                    </li>
+                    <li class="flex items-center cursor-pointer" wire:click="advance(0)">
+                        <span
+                            class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-neutral-500 rounded-full shrink-0 dark:border-neutral-600">4</span>{{ __('Terapkan') }}
                     </li>
                 </ol>
                 <div x-show="isStarted">
@@ -219,7 +241,7 @@
                         </x-select>
                     </div>
                     <x-primary-button x-on:click="massCreate" class="whitespace-nowrap" type="button"><i
-                            class="fa fa-play mr-2"></i>{{ __('Mulai') }}<span class="ms-2" x-text="'('+rowTotal+')'"></span></x-primary-button>
+                            class="fa fa-eye mr-2"></i>{{ __('Tinjau') }}<span class="ms-2" x-text="'('+rowTotal+')'"></span></x-primary-button>
                 </div>
             </div>
             <div class="overflow-x-auto bg-white dark:bg-neutral-800 shadow sm:rounded-lg mt-6">
