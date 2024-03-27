@@ -2,27 +2,22 @@
     <div>
         <div class="w-full sm:w-44 md:w-64 px-3 sm:px-0 mb-5">
             <div class="btn-group h-10 grid grid-cols-3 w-full">
-                <x-radio-button wire:model.live="view" grow value="line-all" name="view" id="view-list">
+                <x-radio-button wire:model.live="view" grow value="line-all" name="view" id="view-line-all">
                     <div class="text-center my-auto">
                         <i class="fa fa-fw fa-display text-center m-auto"></i>
                     </div>
                 </x-radio-button>
-                <x-radio-button wire:model.live="view" grow value="line-single" name="view" id="view-content">
-                    <div class="text-center my-auto">
-                        <i class="fa fa-fw fa-chart-line text-center m-auto"></i>
-                    </div>
-                </x-radio-button>
-                <x-radio-button wire:model.live="view" grow value="raw" name="view" id="view-grid">
+                <x-radio-button wire:model.live="view" grow value="raw" name="view" id="view-raw">
                     <div class="text-center my-auto">
                         <i class="fa fa-fw fa-table text-center m-auto"></i>
                     </div>
                 </x-radio-button>
+                <x-radio-button wire:model.live="view" grow value="misc" name="view" id="view-misc">
+                    <div class="text-center my-auto">
+                        <i class="fa fa-fw fa-ellipsis-h text-center m-auto"></i>
+                    </div>
+                </x-radio-button>
             </div>
-            {{-- <x-select wire:model.live="view">
-                <option value="line-all">{{ __('Line - Semua') }}</option>
-                <option value="line-single">{{ __('Line - Spesifik') }}</option>
-                <option value="raw">{{ __('Data mentah') }}</option>
-            </x-select> --}}
             <div class="mt-4 bg-white dark:bg-neutral-800 shadow rounded-lg py-5 px-4 {{ $is_line ? '' : 'hidden' }}">
                 <div class="flex items-start justify-between">
                     <div><i class="fa fa-ruler-horizontal mr-3"></i>{{ __('Line') }}</div>
@@ -106,16 +101,16 @@
         </div>
     </div>
     @switch($view)
-        @case('raw')
-            <livewire:ins-acm-metrics-raw :$start_at :$end_at :$fline />
-        @break
-
         @case('line-all')
-            <livewire:ins-acm-metrics-line-all :$fline />
+            <livewire:ins-rtm-line-all :$fline />
         @break
 
-        @case('line-single')
-            <livewire:ins-acm-metrics-line-single :$start_at :$sline />
+        @case('raw')
+            <livewire:ins-rtm-raw :$start_at :$end_at :$fline />
+        @break
+
+        @case('misc')
+            <livewire:ins-rtm-misc />
         @break
 
         @default

@@ -4,13 +4,11 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use Livewire\Component;
-use Livewire\Attributes\On;
 use App\Models\InsAcmMetric;
 use Livewire\Attributes\Reactive;
-use Illuminate\Support\Facades\DB;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 
-class InsAcmMetricsLineSingle extends Component
+class InsAcmLineSingle extends Component
 {
     #[Reactive]
     public $sline;
@@ -38,8 +36,8 @@ class InsAcmMetricsLineSingle extends Component
             $data['rate_act'][$dt->toIso8601String()] = $metric->rate_act;
         }
 
-        $max = (int) max($data['rate_act'] ?? [0]);
-        $min = (int) min($data['rate_act'] ?? [0]);
+        // $max = (int) max($data['rate_act'] ?? [0]);
+        // $min = (int) min($data['rate_act'] ?? [0]);
 
         $x_min = $start_at->startOfDay()->setTime(6, 30, 0)->timestamp * 1000; // Convert to milliseconds
         $x_max = $start_at->startOfDay()->setTime(16, 30, 0)->timestamp * 1000; // Convert to milliseconds
@@ -47,7 +45,7 @@ class InsAcmMetricsLineSingle extends Component
         $lineChartModel = (new LineChartModel())
             ->multiLine()
             ->withLegend()
-            ->setTitle($this->sline)
+            ->setTitle(__('Line').' '.$this->sline)
             ->setJsonConfig([
                 'markers.size' => "[2]",
                 'markers.colors' => "'#525252'",
@@ -76,6 +74,6 @@ class InsAcmMetricsLineSingle extends Component
                 }
             }
 
-        return view('livewire.ins-acm-metrics-line-single', compact('lineChartModel'));
+        return view('livewire.ins-acm-line-single', compact('lineChartModel'));
     }
 }

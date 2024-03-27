@@ -7,10 +7,9 @@ use League\Csv\Writer;
 use Livewire\Component;
 use App\Models\InsAcmMetric;
 use Livewire\Attributes\Url;
-use Livewire\Attributes\Reactive;
 use Illuminate\Support\Facades\Response;
 
-class InsAcmMetrics extends Component
+class InsAcm extends Component
 {
     #[Url]
     public $view = 'line-all';
@@ -60,7 +59,7 @@ class InsAcmMetrics extends Component
         $this->is_line      = in_array($this->view, $this->lineViews);
         $this->is_filter    = in_array($this->view, $this->filterViews);
 
-        return view('livewire.ins-acm-metrics', ['start_at' => $this->start_at, 'end_at' => $this->end_at, 'fline' => $this->fline ]);
+        return view('livewire.ins-acm', ['start_at' => $this->start_at, 'end_at' => $this->end_at, 'fline' => $this->fline ]);
     }
 
     public function setToday()

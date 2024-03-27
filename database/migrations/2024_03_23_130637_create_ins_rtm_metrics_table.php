@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('ins_rtm_metrics', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('line');
-            $table->foreignId('ins_rtm_recipes_id')->constrained()->cascadeOnDelete();
-            $table->unsignedDecimal('left_act', 5, 2);
-            $table->unsignedDecimal('right_act', 5, 2);
-            $table->datetime('dt_client');            
+            $table->foreignId('ins_rtm_recipes_id')->nullable()->constrained()->nullOnDelete();
+            $table->unsignedDecimal('thick_act_left', 5, 2);
+            $table->unsignedDecimal('thick_act_right', 5, 2);
+            $table->datetime('dt_client');      
+            
+            $table->index('ins_rtm_recipes_id');
         });
     }
 

@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedInteger('og_rs');
-            $table->unsignedDecimal('min_std', 5, 2);
-            $table->unsignedDecimal('max_std', 5, 2);
-            $table->unsignedDecimal('min_sl', 5, 2);
-            $table->unsignedDecimal('max_sl', 5, 2);
+            $table->unsignedDecimal('thick_std_min', 5, 2);
+            $table->unsignedDecimal('thick_std_max', 5, 2);
+            $table->unsignedDecimal('thick_sl_min', 5, 2)->nullable();
+            $table->unsignedDecimal('thick_sl_max', 5, 2)->nullable();
             $table->timestamps();
         });
     }

@@ -18,13 +18,13 @@ class InsightController extends Controller
                 
         switch ($nav) {
 
-            case 'acm-metrics':
+            case 'acm':
                 $title = __('Assembly Conveyor Monitoring');
                 $prev = route('insight');
                 $navs = true;
                 break;
 
-            case 'rtm-metrics':
+            case 'rtm':
                 $title = __('Rubber Thickness Monitoring');
                 $prev = route('insight');
                 $navs = true;

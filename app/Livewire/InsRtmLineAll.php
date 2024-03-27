@@ -4,11 +4,10 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use Livewire\Component;
-use App\Models\InsAcmMetric;
 use Livewire\Attributes\Reactive;
 use Illuminate\Support\Facades\DB;
 
-class InsAcmMetricsLineAll extends Component
+class InsRtmLineAll extends Component
 {
     #[Reactive]
     public $fline;
@@ -16,15 +15,16 @@ class InsAcmMetricsLineAll extends Component
 
     public function render()
     {
-        $rows = DB::table('ins_acm_metrics')
+        $rows = DB::table('ins_rtm_metrics')
         ->select('line')
         ->selectRaw('MAX(dt_client) as dt_client')
-        ->selectRaw('SUBSTRING_INDEX(GROUP_CONCAT(rate_act ORDER BY dt_client DESC), ",", 1) as rate_act')
+        ->selectRaw('SUBSTRING_INDEX(GROUP_CONCAT(thick_act_left ORDER BY dt_client DESC), ",", 1) as thick_act_left')
+        ->selectRaw('SUBSTRING_INDEX(GROUP_CONCAT(thick_act_right ORDER BY dt_client DESC), ",", 1) as thick_act_right')
         ->where('dt_client', '>=', Carbon::now()->subDays(90))
         ->groupBy('line');
 
         $rows = $rows->paginate($this->perPage);
         
-        return view('livewire.ins-acm-metrics-line-all', compact('rows'));
+        return view('livewire.ins-rtm-line-all', compact('rows'));
     }
 }

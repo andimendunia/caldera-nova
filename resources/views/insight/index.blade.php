@@ -1,16 +1,16 @@
 <x-layout-insight title="{{ $title }}" header="{{ $header }}" prev="{!! $prev !!}"
     nav="{{ $nav }}" navs="{{ $navs }}">
     @switch($nav)
-        @case('acm-metrics')
-            @include('insight.acm-metrics')
+        @case('acm')
+            @include('insight.index-acm')
         @break
-        @case('rtm-metrics')
-            @include('insight.rtm-metrics')
+        @case('rtm')
+            @include('insight.index-rtm')
         @break
 
         @default
             <div id="content" class="py-12 max-w-xl mx-auto sm:px-6 lg:px-8 text-neutral-800 dark:text-neutral-200 grid gap-1">
-                <x-card-link href="{{ route('insight', ['nav' => 'acm-metrics']) }}">
+                <x-card-link href="{{ route('insight', ['nav' => 'acm']) }}">
                     <div class="flex">
                         <div>
                             <div class="relative flex w-32 h-full bg-neutral-200 dark:bg-neutral-700">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                </x-card-link>
-               <x-card-link href="{{ route('insight', ['nav' => 'rtm-metrics']) }}">
+               <x-card-link href="{{ route('insight', ['nav' => 'rtm']) }}">
                 <div class="flex">
                     <div>
                         <div class="relative flex w-32 h-full bg-neutral-200 dark:bg-neutral-700">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
            </x-card-link>
-           <x-card-link href="{{ route('insight', ['nav' => 'ldc-metrics']) }}">
+           <x-card-link href="{{ route('insight', ['nav' => 'ldc']) }}">
             <div class="flex">
                 <div>
                     <div class="relative flex w-32 h-full bg-neutral-200 dark:bg-neutral-700">

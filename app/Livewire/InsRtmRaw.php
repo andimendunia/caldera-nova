@@ -4,12 +4,11 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use Livewire\Component;
-use App\Models\InsAcmMetric;
-use Livewire\Attributes\Url;
+use App\Models\InsRtmMetric;
 use Livewire\Attributes\Reactive;
 use Illuminate\Support\Facades\DB;
 
-class InsAcmMetricsRaw extends Component
+class InsRtmRaw extends Component
 {
     #[Reactive]
     public $start_at;
@@ -32,7 +31,7 @@ class InsAcmMetricsRaw extends Component
         $end = Carbon::parse($this->end_at)->addDay();
         $fline = trim($this->fline);
 
-        $metrics = InsAcmMetric::whereBetween('dt_client', [$start, $end])
+        $metrics = InsRtmMetric::whereBetween('dt_client', [$start, $end])
             ->where('line', 'LIKE', '%' . $fline . '%')
             ->orderBy('dt_client', 'DESC');
 
@@ -41,7 +40,7 @@ class InsAcmMetricsRaw extends Component
         // Statistics
 
         // hitung tanggal, jam, line
-        $numeratorIntegrity = DB::table('ins_acm_metrics')
+        $numeratorIntegrity = DB::table('ins_rtm_metrics')
             ->select(DB::raw('CONCAT(DATE(dt_client), LPAD(HOUR(dt_client), 2, "0"), line) as date_hour_line'))
             ->whereBetween('dt_client', [$start, $end])
             ->where('line', 'LIKE', '%' . $fline . '%')
@@ -51,7 +50,7 @@ class InsAcmMetricsRaw extends Component
 
         // hitung tanggal, line
         $denominatorIntegrity =
-            DB::table('ins_acm_metrics')
+            DB::table('ins_rtm_metrics')
                 ->select(DB::raw('CONCAT(DATE(dt_client), line) as date_line'))
                 ->whereBetween('dt_client', [$start, $end])
                 ->where('line', 'LIKE', '%' . $fline . '%')
@@ -60,7 +59,7 @@ class InsAcmMetricsRaw extends Component
                 ->count() * 8;
 
         // hitung tanggal
-        $this->days = DB::table('ins_acm_metrics')
+        $this->days = DB::table('ins_rtm_metrics')
             ->select(DB::raw('DATE(dt_client) as date'))
             ->whereBetween('dt_client', [$start, $end])
             ->where('line', 'LIKE', '%' . $fline . '%')
@@ -72,13 +71,14 @@ class InsAcmMetricsRaw extends Component
             $this->integrity = (int) (($numeratorIntegrity / $denominatorIntegrity) * 100);
         }
 
-        $numeratorAccuracy = InsAcmMetric::whereBetween('dt_client', [$start, $end])
+        $numeratorAccuracy = InsRtmMetric::whereBetween('dt_client', [$start, $end])
             ->where('line', 'LIKE', '%' . $fline . '%') 
-            ->whereBetween('rate_act', [0, 10])
+            ->whereBetween('thick_act_left', [0, 6])
+            ->whereBetween('thick_act_right', [0, 6])
             ->get()
             ->count();
 
-        $denominatorAccuracy = InsAcmMetric::whereBetween('dt_client', [$start, $end])
+        $denominatorAccuracy = InsRtmMetric::whereBetween('dt_client', [$start, $end])
             ->where('line', 'LIKE', '%' . $fline . '%')
             ->get()
             ->count();
@@ -87,7 +87,7 @@ class InsAcmMetricsRaw extends Component
             $this->accuracy = (int) (($numeratorAccuracy / $denominatorAccuracy) * 100);
         }
 
-        return view('livewire.ins-acm-metrics-raw', compact('metrics'));
+        return view('livewire.ins-rtm-raw', compact('metrics'));
     }
 
     public function loadMore()

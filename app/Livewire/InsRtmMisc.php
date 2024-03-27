@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class InsRtmMetrics extends Component
+class InsRtmMisc extends Component
 {
     public function render()
     {
-        return view('livewire.ins-rtm-metrics');
+        return view('livewire.ins-rtm-misc');
     }
 }
