@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\Response;
 class InsRtm extends Component
 {
     #[Url]
-    public $view = 'line-all';
+    public $view = 'summary';
+
+    #[Url]
+    public $misc = 'slideshows';
 
     #[Url]
     public $start_at;
@@ -30,7 +33,7 @@ class InsRtm extends Component
     public $lineViews   = ['line-single'];
     public $dateViews   = ['raw', 'line-single'];
     public $rangeViews  = ['raw'];
-    public $filterViews = ['raw', 'line-all'];
+    public $filterViews = ['raw', 'summary'];
     
     public $dataIntegrity = 0;
     public $dataAccuracy = 0;

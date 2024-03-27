@@ -12,7 +12,7 @@
             </div>
         </div>
     @else
-        <div wire:key="line-all-rows" class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-auto">
+        <div wire:key="summary-rows" class="bg-white dark:bg-neutral-800 shadow sm:rounded-lg overflow-auto">
             <table class="table table-sm table-truncate text-neutral-600 dark:text-neutral-400">
                 <tr class="uppercase text-xs">
                     <th>{{ __('Line') }}</th>

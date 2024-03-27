@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-x-2 md:gap-x-4 sm:flex-row">
     <div>
         <div class="w-full sm:w-44 md:w-64 px-3 sm:px-0 mb-5">
-            <div class="btn-group h-10 grid grid-cols-3 w-full">
+            <div class="btn-group h-10 w-full">
                 <x-radio-button wire:model.live="view" grow value="line-all" name="view" id="view-list">
                     <div class="text-center my-auto">
                         <i class="fa fa-fw fa-display text-center m-auto"></i>

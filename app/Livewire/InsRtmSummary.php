@@ -7,7 +7,7 @@ use Livewire\Component;
 use Livewire\Attributes\Reactive;
 use Illuminate\Support\Facades\DB;
 
-class InsRtmLineAll extends Component
+class InsRtmSummary extends Component
 {
     #[Reactive]
     public $fline;
@@ -25,6 +25,6 @@ class InsRtmLineAll extends Component
 
         $rows = $rows->paginate($this->perPage);
         
-        return view('livewire.ins-rtm-line-all', compact('rows'));
+        return view('livewire.ins-rtm-summary', compact('rows'));
     }
 }

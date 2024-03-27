@@ -1,8 +1,8 @@
 <div class="flex flex-col gap-x-2 md:gap-x-4 sm:flex-row">
     <div>
         <div class="w-full sm:w-44 md:w-64 px-3 sm:px-0 mb-5">
-            <div class="btn-group h-10 grid grid-cols-3 w-full">
-                <x-radio-button wire:model.live="view" grow value="line-all" name="view" id="view-line-all">
+            <div class="btn-group h-10 w-full">
+                <x-radio-button wire:model.live="view" grow value="summary" name="view" id="view-summary">
                     <div class="text-center my-auto">
                         <i class="fa fa-fw fa-display text-center m-auto"></i>
                     </div>
@@ -98,19 +98,71 @@
                     </div>
                 </div>
             @endif
+            @if ($view == 'misc')
+                <div wire:key="misc-panel">
+                    <div class="btn-group-v w-full">
+                        <x-radio-button wire:model.live="misc" grow value="slideshows" name="slideshows" id="misc-slideshows">
+                            <div class="text-center my-auto">
+                                <i class="fa fa-fw mr-3 fa-images"></i>
+                                {{ __('Pagelaran') }}
+                            </div>
+                        </x-radio-button>
+                        <x-radio-button wire:model.live="misc" grow value="recipes" name="recipes" id="misc-recipes">
+                            <div class="text-center my-auto">
+                                <i class="fa fa-fw mr-3 fa-book"></i>
+                                {{ __('Resep') }}
+                            </div>
+                        </x-radio-button>
+                        <x-radio-button wire:model.live="misc" grow value="devices" name="devices" id="misc-devices">
+                            <div class="text-center my-auto">
+                                <i class="fa fa-fw mr-3 fa-microchip"></i>
+                                {{ __('Perangkat') }}
+                            </div>
+                        </x-radio-button>
+                    </div>
+                    {{-- <div class="m-3">
+                        <div
+                            class="w-full ">
+                            <button type="button"
+                                class="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                                <i class="fa fa-fw mr-3 fa-images"></i>
+                                {{ __('Pagelaran') }}
+                            </button>
+                            <button type="button"
+                                class="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                                <i class="fa fa-fw mr-3 fa-book"></i>
+                                {{ __('Resep') }}
+                            </button>
+                            <button type="button"
+                                class="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                                <i class="fa fa-fw mr-3 fa-microchip"></i>
+                                {{ __('Perangkat') }}
+                            </button>
+                        </div>
+                    </div> --}}
+                </div>
+            @endif
         </div>
     </div>
     @switch($view)
-        @case('line-all')
-            <livewire:ins-rtm-line-all :$fline />
+        @case('summary')
+            <livewire:ins-rtm-summary :$fline />
         @break
 
         @case('raw')
             <livewire:ins-rtm-raw :$start_at :$end_at :$fline />
         @break
 
-        @case('misc')
-            <livewire:ins-rtm-misc />
+        @case('slideshows')
+            <livewire:ins-rtm-slideshows />
+        @break
+
+        @case('recipes')
+            <livewire:ins-rtm-recipes />
+        @break
+
+        @case('devices')
+            <livewire:ins-rtm-devices />
         @break
 
         @default

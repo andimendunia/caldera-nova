@@ -218,7 +218,7 @@ input[type="checkbox"]:checked + label.custom-checkbox {
     display: flex;
 }
 
-.btn-group *:focus, .spinner-group *:focus {
+.btn-group-v *:focus, .btn-group *:focus, .spinner-group *:focus {
     z-index: 1;
 }
 
@@ -230,8 +230,20 @@ input[type="checkbox"]:checked + label.custom-checkbox {
   @apply rounded-r-md
 }
 
+.btn-group-v > :first-child, .btn-group-v > .cal-radio:first-child > label {
+  @apply rounded-t-md
+}
+
+.btn-group-v > :last-child, .btn-group-v > .cal-radio:last-child > label {
+  @apply rounded-b-md
+}
+
 .btn-group > button, .btn-group.cal-pill > div, .btn-group > .cal-radio > label {
   @apply -ml-px
+}
+
+.btn-group-v > button, .btn-group-v.cal-pill > div, .btn-group-v > .cal-radio > label {
+  @apply -mb-px
 }
 
 .btn-group > :first-child, .spinner-group button:first-child {
@@ -240,6 +252,14 @@ input[type="checkbox"]:checked + label.custom-checkbox {
 
 .btn-group > :last-child, .spinner-group button:last-child {
   @apply rounded-l-none
+}
+
+.btn-group-v > :first-child, .spinner-group-v button:first-child {
+  @apply rounded-b-none
+}
+
+.btn-group-v > :last-child, .spinner-group-v button:last-child {
+  @apply rounded-t-none
 }
 
 /* .btn-group > :last-child, .btn-group .cal-radio:last-child label {
