@@ -100,25 +100,31 @@
             @endif
             @if ($view == 'misc')
                 <div wire:key="misc-panel">
-                    <div class="btn-group-v w-full">
-                        <x-radio-button wire:model.live="misc" grow value="slideshows" name="slideshows" id="misc-slideshows">
-                            <div class="text-center my-auto">
-                                <i class="fa fa-fw mr-3 fa-images"></i>
-                                {{ __('Pagelaran') }}
+                    <div class="btn-group-v w-full mt-4">
+                        <x-radio-button-v wire:model.live="misc" grow value="slideshows" name="slideshows" id="misc-slideshows">
+                            <div class="my-auto">
+                                <i class="fa fa-fw fa-images"></i>
+                                {{ __('Peragaan') }}
                             </div>
-                        </x-radio-button>
-                        <x-radio-button wire:model.live="misc" grow value="recipes" name="recipes" id="misc-recipes">
-                            <div class="text-center my-auto">
-                                <i class="fa fa-fw mr-3 fa-book"></i>
+                        </x-radio-button-v>
+                        <x-radio-button-v wire:model.live="misc" grow value="recipes" name="recipes" id="misc-recipes">
+                            <div class="my-auto">
+                                <i class="fa fa-fw fa-book"></i>
                                 {{ __('Resep') }}
                             </div>
-                        </x-radio-button>
-                        <x-radio-button wire:model.live="misc" grow value="devices" name="devices" id="misc-devices">
-                            <div class="text-center my-auto">
-                                <i class="fa fa-fw mr-3 fa-microchip"></i>
+                        </x-radio-button-v>
+                        <x-radio-button-v wire:model.live="misc" grow value="devices" name="devices" id="misc-devices">
+                            <div class="my-auto">
+                                <i class="fa fa-fw fa-microchip"></i>
                                 {{ __('Perangkat') }}
                             </div>
-                        </x-radio-button>
+                        </x-radio-button-v>
+                        <x-radio-button-v wire:model.live="misc" grow value="auth" name="auth" id="misc-auth">
+                            <div class="my-auto">
+                                <i class="fa fa-fw fa-microchip"></i>
+                                {{ __('Wewenang') }}
+                            </div>
+                        </x-radio-button-v>
                     </div>
                     {{-- <div class="m-3">
                         <div
