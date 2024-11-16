@@ -8,7 +8,6 @@ use App\Models\Pref;
 use App\Models\User;
 use League\Csv\Writer;
 use App\Models\InvArea;
-use App\Models\InvCirc;
 use App\Models\InvCurr;
 use Livewire\Component;
 use Livewire\Attributes\On;

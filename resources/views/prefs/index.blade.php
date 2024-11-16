@@ -122,13 +122,6 @@
                 notyf.success('{{ __('Akun diperbarui') }}');
             });
         </script>
-            {{-- <p
-                x-data="{ show: true }"
-                x-show="show"
-                x-transition
-                x-init="setTimeout(() => show = false, 2000)"
-                class="text-sm text-neutral-600 dark:text-neutral-400"
-            ><i class="fa fa-check-circle mr-1"></i>{{ __('Diperbarui') }}</p> --}}
         @endif
         @if (session('status') === 'lang-updated')
         <script>
